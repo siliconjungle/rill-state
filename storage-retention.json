@@ -165,6 +165,14 @@
     {
       "path": "build/retention-v19",
       "reason": "Required instrumented streaming payload ownership, stalled-reader and reclamation proof input"
+    },
+    {
+      "path": "build/state-v20",
+      "reason": "Selected array-page/key-policy full-contract proofs and development performance inputs"
+    },
+    {
+      "path": "build/shapes-v20",
+      "reason": "Selected array-page/key-policy full-contract proofs and development performance inputs"
     }
   ],
   "safe_to_remove": [
@@ -239,6 +247,18 @@
     {
       "path": "build/pr-body-v19.md",
       "reason": "Completed successful public PR update input; exact published text is retained on GitHub."
+    },
+    {
+      "path": "evidence/build-v20.jsonl",
+      "reason": "Completed unmeasured precursor superseded by final checked layout/reincarnation proof build and logs; exact source history retained."
+    },
+    {
+      "path": "evidence/build-v20.log",
+      "reason": "Completed unmeasured precursor superseded by final checked layout/reincarnation proof build and logs; exact source history retained."
+    },
+    {
+      "path": "evidence/tests-v20-initial.log",
+      "reason": "Completed unmeasured precursor superseded by final checked layout/reincarnation proof build and logs; exact source history retained."
     }
   ]
 }

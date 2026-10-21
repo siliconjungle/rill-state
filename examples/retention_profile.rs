@@ -3,7 +3,7 @@
 #[cfg(feature = "comparisons")]
 mod profile {
     use rill_state::{
-        experimental::{ProbeMap, RecordMap, SharedMap},
+        experimental::{ArrayRecordMap, CopyKeys, ProbeMap, RecordMap, SharedKeys, SharedMap},
         Config, Mutation, Snapshot, Store,
     };
     use std::{
@@ -139,6 +139,10 @@ mod profile {
     paged!(SharedMap<Key,Value,hashbrown::DefaultHashBuilder,70,16>);
     paged!(RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,16>);
     paged!(RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,0>);
+    paged!(ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,CopyKeys>);
+    paged!(ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,CopyKeys>);
+    paged!(ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,SharedKeys>);
+    paged!(ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,SharedKeys>);
     trait Read: Clone {
         fn revision(&self) -> u64;
         fn len(&self) -> usize;
@@ -357,6 +361,30 @@ mod profile {
             mixed: get("--mixed", "false").parse().unwrap(),
         };
         match o.engine.as_str() {
+            "array-copy16" => run(
+                Compared::<
+                    ArrayRecordMap<Key, Value, hashbrown::DefaultHashBuilder, 70, 16, CopyKeys>,
+                >::new(),
+                o,
+            ),
+            "array-copy256" => run(
+                Compared::<
+                    ArrayRecordMap<Key, Value, hashbrown::DefaultHashBuilder, 70, 256, CopyKeys>,
+                >::new(),
+                o,
+            ),
+            "array-shared16" => run(
+                Compared::<
+                    ArrayRecordMap<Key, Value, hashbrown::DefaultHashBuilder, 70, 16, SharedKeys>,
+                >::new(),
+                o,
+            ),
+            "array-shared256" => run(
+                Compared::<
+                    ArrayRecordMap<Key, Value, hashbrown::DefaultHashBuilder, 70, 256, SharedKeys>,
+                >::new(),
+                o,
+            ),
             "hashbrown" => run(Compared::<hashbrown::HashMap<Key, Value>>::new(), o),
             "imbl-fast" => run(Compared::<Imbl>::new(), o),
             "probe-paged16" => run(
