@@ -1,6 +1,7 @@
 #![cfg(feature = "experimental")]
 use rill_state::experimental::{
-    ArrayRecordMap, CopyKeys, KeyPolicy, ProbeMap, RecordMap, SharedKeys, SharedMap, SplitMap,
+    ArrayRecordMap, CopyKeys, HasherPolicy, KeyPolicy, OwnedHasher, ProbeMap, RecordMap,
+    SharedHasher, SharedKeys, SharedMap, SplitMap,
 };
 use rill_state::Mutation;
 use std::{
@@ -231,8 +232,13 @@ fn shared_records_clone_only_changed_values_and_release_final_owners() {
     drop(map);
     assert_eq!(drops.load(Ordering::SeqCst), 2);
 }
-impl<S: std::hash::BuildHasher, const L: usize, const P: usize, KP: KeyPolicy<String>> Subject
-    for ArrayRecordMap<String, Arc<Vec<u8>>, S, L, P, KP>
+impl<
+        S: std::hash::BuildHasher,
+        const L: usize,
+        const P: usize,
+        KP: KeyPolicy<String>,
+        HP: HasherPolicy<S>,
+    > Subject for ArrayRecordMap<String, Arc<Vec<u8>>, S, L, P, KP, HP>
 {
     fn put(&mut self, k: String, v: Arc<Vec<u8>>) -> Option<Arc<Vec<u8>>> {
         self.insert(k, v).map(|r| r.value().clone())
@@ -252,6 +258,83 @@ impl<S: std::hash::BuildHasher, const L: usize, const P: usize, KP: KeyPolicy<St
     fn batch(&mut self, ops: Vec<Mutation<String, Arc<Vec<u8>>>>) {
         self.apply(&ops);
     }
+}
+#[test]
+fn owned_hashers_preserve_cow_snapshots_collisions_and_borrowed_keys() {
+    oracle(ArrayRecordMap::<
+        _,
+        _,
+        BuildHasherDefault<Wrap>,
+        50,
+        16,
+        CopyKeys,
+        OwnedHasher,
+    >::default());
+    oracle(ArrayRecordMap::<
+        _,
+        _,
+        BuildHasherDefault<Wrap>,
+        70,
+        256,
+        SharedKeys,
+        OwnedHasher,
+    >::default());
+    oracle(ArrayRecordMap::<
+        _,
+        _,
+        BuildHasherDefault<Zero>,
+        85,
+        64,
+        CopyKeys,
+        OwnedHasher,
+    >::default());
+    oracle(ArrayRecordMap::<
+        _,
+        _,
+        BuildHasherDefault<Zero>,
+        25,
+        1024,
+        SharedKeys,
+        OwnedHasher,
+    >::default());
+}
+#[test]
+fn owned_and_shared_hashers_keep_the_same_seed_across_map_clones() {
+    #[derive(Clone)]
+    struct Seeded(u64);
+    impl std::hash::BuildHasher for Seeded {
+        type Hasher = std::collections::hash_map::DefaultHasher;
+        fn build_hasher(&self) -> Self::Hasher {
+            let mut h = Self::Hasher::new();
+            h.write_u64(self.0);
+            h
+        }
+    }
+    oracle(
+        ArrayRecordMap::<_, _, _, 70, 16, CopyKeys, OwnedHasher>::with_hasher(Seeded(0x452acfa7)),
+    );
+    oracle(
+        ArrayRecordMap::<_, _, _, 50, 64, SharedKeys, OwnedHasher>::with_hasher(Seeded(0xcad65abe)),
+    );
+    oracle(
+        ArrayRecordMap::<_, _, _, 70, 16, CopyKeys, SharedHasher>::with_hasher(Seeded(0x452acfa7)),
+    );
+}
+#[test]
+fn shared_hasher_snapshot_cloning_does_not_require_builder_clone() {
+    struct NotClone;
+    impl std::hash::BuildHasher for NotClone {
+        type Hasher = std::collections::hash_map::DefaultHasher;
+        fn build_hasher(&self) -> Self::Hasher {
+            Self::Hasher::new()
+        }
+    }
+    let mut map = ArrayRecordMap::<u64, u64, _, 70, 16, SharedKeys>::with_hasher(NotClone);
+    map.insert(1, 2);
+    let old = map.clone();
+    map.insert(1, 3);
+    assert_eq!(old.get(&1), Some(&2));
+    assert_eq!(map.get(&1), Some(&3));
 }
 #[test]
 fn array_pages_preserve_collisions_wraparound_batches_and_borrowed_reads() {

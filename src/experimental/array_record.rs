@@ -43,6 +43,40 @@ impl<K: Clone> KeyPolicy<K> for SharedKeys {
         key.as_ref()
     }
 }
+/// Selects shared or inline builder storage. Cloning the stored representation
+/// must preserve its hash outputs, as required when cloning a standard HashMap.
+pub trait HasherPolicy<S> {
+    /// Stored builder representation.
+    type Stored: Clone;
+    /// Store a new builder.
+    fn store(builder: S) -> Self::Stored;
+    /// Borrow the same logical builder.
+    fn original(builder: &Self::Stored) -> &S;
+}
+/// Share the builder; supports builders that do not implement Clone.
+#[derive(Clone, Copy, Default, Debug)]
+pub struct SharedHasher;
+impl<S> HasherPolicy<S> for SharedHasher {
+    type Stored = Arc<S>;
+    fn store(builder: S) -> Arc<S> {
+        Arc::new(builder)
+    }
+    fn original(builder: &Arc<S>) -> &S {
+        builder.as_ref()
+    }
+}
+/// Keep a cloneable builder inline, removing a lookup indirection.
+#[derive(Clone, Copy, Default, Debug)]
+pub struct OwnedHasher;
+impl<S: Clone> HasherPolicy<S> for OwnedHasher {
+    type Stored = S;
+    fn store(builder: S) -> S {
+        builder
+    }
+    fn original(builder: &S) -> &S {
+        builder
+    }
+}
 struct Slot<K, V> {
     hash: u64,
     record: Option<Arc<SharedRecord<K, V>>>,
@@ -64,6 +98,7 @@ impl<K, V> Slot<K, V> {
     }
 }
 type Page<K, V, const P: usize> = Arc<[Slot<K, V>; P]>;
+type MapTypes<K, KP, S, HP> = PhantomData<fn() -> (K, KP, S, HP)>;
 
 /// Linear probing over fixed-size Arc arrays. Pages have no Vec header or separate
 /// payload allocation. Each slot has a full cached hash and one immutable record.
@@ -78,15 +113,16 @@ pub struct ArrayRecordMap<
     const LOAD: usize = 70,
     const PAGE: usize = 16,
     KP: KeyPolicy<K> = CopyKeys,
+    HP: HasherPolicy<S> = SharedHasher,
 > {
     pages: Vec<Page<KP::Stored, V, PAGE>>,
     len: usize,
     mask: usize,
-    hasher: Arc<S>,
-    marker: PhantomData<fn() -> (K, KP)>,
+    hasher: HP::Stored,
+    marker: MapTypes<K, KP, S, HP>,
 }
-impl<K: Clone, V, S, const L: usize, const P: usize, KP: KeyPolicy<K>> Clone
-    for ArrayRecordMap<K, V, S, L, P, KP>
+impl<K: Clone, V, S, const L: usize, const P: usize, KP: KeyPolicy<K>, HP: HasherPolicy<S>> Clone
+    for ArrayRecordMap<K, V, S, L, P, KP, HP>
 {
     fn clone(&self) -> Self {
         Self {
@@ -105,14 +141,22 @@ impl<
         const L: usize,
         const P: usize,
         KP: KeyPolicy<K>,
-    > Default for ArrayRecordMap<K, V, S, L, P, KP>
+        HP: HasherPolicy<S>,
+    > Default for ArrayRecordMap<K, V, S, L, P, KP, HP>
 {
     fn default() -> Self {
         Self::with_hasher(S::default())
     }
 }
-impl<K: Clone + Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize, KP: KeyPolicy<K>>
-    ArrayRecordMap<K, V, S, L, P, KP>
+impl<
+        K: Clone + Hash + Eq,
+        V,
+        S: BuildHasher,
+        const L: usize,
+        const P: usize,
+        KP: KeyPolicy<K>,
+        HP: HasherPolicy<S>,
+    > ArrayRecordMap<K, V, S, L, P, KP, HP>
 {
     /// Construct an empty map; invalid const parameters panic before allocation.
     pub fn with_hasher(hasher: S) -> Self {
@@ -124,7 +168,7 @@ impl<K: Clone + Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize, KP
             pages: vec![empty; capacity / P],
             len: 0,
             mask: capacity - 1,
-            hasher: Arc::new(hasher),
+            hasher: HP::store(hasher),
             marker: PhantomData,
         }
     }
@@ -155,7 +199,7 @@ impl<K: Clone + Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize, KP
     where
         K: Borrow<Q>,
     {
-        let hash = self.hasher.hash_one(key);
+        let hash = HP::original(&self.hasher).hash_one(key);
         let mut i = hash as usize & self.mask;
         loop {
             let page = &self.pages[i / P];
@@ -175,7 +219,7 @@ impl<K: Clone + Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize, KP
     }
     /// Insert or replace, preserving the existing canonical key representation.
     pub fn insert(&mut self, key: K, value: V) -> Option<Arc<SharedRecord<KP::Stored, V>>> {
-        let hash = self.hasher.hash_one(&key);
+        let hash = HP::original(&self.hasher).hash_one(&key);
         let (i, found) = self.find(&key, hash);
         let key = if found {
             self.slot(i).record.as_ref().unwrap().key.clone()
@@ -233,7 +277,7 @@ impl<K: Clone + Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize, KP
     where
         K: Borrow<Q>,
     {
-        let (mut hole, found) = self.find(key, self.hasher.hash_one(key));
+        let (mut hole, found) = self.find(key, HP::original(&self.hasher).hash_one(key));
         if !found {
             return None;
         }
@@ -259,7 +303,7 @@ impl<K: Clone + Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize, KP
         for operation in operations {
             match operation {
                 Mutation::Put(key, value) => {
-                    let hash = self.hasher.hash_one(key);
+                    let hash = HP::original(&self.hasher).hash_one(key);
                     let (i, found) = self.find(key, hash);
                     let stored = if found {
                         self.slot(i).record.as_ref().unwrap().key.clone()

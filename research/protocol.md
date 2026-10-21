@@ -202,3 +202,20 @@ for final acceptance. First prove small/full-size exact contents, revisions and
 ordered feeds, then threaded old views. Parallel screens are selection only;
 serial development comparisons retain all gains and regressions. No change to
 original primary requirements or untouched final holdout seeds.
+
+## Shared versus inline hash builders
+
+Add an explicit HasherPolicy to array pages. SharedHasher remains the default
+and preserves support for builders without Clone. OwnedHasher stores a Clone
+builder inline and requires its clone to preserve hash outputs (the same law
+needed when cloning a standard HashMap). This removes the per-lookup builder-Arc
+indirection at the cost of cloning the builder on map-stage copies. No security
+algorithm is changed: both timed variants use the same hashbrown builder type.
+
+Register 32 inline-builder scalar configurations matching every v20 key-policy,
+fill threshold and page width. Generic selection adds both key policies at
+fill50/page16-or256 with inline builders, plus matched shared/inline-builder
+fill25/page64-or1024 pairs. The latter thresholds were selected from the earlier
+parallel scalar screen for stronger read settings; parallel ranks are not final
+evidence. Prove seeded-builder cloning, non-Clone shared-builder support and
+retained snapshots before comparing timings. All existing final criteria remain.

@@ -2,7 +2,8 @@
 //! rather than replaces, the registered inline-u64 comparison and final holdout gate.
 use rill_state::{
     experimental::{
-        ArrayRecordMap, CopyKeys, KeyPolicy, ProbeMap, RecordMap, SharedKeys, SharedMap, SplitMap,
+        ArrayRecordMap, CopyKeys, HasherPolicy, KeyPolicy, OwnedHasher, ProbeMap, RecordMap,
+        SharedKeys, SharedMap, SplitMap,
     },
     Config, Cursor, Mutation, Snapshot, Store,
 };
@@ -351,10 +352,17 @@ impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
         self.apply(ops);
     }
 }
-impl<K: Key, V: Value, const L: usize, const P: usize, KP: KeyPolicy<K>> Map<K, V>
-    for ArrayRecordMap<K, V, hashbrown::DefaultHashBuilder, L, P, KP>
+impl<
+        K: Key,
+        V: Value,
+        const L: usize,
+        const P: usize,
+        KP: KeyPolicy<K>,
+        HP: HasherPolicy<hashbrown::DefaultHashBuilder>,
+    > Map<K, V> for ArrayRecordMap<K, V, hashbrown::DefaultHashBuilder, L, P, KP, HP>
 where
     KP::Stored: Send + Sync,
+    HP::Stored: Send + Sync,
 {
     fn new() -> Self {
         Self::default()
@@ -786,6 +794,42 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
         }
         "record-lowflat" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,50,0>),
         "probe-lowflat" => map!(ProbeMap<K,V,hashbrown::DefaultHashBuilder,25,0>),
+        "array-owned-copy-low16" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,50,16,CopyKeys,OwnedHasher>)
+        }
+        "array-owned-copy-low256" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,50,256,CopyKeys,OwnedHasher>)
+        }
+        "array-owned-shared-low16" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,50,16,SharedKeys,OwnedHasher>)
+        }
+        "array-owned-shared-low256" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,50,256,SharedKeys,OwnedHasher>)
+        }
+        "array-owned-copy-sparse64" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,25,64,CopyKeys,OwnedHasher>)
+        }
+        "array-owned-copy-sparse1024" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,25,1024,CopyKeys,OwnedHasher>)
+        }
+        "array-owned-shared-sparse64" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,25,64,SharedKeys,OwnedHasher>)
+        }
+        "array-owned-shared-sparse1024" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,25,1024,SharedKeys,OwnedHasher>)
+        }
+        "array-copy-sparse64" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,25,64,CopyKeys>)
+        }
+        "array-copy-sparse1024" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,25,1024,CopyKeys>)
+        }
+        "array-shared-sparse64" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,25,64,SharedKeys>)
+        }
+        "array-shared-sparse1024" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,25,1024,SharedKeys>)
+        }
         "record-flat" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,0>),
         "record-paged16" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,16>),
         "record-paged64" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,64>),

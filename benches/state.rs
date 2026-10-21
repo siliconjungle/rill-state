@@ -329,7 +329,12 @@ impl<const L: usize, const P: usize> Map
         self.apply(ops);
     }
 }
-impl<const L: usize, const P: usize, KP: rill_state::experimental::KeyPolicy<Key>> Map
+impl<
+        const L: usize,
+        const P: usize,
+        KP: rill_state::experimental::KeyPolicy<Key>,
+        HP: rill_state::experimental::HasherPolicy<hashbrown::DefaultHashBuilder>,
+    > Map
     for rill_state::experimental::ArrayRecordMap<
         Key,
         Value,
@@ -337,9 +342,11 @@ impl<const L: usize, const P: usize, KP: rill_state::experimental::KeyPolicy<Key
         L,
         P,
         KP,
+        HP,
     >
 where
     KP::Stored: Send + Sync,
+    HP::Stored: Send + Sync,
 {
     fn empty() -> Self {
         Self::default()
@@ -1968,6 +1975,102 @@ fn main() {
         }
         "array-shared-85-1024" => {
             dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,1024,rill_state::experimental::SharedKeys>)
+        }
+        "array-owned-copy-25-16" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-25-64" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,25,64,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-25-256" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,25,256,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-25-1024" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,25,1024,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-50-16" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,16,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-50-64" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,64,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-50-256" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,256,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-50-1024" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,1024,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-70-16" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-70-64" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,64,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-70-256" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-70-1024" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,1024,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-85-16" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,16,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-85-64" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,64,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-85-256" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,256,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-copy-85-1024" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,1024,rill_state::experimental::CopyKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-25-16" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-25-64" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,25,64,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-25-256" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,25,256,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-25-1024" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,25,1024,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-50-16" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,16,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-50-64" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,64,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-50-256" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,256,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-50-1024" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,1024,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-70-16" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-70-64" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,64,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-70-256" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-70-1024" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,1024,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-85-16" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,16,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-85-64" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,64,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-85-256" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,256,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
+        }
+        "array-owned-shared-85-1024" => {
+            dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,1024,rill_state::experimental::SharedKeys,rill_state::experimental::OwnedHasher>)
         }
         "scc-capture" => dispatch!(SccCapture),
         "flashmap-copy" => dispatch!(FlashCopy),

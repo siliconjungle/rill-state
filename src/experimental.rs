@@ -731,4 +731,6 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize> SplitMap<K,
 
 #[path = "experimental/array_record.rs"]
 mod array_record;
-pub use array_record::{ArrayRecordMap, CopyKeys, KeyPolicy, SharedKeys};
+pub use array_record::{
+    ArrayRecordMap, CopyKeys, HasherPolicy, KeyPolicy, OwnedHasher, SharedHasher, SharedKeys,
+};
