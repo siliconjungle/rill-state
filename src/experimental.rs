@@ -432,8 +432,8 @@ impl<K: Eq, V> Eq for RecordHandle<K, V> {}
 
 /// Probing pages whose slots contain a cached hash and one shared record handle.
 /// Key and value occupy the same allocation, reducing slot width and reference
-/// count traffic relative to `SharedMap`. Replacement clones a borrowed input key
-/// rather than retaining its canonical allocation. This is an explicit locality/
+/// count traffic relative to `SharedMap`. Replacement clones the canonical stored
+/// key into the new record rather than sharing its existing allocation. This is an explicit locality/
 /// allocation tradeoff, not a selected default or a transactional mutation API.
 pub struct RecordMap<K, V, S = RandomState, const LOAD: usize = 70, const PAGE: usize = 16> {
     inner: ProbeMap<RecordHandle<K, V>, (), S, LOAD, PAGE>,
@@ -468,10 +468,28 @@ impl<K: Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize> RecordMap<
             .entry_by(self.inner.hasher.hash_one(key), |r| r.0.key.borrow() == key)
             .map(|entry| &entry.key.0.value)
     }
-    /// Insert a new immutable record, returning the replaced record if present.
-    pub fn insert(&mut self, key: K, value: V) -> Option<Arc<SharedRecord<K, V>>> {
+    /// Insert or replace an immutable record, preserving the canonical stored key.
+    pub fn insert(&mut self, key: K, value: V) -> Option<Arc<SharedRecord<K, V>>>
+    where
+        K: Clone,
+    {
         let hash = self.inner.hasher.hash_one(&key);
-        let (mut i, found) = self.inner.find_by(hash, |r| r.0.key == key);
+        let (i, found) = self.inner.find_by(hash, |r| r.0.key == key);
+        let key = if found {
+            self.inner.slot(i).as_ref().unwrap().key.0.key.clone()
+        } else {
+            key
+        };
+        self.put_at(i, found, hash, key, value)
+    }
+    fn put_at(
+        &mut self,
+        mut i: usize,
+        found: bool,
+        hash: u64,
+        key: K,
+        value: V,
+    ) -> Option<Arc<SharedRecord<K, V>>> {
         let record = RecordHandle(Arc::new(SharedRecord { key, value }));
         if found {
             return Some(
@@ -500,7 +518,8 @@ impl<K: Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize> RecordMap<
             .find_by(self.inner.hasher.hash_one(key), |r| r.0.key.borrow() == key);
         found.then(|| self.inner.remove_at(i).key.0)
     }
-    /// Apply borrowed ordered mutations, cloning only each submitted replacement.
+    /// Apply borrowed ordered mutations. Existing keys retain their stored identity;
+    /// one canonical key/value copy is needed for each new immutable record.
     pub fn apply(&mut self, operations: &[Mutation<K, V>])
     where
         K: Clone,
@@ -509,7 +528,14 @@ impl<K: Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize> RecordMap<
         for op in operations {
             match op {
                 Mutation::Put(k, v) => {
-                    self.insert(k.clone(), v.clone());
+                    let hash = self.inner.hasher.hash_one(k);
+                    let (i, found) = self.inner.find_by(hash, |r| &r.0.key == k);
+                    let key = if found {
+                        self.inner.slot(i).as_ref().unwrap().key.0.key.clone()
+                    } else {
+                        k.clone()
+                    };
+                    self.put_at(i, found, hash, key, v.clone());
                 }
                 Mutation::Delete(k) => {
                     self.remove(k);

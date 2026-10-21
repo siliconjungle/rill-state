@@ -109,8 +109,9 @@ to the frozen holdout seeds or final acceptance criteria.
 
 RecordMap packs the key and value into one shared immutable allocation. Slots
 hold a cached full hash and one Arc handle (16 bytes on the tested 64-bit target,
-versus 24 bytes for independent shared keys/values). The key must be cloned for
-borrowed replacements, unlike SharedMap's canonical-key sharing. Register
+versus 24 bytes for independent shared keys/values). The canonical stored key must be cloned for
+borrowed replacements, unlike SharedMap's canonical-key sharing. Key identity
+remains consistent with the existing map adapters, even when Eq ignores metadata. Register
 occupancy 50/70/85 × flat/16/64/256 pages as 12 scalar configurations, with the
 four occupancy70 layouts in the generic matrix. SharedMap's scalar adapter now
 applies its existing borrowed input batch directly, removing an unnecessary

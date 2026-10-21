@@ -141,6 +141,34 @@ fn packed_records_preserve_borrowed_reads_collisions_and_retained_views() {
     oracle(RecordMap::<_, _, BuildHasherDefault<Zero>, 70, 16>::default());
 }
 #[test]
+fn packed_records_keep_canonical_key_metadata_on_equal_key_replacement() {
+    #[derive(Clone)]
+    struct Key(u64, &'static str);
+    impl PartialEq for Key {
+        fn eq(&self, other: &Self) -> bool {
+            self.0 == other.0
+        }
+    }
+    impl Eq for Key {}
+    impl std::hash::Hash for Key {
+        fn hash<H: std::hash::Hasher>(&self, h: &mut H) {
+            self.0.hash(h)
+        }
+    }
+    let mut map = RecordMap::<Key, u64>::default();
+    map.insert(Key(1, "canonical"), 10);
+    let old = map.clone();
+    map.insert(Key(1, "replacement"), 20);
+    assert_eq!(map.iter().next().unwrap().0 .1, "canonical");
+    map.apply(&[Mutation::Put(Key(1, "batch replacement"), 30)]);
+    let (k, v) = map.iter().next().unwrap();
+    assert_eq!(k.1, "canonical");
+    assert_eq!(*v, 30);
+    let (k, v) = old.iter().next().unwrap();
+    assert_eq!(k.1, "canonical");
+    assert_eq!(*v, 10);
+}
+#[test]
 fn packed_records_release_after_last_snapshot_and_removed_handle() {
     let value = Arc::new(vec![7u8; 4096]);
     let weak = Arc::downgrade(&value);
