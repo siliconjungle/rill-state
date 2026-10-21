@@ -62,6 +62,28 @@ swap primitives are a separate publication-layer comparison, not complete state 
 Missing comparisons, compile failures, unproven contracts or any loss leave the original
 objective incomplete. Publish the public library and research with that status explicit.
 
+## Contiguous inline-slice experiment
+
+Register InlineSliceMap with four maximum fill thresholds (25/50/70/85), shared
+versus inline storage for the same hash builder, and contiguous-span versus
+indexed-wrap reads: 16 configurations, not 16 additional libraries. Store the
+cached hash as NonZeroU64 so Option can use its niche; raw hash zero normalizes
+to MAX and may collide with MAX, with full key equality still required. Normalized
+hashes consistently determine both lookup homes and deletion/growth placement.
+Use one Arc slice of inline entries, with no per-entry allocation. Copying a
+retained slice clones all live keys/values; owned heap payload regressions must
+remain visible alongside inline-value results. Batched mutation acquires the
+writable slice once between grows. This is a mutable-map research layout; the
+unchanged common adapter supplies atomic revisions and exact ordered journals.
+
+Before timing, require the collision/wrap/zero/MAX/borrowed-key oracle, canonical
+key preservation/reinsertion, growth with retained views, Clone-panic detachment
+and final payload reclamation. Run both development seeds and every original
+scalar case plus every generic shape/case, followed by retained-reader probes.
+Parallel screens select candidates only. Serial fixed-candidate and matched-
+policy descriptions preserve every loss and cannot substitute for the final
+holdout gate. All holdout seeds and acceptance requirements remain unchanged.
+
 ## Expanded development data shapes
 
 The next original candidate families are cached-hash linear probing with flat or COW

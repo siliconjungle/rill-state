@@ -185,6 +185,14 @@
     {
       "path": "build/shapes-v21",
       "reason": "Required shared/inline hash-builder comparison executable and seeded-builder full-contract proofs"
+    },
+    {
+      "path": "build/state-v22",
+      "reason": "Required frozen contiguous-inline slice correctness, threaded-read and comparative development measurement input"
+    },
+    {
+      "path": "build/shapes-v22",
+      "reason": "Required frozen contiguous-inline slice correctness, threaded-read and comparative development measurement input"
     }
   ],
   "safe_to_remove": [

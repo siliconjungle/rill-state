@@ -377,3 +377,31 @@ was 34.80 MiB for array-copy16 and 58.09 MiB for array-copy256, versus 450.97 Mi
 for hashbrown in that cell. These are instrumented process/payload measurements,
 not library-only heap sizes or timing results. Every cell and reproduction input
 is retained under evidence/retention-v20-20k.
+
+## Matched array policies: complete serial development evidence
+
+The v21 serial sweeps completed 11,082 fresh processes with matching logical
+outputs: 8,832 generic processes (23 configurations, eight shapes, eight cases,
+two development seeds and three repetitions at 12 revisions) and 2,250 scalar
+processes (25 configurations, 15 cases, both seeds and three repetitions at 32
+revisions). No other owned candidate proof/build/timing process ran concurrently.
+Other users' workers remained running. Every cell is retained, and the reporting
+tools require exact engine/shape/case/seed/repetition coverage before summarizing.
+
+For the fixed array-owned-copy-low16 candidate, keeping the builder inline gave
+lower medians in 40 of 64 cells than its otherwise matched shared-builder
+counterpart and higher medians in 24; five read-only shapes improved and three
+regressed. Against hashbrown, that same fixed candidate was lower in 29 cells
+and higher in 35, losing all eight read-only shapes. Removing a pointer alone
+therefore does not solve the original objective. These are descriptive medians,
+not paired confidence intervals or corrected acceptance results.
+
+The scalar fixed probe-25-0 candidate had a 0.10881 ms read-only median per
+revision versus hashbrown's 0.10199 ms (about 6.7% higher). In burst updates it
+took 0.44423 ms versus 0.19849 ms. Those measurements motivate the next inline
+slice experiment, preserving inline values without individual record allocations.
+Its nonzero-hash niche uses 48-byte numeric slots versus the prior tagged layout's
+56 bytes on this 64-bit target; complete key equality still distinguishes raw
+zero/MAX hash collisions. Sixteen configurations are registered. Thirty-eight
+core/experimental tests and Clippy pass; full-size proofs precede any timing.
+The selected default Store and the final holdout gate remain unchanged.

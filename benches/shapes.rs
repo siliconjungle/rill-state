@@ -2,8 +2,8 @@
 //! rather than replaces, the registered inline-u64 comparison and final holdout gate.
 use rill_state::{
     experimental::{
-        ArrayRecordMap, CopyKeys, HasherPolicy, KeyPolicy, OwnedHasher, ProbeMap, RecordMap,
-        SharedKeys, SharedMap, SplitMap,
+        ArrayRecordMap, CopyKeys, HasherPolicy, InlineSliceMap, KeyPolicy, OwnedHasher, ProbeMap,
+        RecordMap, SharedHasher, SharedKeys, SharedMap, SplitMap,
     },
     Config, Cursor, Mutation, Snapshot, Store,
 };
@@ -327,6 +327,40 @@ impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
 }
 impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
     for ProbeMap<K, V, hashbrown::DefaultHashBuilder, L, P>
+{
+    fn new() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &K) -> Option<&V> {
+        self.get(k)
+    }
+    fn put(&mut self, k: K, v: V) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &K) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(&K, &V)) {
+        for (k, v) in self.iter() {
+            f(k, v);
+        }
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        self.apply(ops);
+    }
+}
+impl<
+        K: Key,
+        V: Value,
+        const L: usize,
+        HP: HasherPolicy<hashbrown::DefaultHashBuilder>,
+        const SPAN: bool,
+    > Map<K, V> for InlineSliceMap<K, V, hashbrown::DefaultHashBuilder, L, HP, SPAN>
+where
+    HP::Stored: Send + Sync,
 {
     fn new() -> Self {
         Self::default()
@@ -753,6 +787,54 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
         };
     }
     match o.engine.as_str() {
+        "inline-shared-span-25" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,25,SharedHasher,true>)
+        }
+        "inline-shared-span-50" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,50,SharedHasher,true>)
+        }
+        "inline-shared-span-70" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,true>)
+        }
+        "inline-shared-span-85" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,85,SharedHasher,true>)
+        }
+        "inline-shared-index-25" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,25,SharedHasher,false>)
+        }
+        "inline-shared-index-50" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,50,SharedHasher,false>)
+        }
+        "inline-shared-index-70" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,false>)
+        }
+        "inline-shared-index-85" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,85,SharedHasher,false>)
+        }
+        "inline-owned-span-25" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,true>)
+        }
+        "inline-owned-span-50" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,true>)
+        }
+        "inline-owned-span-70" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,true>)
+        }
+        "inline-owned-span-85" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,true>)
+        }
+        "inline-owned-index-25" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,false>)
+        }
+        "inline-owned-index-50" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,false>)
+        }
+        "inline-owned-index-70" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,false>)
+        }
+        "inline-owned-index-85" => {
+            map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,false>)
+        }
         "hashbrown" => map!(hashbrown::HashMap<K,V>),
         "hashbrown-sip" => map!(hashbrown::HashMap<K,V,std::collections::hash_map::RandomState>),
         "imbl-hash" => map!(imbl::HashMap<K,V>),

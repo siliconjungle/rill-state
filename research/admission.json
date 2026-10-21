@@ -62,8 +62,8 @@
       "name": "persistent_hashmap",
       "version": "0.4.0",
       "source": "https://docs.rs/crate/persistent_hashmap/0.4.0/source/",
-      "status": "different-durability-contract-pending",
-      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+      "status": "source-reviewed-exact-key-and-storage-adapter-pending",
+      "reason": "Pinned source stores no keys and compares only a 63-bit fingerprint, with Q: Hash rather than Eq. It also uses filesystem-backed PersistentArray. A direct adapter cannot establish exact arbitrary-key collision semantics or independent snapshots; explicit canonical-key handling and storage configuration remain pending. Not counted as beaten. See hash-identity-review.json and source-inputs.json."
     },
     {
       "name": "persistent-vec",

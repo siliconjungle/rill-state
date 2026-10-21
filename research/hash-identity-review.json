@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "package": "persistent_hashmap",
+  "version": "0.4.0",
+  "source": "https://docs.rs/crate/persistent_hashmap/0.4.0/source/",
+  "published_archive_sha256": "0c329d38bdd60f866811da79e199b8b9bdab9c3e4bea2b1749240d87ef1268dc",
+  "reviewed_file": "src/lib.rs",
+  "reviewed_file_sha256": "6a00488f987f8633920581cb205cabf1e4edb20095ecb223086407dbdd098587",
+  "method": "Source inspection, not an executed collision proof or benchmark",
+  "observations": [
+    "PersistentHashmap stores K only as PhantomData; HashmapEntry contains cached state/hash and V, not a key.",
+    "get/insert require Q: Hash without Eq and compare only hash masked to 63 bits.",
+    "new/open use filesystem paths and PersistentArray storage; this also has a different storage contract."
+  ],
+  "admission": "Pending an explicit exact-key collision-handling and independent-snapshot adapter; no result is counted as beaten.",
+  "relevance": "New original cached-hash layouts must keep full key equality even when normalized hashes collide; their zero/MAX collision tests are required."
+}

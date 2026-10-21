@@ -1,7 +1,7 @@
 #![cfg(feature = "experimental")]
 use rill_state::experimental::{
-    ArrayRecordMap, CopyKeys, HasherPolicy, KeyPolicy, OwnedHasher, ProbeMap, RecordMap,
-    SharedHasher, SharedKeys, SharedMap, SplitMap,
+    ArrayRecordMap, CopyKeys, HasherPolicy, InlineSliceMap, KeyPolicy, OwnedHasher, ProbeMap,
+    RecordMap, SharedHasher, SharedKeys, SharedMap, SplitMap,
 };
 use rill_state::Mutation;
 use std::{
@@ -535,6 +535,278 @@ fn array_page_parameters_are_checked_before_allocation() {
     )
     .is_err());
 }
+impl<S: std::hash::BuildHasher, const L: usize, HP: HasherPolicy<S>, const SPAN: bool> Subject
+    for InlineSliceMap<String, Arc<Vec<u8>>, S, L, HP, SPAN>
+{
+    fn put(&mut self, k: String, v: Arc<Vec<u8>>) -> Option<Arc<Vec<u8>>> {
+        self.insert(k, v)
+    }
+    fn del(&mut self, k: &str) -> Option<Arc<Vec<u8>>> {
+        self.remove(k)
+    }
+    fn read(&self, k: &str) -> Option<&Arc<Vec<u8>>> {
+        self.get(k)
+    }
+    fn contents(&self) -> BTreeMap<String, Arc<Vec<u8>>> {
+        self.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn batch(&mut self, ops: Vec<Mutation<String, Arc<Vec<u8>>>>) {
+        self.apply(&ops);
+    }
+}
+
+#[test]
+fn inline_slices_preserve_collision_growth_deletion_and_borrowed_keys() {
+    macro_rules! load {
+        ($l:literal) => {
+            oracle(InlineSliceMap::<
+                _,
+                _,
+                BuildHasherDefault<Wrap>,
+                $l,
+                SharedHasher,
+                true,
+            >::default());
+            oracle(InlineSliceMap::<
+                _,
+                _,
+                BuildHasherDefault<Wrap>,
+                $l,
+                SharedHasher,
+                false,
+            >::default());
+            oracle(InlineSliceMap::<
+                _,
+                _,
+                BuildHasherDefault<Wrap>,
+                $l,
+                OwnedHasher,
+                true,
+            >::default());
+            oracle(InlineSliceMap::<
+                _,
+                _,
+                BuildHasherDefault<Wrap>,
+                $l,
+                OwnedHasher,
+                false,
+            >::default());
+        };
+    }
+    load!(25);
+    load!(50);
+    load!(70);
+    load!(85);
+    oracle(InlineSliceMap::<
+        _,
+        _,
+        BuildHasherDefault<Zero>,
+        70,
+        SharedHasher,
+    >::default());
+    oracle(InlineSliceMap::<
+        _,
+        _,
+        BuildHasherDefault<Zero>,
+        70,
+        OwnedHasher,
+        false,
+    >::default());
+    oracle(InlineSliceMap::<String, Arc<Vec<u8>>>::default());
+}
+
+#[test]
+fn inline_hash_normalization_never_confuses_zero_and_max_keys() {
+    #[derive(Clone, Default)]
+    struct Identity(u64);
+    impl Hasher for Identity {
+        fn finish(&self) -> u64 {
+            self.0
+        }
+        fn write(&mut self, bytes: &[u8]) {
+            self.0 = u64::from_ne_bytes(bytes.try_into().unwrap());
+        }
+        fn write_u64(&mut self, n: u64) {
+            self.0 = n;
+        }
+    }
+    fn check<HP: HasherPolicy<BuildHasherDefault<Identity>>, const SPAN: bool>() {
+        let mut map =
+            InlineSliceMap::<u64, u64, BuildHasherDefault<Identity>, 70, HP, SPAN>::default();
+        for key in [0, u64::MAX, 15, 31, 47, 63, 79] {
+            map.insert(key, key ^ 111);
+        }
+        let old = map.clone();
+        for key in [0, u64::MAX, 31, 63] {
+            assert_eq!(map.remove(&key), Some(key ^ 111));
+            assert_eq!(map.get(&key), None);
+            for retained in [15, 47, 79] {
+                assert_eq!(map.get(&retained), Some(&(retained ^ 111)));
+            }
+            map.insert(key, key ^ 222);
+        }
+        for key in [0, u64::MAX, 15, 31, 47, 63, 79] {
+            assert_eq!(old.get(&key), Some(&(key ^ 111)));
+        }
+        assert_eq!(map.len(), 7);
+    }
+    check::<SharedHasher, true>();
+    check::<SharedHasher, false>();
+    check::<OwnedHasher, true>();
+    check::<OwnedHasher, false>();
+}
+
+#[test]
+fn inline_canonical_keys_survive_replacement_then_change_after_reinsertion() {
+    #[derive(Clone)]
+    struct Key(u64, &'static str);
+    impl PartialEq for Key {
+        fn eq(&self, other: &Self) -> bool {
+            self.0 == other.0
+        }
+    }
+    impl Eq for Key {}
+    impl std::hash::Hash for Key {
+        fn hash<H: Hasher>(&self, h: &mut H) {
+            self.0.hash(h);
+        }
+    }
+    let mut map = InlineSliceMap::<Key, u64>::default();
+    map.insert(Key(1, "canonical"), 10);
+    let old = map.clone();
+    map.insert(Key(1, "replacement"), 20);
+    map.apply(&[Mutation::Put(Key(1, "batch replacement"), 30)]);
+    assert_eq!(map.iter().next().unwrap().0 .1, "canonical");
+    assert_eq!(map.remove(&Key(1, "query")), Some(30));
+    map.insert(Key(1, "fresh"), 40);
+    assert_eq!(map.iter().next().unwrap().0 .1, "fresh");
+    assert_eq!(old.iter().next().unwrap().0 .1, "canonical");
+    assert_eq!(old.iter().next().unwrap().1, &10);
+}
+
+#[test]
+fn inline_growth_and_removal_release_only_unretained_payloads() {
+    let payload = Arc::new(vec![7u8; 4096]);
+    let weak = Arc::downgrade(&payload);
+    let mut map = InlineSliceMap::<String, Arc<Vec<u8>>>::default();
+    map.insert("pinned".into(), payload);
+    let old = map.clone();
+    let operations: Vec<_> = (0..7000)
+        .map(|i| Mutation::Put(format!("k/{i}"), Arc::new(vec![i as u8; 17])))
+        .collect();
+    map.apply(&operations);
+    assert_eq!(map.len(), 7001);
+    assert_eq!(old.len(), 1);
+    let removed = map.remove("pinned").unwrap();
+    drop(old);
+    assert!(weak.upgrade().is_some());
+    drop(removed);
+    assert!(weak.upgrade().is_none());
+    for i in 0..7000 {
+        assert_eq!(
+            map.get(format!("k/{i}").as_str()).unwrap().as_slice(),
+            &[i as u8; 17]
+        );
+    }
+}
+
+#[test]
+fn inline_growth_of_a_shared_full_table_preserves_both_complete_views() {
+    let mut map =
+        InlineSliceMap::<String, Vec<u8>, std::collections::hash_map::RandomState, 50>::default();
+    for i in 0..8 {
+        map.insert(format!("k/{i}"), vec![i as u8; 257]);
+    }
+    let old = map.clone();
+    map.insert("k/8".into(), vec![8; 257]);
+    assert_eq!(map.len(), 9);
+    assert_eq!(old.len(), 8);
+    for i in 0..8 {
+        assert_eq!(
+            old.get(format!("k/{i}").as_str()),
+            Some(&vec![i as u8; 257])
+        );
+        assert_eq!(
+            map.get(format!("k/{i}").as_str()),
+            Some(&vec![i as u8; 257])
+        );
+    }
+    assert!(old.get("k/8").is_none());
+    assert_eq!(map.get("k/8"), Some(&vec![8; 257]));
+}
+
+#[test]
+fn inline_failed_detachment_keeps_the_published_view() {
+    use std::sync::atomic::{AtomicBool, Ordering};
+    struct Value {
+        data: u64,
+        fail: Arc<AtomicBool>,
+    }
+    impl Clone for Value {
+        fn clone(&self) -> Self {
+            assert!(!self.fail.load(Ordering::Relaxed), "injected clone panic");
+            Self {
+                data: self.data,
+                fail: self.fail.clone(),
+            }
+        }
+    }
+    let fail = Arc::new(AtomicBool::new(false));
+    let mut published = InlineSliceMap::<u64, Value>::default();
+    published.insert(
+        1,
+        Value {
+            data: 17,
+            fail: fail.clone(),
+        },
+    );
+    let mut staged = published.clone();
+    fail.store(true, Ordering::Relaxed);
+    let outcome = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        staged.insert(
+            2,
+            Value {
+                data: 19,
+                fail: fail.clone(),
+            },
+        );
+    }));
+    assert!(outcome.is_err());
+    assert_eq!(published.len(), 1);
+    assert_eq!(published.get(&1).unwrap().data, 17);
+    assert!(published.get(&2).is_none());
+    assert_eq!(staged.len(), 1);
+    assert_eq!(staged.get(&1).unwrap().data, 17);
+}
+
+#[test]
+fn inline_shared_builder_supports_a_nonclone_hasher() {
+    struct NotClone;
+    impl std::hash::BuildHasher for NotClone {
+        type Hasher = Wrap;
+        fn build_hasher(&self) -> Wrap {
+            Wrap
+        }
+    }
+    let mut map = InlineSliceMap::<u64, u64, _, 50>::with_hasher(NotClone);
+    map.insert(1, 10);
+    let old = map.clone();
+    map.insert(1, 20);
+    assert_eq!(old.get(&1), Some(&10));
+    assert_eq!(map.get(&1), Some(&20));
+    assert!(std::panic::catch_unwind(
+        InlineSliceMap::<u64, u64, std::collections::hash_map::RandomState, 19>::default
+    )
+    .is_err());
+    assert!(std::panic::catch_unwind(
+        InlineSliceMap::<u64, u64, std::collections::hash_map::RandomState, 91>::default
+    )
+    .is_err());
+}
+
 fn oracle<M: Subject>(mut m: M) {
     let mut truth = BTreeMap::new();
     let mut seed = 0xcafec001u64;

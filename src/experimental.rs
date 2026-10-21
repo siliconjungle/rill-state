@@ -11,6 +11,10 @@ use std::{
     sync::Arc,
 };
 
+#[path = "experimental/inline_slice.rs"]
+mod inline_slice;
+pub use inline_slice::InlineSliceMap;
+
 #[derive(Clone)]
 struct Entry<K, V> {
     hash: u64,

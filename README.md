@@ -85,11 +85,17 @@ heap-value publication workloads, but adds pointer reads and allocations; it doe
 not improve every shape. The default Store has not switched to this prototype.
 
 Fixed-size `ArrayRecordMap` pages additionally compare copied/shared canonical
-keys and shared/inline hash-builder storage. Thirty core/experimental tests and
+keys and shared/inline hash-builder storage. Thirty-eight core/experimental tests and
 Clippy pass. Full-size state/feed proofs and retained-reader probes pass for the
-registered new configurations; serial development timing is still in progress.
+registered array configurations, followed by 11,082 matching-output serial
+development runs. These layouts still lose important workloads to hashbrown.
 The instrumented retention study releases every tracked payload after its final
 owner is dropped. Payload accounting is not total heap usage or a speed result.
+
+`InlineSliceMap` is a further experimental layout: one contiguous COW slice with
+inline keys/values, a nonzero cached-hash niche and no per-record allocation.
+Sixteen configurations compare fill thresholds, read probing and builder storage.
+Its core behavior tests pass; full-size comparative validation is in progress.
 
 Default study lists omit the known investigative `scc-copy` native Clone chain,
 whose capacity doubles with each copy in pinned scc 3.8.8. It is not counted as a

@@ -331,6 +331,46 @@ impl<const L: usize, const P: usize> Map
 }
 impl<
         const L: usize,
+        HP: rill_state::experimental::HasherPolicy<hashbrown::DefaultHashBuilder>,
+        const SPAN: bool,
+    > Map
+    for rill_state::experimental::InlineSliceMap<
+        Key,
+        Value,
+        hashbrown::DefaultHashBuilder,
+        L,
+        HP,
+        SPAN,
+    >
+where
+    HP::Stored: Send + Sync,
+{
+    fn empty() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.iter() {
+            f(*k, *v);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        self.apply(ops);
+    }
+}
+impl<
+        const L: usize,
         const P: usize,
         KP: rill_state::experimental::KeyPolicy<Key>,
         HP: rill_state::experimental::HasherPolicy<hashbrown::DefaultHashBuilder>,
@@ -1879,6 +1919,54 @@ fn main() {
         };
     }
     match o.engine.as_str() {
+        "inline-shared-span-25" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,true>)
+        }
+        "inline-shared-span-50" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::SharedHasher,true>)
+        }
+        "inline-shared-span-70" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,true>)
+        }
+        "inline-shared-span-85" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::SharedHasher,true>)
+        }
+        "inline-shared-index-25" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,false>)
+        }
+        "inline-shared-index-50" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::SharedHasher,false>)
+        }
+        "inline-shared-index-70" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,false>)
+        }
+        "inline-shared-index-85" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::SharedHasher,false>)
+        }
+        "inline-owned-span-25" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,true>)
+        }
+        "inline-owned-span-50" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,true>)
+        }
+        "inline-owned-span-70" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,true>)
+        }
+        "inline-owned-span-85" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,true>)
+        }
+        "inline-owned-index-25" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,false>)
+        }
+        "inline-owned-index-50" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,false>)
+        }
+        "inline-owned-index-70" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,false>)
+        }
+        "inline-owned-index-85" => {
+            dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,false>)
+        }
         "scc-copy" => dispatch!(scc::HashMap<Key,Value>),
         "array-copy-25-16" => {
             dispatch!(rill_state::experimental::ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,rill_state::experimental::CopyKeys>)
