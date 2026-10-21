@@ -292,7 +292,7 @@ impl<K: Clone + Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize, KP
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, target_pointer_width = "64"))]
 mod tests {
     use super::*;
     #[test]

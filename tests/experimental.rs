@@ -389,6 +389,21 @@ fn array_key_policies_preserve_identity_with_distinct_copy_costs() {
         let (k, v) = old.iter().next().unwrap();
         assert_eq!(k.label, "canonical");
         assert_eq!(*v, 0);
+        map.remove(&Key {
+            id: 1,
+            label: "query",
+            clones: count.clone(),
+        });
+        map.insert(
+            Key {
+                id: 1,
+                label: "reinserted",
+                clones: count.clone(),
+            },
+            102,
+        );
+        assert_eq!(map.iter().next().unwrap().0.label, "reinserted");
+        assert_eq!(old.iter().next().unwrap().0.label, "canonical");
         assert_eq!(count.load(Ordering::Relaxed), expected);
     }
     check::<CopyKeys>(101);
