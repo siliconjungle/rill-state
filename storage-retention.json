@@ -217,6 +217,26 @@
     {
       "path": "build/shapes-v24",
       "reason": "Required frozen strengthened standard/IndexMap control proofs and comparisons, retaining native-default and fast-builder settings"
+    },
+    {
+      "path": "build/panic-v24",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/panic-companions-corrected-v25",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/librill_state-companion-v24.rlib",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/state-v25",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/shapes-v25",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
     }
   ],
   "safe_to_remove": [
@@ -307,6 +327,50 @@
     {
       "path": "evidence/clippy-v21.log",
       "reason": "Completed unselected lint staging superseded by successful factored-marker clippy proof; source history and successful log retained."
+    },
+    {
+      "path": "build/panic-companions-v25",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/panic-companions-build-v25.jsonl",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/panic-companions-build-v25.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/panic-companions-v25-build-receipt.json",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/panic-companions-v25-failures.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/tests-v25b.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/clippy-v25b.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/tests-v25c.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/clippy-v25c.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/tests-v25d.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/clippy-v25d.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
     }
   ]
 }

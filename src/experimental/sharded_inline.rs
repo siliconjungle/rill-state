@@ -161,7 +161,8 @@ impl<K: Clone + Eq, V: Clone> Page<K, V> {
             }
         }
         // A failed shared-entry clone leaves the original table installed.
-        self.entries = grown;
+        let old = std::mem::replace(&mut self.entries, grown);
+        drop(old);
     }
     fn apply_group<const L: usize>(
         &mut self,

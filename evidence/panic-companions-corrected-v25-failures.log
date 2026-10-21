@@ -1,0 +1,65 @@
+
+running 5 tests
+test flat_batch_delete_drop_panic_keeps_counts_and_probe_chains ... FAILED
+test probing_growth_clone_panic_preserves_current_and_retained_bindings ... FAILED
+test split_delete_key_drop_panic_keeps_counts_and_probe_chains ... FAILED
+test inline_growth_clone_panic_preserves_current_and_retained_bindings ... FAILED
+test paged_delete_clone_panic_preserves_probe_reachability ... FAILED
+
+failures:
+
+failures:
+    flat_batch_delete_drop_panic_keeps_counts_and_probe_chains
+    inline_growth_clone_panic_preserves_current_and_retained_bindings
+    paged_delete_clone_panic_preserves_probe_reachability
+    probing_growth_clone_panic_preserves_current_and_retained_bindings
+    split_delete_key_drop_panic_keeps_counts_and_probe_chains
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+thread 'split_delete_key_drop_panic_keeps_counts_and_probe_chains' (835412) panicked at tests/table_panic.rs:242:17:
+injected key-drop failure
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'probing_growth_clone_panic_preserves_current_and_retained_bindings' (835411) panicked at tests/table_panic.rs:29:9:
+injected clone failure
+
+thread 'inline_growth_clone_panic_preserves_current_and_retained_bindings' (835409) panicked at tests/table_panic.rs:29:9:
+injected clone failure
+
+thread 'flat_batch_delete_drop_panic_keeps_counts_and_probe_chains' (835408) panicked at tests/table_panic.rs:189:13:
+injected drop failure
+
+thread 'paged_delete_clone_panic_preserves_probe_reachability' (835410) panicked at tests/table_panic.rs:136:13:
+assertion `left != right` failed: injected paged clone failure
+  left: 0
+ right: 0
+
+thread 'flat_batch_delete_drop_panic_keeps_counts_and_probe_chains' (835408) panicked at tests/table_panic.rs:213:5:
+assertion `left == right` failed
+  left: 2
+ right: 1
+
+thread 'probing_growth_clone_panic_preserves_current_and_retained_bindings' (835411) panicked at tests/table_panic.rs:102:5:
+assertion `left == right` failed
+  left: 0
+ right: 64
+
+thread 'split_delete_key_drop_panic_keeps_counts_and_probe_chains' (835412) panicked at tests/table_panic.rs:264:5:
+assertion `left == right` failed
+  left: 3
+ right: 2
+
+thread 'paged_delete_clone_panic_preserves_probe_reachability' (835410) panicked at tests/table_panic.rs:136:13:
+assertion `left != right` failed: injected paged clone failure
+  left: 1
+ right: 1
+
+thread 'inline_growth_clone_panic_preserves_current_and_retained_bindings' (835409) panicked at tests/table_panic.rs:102:5:
+assertion `left == right` failed
+  left: 30
+ right: 64
+
+thread 'paged_delete_clone_panic_preserves_probe_reachability' (835410) panicked at tests/table_panic.rs:175:44:
+called `Option::unwrap()` on a `None` value

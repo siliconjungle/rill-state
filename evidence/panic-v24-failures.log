@@ -1,0 +1,38 @@
+
+running 3 tests
+test sharded_panic_drop_during_batch_delete_keeps_counts_and_old_view ... FAILED
+test sharded_panic_clone_during_shared_growth_preserves_all_existing_keys ... FAILED
+test sharded_panic_grouped_clone_keeps_counts_and_map_usable ... FAILED
+
+failures:
+
+failures:
+    sharded_panic_clone_during_shared_growth_preserves_all_existing_keys
+    sharded_panic_drop_during_batch_delete_keeps_counts_and_old_view
+    sharded_panic_grouped_clone_keeps_counts_and_map_usable
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+thread 'sharded_panic_grouped_clone_keeps_counts_and_map_usable' (786837) panicked at tests/sharded_panic.rs:28:9:
+injected value-clone failure
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'sharded_panic_drop_during_batch_delete_keeps_counts_and_old_view' (786836) panicked at tests/sharded_panic.rs:118:13:
+injected value-drop failure
+
+thread 'sharded_panic_clone_during_shared_growth_preserves_all_existing_keys' (786835) panicked at tests/sharded_panic.rs:28:9:
+injected value-clone failure
+
+thread 'sharded_panic_drop_during_batch_delete_keeps_counts_and_old_view' (786836) panicked at tests/sharded_panic.rs:142:9:
+assertion failed: map.is_empty()
+
+thread 'sharded_panic_grouped_clone_keeps_counts_and_map_usable' (786837) panicked at tests/sharded_panic.rs:65:5:
+assertion `left == right` failed
+  left: 0
+ right: 1
+
+thread 'sharded_panic_clone_during_shared_growth_preserves_all_existing_keys' (786835) panicked at tests/sharded_panic.rs:101:5:
+assertion `left == right` failed
+  left: 1
+ right: 8

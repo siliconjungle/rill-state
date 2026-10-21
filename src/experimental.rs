@@ -24,7 +24,8 @@ struct Entry<K, V> {
     key: K,
     value: V,
 }
-type Page<K, V> = Arc<Vec<Option<Entry<K, V>>>>;
+type OwnedPage<K, V> = Vec<Option<Entry<K, V>>>;
+type Page<K, V> = Arc<OwnedPage<K, V>>;
 
 /// Linear probing with contiguous entries and optional copy-on-write physical pages.
 /// `PAGE=0` uses one flat page. Nonzero `PAGE` must be a power of two. `LOAD` is the
@@ -209,7 +210,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
                         }
                     }
                     Mutation::Delete(_) => {
-                        if page[i].take().is_some() {
+                        if let Some(removed) = page[i].take() {
                             self.len -= 1;
                             let mut hole = i;
                             let mut scan = (hole + 1) & mask;
@@ -222,6 +223,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
                                 }
                                 scan = (scan + 1) & mask;
                             }
+                            drop(removed);
                         }
                     }
                 }
@@ -236,18 +238,38 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
         let capacity = (self.mask + 1).checked_mul(2).expect("capacity exhausted");
         let width = if P == 0 { capacity } else { P };
         let empty = Arc::new(vec![None; width]);
-        let old = std::mem::replace(&mut self.pages, vec![empty; capacity / width]);
-        self.mask = capacity - 1;
-        for page in old {
-            let entries = Arc::try_unwrap(page).unwrap_or_else(|p| (*p).clone());
-            for e in entries.into_iter().flatten() {
-                let mut i = e.hash as usize & self.mask;
-                while self.slot(i).is_some() {
-                    i = (i + 1) & self.mask;
+        let mut grown = Self {
+            pages: vec![empty; capacity / width],
+            len: self.len,
+            mask: capacity - 1,
+            hasher: self.hasher.clone(),
+        };
+        // Complete every potentially panicking clone before moving unique pages.
+        let prepared: Vec<Option<OwnedPage<K, V>>> = self
+            .pages
+            .iter_mut()
+            .map(|page| {
+                if Arc::get_mut(page).is_some() {
+                    None
+                } else {
+                    Some((**page).clone())
                 }
-                *self.slot_mut(i) = Some(e);
+            })
+            .collect();
+        for (page, ready) in self.pages.iter_mut().zip(prepared) {
+            let entries = ready.unwrap_or_else(|| {
+                std::mem::take(Arc::get_mut(page).expect("unique page prepared before moving"))
+            });
+            for e in entries.into_iter().flatten() {
+                let mut i = e.hash as usize & grown.mask;
+                while grown.slot(i).is_some() {
+                    i = (i + 1) & grown.mask;
+                }
+                *grown.slot_mut(i) = Some(e);
             }
         }
+        // Install the complete map before releasing old user keys/values.
+        std::mem::swap(self, &mut grown);
     }
     /// Remove a key. Backward shifting preserves lookup reachability without tombstones.
     pub fn remove<Q: Hash + Eq + ?Sized>(&mut self, key: &Q) -> Option<V>
@@ -256,7 +278,28 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
     {
         let hash = self.hasher.hash_one(key);
         let (hole, found) = self.find(key, hash);
-        found.then(|| self.remove_at(hole).value)
+        if !found {
+            return None;
+        }
+        if P != 0 {
+            self.prepare_removal(hole);
+        }
+        Some(self.remove_at(hole).value)
+    }
+    // Only used for a nonzero const page width. Detach the entire affected
+    // cluster before opening its first hole; later shifts cannot clone values.
+    #[allow(clippy::manual_checked_ops)]
+    fn prepare_removal(&mut self, hole: usize) {
+        let mut i = hole;
+        let mut previous = usize::MAX;
+        while self.slot(i).is_some() {
+            let page = i / P;
+            if page != previous {
+                Arc::make_mut(&mut self.pages[page]);
+                previous = page;
+            }
+            i = (i + 1) & self.mask;
+        }
     }
     fn remove_at(&mut self, mut hole: usize) -> Entry<K, V> {
         let removed = self.slot_mut(hole).take().unwrap();
@@ -703,7 +746,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize> SplitMap<K,
             return None;
         }
         self.hashes[hole] = 0;
-        let (_, value) = self.entries[hole].take().unwrap();
+        let (key, value) = self.entries[hole].take().unwrap();
         self.len -= 1;
         let mask = self.hashes.len() - 1;
         let mut scan = (hole + 1) & mask;
@@ -717,6 +760,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize> SplitMap<K,
             }
             scan = (scan + 1) & mask;
         }
+        drop(key);
         Some(value)
     }
     /// Live bindings.

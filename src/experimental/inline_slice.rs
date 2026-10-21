@@ -192,8 +192,9 @@ impl<
                     }
                     Mutation::Delete(_) => {
                         if found {
-                            Self::remove_at(entries, slot);
+                            let removed = Self::remove_at(entries, slot);
                             self.len -= 1;
+                            drop(removed);
                         }
                     }
                 }
@@ -211,19 +212,21 @@ impl<
             .len()
             .checked_mul(2)
             .expect("capacity exhausted");
-        let mut old = std::mem::replace(&mut self.entries, vec![None; capacity].into());
-        let entries = Arc::get_mut(&mut self.entries).unwrap();
-        if let Some(unique) = Arc::get_mut(&mut old) {
+        let mut grown: Arc<[Option<Entry<K, V>>]> = vec![None; capacity].into();
+        let entries = Arc::get_mut(&mut grown).unwrap();
+        if let Some(unique) = Arc::get_mut(&mut self.entries) {
             for slot in unique {
                 if let Some(entry) = slot.take() {
                     Self::place(entries, entry);
                 }
             }
         } else {
-            for entry in old.iter().flatten() {
+            for entry in self.entries.iter().flatten() {
                 Self::place(entries, entry.clone());
             }
         }
+        let old = std::mem::replace(&mut self.entries, grown);
+        drop(old);
     }
 
     fn place(entries: &mut [Option<Entry<K, V>>], entry: Entry<K, V>) {
