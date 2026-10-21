@@ -11,7 +11,7 @@ use std::{
     sync::Arc,
     time::Instant,
 };
-trait Key: Clone + Ord + Hash + Eq + std::fmt::Debug {
+trait Key: Clone + Ord + Hash + Eq + std::fmt::Debug + Send + Sync {
     fn make(n: u64) -> Self;
 }
 impl Key for u64 {
@@ -24,7 +24,7 @@ impl Key for String {
         format!("tenant/{:016x}/resource/{n:016x}", <u64 as Key>::make(n))
     }
 }
-trait Value: Clone + PartialEq + Eq + std::fmt::Debug {
+trait Value: Clone + PartialEq + Eq + std::fmt::Debug + Send + Sync {
     fn make(id: u64, epoch: u64) -> Self;
     fn touch(&self) -> u64;
 }
@@ -62,7 +62,7 @@ impl Value for Arc<[u8]> {
         touch_bytes(self)
     }
 }
-trait Map<K: Key, V: Value>: Clone {
+trait Map<K: Key, V: Value>: Clone + Send + Sync {
     fn new() -> Self;
     fn get(&self, k: &K) -> Option<&V>;
     fn put(&mut self, k: K, v: V);
@@ -101,6 +101,22 @@ macro_rules! map {
                     f(k, v);
                 }
             }
+            fn batch(&mut self, ops: &[Mutation<K, V>]) {
+                for op in ops {
+                    match op {
+                        Mutation::Put(k, v) => {
+                            if let Some(prior) = self.get_mut(k) {
+                                *prior = v.clone();
+                            } else {
+                                self.insert(k.clone(), v.clone());
+                            }
+                        }
+                        Mutation::Delete(k) => {
+                            self.remove(k);
+                        }
+                    }
+                }
+            }
         }
     };
 }
@@ -126,6 +142,22 @@ impl<K: Key, V: Value> Map<K, V> for imhm::Map<K, V> {
     fn visit(&self, mut f: impl FnMut(&K, &V)) {
         for (k, v) in self.iter() {
             f(k, v);
+        }
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        for op in ops {
+            match op {
+                Mutation::Put(k, v) => {
+                    if let Some(prior) = self.get_mut_cow(k) {
+                        *prior = v.clone();
+                    } else {
+                        self.insert_cow(k.clone(), v.clone());
+                    }
+                }
+                Mutation::Delete(k) => {
+                    self.remove_cow(k);
+                }
+            }
         }
     }
 }
@@ -180,7 +212,7 @@ impl<K: Key, V: Value, const L: usize> Map<K, V>
         }
     }
 }
-trait Read<K: Key, V: Value>: Clone {
+trait Read<K: Key, V: Value>: Clone + Send + Sync {
     fn revision(&self) -> u64;
     fn get(&self, k: &K) -> Option<&V>;
     fn len(&self) -> usize;
@@ -198,7 +230,7 @@ trait Read<K: Key, V: Value>: Clone {
         sum
     }
 }
-impl<K: Key, V: Value, S: BuildHasher> Read<K, V> for Snapshot<K, V, S> {
+impl<K: Key, V: Value, S: BuildHasher + Send + Sync> Read<K, V> for Snapshot<K, V, S> {
     fn revision(&self) -> u64 {
         self.cursor().revision()
     }
@@ -301,7 +333,7 @@ impl<K: Key, V: Value, S: BuildHasher + Default> Native<K, V, S> {
         }
     }
 }
-impl<K: Key, V: Value, S: BuildHasher> Engine<K, V> for Native<K, V, S> {
+impl<K: Key, V: Value, S: BuildHasher + Send + Sync> Engine<K, V> for Native<K, V, S> {
     type View = Snapshot<K, V, S>;
     fn publish(&mut self, ops: Vec<Mutation<K, V>>) {
         self.cursors.push(self.store.commit(ops).unwrap());
@@ -329,6 +361,7 @@ struct Options {
     readers: usize,
     rounds: usize,
     verify: bool,
+    thread_check: bool,
 }
 fn options() -> Options {
     let a: Vec<_> = std::env::args().collect();
@@ -347,6 +380,7 @@ fn options() -> Options {
         readers: get("--readers", "20000").parse().unwrap(),
         rounds: get("--rounds", "16").parse().unwrap(),
         verify: a.iter().any(|x| x == "--verify"),
+        thread_check: a.iter().any(|x| x == "--thread-check"),
     }
 }
 fn rng(x: &mut u64) -> u64 {
@@ -420,6 +454,38 @@ fn run<K: Key, V: Value, E: Engine<K, V>>(mut engine: E, o: &Options) {
             )
         })
         .collect();
+    if o.thread_check {
+        let mut expected = BTreeMap::new();
+        apply(&mut expected, &initial);
+        let mut final_expected = expected.clone();
+        let barrier = std::sync::Barrier::new(5);
+        std::thread::scope(|scope| {
+            for worker in 0..4 {
+                let old = pinned.clone();
+                let expected = &expected;
+                let reads = &reads;
+                let barrier = &barrier;
+                scope.spawn(move || {
+                    let revision = old.revision();
+                    barrier.wait();
+                    for _ in 0..o.rounds {
+                        for k in reads.iter().skip(worker).step_by(4) {
+                            assert_eq!(old.get(k), expected.get(k));
+                        }
+                        assert_eq!(old.revision(), revision);
+                    }
+                });
+            }
+            barrier.wait();
+            for ops in traces {
+                apply(&mut final_expected, &ops);
+                engine.publish(ops);
+            }
+        });
+        assert_eq!(engine.view().contents(), final_expected);
+        println!("{{\"engine\":\"{}\",\"shape\":\"{}\",\"case\":\"{}\",\"seed\":{},\"records\":{},\"readers\":{},\"rounds\":{},\"verified\":true,\"threads\":4,\"thread_checked\":true}}",o.engine,o.shape,o.case,o.seed,o.records,o.readers,o.rounds);
+        return;
+    }
     if o.verify {
         let mut truth = BTreeMap::new();
         apply(&mut truth, &initial);

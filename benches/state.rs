@@ -26,7 +26,7 @@ fn digest(k: u64, v: Value) -> u64 {
     k.wrapping_add(v[0].rotate_left(7)) ^ v[1].wrapping_mul(317) ^ v[2].rotate_left(31) ^ v[3]
 }
 
-trait ReadView: Clone {
+trait ReadView: Clone + Send + Sync {
     fn revision(&self) -> u64;
     fn get(&self, k: &Key) -> Option<Value>;
     fn len(&self) -> usize;
@@ -41,7 +41,7 @@ trait Engine {
     fn revision(&self) -> u64;
     fn feed_summary(&self, after: u64) -> (usize, usize);
 }
-impl<S: BuildHasher> ReadView for Snapshot<Key, Value, S> {
+impl<S: BuildHasher + Send + Sync> ReadView for Snapshot<Key, Value, S> {
     fn revision(&self) -> u64 {
         self.cursor().revision()
     }
@@ -63,7 +63,7 @@ struct Rill<S = std::collections::hash_map::RandomState> {
     store: Store<Key, Value, S>,
     cursors: Vec<Cursor>,
 }
-impl<S: BuildHasher> Engine for Rill<S> {
+impl<S: BuildHasher + Send + Sync> Engine for Rill<S> {
     type View = Snapshot<Key, Value, S>;
     fn publish(&mut self, ops: Vec<Op>) {
         self.cursors.push(self.store.commit(ops).unwrap());
@@ -98,7 +98,7 @@ impl<S: BuildHasher> Engine for Rill<S> {
     }
 }
 
-trait Map: Clone {
+trait Map: Clone + Send + Sync {
     fn empty() -> Self;
     fn get(&self, k: &Key) -> Option<Value>;
     fn put(&mut self, k: Key, v: Value);
@@ -319,6 +319,54 @@ impl Map for scc::HashMap<Key, Value> {
         });
     }
 }
+
+struct SccCapture(
+    scc::HashMap<Key, Value>,
+    std::collections::hash_map::RandomState,
+);
+impl Clone for SccCapture {
+    fn clone(&self) -> Self {
+        // Complete the source read before entering another SCC map. This avoids
+        // nested map operations inside the source iterator's bucket read guard.
+        let mut rows = Vec::with_capacity(self.0.len());
+        self.0.iter_sync(|k, v| {
+            rows.push((*k, *v));
+            true
+        });
+        let copy = scc::HashMap::with_capacity_and_hasher(self.0.capacity(), self.1.clone());
+        for (k, v) in rows {
+            copy.insert_sync(k, v).unwrap();
+        }
+        Self(copy, self.1.clone())
+    }
+}
+impl Map for SccCapture {
+    fn empty() -> Self {
+        let hasher = std::collections::hash_map::RandomState::new();
+        Self(
+            scc::HashMap::with_capacity_and_hasher(0, hasher.clone()),
+            hasher,
+        )
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.0.read_sync(k, |_, v| *v)
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        drop(self.0.entry_sync(k).insert_entry(v));
+    }
+    fn del(&mut self, k: &Key) {
+        self.0.remove_sync(k);
+    }
+    fn len(&self) -> usize {
+        self.0.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        self.0.iter_sync(|k, v| {
+            f(*k, *v);
+            true
+        });
+    }
+}
 impl Map for contrie::ConMap<Key, Value> {
     fn empty() -> Self {
         Self::new()
@@ -366,17 +414,84 @@ impl leapfrog::Value for LeapValue {
         }
     }
 }
-#[derive(Clone)]
-struct Leap(leapfrog::HashMap<Key, LeapValue, hashbrown::DefaultHashBuilder>);
+struct Leap(
+    std::sync::Mutex<leapfrog::HashMap<Key, LeapValue, hashbrown::DefaultHashBuilder>>,
+    usize,
+);
+impl Clone for Leap {
+    fn clone(&self) -> Self {
+        Self(
+            std::sync::Mutex::new(self.0.lock().unwrap().clone()),
+            self.1,
+        )
+    }
+}
 impl Map for Leap {
     fn empty() -> Self {
-        Self(leapfrog::HashMap::with_capacity_and_hasher(
+        Self(
+            std::sync::Mutex::new(leapfrog::HashMap::with_capacity_and_hasher(
+                16,
+                Default::default(),
+            )),
+            0,
+        )
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.0.lock().unwrap().get(k).map(|v| v.value)
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        let prior = self
+            .0
+            .get_mut()
+            .unwrap()
+            .insert(k, LeapValue { value: v, kind: 2 });
+        if prior.is_none_or(|old| old.kind == 0) {
+            self.1 += 1;
+        }
+    }
+    fn del(&mut self, k: &Key) {
+        if self
+            .0
+            .get_mut()
+            .unwrap()
+            .remove(k)
+            .is_some_and(|v| v.kind == 2)
+        {
+            self.1 -= 1;
+        }
+    }
+    fn len(&self) -> usize {
+        self.1
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.0.lock().unwrap().iter() {
+            f(*k, v.value);
+        }
+    }
+}
+
+struct LeapConcurrent(leapfrog::LeapMap<Key, LeapValue, hashbrown::DefaultHashBuilder>);
+impl Clone for LeapConcurrent {
+    fn clone(&self) -> Self {
+        let copy =
+            leapfrog::LeapMap::with_capacity_and_hasher(self.0.capacity(), Default::default());
+        for mut entry in self.0.iter() {
+            if let Some((k, v)) = entry.key_value() {
+                copy.insert(k, v);
+            }
+        }
+        Self(copy)
+    }
+}
+impl Map for LeapConcurrent {
+    fn empty() -> Self {
+        Self(leapfrog::LeapMap::with_capacity_and_hasher(
             16,
             Default::default(),
         ))
     }
     fn get(&self, k: &Key) -> Option<Value> {
-        self.0.get(k).map(|v| v.value)
+        self.0.get(k).and_then(|mut r| r.value()).map(|v| v.value)
     }
     fn put(&mut self, k: Key, v: Value) {
         self.0.insert(k, LeapValue { value: v, kind: 2 });
@@ -388,8 +503,10 @@ impl Map for Leap {
         self.0.len()
     }
     fn visit(&self, mut f: impl FnMut(Key, Value)) {
-        for (k, v) in self.0.iter() {
-            f(*k, v.value);
+        for mut entry in self.0.iter() {
+            if let Some((k, v)) = entry.key_value() {
+                f(k, v.value);
+            }
         }
     }
 }
@@ -1244,6 +1361,52 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
                 })
         })
         .collect();
+    if std::env::args().any(|a| a == "--thread-check") {
+        let mut expected = BTreeMap::new();
+        for op in &initial {
+            if let Op::Put(k, v) = op {
+                expected.insert(*k, *v);
+            }
+        }
+        let old_expected = expected.clone();
+        let barrier = std::sync::Barrier::new(5);
+        std::thread::scope(|scope| {
+            for worker in 0..4 {
+                let old = before.clone();
+                let reads = &reads;
+                let old_expected = &old_expected;
+                let barrier = &barrier;
+                scope.spawn(move || {
+                    let revision = old.revision();
+                    barrier.wait();
+                    for _ in 0..o.rounds {
+                        for k in reads.iter().skip(worker).step_by(4) {
+                            assert_eq!(old.get(k), old_expected.get(k).copied());
+                        }
+                        assert_eq!(old.revision(), revision);
+                    }
+                });
+            }
+            barrier.wait();
+            for ops in input {
+                for op in &ops {
+                    match op {
+                        Op::Put(k, v) => {
+                            expected.insert(*k, *v);
+                        }
+                        Op::Delete(k) => {
+                            expected.remove(k);
+                        }
+                    }
+                }
+                engine.publish(ops);
+            }
+        });
+        assert_eq!(engine.snapshot().contents(), expected);
+        println!("{{\"engine\":\"{}\",\"case\":\"{}\",\"seed\":{},\"records\":{},\"readers\":{},\"rounds\":{},\"verified\":true,\"threads\":4,\"thread_checked\":true}}",o.engine,o.case,o.seed,o.records,o.readers,o.rounds);
+        return;
+    }
+
     if o.verify {
         phase("oracle start");
         let mut truth = BTreeMap::new();
@@ -1348,6 +1511,15 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
 
 fn main() {
     let o = options();
+    if o.engine == "leapfrog-native-counter" {
+        let mut map = leapfrog::HashMap::<u64, u64>::new();
+        map.insert(1, 7);
+        map.remove(&1);
+        let prior = map.insert(1, 9);
+        let prior_json = prior.map_or_else(|| "null".to_owned(), |v| v.to_string());
+        println!("{{\"diagnostic\":\"upstream leapfrog 0.3.3 delete/reinsert metadata\",\"reported_len\":{},\"iterated_len\":{},\"lookup\":{},\"returned_old\":{},\"contract_passed\":{}}}",map.len(),map.iter().count(),map.get(&1).copied().unwrap_or(0),prior_json,map.len()==map.iter().count()&&prior.is_none());
+        return;
+    }
     if o.engine.starts_with("rillfast-") {
         let parts: Vec<_> = o.engine.split('-').collect();
         let partitions = parts[1].parse().unwrap();
@@ -1402,8 +1574,10 @@ fn main() {
     }
     match o.engine.as_str() {
         "scc-copy" => dispatch!(scc::HashMap<Key,Value>),
+        "scc-capture" => dispatch!(SccCapture),
         "contrie-copy" => dispatch!(contrie::ConMap<Key,Value>),
         "leapfrog-copy" => dispatch!(Leap),
+        "leapmap-copy" => dispatch!(LeapConcurrent),
         "probe-25-0" => {
             dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,25,0>)
         }

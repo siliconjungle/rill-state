@@ -7,18 +7,18 @@ ENGINES=['hashbrown','hashbrown-sip','imbl-hash','imhm','probe-flat','probe-page
 SHAPES=['u64-inline','string-inline','u64-owned256','string-owned256','u64-shared256','string-shared256']
 CASES=['single','sparse','churn','burst','read','scan','slow','miss100']
 def main():
- p=argparse.ArgumentParser();p.add_argument('mode',choices=['prove','screen','serial']);p.add_argument('--binary',type=pathlib.Path,required=True);p.add_argument('--label',required=True);p.add_argument('--engines');p.add_argument('--shapes');p.add_argument('--cases');p.add_argument('--records',type=int,default=20000);p.add_argument('--readers',type=int,default=20000);p.add_argument('--rounds',type=int,default=16);p.add_argument('--repetitions',type=int,default=1);p.add_argument('--workers',type=int,default=3);p.add_argument('--seeds',default='4815162342,2937471921');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('mode',choices=['prove','thread','screen','serial']);p.add_argument('--binary',type=pathlib.Path,required=True);p.add_argument('--label',required=True);p.add_argument('--engines');p.add_argument('--shapes');p.add_argument('--cases');p.add_argument('--records',type=int,default=20000);p.add_argument('--readers',type=int,default=20000);p.add_argument('--rounds',type=int,default=16);p.add_argument('--repetitions',type=int,default=1);p.add_argument('--workers',type=int,default=3);p.add_argument('--seeds',default='4815162342,2937471921');a=p.parse_args()
  engines=a.engines.split(',')if a.engines else ENGINES;shapes=a.shapes.split(',')if a.shapes else SHAPES;cases=a.cases.split(',')if a.cases else CASES;seeds=[int(n)for n in a.seeds.split(',')];assert all(c.isalnum()or c in'-_.'for c in a.label)
  binary=a.binary.resolve();folder=ROOT/'evidence'/a.label;folder.mkdir(exist_ok=False,parents=True);workers=1 if a.mode=='serial'else a.workers
- tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode=='prove',shape,rep)for rep in range(a.repetitions)for e,c,s,shape in itertools.product(engines,cases,seeds,shapes)];random.Random(0x5A9E).shuffle(tasks)
- receipt=dict(schema=1,layer='generic-shapes',mode=a.mode,claim='exact behavior'if a.mode=='prove'else'development selection only, not final acceptance',workers=workers,source_sha256=study.source_hash(),source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),binary_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),driver_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),executor_sha256=hashlib.sha256((ROOT/'tools/study.py').read_bytes()).hexdigest(),engines=engines,shapes=shapes,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks),platform=platform.platform())
+ tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode in ('prove','thread'),shape,rep,a.mode=='thread')for rep in range(a.repetitions)for e,c,s,shape in itertools.product(engines,cases,seeds,shapes)];random.Random(0x5A9E).shuffle(tasks)
+ receipt=dict(schema=1,layer='generic-shapes',mode=a.mode,claim='exact behavior'if a.mode in ('prove','thread')else'development selection only, not final acceptance',workers=workers,source_sha256=study.source_hash(),source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),binary_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),driver_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),executor_sha256=hashlib.sha256((ROOT/'tools/study.py').read_bytes()).hexdigest(),engines=engines,shapes=shapes,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks),platform=platform.platform())
  (folder/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');errors=[];completed=0;outputs={}
  with(folder/'runs.jsonl').open('w')as out,concurrent.futures.ThreadPoolExecutor(max_workers=workers)as pool:
   futures={pool.submit(study.execute,t):t for t in tasks}
   for future in concurrent.futures.as_completed(futures):
    try:
     row=future.result();out.write(json.dumps(row)+'\n');out.flush();completed+=1
-    if a.mode!='prove':
+    if a.mode not in ('prove','thread'):
      key=(row['shape'],row['case'],row['seed']);signature=(row['checksum'],row['read_checksum'],row['final_len']);prior=outputs.setdefault(key,signature)
      if prior!=signature:errors.append(dict(output_mismatch=key,engine=row['engine'],expected=prior,actual=signature))
    except Exception as e:errors.append(dict(task=list(map(str,futures[future])),error=str(e)))

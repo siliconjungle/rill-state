@@ -1,0 +1,90 @@
+phase: initial publish start
+phase: initial publish complete
+warmup 0
+warmup 1
+warmup 2
+warmup 3
+warmup 4
+warmup 5
+warmup 6
+warmup 7
+phase: oracle start
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+phase: oracle published
+phase: oracle snapshot
+phase: oracle length start
+phase: oracle length complete
+phase: oracle contents
+phase: oracle point reads
+diagnostic deadline reached

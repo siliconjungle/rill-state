@@ -1,0 +1,517 @@
+   Compiling rill-state v0.1.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state)
+    Finished `release` profile [optimized] target(s) in 0.77s
+     Running `rill-state/target/release/examples/scc_probe`
+inserted 512
+revision 0: clone start
+revision 0: cloned
+revision 0: updated
+revision 0: checked
+revision 1: clone start
+revision 1: cloned
+revision 1: updated
+revision 1: checked
+revision 2: clone start
+revision 2: cloned
+revision 2: updated
+revision 2: checked
+revision 3: clone start
+revision 3: cloned
+revision 3: updated
+revision 3: checked
+revision 4: clone start
+revision 4: cloned
+revision 4: updated
+revision 4: checked
+revision 5: clone start
+revision 5: cloned
+revision 5: updated
+revision 5: checked
+revision 6: clone start
+revision 6: cloned
+revision 6: updated
+revision 6: checked
+revision 7: clone start
+revision 7: cloned
+revision 7: updated
+revision 7: checked
+revision 8: clone start
+revision 8: cloned
+revision 8: updated
+revision 8: checked
+revision 9: clone start
+revision 9: cloned
+revision 9: updated
+revision 9: checked
+revision 10: clone start
+revision 10: cloned
+revision 10: updated
+revision 10: checked
+revision 11: clone start
+revision 11: cloned
+revision 11: updated
+revision 11: checked
+revision 12: clone start
+revision 12: cloned
+revision 12: updated
+revision 12: checked
+revision 13: clone start
+revision 13: cloned
+revision 13: updated
+revision 13: checked
+revision 14: clone start
+revision 14: cloned
+revision 14: updated
+revision 14: checked
+revision 15: clone start
+revision 15: cloned
+revision 15: updated
+revision 15: checked
+revision 16: clone start
+revision 16: cloned
+revision 16: updated
+revision 16: checked
+revision 17: clone start
+revision 17: cloned
+revision 17: updated
+revision 17: checked
+revision 18: clone start
+revision 18: cloned
+revision 18: updated
+revision 18: checked
+revision 19: clone start
+revision 19: cloned
+revision 19: updated
+revision 19: checked
+revision 20: clone start
+revision 20: cloned
+revision 20: updated
+revision 20: checked
+revision 21: clone start
+revision 21: cloned
+revision 21: updated
+revision 21: checked
+revision 22: clone start
+revision 22: cloned
+revision 22: updated
+revision 22: checked
+revision 23: clone start
+revision 23: cloned
+revision 23: updated
+revision 23: checked
+revision 24: clone start
+revision 24: cloned
+revision 24: updated
+revision 24: checked
+revision 25: clone start
+revision 25: cloned
+revision 25: updated
+revision 25: checked
+revision 26: clone start
+revision 26: cloned
+revision 26: updated
+revision 26: checked
+revision 27: clone start
+revision 27: cloned
+revision 27: updated
+revision 27: checked
+revision 28: clone start
+revision 28: cloned
+revision 28: updated
+revision 28: checked
+revision 29: clone start
+revision 29: cloned
+revision 29: updated
+revision 29: checked
+revision 30: clone start
+revision 30: cloned
+revision 30: updated
+revision 30: checked
+revision 31: clone start
+revision 31: cloned
+revision 31: updated
+revision 31: checked
+revision 32: clone start
+revision 32: cloned
+revision 32: updated
+revision 32: checked
+revision 33: clone start
+revision 33: cloned
+revision 33: updated
+revision 33: checked
+revision 34: clone start
+revision 34: cloned
+revision 34: updated
+revision 34: checked
+revision 35: clone start
+revision 35: cloned
+revision 35: updated
+revision 35: checked
+revision 36: clone start
+revision 36: cloned
+revision 36: updated
+revision 36: checked
+revision 37: clone start
+revision 37: cloned
+revision 37: updated
+revision 37: checked
+revision 38: clone start
+revision 38: cloned
+revision 38: updated
+revision 38: checked
+revision 39: clone start
+revision 39: cloned
+revision 39: updated
+revision 39: checked
+revision 40: clone start
+revision 40: cloned
+revision 40: updated
+revision 40: checked
+revision 41: clone start
+revision 41: cloned
+revision 41: updated
+revision 41: checked
+revision 42: clone start
+revision 42: cloned
+revision 42: updated
+revision 42: checked
+revision 43: clone start
+revision 43: cloned
+revision 43: updated
+revision 43: checked
+revision 44: clone start
+revision 44: cloned
+revision 44: updated
+revision 44: checked
+revision 45: clone start
+revision 45: cloned
+revision 45: updated
+revision 45: checked
+revision 46: clone start
+revision 46: cloned
+revision 46: updated
+revision 46: checked
+revision 47: clone start
+revision 47: cloned
+revision 47: updated
+revision 47: checked
+revision 48: clone start
+revision 48: cloned
+revision 48: updated
+revision 48: checked
+revision 49: clone start
+revision 49: cloned
+revision 49: updated
+revision 49: checked
+revision 50: clone start
+revision 50: cloned
+revision 50: updated
+revision 50: checked
+revision 51: clone start
+revision 51: cloned
+revision 51: updated
+revision 51: checked
+revision 52: clone start
+revision 52: cloned
+revision 52: updated
+revision 52: checked
+revision 53: clone start
+revision 53: cloned
+revision 53: updated
+revision 53: checked
+revision 54: clone start
+revision 54: cloned
+revision 54: updated
+revision 54: checked
+revision 55: clone start
+revision 55: cloned
+revision 55: updated
+revision 55: checked
+revision 56: clone start
+revision 56: cloned
+revision 56: updated
+revision 56: checked
+revision 57: clone start
+revision 57: cloned
+revision 57: updated
+revision 57: checked
+revision 58: clone start
+revision 58: cloned
+revision 58: updated
+revision 58: checked
+revision 59: clone start
+revision 59: cloned
+revision 59: updated
+revision 59: checked
+revision 60: clone start
+revision 60: cloned
+revision 60: updated
+revision 60: checked
+revision 61: clone start
+revision 61: cloned
+revision 61: updated
+revision 61: checked
+revision 62: clone start
+revision 62: cloned
+revision 62: updated
+revision 62: checked
+revision 63: clone start
+revision 63: cloned
+revision 63: updated
+revision 63: checked
+revision 64: clone start
+revision 64: cloned
+revision 64: updated
+revision 64: checked
+revision 65: clone start
+revision 65: cloned
+revision 65: updated
+revision 65: checked
+revision 66: clone start
+revision 66: cloned
+revision 66: updated
+revision 66: checked
+revision 67: clone start
+revision 67: cloned
+revision 67: updated
+revision 67: checked
+revision 68: clone start
+revision 68: cloned
+revision 68: updated
+revision 68: checked
+revision 69: clone start
+revision 69: cloned
+revision 69: updated
+revision 69: checked
+revision 70: clone start
+revision 70: cloned
+revision 70: updated
+revision 70: checked
+revision 71: clone start
+revision 71: cloned
+revision 71: updated
+revision 71: checked
+revision 72: clone start
+revision 72: cloned
+revision 72: updated
+revision 72: checked
+revision 73: clone start
+revision 73: cloned
+revision 73: updated
+revision 73: checked
+revision 74: clone start
+revision 74: cloned
+revision 74: updated
+revision 74: checked
+revision 75: clone start
+revision 75: cloned
+revision 75: updated
+revision 75: checked
+revision 76: clone start
+revision 76: cloned
+revision 76: updated
+revision 76: checked
+revision 77: clone start
+revision 77: cloned
+revision 77: updated
+revision 77: checked
+revision 78: clone start
+revision 78: cloned
+revision 78: updated
+revision 78: checked
+revision 79: clone start
+revision 79: cloned
+revision 79: updated
+revision 79: checked
+revision 80: clone start
+revision 80: cloned
+revision 80: updated
+revision 80: checked
+revision 81: clone start
+revision 81: cloned
+revision 81: updated
+revision 81: checked
+revision 82: clone start
+revision 82: cloned
+revision 82: updated
+revision 82: checked
+revision 83: clone start
+revision 83: cloned
+revision 83: updated
+revision 83: checked
+revision 84: clone start
+revision 84: cloned
+revision 84: updated
+revision 84: checked
+revision 85: clone start
+revision 85: cloned
+revision 85: updated
+revision 85: checked
+revision 86: clone start
+revision 86: cloned
+revision 86: updated
+revision 86: checked
+revision 87: clone start
+revision 87: cloned
+revision 87: updated
+revision 87: checked
+revision 88: clone start
+revision 88: cloned
+revision 88: updated
+revision 88: checked
+revision 89: clone start
+revision 89: cloned
+revision 89: updated
+revision 89: checked
+revision 90: clone start
+revision 90: cloned
+revision 90: updated
+revision 90: checked
+revision 91: clone start
+revision 91: cloned
+revision 91: updated
+revision 91: checked
+revision 92: clone start
+revision 92: cloned
+revision 92: updated
+revision 92: checked
+revision 93: clone start
+revision 93: cloned
+revision 93: updated
+revision 93: checked
+revision 94: clone start
+revision 94: cloned
+revision 94: updated
+revision 94: checked
+revision 95: clone start
+revision 95: cloned
+revision 95: updated
+revision 95: checked
+revision 96: clone start
+revision 96: cloned
+revision 96: updated
+revision 96: checked
+revision 97: clone start
+revision 97: cloned
+revision 97: updated
+revision 97: checked
+revision 98: clone start
+revision 98: cloned
+revision 98: updated
+revision 98: checked
+revision 99: clone start
+revision 99: cloned
+revision 99: updated
+revision 99: checked
+revision 100: clone start
+revision 100: cloned
+revision 100: updated
+revision 100: checked
+revision 101: clone start
+revision 101: cloned
+revision 101: updated
+revision 101: checked
+revision 102: clone start
+revision 102: cloned
+revision 102: updated
+revision 102: checked
+revision 103: clone start
+revision 103: cloned
+revision 103: updated
+revision 103: checked
+revision 104: clone start
+revision 104: cloned
+revision 104: updated
+revision 104: checked
+revision 105: clone start
+revision 105: cloned
+revision 105: updated
+revision 105: checked
+revision 106: clone start
+revision 106: cloned
+revision 106: updated
+revision 106: checked
+revision 107: clone start
+revision 107: cloned
+revision 107: updated
+revision 107: checked
+revision 108: clone start
+revision 108: cloned
+revision 108: updated
+revision 108: checked
+revision 109: clone start
+revision 109: cloned
+revision 109: updated
+revision 109: checked
+revision 110: clone start
+revision 110: cloned
+revision 110: updated
+revision 110: checked
+revision 111: clone start
+revision 111: cloned
+revision 111: updated
+revision 111: checked
+revision 112: clone start
+revision 112: cloned
+revision 112: updated
+revision 112: checked
+revision 113: clone start
+revision 113: cloned
+revision 113: updated
+revision 113: checked
+revision 114: clone start
+revision 114: cloned
+revision 114: updated
+revision 114: checked
+revision 115: clone start
+revision 115: cloned
+revision 115: updated
+revision 115: checked
+revision 116: clone start
+revision 116: cloned
+revision 116: updated
+revision 116: checked
+revision 117: clone start
+revision 117: cloned
+revision 117: updated
+revision 117: checked
+revision 118: clone start
+revision 118: cloned
+revision 118: updated
+revision 118: checked
+revision 119: clone start
+revision 119: cloned
+revision 119: updated
+revision 119: checked
+revision 120: clone start
+revision 120: cloned
+revision 120: updated
+revision 120: checked
+revision 121: clone start
+revision 121: cloned
+revision 121: updated
+revision 121: checked
+revision 122: clone start
+revision 122: cloned
+revision 122: updated
+revision 122: checked
+revision 123: clone start
+revision 123: cloned
+revision 123: updated
+revision 123: checked
+revision 124: clone start
+revision 124: cloned
+revision 124: updated
+revision 124: checked
+revision 125: clone start
+revision 125: cloned
+revision 125: updated
+revision 125: checked
+revision 126: clone start
+revision 126: cloned
+revision 126: updated
+revision 126: checked
+revision 127: clone start
+revision 127: cloned
+revision 127: updated
+revision 127: checked
+native SCC probe passed

@@ -6,7 +6,7 @@ fresh serial processes, holdout seeds and the separate strict acceptance gate.
 """
 import argparse, concurrent.futures, hashlib, itertools, json, os, pathlib, platform, random, re, subprocess, time
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-EXTERNAL=['std-hash','std-btree','hashbrown','hashbrown-sip','indexmap','btree-slab','im-hash','im-ord','imbl-hash','imbl-ord','imhm','imhm-sip','rpds-hash','rpds-redblack','vart','papaya-copy','dashmap-copy','flurry-copy','skipdb','scc-copy','contrie-copy','leapfrog-copy']+[f'chunk-{n}' for n in [8,16,32,64,128]]+[f'chunkbatch-{n}' for n in [8,16,32,64,128]]
+EXTERNAL=['std-hash','std-btree','hashbrown','hashbrown-sip','indexmap','btree-slab','im-hash','im-ord','imbl-hash','imbl-ord','imhm','imhm-sip','rpds-hash','rpds-redblack','vart','papaya-copy','dashmap-copy','flurry-copy','skipdb','scc-copy','contrie-copy','leapfrog-copy','leapmap-copy','scc-capture']+[f'chunk-{n}' for n in [8,16,32,64,128]]+[f'chunkbatch-{n}' for n in [8,16,32,64,128]]
 INDEPENDENT=[f'{family}-{n}' for family in ['hashpages','sortedpages'] for n in [16,64,256,1024,4096,16384]]+[f'overlay-{n}' for n in [1,2,4,8,16,32]]+[f'mvcc-{n}' for n in [1,16,64,256]]+[f'slots-{n}'for n in [8,16,32,64,128,256,512,1024]]
 RILL=[f'rill-{1<<bits}-{1<<branch}' for bits in range(6,17,2) for branch in range(0,min(bits,10)+1,2)]
 RILLFAST=[e.replace('rill-','rillfast-')for e in RILL]
@@ -22,6 +22,7 @@ def execute(task):
     cmd=[str(binary),'--engine',engine,'--case',case,'--seed',str(seed),'--records',str(records),'--readers',str(readers),'--rounds',str(rounds)]
     if proof: cmd+=['--verify']
     if extra and extra[0]:cmd+=['--shape',extra[0]]
+    if len(extra)>2 and extra[2]:cmd+=['--thread-check']
     wrapper=['/usr/bin/time','-l','-p'] if platform.system()=='Darwin' else ['/usr/bin/time','-v']
     start=time.time(); result=subprocess.run(wrapper+cmd,capture_output=True,text=True,timeout=300)
     if result.returncode: raise RuntimeError(json.dumps(dict(command=cmd,code=result.returncode,stderr=result.stderr[-3000:],stdout=result.stdout[-3000:])))
@@ -39,17 +40,17 @@ def execute(task):
     if len(extra)>1:row['repetition']=extra[1]
     return row
 def main():
-    p=argparse.ArgumentParser();p.add_argument('mode',choices=['prove','screen','serial']);p.add_argument('--binary',type=pathlib.Path,required=True);p.add_argument('--label',required=True);p.add_argument('--workers',type=int,default=3);p.add_argument('--engines');p.add_argument('--cases');p.add_argument('--records',type=int,default=20000);p.add_argument('--readers',type=int,default=20000);p.add_argument('--rounds',type=int,default=12);p.add_argument('--repetitions',type=int,default=1);p.add_argument('--seeds',default='4815162342,2937471921');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('mode',choices=['prove','thread','screen','serial']);p.add_argument('--binary',type=pathlib.Path,required=True);p.add_argument('--label',required=True);p.add_argument('--workers',type=int,default=3);p.add_argument('--engines');p.add_argument('--cases');p.add_argument('--records',type=int,default=20000);p.add_argument('--readers',type=int,default=20000);p.add_argument('--rounds',type=int,default=12);p.add_argument('--repetitions',type=int,default=1);p.add_argument('--seeds',default='4815162342,2937471921');a=p.parse_args()
     assert re.fullmatch(r'[A-Za-z0-9_.-]+',a.label)
     engines=a.engines.split(',')if a.engines else ENGINES
     cases=a.cases.split(',')if a.cases else CASES
     seeds=[int(s)for s in a.seeds.split(',')]
     binary=a.binary.resolve(); binary_hash=hashlib.sha256(binary.read_bytes()).hexdigest()
     folder=ROOT/'evidence'/a.label;folder.mkdir(parents=True,exist_ok=False)
-    tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode=='prove',None,rep)for rep in range(a.repetitions)for e,c,s in itertools.product(engines,cases,seeds)]
+    tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode in ('prove','thread'),None,rep,a.mode=='thread')for rep in range(a.repetitions)for e,c,s in itertools.product(engines,cases,seeds)]
     random.Random(0x51A7E).shuffle(tasks)
     workers=1 if a.mode=='serial'else a.workers
-    receipt=dict(schema=1,mode=a.mode,claim='correctness'if a.mode=='prove'else'selection only'if a.mode=='screen'else'isolated timing; acceptance not implied',workers=workers,source_sha256=source_hash(),orchestrator_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),binary_sha256=binary_hash,platform=platform.platform(),machine=platform.machine(),rustc=subprocess.check_output(['rustc','-Vv'],text=True),engines=engines,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks))
+    receipt=dict(schema=1,mode=a.mode,claim='correctness'if a.mode in ('prove','thread')else'selection only'if a.mode=='screen'else'isolated timing; acceptance not implied',workers=workers,source_sha256=source_hash(),orchestrator_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),binary_sha256=binary_hash,platform=platform.platform(),machine=platform.machine(),rustc=subprocess.check_output(['rustc','-Vv'],text=True),engines=engines,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks))
     (folder/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
     passed=0;errors=[]
     with (folder/'runs.jsonl').open('w')as out,concurrent.futures.ThreadPoolExecutor(max_workers=workers)as pool:
@@ -62,7 +63,7 @@ def main():
     # Equal logical outputs across engines, independently of any ranking. Ordered
     # mutation vectors and complete snapshots are checked by the proof mode itself.
     outputs={}
-    if a.mode!='prove':
+    if a.mode not in ('prove','thread'):
         for line in (folder/'runs.jsonl').read_text().splitlines():
             r=json.loads(line);k=(r['case'],r['seed']);signature=(r['checksum'],r['read_checksum'],r['final_len'])
             if k in outputs and outputs[k]!=signature:errors.append(dict(output_mismatch=k,expected=outputs[k],actual=signature,engine=r['engine']))

@@ -72,3 +72,9 @@ version) for reproducibility. No nightly feature bypass is used in the admitted 
 
 MIT OR Apache-2.0 for this project's original code; comparison dependencies retain their
 own licenses. This repository is a source release, not a crates.io publication.
+
+
+The opt-in `experimental` feature contains generic linear/split/COW-page map research
+APIs. They are not the selected default backend. The comparison suite also exercises
+String keys, owned and shared payloads, missing queries and concurrent retained-view
+reads. No performance admission follows merely from passing a small shape test.

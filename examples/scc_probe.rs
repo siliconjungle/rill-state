@@ -24,7 +24,7 @@ fn main() {
     }
     eprintln!("inserted {}", map.len());
     let mut old = Vec::new();
-    for r in 0..16 {
+    for r in 0..128 {
         eprintln!("revision {r}: clone start");
         let next = map.clone();
         eprintln!("revision {r}: cloned");

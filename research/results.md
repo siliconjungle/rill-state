@@ -141,3 +141,33 @@ The public Store now exposes its current cursor without snapshot acquisition and
 an unnecessary root reference-count pair on empty commits. It still advances the empty
 revision and journals it. The generic data-shape performance experiment is separately
 registered and must finish before drawing any conclusion about heap/string performance.
+
+
+## Heap shapes and snapshot thread eligibility
+
+The initial generic-shape phase passed 960 exact small checks and completed 960
+20,000-record selection processes with matching outputs. These are six actual data
+shapes, not a performance claim across all generic types. Baseline review then found
+avoidable replacement-key clones in the first hashbrown/imbl/imhm shape adapters;
+borrowed mutation now avoids those clones. Earlier shape timings are provisional.
+
+The new 20,000-record inline proof phase passed 530 of 532 tasks; the two failures were
+leapfrog churn length mismatches. A minimal native u64 example confirms that published
+leapfrog 0.3.3 can report length zero after a delete/reinsert while lookup and iteration
+still contain the replacement. The single-owner snapshot adapter now maintains exact
+external cardinality. It also uses a Mutex for shared reads: native leapfrog HashMap
+is Send but not Sync. Its earlier unlocked timings are not admitted to the cross-thread
+snapshot contract. A distinct native concurrent LeapMap adapter is included separately.
+All comparison map/view types now require Send + Sync; no unsafe Send/Sync assertion
+was added to bypass a library's ownership requirements.
+
+Actual four-reader retained-view checks are a separate proof mode; readers keep an
+old immutable revision while the owner publishes the changing trace, then the final
+state is compared against the independent model. They are behavior probes, not speed
+claims or 20,000 network-connection evidence.
+
+SCC remains unresolved. Its simple native probes pass even after extending retirement
+to 128 iterations, while two snapshot-adapter forms hit the bounded diagnostic deadline.
+The native copied form and the capture-before-insert form are not performance wins and
+are not admitted as fully correct engines. Other candidate work proceeds independently.
+The original performance goal is still unpassed.

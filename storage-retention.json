@@ -101,6 +101,14 @@
     {
       "path": "examples",
       "reason": "Required native API mismatch/reclamation reproduction inputs"
+    },
+    {
+      "path": "build/state-v12",
+      "reason": "Selected Send+Sync checked snapshot adapters, native metadata counter reproduction and full-size proofs"
+    },
+    {
+      "path": "build/shapes-v12",
+      "reason": "Selected generic borrowed-key baseline, full-size shape and threaded correctness/performance reproduction"
     }
   ],
   "safe_to_remove": [

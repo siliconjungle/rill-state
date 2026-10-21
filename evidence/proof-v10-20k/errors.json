@@ -1,0 +1,32 @@
+[
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v10",
+      "leapfrog-copy",
+      "churn",
+      "2937471921",
+      "20000",
+      "20000",
+      "16",
+      "True",
+      "None",
+      "0"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v10\", \"--engine\", \"leapfrog-copy\", \"--case\", \"churn\", \"--seed\", \"2937471921\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"16\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (74025) panicked at benches/state.rs:1279:13:\\nassertion `left == right` failed\\n  left: 19801\\n right: 19802\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.04\\nuser 0.03\\nsys 0.00\\n            22708224  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                1548  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  37  involuntary context switches\\n           113517048  instructions retired\\n           104982557  cycles elapsed\\n            21528936  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v10",
+      "leapfrog-copy",
+      "churn",
+      "4815162342",
+      "20000",
+      "20000",
+      "16",
+      "True",
+      "None",
+      "0"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v10\", \"--engine\", \"leapfrog-copy\", \"--case\", \"churn\", \"--seed\", \"4815162342\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"16\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (77348) panicked at benches/state.rs:1279:13:\\nassertion `left == right` failed\\n  left: 19902\\n right: 19903\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.02\\nuser 0.01\\nsys 0.00\\n            17022976  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                1205  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  52  involuntary context switches\\n            73618403  instructions retired\\n            54297985  cycles elapsed\\n            15843688  peak memory footprint\\n\", \"stdout\": \"\"}"
+  }
+]

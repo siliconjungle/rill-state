@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "layer": "generic-shapes",
+  "mode": "screen",
+  "claim": "development selection only, not final acceptance",
+  "workers": 2,
+  "source_sha256": "f575249fdcc42be60ab6b178e09f2aba43f597c76e1e8fee15bb830b089a616e",
+  "source_commit": "258fde62bf5a7f85f56e5c35cf88b0ad69b1ab78",
+  "binary_sha256": "0d9d9511bfb4f49461a6e13a4d99d82ab9925d88937d1d6dbb4a2beb92a1d0d6",
+  "driver_sha256": "20f7fd25704a797af529c85a69924395cc865d43cc999e3c9cfe345faa8a69b5",
+  "executor_sha256": "d299a3e601e7f2b3d92eb19ed8885f937f1dac9b303a7848c6902caf9b5b28ec",
+  "engines": [
+    "hashbrown",
+    "hashbrown-sip",
+    "imbl-hash",
+    "imhm",
+    "probe-flat",
+    "probe-paged16",
+    "probe-paged64",
+    "split",
+    "rill",
+    "rillfast"
+  ],
+  "shapes": [
+    "u64-inline",
+    "string-inline",
+    "u64-owned256",
+    "string-owned256",
+    "u64-shared256",
+    "string-shared256"
+  ],
+  "cases": [
+    "single",
+    "sparse",
+    "churn",
+    "burst",
+    "read",
+    "scan",
+    "slow",
+    "miss100"
+  ],
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "records": 20000,
+  "readers": 20000,
+  "rounds": 16,
+  "repetitions": 1,
+  "tasks": 960,
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "completed": 960,
+  "errors": 0,
+  "output_agreement": true,
+  "finished_at_unix": 1792612343.444572
+}

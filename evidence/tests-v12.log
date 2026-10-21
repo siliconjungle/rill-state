@@ -1,0 +1,40 @@
+    Finished `test` profile [unoptimized] target(s) in 0.11s
+     Running unittests src/lib.rs (rill-state/target/debug/deps/rill_state-406f9b738f92f262)
+
+running 2 tests
+test internal_tests::future_cursor_rejected ... ok
+test internal_tests::revision_exhaustion_does_not_change_state ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/contracts.rs (rill-state/target/debug/deps/contracts-740a71abe4b8690b)
+
+running 10 tests
+test invalid_layouts_fail_before_allocation ... ok
+test gaps_empty_batches_duplicate_keys_and_foreign_cursors ... ok
+test evicted_values_reclaimed_when_last_snapshot_is_released ... ok
+test zero_history_is_explicit_and_snapshot_outlives_store ... ok
+test panicking_value_clone_leaves_state_and_feed_unchanged ... ok
+test panicking_input_does_not_publish_partial_batch ... ok
+test colliding_non_numeric_keys_and_non_copy_values ... ok
+test complete_revisions_can_be_published_to_concurrent_readers ... ok
+test twenty_thousand_pinned_readers_share_a_revision ... ok
+test random_replay_old_snapshots_and_layouts ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.37s
+
+     Running tests/experimental.rs (rill-state/target/debug/deps/experimental-733c858346c1bae6)
+
+running 3 tests
+test retained_pages_release_values_after_the_last_owner ... ok
+test generic_strings_heap_values_and_borrowed_keys ... ok
+test collisions_wraparound_deletion_growth_and_retained_views ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.69s
+
+   Doc-tests rill_state
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
