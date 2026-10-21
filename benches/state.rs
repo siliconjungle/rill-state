@@ -413,8 +413,8 @@ impl Map for FlashCopy {
     }
 }
 struct EvmapCopy {
-    write: std::sync::Mutex<evmap::write::WriteHandle<Key, Value>>,
-    read: std::sync::Mutex<evmap::read::ReadHandle<Key, Value>>,
+    write: std::sync::Mutex<evmap::handles::WriteHandle<Key, Value>>,
+    read: std::sync::Mutex<evmap::handles::ReadHandle<Key, Value>>,
 }
 impl Clone for EvmapCopy {
     fn clone(&self) -> Self {
