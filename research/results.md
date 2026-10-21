@@ -342,3 +342,38 @@ insight-only full dump. This is a hypothesis, not a measured improvement.
 
 The original goal remains open, with source admission gaps and read-performance
 losses still explicit. Final holdout seeds remain unused.
+
+## Fixed array pages and hash-builder storage: completed proofs
+
+The v20/v21 experiments remove the Vec header and separate payload allocation
+from each compact-record page by storing fixed-size Arc arrays. Canonical keys
+can be copied into replacement records or shared through a separate Arc. A
+second policy compares sharing the hash builder with keeping that same builder
+inline; it does not change the hashing algorithm. Thirty core/experimental
+tests and Clippy pass, including collisions, zero hashes, borrowed lookups,
+canonical-key metadata, key reincarnation, seeded builders and final reclamation.
+
+Both versions passed 960 small and 960 full-size scalar proofs separately.
+The v20 generic matrix passed 1,792 small and 1,792 full-size checks plus 448
+four-reader probes. The v21 generic matrix passed 1,536 small and 1,536 full-size
+checks plus 384 four-reader probes. Every full-size run uses 20,000 records and
+20,000 logical reads per measured revision; these are not network connections.
+Configurations and policy combinations are not counted as additional libraries.
+
+Each version's parallel scalar screen completed 1,170 processes with matching
+logical outputs across 39 configurations. Those screens still show hashbrown
+leading read-only, sparse-update and dense-update cases. Removing an indirection
+has not established an actual speed improvement. Fresh serial matched-policy
+comparisons are running separately; no final holdout measurement has started.
+
+The v20 streaming retention extension passed 56 small and 84 full-size probes
+across four array layouts and three existing references. All retained snapshots
+matched their models, independently derived journal counts matched, and all
+tracked payloads were released after their final owner. With fixed256 payloads,
+64 recent snapshots and an initial pin, the array layouts retained 15.97 MiB of
+owned payloads versus 320.51 MiB for the whole-table-copy hashbrown adapter.
+Larger pages nevertheless retained more metadata: instrumented peak process RSS
+was 34.80 MiB for array-copy16 and 58.09 MiB for array-copy256, versus 450.97 MiB
+for hashbrown in that cell. These are instrumented process/payload measurements,
+not library-only heap sizes or timing results. Every cell and reproduction input
+is retained under evidence/retention-v20-20k.

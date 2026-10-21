@@ -84,6 +84,13 @@ Arcs, so copying a page shares untouched String/Vec allocations. This helps some
 heap-value publication workloads, but adds pointer reads and allocations; it does
 not improve every shape. The default Store has not switched to this prototype.
 
+Fixed-size `ArrayRecordMap` pages additionally compare copied/shared canonical
+keys and shared/inline hash-builder storage. Thirty core/experimental tests and
+Clippy pass. Full-size state/feed proofs and retained-reader probes pass for the
+registered new configurations; serial development timing is still in progress.
+The instrumented retention study releases every tracked payload after its final
+owner is dropped. Payload accounting is not total heap usage or a speed result.
+
 Default study lists omit the known investigative `scc-copy` native Clone chain,
 whose capacity doubles with each copy in pinned scc 3.8.8. It is not counted as a
 performance win or silently removed from the admission queue. A bounded native

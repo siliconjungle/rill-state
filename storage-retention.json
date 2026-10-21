@@ -173,6 +173,18 @@
     {
       "path": "build/shapes-v20",
       "reason": "Selected array-page/key-policy full-contract proofs and development performance inputs"
+    },
+    {
+      "path": "build/retention-v20",
+      "reason": "Required array-page key-policy streaming payload ownership/reclamation proof executable"
+    },
+    {
+      "path": "build/state-v21",
+      "reason": "Required shared/inline hash-builder comparison executable and seeded-builder full-contract proofs"
+    },
+    {
+      "path": "build/shapes-v21",
+      "reason": "Required shared/inline hash-builder comparison executable and seeded-builder full-contract proofs"
     }
   ],
   "safe_to_remove": [
@@ -259,6 +271,10 @@
     {
       "path": "evidence/tests-v20-initial.log",
       "reason": "Completed unmeasured precursor superseded by final checked layout/reincarnation proof build and logs; exact source history retained."
+    },
+    {
+      "path": "evidence/clippy-v21.log",
+      "reason": "Completed unselected lint staging superseded by successful factored-marker clippy proof; source history and successful log retained."
     }
   ]
 }
