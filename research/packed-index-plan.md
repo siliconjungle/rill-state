@@ -22,8 +22,10 @@ Primary source: https://docs.rs/crate/indexmap/2.14.2/source/src/inner.rs
 
 ## Registered variations and limits
 
-Eight fixed configurations: maximum fills 25/50/70/85, each with shared versus
-inline storage for the same hash builder. Use the same external revision and
+Sixteen fixed configurations: maximum fills 25/50/70/85, shared versus
+inline storage for the same hash builder, and lazy per-operation versus once per
+nonempty batch detachment. Once-per-batch pays for detachment even if the batch
+contains only absent deletes; empty batches never detach. Use the same external revision and
 exact ordered-journal adapter as other raw maps. Clone shares a whole table;
 publication detaches it, so this remains a whole-table COW design and is not
 expected to solve sparse owned-payload retention by itself. Dense iteration and
@@ -53,7 +55,7 @@ retained views, final payload reclamation, and user Clone/Hash/Drop panics.
 ## Evidence sequence
 
 First freeze/prove/measure the corrected sharded and upstream-control binary.
-Then build this family separately. Run the eight configurations in parallel
+Then build this family separately. Run the sixteen configurations in parallel
 through small/full scalar and generic exact-content/revision/feed checks and
 four-reader probes. Select candidates using parallel development measurements,
 then compare fixed configurations in serial fresh processes with hashbrown,
