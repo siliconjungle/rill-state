@@ -20,6 +20,18 @@ struct Page<K, V> {
     entries: Arc<[Option<Entry<K, V>>]>,
     len: usize,
 }
+// Keep the outer count in sync even when a clone or destructor unwinds after
+// earlier mutations in this table. This is basic validity, not batch rollback.
+struct LengthGuard<'a, K, V> {
+    page: &'a mut Page<K, V>,
+    total: &'a mut usize,
+    before: usize,
+}
+impl<K, V> Drop for LengthGuard<'_, K, V> {
+    fn drop(&mut self) {
+        *self.total = *self.total - self.before + self.page.len;
+    }
+}
 impl<K, V> Clone for Page<K, V> {
     fn clone(&self) -> Self {
         Self {
@@ -135,19 +147,21 @@ impl<K: Clone + Eq, V: Clone> Page<K, V> {
             .len()
             .checked_mul(2)
             .expect("capacity exhausted");
-        let mut old = std::mem::replace(&mut self.entries, vec![None; capacity].into());
-        let next = Arc::get_mut(&mut self.entries).unwrap();
-        if let Some(unique) = Arc::get_mut(&mut old) {
+        let mut grown: Arc<[Option<Entry<K, V>>]> = vec![None; capacity].into();
+        let next = Arc::get_mut(&mut grown).unwrap();
+        if let Some(unique) = Arc::get_mut(&mut self.entries) {
             for slot in unique {
                 if let Some(e) = slot.take() {
                     Self::place(next, e);
                 }
             }
         } else {
-            for e in old.iter().flatten() {
+            for e in self.entries.iter().flatten() {
                 Self::place(next, e.clone());
             }
         }
+        // A failed shared-entry clone leaves the original table installed.
+        self.entries = grown;
     }
     fn apply_group<const L: usize>(
         &mut self,
@@ -183,8 +197,9 @@ impl<K: Clone + Eq, V: Clone> Page<K, V> {
                     }
                     Mutation::Delete(_) => {
                         if found {
-                            Self::remove_at(entries, slot);
+                            let removed = Self::remove_at(entries, slot);
                             self.len -= 1;
+                            drop(removed);
                         }
                     }
                 }
@@ -282,14 +297,18 @@ impl<
         let hash = fingerprint(HP::original(&self.hasher).hash_one(key));
         self.pages[Self::part(hash)].get(key, hash)
     }
-    /// Insert or replace while preserving the canonical stored key.
+    /// Insert or replace while preserving the canonical stored key. If cloning
+    /// during growth fails, all existing bindings remain installed.
     pub fn insert(&mut self, key: K, value: V) -> Option<V> {
         let hash = fingerprint(HP::original(&self.hasher).hash_one(&key));
         let page = &mut self.pages[Self::part(hash)];
         let before = page.len;
-        let result = page.insert::<L>(key, value, hash);
-        self.len = self.len - before + page.len;
-        result
+        let guard = LengthGuard {
+            page,
+            total: &mut self.len,
+            before,
+        };
+        guard.page.insert::<L>(key, value, hash)
     }
     /// Remove a compatible borrowed key and close its table's probe chain.
     pub fn remove<Q: Hash + Eq + ?Sized>(&mut self, key: &Q) -> Option<V>
@@ -299,12 +318,16 @@ impl<
         let hash = fingerprint(HP::original(&self.hasher).hash_one(key));
         let page = &mut self.pages[Self::part(hash)];
         let before = page.len;
-        let result = page.remove(key, hash);
-        self.len = self.len - before + page.len;
-        result
+        let guard = LengthGuard {
+            page,
+            total: &mut self.len,
+            before,
+        };
+        guard.page.remove(key, hash)
     }
     /// Apply mutations, optionally grouping by table while preserving each key's
     /// order. Returned views must be published by a separate atomic staging layer.
+    /// A panic may leave a partial batch applied, with counts still consistent.
     pub fn apply(&mut self, ops: &[Mutation<K, V>]) {
         if ops.is_empty() {
             return;
@@ -317,13 +340,17 @@ impl<
                 let hash = fingerprint(HP::original(&self.hasher).hash_one(key));
                 let page = &mut self.pages[Self::part(hash)];
                 let before = page.len;
+                let guard = LengthGuard {
+                    page,
+                    total: &mut self.len,
+                    before,
+                };
                 match op {
-                    Mutation::Put(k, v) => page.put_ref::<L>(k, v, hash),
+                    Mutation::Put(k, v) => guard.page.put_ref::<L>(k, v, hash),
                     Mutation::Delete(k) => {
-                        page.remove(k, hash);
+                        guard.page.remove(k, hash);
                     }
                 }
-                self.len = self.len - before + page.len;
             }
             return;
         }
@@ -355,8 +382,14 @@ impl<
         for (p, page) in self.pages.iter_mut().enumerate() {
             if counts[p] != next[p] {
                 let before = page.len;
-                page.apply_group::<L>(ops, &hashes, &order[counts[p]..next[p]]);
-                self.len = self.len - before + page.len;
+                let guard = LengthGuard {
+                    page,
+                    total: &mut self.len,
+                    before,
+                };
+                guard
+                    .page
+                    .apply_group::<L>(ops, &hashes, &order[counts[p]..next[p]]);
             }
         }
     }
