@@ -8,6 +8,9 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
+#[cfg(feature = "experimental")]
+pub mod experimental;
+
 use std::collections::{hash_map::RandomState, VecDeque};
 use std::hash::{BuildHasher, Hash};
 use std::sync::{

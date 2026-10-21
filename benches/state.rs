@@ -243,6 +243,157 @@ map_impl!(imbl::OrdMap<Key,Value>,imbl::OrdMap::new());
 map_impl!(indexmap::IndexMap<Key,Value>,indexmap::IndexMap::new());
 map_impl!(btree_slab::BTreeMap<Key,Value>,btree_slab::BTreeMap::new());
 
+impl<const L: usize, const P: usize> Map
+    for rill_state::experimental::ProbeMap<Key, Value, hashbrown::DefaultHashBuilder, L, P>
+{
+    fn empty() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.iter() {
+            f(*k, *v);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        self.apply(ops);
+    }
+}
+impl<const L: usize> Map
+    for rill_state::experimental::SplitMap<Key, Value, hashbrown::DefaultHashBuilder, L>
+{
+    fn empty() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.iter() {
+            f(*k, *v);
+        }
+    }
+}
+impl Map for scc::HashMap<Key, Value> {
+    fn empty() -> Self {
+        Self::new()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.read_sync(k, |_, v| *v)
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.entry_sync(k)
+            .and_modify(|prior| *prior = v)
+            .or_insert(v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove_sync(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        self.iter_sync(|k, v| {
+            f(*k, *v);
+            true
+        });
+    }
+}
+impl Map for contrie::ConMap<Key, Value> {
+    fn empty() -> Self {
+        Self::new()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).map(|e| *e.value())
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.iter().count()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for e in self.iter() {
+            f(*e.key(), *e.value());
+        }
+    }
+}
+#[derive(Clone, Copy, Debug)]
+struct LeapValue {
+    value: Value,
+    kind: u8,
+}
+impl leapfrog::Value for LeapValue {
+    fn is_null(&self) -> bool {
+        self.kind == 0
+    }
+    fn is_redirect(&self) -> bool {
+        self.kind == 1
+    }
+    fn null() -> Self {
+        Self {
+            value: [0; 4],
+            kind: 0,
+        }
+    }
+    fn redirect() -> Self {
+        Self {
+            value: [0; 4],
+            kind: 1,
+        }
+    }
+}
+#[derive(Clone)]
+struct Leap(leapfrog::HashMap<Key, LeapValue, hashbrown::DefaultHashBuilder>);
+impl Map for Leap {
+    fn empty() -> Self {
+        Self(leapfrog::HashMap::with_capacity_and_hasher(
+            16,
+            Default::default(),
+        ))
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.0.get(k).map(|v| v.value)
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.0.insert(k, LeapValue { value: v, kind: 2 });
+    }
+    fn del(&mut self, k: &Key) {
+        self.0.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.0.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.0.iter() {
+            f(*k, v.value);
+        }
+    }
+}
+
 impl Map for imhm::Map<Key, Value> {
     fn empty() -> Self {
         Self::new()
@@ -1000,7 +1151,7 @@ fn options() -> Options {
 fn trace(o: &Options) -> Vec<Vec<Op>> {
     let mut seed = o.seed;
     let count = match o.case.as_str() {
-        "idle" | "read" | "scan" | "acquire" => 0,
+        "idle" | "read" | "scan" | "acquire" | "miss10" | "miss50" | "miss100" => 0,
         "single" => 1,
         "sparse" | "hot" | "churn" | "slow" | "feed" => o.records / 100,
         "burst" => o.records / 2,
@@ -1059,7 +1210,21 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
     let input = trace(o);
     let mut seed = o.seed ^ 0x1234;
     let reads: Vec<_> = (0..o.readers)
-        .map(|_| key(rng(&mut seed) % o.records as u64))
+        .map(|i| {
+            let raw = rng(&mut seed) % o.records as u64;
+            let percent = match o.case.as_str() {
+                "miss10" => 10,
+                "miss50" => 50,
+                "miss100" => 100,
+                _ => 0,
+            };
+            key(raw
+                + if i % 100 < percent {
+                    o.records as u64
+                } else {
+                    0
+                })
+        })
         .collect();
     if o.verify {
         let mut truth = BTreeMap::new();
@@ -1211,6 +1376,99 @@ fn main() {
         };
     }
     match o.engine.as_str() {
+        "scc-copy" => dispatch!(scc::HashMap<Key,Value>),
+        "contrie-copy" => dispatch!(contrie::ConMap<Key,Value>),
+        "leapfrog-copy" => dispatch!(Leap),
+        "probe-25-0" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,25,0>)
+        }
+        "probe-25-16" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,25,16>)
+        }
+        "probe-25-64" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,25,64>)
+        }
+        "probe-25-256" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,25,256>)
+        }
+        "probe-25-1024" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,25,1024>)
+        }
+        "split-25" => {
+            dispatch!(rill_state::experimental::SplitMap<Key,Value,hashbrown::DefaultHashBuilder,25>)
+        }
+        "probe-50-0" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,50,0>)
+        }
+        "probe-50-16" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,50,16>)
+        }
+        "probe-50-64" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,50,64>)
+        }
+        "probe-50-256" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,50,256>)
+        }
+        "probe-50-1024" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,50,1024>)
+        }
+        "split-50" => {
+            dispatch!(rill_state::experimental::SplitMap<Key,Value,hashbrown::DefaultHashBuilder,50>)
+        }
+        "probe-70-0" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,70,0>)
+        }
+        "probe-70-16" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,70,16>)
+        }
+        "probe-70-64" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,70,64>)
+        }
+        "probe-70-256" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,70,256>)
+        }
+        "probe-70-1024" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,70,1024>)
+        }
+        "split-70" => {
+            dispatch!(rill_state::experimental::SplitMap<Key,Value,hashbrown::DefaultHashBuilder,70>)
+        }
+        "probe-85-0" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,85,0>)
+        }
+        "probe-85-16" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,85,16>)
+        }
+        "probe-85-64" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,85,64>)
+        }
+        "probe-85-256" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,85,256>)
+        }
+        "probe-85-1024" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,85,1024>)
+        }
+        "split-85" => {
+            dispatch!(rill_state::experimental::SplitMap<Key,Value,hashbrown::DefaultHashBuilder,85>)
+        }
+        "probe-90-0" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,90,0>)
+        }
+        "probe-90-16" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,90,16>)
+        }
+        "probe-90-64" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,90,64>)
+        }
+        "probe-90-256" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,90,256>)
+        }
+        "probe-90-1024" => {
+            dispatch!(rill_state::experimental::ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,90,1024>)
+        }
+        "split-90" => {
+            dispatch!(rill_state::experimental::SplitMap<Key,Value,hashbrown::DefaultHashBuilder,90>)
+        }
         "std-hash" => dispatch!(HashMap<Key,Value>),
         "std-btree" => dispatch!(BTreeMap<Key,Value>),
         "hashbrown" => dispatch!(hashbrown::HashMap<Key,Value>),

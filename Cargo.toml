@@ -10,7 +10,8 @@ readme = "README.md"
 
 [features]
 default = []
-comparisons = ["dep:im", "dep:imbl", "dep:rpds", "dep:hashbrown", "dep:arc-swap", "dep:immutable-chunkmap", "dep:papaya", "dep:dashmap", "dep:evmap", "dep:flashmap", "dep:left-right", "dep:swap-arc", "dep:imhm", "dep:btree-slab", "dep:indexmap", "dep:vart", "dep:skipdb", "dep:mvcc_cell", "dep:rcu_cell", "dep:scc", "dep:flurry", "dep:leapfrog", "dep:contrie", "dep:txn"]
+experimental = []
+comparisons = ["experimental", "dep:im", "dep:imbl", "dep:rpds", "dep:hashbrown", "dep:arc-swap", "dep:immutable-chunkmap", "dep:papaya", "dep:dashmap", "dep:evmap", "dep:flashmap", "dep:left-right", "dep:swap-arc", "dep:imhm", "dep:btree-slab", "dep:indexmap", "dep:vart", "dep:skipdb", "dep:mvcc_cell", "dep:rcu_cell", "dep:scc", "dep:flurry", "dep:leapfrog", "dep:contrie", "dep:txn"]
 
 [dependencies]
 im = { version = "=15.1.0", optional = true }

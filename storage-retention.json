@@ -81,12 +81,24 @@
     {
       "path": "build/state-v7",
       "reason": "Required strengthened snapshot-revision and empty-publication comparison proofs and development timing executable"
+    },
+    {
+      "path": "build/state-v8",
+      "reason": "Exact interrupted expanded probing and additional-source proof/development executable; interrupted runs are not accepted as complete"
+    },
+    {
+      "path": "target",
+      "reason": "Active shared required build staging reused across all implementations; retire only after work is complete"
     }
   ],
   "safe_to_remove": [
     {
       "path": "build/state-v3",
       "reason": "Completed unmeasured intermediate; source revision and successful correctness log retained in Git, not selected as a measurement baseline"
+    },
+    {
+      "path": "build/pr-body.md",
+      "reason": "Completed PR creation input; exact published PR body is retained on GitHub and the required source and proofs are committed"
     }
   ]
 }
