@@ -8,9 +8,12 @@ import pathlib
 import statistics
 
 
-def describe(folder):
+def describe(folder, screen=False):
     receipt = json.loads((folder / 'receipt.json').read_text())
-    assert receipt['mode'] == 'serial' and receipt['workers'] == 1
+    if screen:
+        assert receipt['mode'] == 'screen'
+    else:
+        assert receipt['mode'] == 'serial' and receipt['workers'] == 1
     assert receipt['output_agreement'] and receipt.get('errors', receipt.get('failures', 0)) == 0
     rows = [json.loads(line) for line in (folder / 'runs.jsonl').read_text().splitlines()]
     assert len(rows) == receipt['tasks'] == receipt['completed']
@@ -45,8 +48,11 @@ def describe(folder):
         baseline = baselines.get((cell['shape'], cell['case']))
         if baseline:
             cell['ratio_to_hashbrown'] = cell['total_ms'] / baseline['total_ms']
-    return dict(claim='Descriptive serial development medians; not paired confidence, '
-                      'multiple-comparison corrected superiority or final acceptance',
+    claim = ('Parallel selection medians with potentially overlapping work; not isolated speed, '
+             'runtime capacity or final acceptance' if screen else
+             'Descriptive serial development medians; not paired confidence, '
+             'multiple-comparison corrected superiority or final acceptance')
+    return dict(claim=claim,
                 memory='Peak RSS includes the full process fixture, inputs, oracle and output storage; '
                        'not library-only heap memory',
                 cpu='Whole-process CPU includes setup, warmup and checks outside the timing interval; '
@@ -61,9 +67,10 @@ def describe(folder):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('folder', type=pathlib.Path)
+    parser.add_argument('--screen', action='store_true', help='Explicit parallel-selection report, never an isolated timing claim')
     args = parser.parse_args()
-    output = args.folder / 'descriptive-medians.json'
-    data = describe(args.folder)
+    output = args.folder / ('selection-medians.json' if args.screen else 'descriptive-medians.json')
+    data = describe(args.folder, screen=args.screen)
     with output.open('x') as stream:
         json.dump(data, stream, indent=2)
         stream.write('\n')
