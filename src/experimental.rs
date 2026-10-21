@@ -63,6 +63,8 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
             hasher: Arc::new(hasher),
         }
     }
+    // P is a const layout selector; both branches specialize at compile time.
+    #[allow(clippy::manual_checked_ops)]
     fn slot(&self, i: usize) -> &Option<Entry<K, V>> {
         if P == 0 {
             &self.pages[0][i]
@@ -70,6 +72,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
             &self.pages[i / P][i % P]
         }
     }
+    #[allow(clippy::manual_checked_ops)]
     fn slot_mut(&mut self, i: usize) -> &mut Option<Entry<K, V>> {
         if P == 0 {
             &mut Arc::make_mut(&mut self.pages[0])[i]

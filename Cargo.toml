@@ -50,6 +50,10 @@ name = "publication"
 harness = false
 required-features = ["comparisons"]
 
+[[example]]
+name = "scc_probe"
+required-features = ["comparisons"]
+
 [profile.dev]
 debug = 0
 incremental = false

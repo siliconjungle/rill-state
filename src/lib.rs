@@ -224,6 +224,10 @@ impl<K: Clone + Hash + Eq, V: Clone> Store<K, V> {
     }
 }
 impl<K, V, S> Store<K, V, S> {
+    /// Current complete revision, without acquiring or cloning a snapshot.
+    pub fn cursor(&self) -> Cursor {
+        self.current.cursor
+    }
     /// Clone the complete current revision, without copying entries.
     pub fn snapshot(&self) -> Snapshot<K, V, S> {
         self.current.clone()
@@ -311,8 +315,8 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher> Store<K, V, S> {
             .checked_add(1)
             .ok_or(RevisionExhausted)?;
         let operations: Arc<[Mutation<K, V>]> = operations.into_iter().collect::<Vec<_>>().into();
-        let mut next = self.current.clone();
-        if !operations.is_empty() {
+        let next = if !operations.is_empty() {
+            let mut next = self.current.clone();
             let root = Arc::make_mut(&mut next.root);
             for op in operations.iter() {
                 let key = match op {
@@ -351,16 +355,26 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher> Store<K, V, S> {
                     *page_slot = None;
                 }
             }
-        }
-        next.cursor.revision = revision;
-        let cursor = next.cursor;
+            next.cursor.revision = revision;
+            Some(next)
+        } else {
+            None
+        };
+        let cursor = Cursor {
+            revision,
+            ..self.current.cursor
+        };
         let batch = Arc::new(Batch { cursor, operations });
         // Reserve before publication so allocator failures cannot leave a visible revision
         // without its corresponding journal record. Rust allocation failure normally aborts.
         self.history.reserve(1);
         self.retained_operations += batch.operations.len();
         self.history.push_back(batch);
-        self.current = next;
+        if let Some(next) = next {
+            self.current = next;
+        } else {
+            self.current.cursor = cursor;
+        }
         while self.history.len() > self.config.history_batches
             || self.retained_operations > self.config.history_operations
         {

@@ -81,7 +81,7 @@ impl<S: BuildHasher> Engine for Rill<S> {
             .collect()
     }
     fn revision(&self) -> u64 {
-        self.store.snapshot().cursor().revision()
+        self.store.cursor().revision()
     }
     fn feed_summary(&self, after: u64) -> (usize, usize) {
         let mut n = 0;
@@ -1181,6 +1181,19 @@ fn trace(o: &Options) -> Vec<Vec<Op>> {
         .collect()
 }
 fn run<E: Engine>(mut engine: E, o: &Options) {
+    let diagnostic = std::env::var_os("RILL_DIAGNOSTIC").is_some();
+    if diagnostic {
+        std::thread::spawn(|| {
+            std::thread::sleep(std::time::Duration::from_secs(10));
+            eprintln!("diagnostic deadline reached");
+            std::process::exit(124);
+        });
+    }
+    let phase = |s: &str| {
+        if diagnostic {
+            eprintln!("phase: {s}");
+        }
+    };
     assert!(o.records > 0 && o.rounds > 0);
     let initial: Vec<_> = (0..o.records as u64)
         .map(|k| {
@@ -1188,10 +1201,15 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
             Op::Put(k, value(k, 0))
         })
         .collect();
+    phase("initial publish start");
     engine.publish(initial.clone());
+    phase("initial publish complete");
     // Warm the actual publication and lookup code on this process, then restore
     // initial values. No warm-up operation is included in the reported interval.
     for r in 0..8 {
+        if diagnostic {
+            eprintln!("warmup {r}");
+        }
         engine.publish(
             (0..o.records.min(128) as u64)
                 .map(|k| {
@@ -1227,6 +1245,7 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
         })
         .collect();
     if o.verify {
+        phase("oracle start");
         let mut truth = BTreeMap::new();
         for op in initial {
             if let Op::Put(k, v) = op {
@@ -1248,17 +1267,21 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
                 }
             }
             engine.publish(ops.clone());
+            phase("oracle published");
             let batches = engine.feed(after);
             assert_eq!(batches.len(), 1);
             assert_eq!(&*batches[0], &ops);
             after = engine.revision();
             let snap = engine.snapshot();
+            phase("oracle snapshot");
             assert_eq!(snap.revision(), after);
             assert_eq!(snap.len(), truth.len());
             assert_eq!(snap.contents(), truth);
+            phase("oracle contents");
             for k in &reads {
                 assert_eq!(snap.get(k), truth.get(k).copied());
             }
+            phase("oracle point reads");
             for (view, expected, revision) in &old {
                 assert_eq!(view.revision(), *revision);
                 assert_eq!(view.contents(), *expected);
