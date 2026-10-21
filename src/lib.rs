@@ -9,7 +9,7 @@
 #![warn(missing_docs)]
 
 use std::collections::{hash_map::RandomState, VecDeque};
-use std::hash::{BuildHasher, Hash, Hasher};
+use std::hash::{BuildHasher, Hash};
 use std::sync::{
     atomic::{AtomicU64, Ordering},
     Arc,
@@ -150,9 +150,7 @@ impl<K: Hash + Eq, V, S: BuildHasher> Snapshot<K, V, S> {
     }
 }
 fn hash_key<K: Hash, S: BuildHasher>(state: &S, key: &K) -> u64 {
-    let mut h = state.build_hasher();
-    key.hash(&mut h);
-    h.finish()
+    state.hash_one(key)
 }
 
 /// One committed batch of ordered mutations.

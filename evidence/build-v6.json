@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "command": "RUSTUP_TOOLCHAIN=stable cargo bench --features comparisons --no-run",
+  "source_sha256": "a97fb40e3278f884d8c6c625c81bd207ebc0ff11164a258e84584af1be74e5aa",
+  "compiler": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "flags": {
+    "RUSTFLAGS": null,
+    "CARGO_ENCODED_RUSTFLAGS": null,
+    "CARGO_PROFILE_BENCH_OPT_LEVEL": null,
+    "CARGO_PROFILE_BENCH_LTO": null
+  },
+  "profile": "Cargo bench default optimization settings; debug=0 incremental=false declared in hashed manifest",
+  "executables": {
+    "state-v6": "0a5b7462e6c2d8365c603088decc8a169cb172035563b00cdbdd651d2e278e1f",
+    "publication-v6": "19a80ece0c202d255ca4c56fe06ba670bd33114565f403cc778ba7ff71f594dd"
+  }
+}

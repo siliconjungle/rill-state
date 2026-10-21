@@ -1,0 +1,35 @@
+name: Rust contracts
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: ["1.85.0", stable]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          toolchain: ${{ matrix.rust }}
+      - run: cargo test --locked --no-default-features
+      - run: cargo doc --locked --no-default-features --no-deps
+  comparisons:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+      - run: cargo fmt --all --check
+      - run: cargo bench --locked --features comparisons --no-run
+      - name: Exact comparator behavior (no speed claims from shared CI)
+        run: |
+          for engine in rill-4096-64 rillfast-4096-64 imbl-hash imhm rpds-hash hashbrown chunkbatch-16 vart skipdb mvcc-16; do
+            cargo bench --locked --features comparisons --bench state -- --engine "$engine" --case churn --records 2000 --readers 2000 --rounds 12 --verify
+          done
+      - name: Concurrent publication contracts
+        run: |
+          for engine in rwlock mutex arc-swap rcu-cell; do
+            cargo bench --locked --features comparisons --bench publication -- --engine "$engine" --threads 4 --rounds 32 --verify
+          done
+      - name: Investigative SwapArc baseline (known arm64 freshness failure retained)
+        continue-on-error: true
+        run: cargo bench --locked --features comparisons --bench publication -- --engine swap-arc --threads 8 --rounds 32 --verify

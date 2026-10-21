@@ -1,0 +1,497 @@
+{
+  "schema": 1,
+  "note": "Published source identity only; semantic capability decisions are separate.",
+  "packages": [
+    {
+      "name": "im",
+      "version": "15.1.0",
+      "repository": "https://github.com/bodil/im-rs",
+      "description": "Immutable collection datatypes",
+      "license": "MPL-2.0+",
+      "source": "https://docs.rs/crate/im/15.1.0/source/",
+      "published_checksum": "d0acd33ff0285af998aaf9b57342af478078f53492322fafc47450e09397e0e9",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "e20b0a6e5d2d5bf66e4426ff6b4858670142cca1b8ffc4112e84953ce5b20954",
+        "Cargo.toml.orig": "ed166e1632cf56cdfda63a5933efaf7b2e7e1b5309c7194410a27592c829bb0a",
+        "README.md": "324883b8da0710ebab5569722ba909dfc734659b11168faf955f1106c5fc400e",
+        "src/lib.rs": "b6ef49670f5baf4270a46da4788a9478162baecb336c7469dc3a03ee81df7a59",
+        "build.rs": "0c187f99a0ce4d13fba739f9dc6c92ed1e0f2307984e101556574796c81406cb"
+      }
+    },
+    {
+      "name": "imbl",
+      "version": "7.0.2",
+      "repository": "https://github.com/jneem/imbl",
+      "description": "Immutable collection datatypes",
+      "license": "MPL-2.0+",
+      "source": "https://docs.rs/crate/imbl/7.0.2/source/",
+      "published_checksum": "46bad832b9b463ed9398b8506488cc2e3b897a9d44f13af115f382aac71f4fec",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "4ce875e3cca4d6595889dc0d1b46f67afaf1cf63768ede4d500b1cfe52417f55",
+        "Cargo.toml.orig": "63aa57104f6efafe2e0b0a3941d5d44631ad31d3446448040df1fdf3916ffc2f",
+        "README.md": "13a5e22ae62c9969272ad79bd0213a300cfb2150e42825d178b398225d7fb264",
+        "src/lib.rs": "28b68943bb631924ca1721cf891c6722cfcccb68a21168286d65a9e17d2a141d"
+      }
+    },
+    {
+      "name": "rpds",
+      "version": "1.2.1",
+      "repository": "https://github.com/orium/rpds",
+      "description": "Persistent data structures with structural sharing",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/rpds/1.2.1/source/",
+      "published_checksum": "e025feb26210bc196b908e72deb063b1b4000754304341cbc168a1e72c857ebc",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "133c68476554402efb8713b0b3635cd51a880fd6361bb37b7089f93f9d709211",
+        "Cargo.toml.orig": "0a977678da90c4b602dc1ae4a78371a3841c04b3372d15287fb79c496939ff70",
+        "README.md": "2333c2712fdd1d72ae1201fb4b664db7f14d86641dab7eefe5df14e7fbb8be46",
+        "src/lib.rs": "6321abbbf32cff0f6d759b961b2f230f3a008fc05997cc1a47f9ea1b13cbd172"
+      }
+    },
+    {
+      "name": "archery",
+      "version": "1.2.3",
+      "repository": "https://github.com/orium/archery",
+      "description": "Abstract over the atomicity of reference-counting pointers",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/archery/1.2.3/source/",
+      "published_checksum": "33ca55ee147b1926dbea904f50fe4902494e97bc742205abbbf10c709e43815f",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "7bb12b963e72f765a05b55cecee1120041c0f3e14a28e7fb448abf6eaeaa22ec",
+        "Cargo.toml.orig": "110c6be565d99086215ecef305f39932be61e677136ab23bbedce74e3dbeb875",
+        "README.md": "6ef16abf61b7a66e7eefd20b9108f4b535f1807576131508e9cf880c60613e15",
+        "src/lib.rs": "01242f45b40922159ae2f4b1f757128770dcdebcd79e18ae60b9933cdd0ce2e8"
+      }
+    },
+    {
+      "name": "immutable-chunkmap",
+      "version": "2.1.4",
+      "repository": "https://github.com/estokes/immutable-chunkmap",
+      "description": "A fast immutable map and set with batch insert and update methods, COW operations, and big O efficient implementations of set and merge operations",
+      "license": "Apache-2.0 OR MIT",
+      "source": "https://docs.rs/crate/immutable-chunkmap/2.1.4/source/",
+      "published_checksum": "da5fe4d67d09ce2c08ff406f6758ec716206c28be92357ae5d5f798c2ef4b548",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "b235113113df22a4ef2b6af55b6b08a429aea5b3384130bbc350c15076bfe326",
+        "Cargo.toml.orig": "1573441c6e8e313841604c8fa52017c3c383070ba7d0a6594eedd901a5e6ea35",
+        "README.md": "bab576b972f18be9c83cad6e0af7145802a65aed139f6f7333deebd74ba3ac30",
+        "src/lib.rs": "1e4cc575e3f644855d2b46fdb715c5857749da1086c53056a1f133f6597bf726",
+        "src/map.rs": "e8224f6fe31d5d9fdde0bf2ef894345efff2bbf8a8a86ee6d7e77f8b4f7c3fb6"
+      }
+    },
+    {
+      "name": "imhm",
+      "version": "0.1.0",
+      "repository": "https://github.com/estokes/imhm",
+      "description": "A fast immutable hashmap",
+      "license": "Apache-2.0 OR MIT",
+      "source": "https://docs.rs/crate/imhm/0.1.0/source/",
+      "published_checksum": "fface6bccf2e9ad69a14e853d2c00bf13d40ed59ab63d07dde555a67acb67220",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "33f638683954bd0c7e4239fc53f711931c754abae4935170c0a54301547c9ada",
+        "Cargo.toml.orig": "75ee20d87fedd540387dce23b86c583878a50f1aeeebd4e53fc9188f0a2ca1ab",
+        "src/lib.rs": "a068e8f7019f7c1c3e24c4134fdc1aa612903735467ec85d4bc3eae1e522c3e6"
+      }
+    },
+    {
+      "name": "persistent_hashmap",
+      "version": "0.4.0",
+      "repository": "https://github.com/JoNil/persistent_hashmap",
+      "description": "Persistent hashmap is a library for working with memory mapped hashmaps",
+      "license": "MIT/Apache-2.0",
+      "source": "https://docs.rs/crate/persistent_hashmap/0.4.0/source/",
+      "published_checksum": "0c329d38bdd60f866811da79e199b8b9bdab9c3e4bea2b1749240d87ef1268dc",
+      "in_lock": false,
+      "audited_files_sha256": {
+        "Cargo.toml": "4fa51fea576d1a2169e492c18ea985fd3e945a81bc3be8f11892675a25f2fc40",
+        "Cargo.toml.orig": "245777e19686aed71385ade79cacef8254a880ef29062c886ff9f3f77631f02e",
+        "README.md": "99d6023cfd692e27ac0b9e0c03483e045d2722786bf508785e31cbf40b1249bd",
+        "src/lib.rs": "6a00488f987f8633920581cb205cabf1e4edb20095ecb223086407dbdd098587"
+      }
+    },
+    {
+      "name": "arc-swap",
+      "version": "1.9.3",
+      "repository": "https://github.com/vorner/arc-swap",
+      "description": "Atomically swappable Arc",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/arc-swap/1.9.3/source/",
+      "published_checksum": "380962b3d93b99642e50b9febf72c071e97e8b32d86eae9cf4ef582bb960ae6e",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "eda72cb27b9549947ea22d7bdf568297abb1d78231eb501930779b1800ef0e8b",
+        "Cargo.toml.orig": "a07613f77f816efdfb100fabeb94f3ca8934605b763144dba9bced855833e4a3",
+        "README.md": "ac6a84fa980c519da19dee679a728e4c34b2f9ff938de99452e797a464bfdd24",
+        "src/lib.rs": "fad2e25575403e9d8d9078d6bfd3d74a172680f046931bb17d64956574110d60"
+      }
+    },
+    {
+      "name": "swap-arc",
+      "version": "0.1.1",
+      "repository": "https://github.com/terrarier2111/SwapArc",
+      "description": "A swappable Arc",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/swap-arc/0.1.1/source/",
+      "published_checksum": "56706d45a27230f3497fa83f8fdc338b95c00f443a9717876d65b071df7735a2",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "a899b8405cb502444f586f7df59a04753b481f4a14a17532137e4c955a49e2a4",
+        "Cargo.toml.orig": "d44d7f06b69330a1a4607f14c8d09eb78453873aa220604264eff22aded6d067",
+        "README.md": "3d7986a9385408c3c1140c1aeda85a28241bb228b3ff43ef4b49b22f1057c3ce",
+        "src/lib.rs": "9d49cd63ce1e087debc69e7cf0e3aee9b6128fae7c3d26231f92902d6df95f63"
+      }
+    },
+    {
+      "name": "triomphe",
+      "version": "0.1.17",
+      "repository": "https://github.com/Manishearth/triomphe",
+      "description": "A fork of std::sync::Arc with some extra functionality and without weak references (originally servo_arc)",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/triomphe/0.1.17/source/",
+      "published_checksum": "0d15f4f5898bcfc5d8a8e45ed30b2f108d710c1a2e5489dbf80e078f707181bc",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "d2ffd8f262ee3eb5b6dcca6fc4f7652aeb66195d18aa9b814789c54931a0d65b",
+        "Cargo.toml.orig": "fda2b13143ce48bd5b0b2e76ed345b5d3a96087a4a1e50e842ae5aea8d413308",
+        "README.md": "ea03293a43524ed445c33816d32e1987ec756b1650afbf140510908e336cd49f",
+        "src/lib.rs": "485510c8cbdf13d415214bf9997034ce15e37b56e91b3153e7a689e2cd86a8f4"
+      }
+    },
+    {
+      "name": "evmap",
+      "version": "11.0.0",
+      "repository": "https://github.com/jonhoo/evmap.git",
+      "description": "A lock-free, eventually consistent, concurrent multi-value map.",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/evmap/11.0.0/source/",
+      "published_checksum": "1b8874945f036109c72242964c1174cf99434e30cfa45bf45fedc983f50046f8",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "0041be4b3b403354525666ad01c2c28d56137173514087de16586cab636061c7",
+        "Cargo.toml.orig": "55f253848b0ee0e5cc69aeba05ba268e9267f022bc9b19b02dafb9c20f7a902c",
+        "README.md": "c0440d48f112dc1796ee91e1b03282162511f590df899bc2903beb4dd0ef7f04",
+        "src/lib.rs": "886ecb7a5b42615b461bb5503a3c5af79e95bbbcea22ddeccc5f946df720961c"
+      }
+    },
+    {
+      "name": "left-right",
+      "version": "0.11.8",
+      "repository": "https://github.com/jonhoo/left-right.git",
+      "description": "A concurrency primitive for high concurrency reads over a single-writer data structure.",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/left-right/0.11.8/source/",
+      "published_checksum": "8bc015ded5d9b3054dbbdb63332cdd6ee42352ccef19e911e25117490e2f48ee",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "b1e58cfdcf46d30fb83deb7b10a8ee4a0b951f2b30cb13f21db7a6101fab6765",
+        "Cargo.toml.orig": "04a301a67e0075b31a5e8dcf9c8b4bbb22485f0881737b19c87622979174cdf8",
+        "README.md": "2c130c138fc6e2ad981f8694fcdc9be219db9a81de40fe7f720434cf8ec0a5aa",
+        "src/lib.rs": "15b27ae356cc0ba9251b2ce64e9f535f28e16210dc11bd568d41cb0697357ed3"
+      }
+    },
+    {
+      "name": "flashmap",
+      "version": "0.2.0",
+      "repository": "https://github.com/Cassy343/flashmap",
+      "description": "A lock-free eventually consistent concurrent hash map.",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/flashmap/0.2.0/source/",
+      "published_checksum": "566589e568236559f699a9cd296e939deafb36338bd7781d462538eb5bef5254",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "1e55b8d5863f024e70959a7af4f2681cbde6e5e19708459911cf4bd7e7ec116d",
+        "Cargo.toml.orig": "fbe88cb6b69addcd2ed84fcb910ef8f217c686c97b455e1f0af054a1ad4a2f27",
+        "README.md": "0e5a69e32d8b9de7cdccb6e682196a0c0864f9439c8b4927c3a847a7efc9e395",
+        "src/lib.rs": "496407a1390b247fbac89392715ab7071871dbed552c0c8cf020fcf0c565f2c9"
+      }
+    },
+    {
+      "name": "rcu_cell",
+      "version": "1.2.4",
+      "repository": "https://github.com/Xudong-Huang/rcu_cell",
+      "description": "a lockless rcu cell implementation",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/rcu_cell/1.2.4/source/",
+      "published_checksum": "ac63dc14052e2dea100fe8e3b256bb3e29799f4a059ad3af871811856218fc5b",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "9dbb1e4567302df2eafc3b73afa9e61b834724d43d700c441d39c7ee977c97b7",
+        "Cargo.toml.orig": "69db8dff04cd79b29047d7d837e7fbf9973bce8e6d48e5f42257818651777d2c",
+        "README.md": "d2a56b22c9cae5b1cb0351ba23803028824c239617a0464c628f27fb9dbafdf9",
+        "src/lib.rs": "7163b85836ead070269fc20d6747d86e7fc2ab4aed948f47d5df8db39cb4c30b",
+        "build.rs": "7296dd2b0dc9e6e36dbdf2d6cd0ebdd86e65bc9b5ce5f2876c3f48e89f66dce3"
+      }
+    },
+    {
+      "name": "scc",
+      "version": "3.8.8",
+      "repository": "https://codeberg.org/wvwwvwwv/scalable-concurrent-containers/",
+      "description": "A collection of high-performance asynchronous/concurrent containers with both asynchronous and synchronous interfaces",
+      "license": "Apache-2.0",
+      "source": "https://docs.rs/crate/scc/3.8.8/source/",
+      "published_checksum": "5d5f8ca67c4f6208caf824037a6a9df0211b4e0937fccc4f543441f294d04511",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "d2b56ba1bd540d1c33c71d0495fbfc4af0bf0dbfb74dd8fcab517e23d1472c2c",
+        "Cargo.toml.orig": "463cbeae000ccc01a0074a2b36b1697ed27170acfc4a78f6563ec3a31780dabe",
+        "README.md": "75090a6cdc6feba4eb9bee2c80439f2851dc4403319250397659225f0ec7c74c",
+        "src/lib.rs": "b10ee8a24cca10296aab09de7c42f3e46c4c1e08a6e6c8d51ddd292ade78a8e5"
+      }
+    },
+    {
+      "name": "papaya",
+      "version": "0.2.5",
+      "repository": "https://github.com/ibraheemdev/papaya",
+      "description": "A fast and ergonomic concurrent hash-table for read-heavy workloads.",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/papaya/0.2.5/source/",
+      "published_checksum": "da2442474a9404698c42509b8967f437249dbc7b50493e83020333d3943ec0ae",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "acd0150afcb1606df748c73bc6a04ab29c9a370bd0c7ec5150fc17142e54bb07",
+        "Cargo.toml.orig": "e2d1d281161b4788b4b991acdfffa7f7eda067e7cb8dfdf10325f88eb3b0ad7a",
+        "README.md": "ce9c9938baf111dbe343fd44721a8b9d864cc032ee073a5a8d8235b7e36575d7",
+        "src/lib.rs": "2ae80c7753a1e821596965fd7a5db05a28aadcba798f55740c30dfadfde5eb21",
+        "src/map.rs": "e363fa8facb32f6fda1085d6870d6b7bcc4eab41117517c726e73db93bd68829"
+      }
+    },
+    {
+      "name": "dashmap",
+      "version": "6.2.1",
+      "repository": "https://github.com/xacrimon/dashmap",
+      "description": "Blazing fast concurrent HashMap for Rust.",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/dashmap/6.2.1/source/",
+      "published_checksum": "e6361d5c062261c78a176addb82d4c821ae42bed6089de0e12603cd25de2059c",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "e106c81b532f1aa7b98b969afc144003827d9f67b353d5d973d286ae62117273",
+        "Cargo.toml.orig": "4d9d992554db66bf008259c4164f4a66a6cd41205a5d8fea09ea35b7eee7ffa1",
+        "README.md": "b16e318aa1a951dfe65d83c1766e23a51f58d4796e1197fdd6cb6096ad326409",
+        "src/lib.rs": "64b90c70475da6b2def36975f9ae21ed3c71b1d0fb8d4ccd1fcbd3bb260be582"
+      }
+    },
+    {
+      "name": "flurry",
+      "version": "0.5.2",
+      "repository": "https://github.com/jonhoo/flurry.git",
+      "description": "Rust port of Java's ConcurrentHashMap",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/flurry/0.5.2/source/",
+      "published_checksum": "cf5efcf77a4da27927d3ab0509dec5b0954bb3bc59da5a1de9e52642ebd4cdf9",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "b1d7701ec8a5b9319c710f8bc5897adc5d7d9425ffa399b5e172c8f1bf0b188f",
+        "Cargo.toml.orig": "16e17da6732ebd02778a6c685a46c853de5a43165112338a993cf42dd384fffb",
+        "README.md": "78d6233594988f7bf3ed6dbe23b4c100ee6e9b90d94f863996d525e759bddcc8",
+        "src/lib.rs": "77be60e21b927d6479fdc8d9334ae9c91d1b4db0cc8d401ffc8da44519cd906f",
+        "src/map.rs": "2f9d2a9b6a04533404a1dfb560186cf8a99dea542767aa65d752af413275a147"
+      }
+    },
+    {
+      "name": "leapfrog",
+      "version": "0.3.3",
+      "repository": "https://github.com/robclu/leapfrog",
+      "description": "A fast, lock-free concurrent hash map",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/leapfrog/0.3.3/source/",
+      "published_checksum": "051c43359ac3022f1703b7996522be4db9c5e5e8781636ee90a41c4c567ff0ee",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "39e1e9652ecd390568c4ae4049a8e23cd80d2240636d4b49a62299f683a48dec",
+        "Cargo.toml.orig": "57aafcdbea039268bdce87fb3b901b159528d6db67708c66f42c607dac0eda07",
+        "README.md": "3bb63d9f44a4dc5ac6aafebfd2a1f9b0028fc403c1a21002680f3bb49234ba5e",
+        "src/lib.rs": "5752d7749edb5cecfa0dcb2ebd7d1c19c81310f7d5a980388e67abc3469c5752"
+      }
+    },
+    {
+      "name": "contrie",
+      "version": "0.1.4",
+      "repository": "https://github.com/vorner/contrie",
+      "description": "Concurrent map and set",
+      "license": "Apache-2.0/MIT",
+      "source": "https://docs.rs/crate/contrie/0.1.4/source/",
+      "published_checksum": "d4658d3e5b0a1219f7c6f8af841d67507288008b76fce9cc2edb59f1a2e6123e",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "f577db7e85b2422f856cfb9a574a82e7014b11a898ce3a30f014756952266cda",
+        "Cargo.toml.orig": "9ac2f1e93939098538004919fc2ae71257748805fbcfb76a3067ca886364aca1",
+        "README.md": "c363b5f4fe26b6e7a449c3d86361eef9edecb9eda154ecf0e617375668902f03",
+        "src/lib.rs": "6c3fdfd63ca851bf9f2f7e9180c547d2ad0558550660555e9817d39462d3885f",
+        "src/map.rs": "155fe4a130841da3c209bb961aee236aa095d0b3073fd9095aa022b55c57d24b"
+      }
+    },
+    {
+      "name": "crossbeam-skiplist",
+      "version": "0.1.3",
+      "repository": "https://github.com/crossbeam-rs/crossbeam",
+      "description": "A concurrent skip list",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/crossbeam-skiplist/0.1.3/source/",
+      "published_checksum": "df29de440c58ca2cc6e587ec3d22347551a32435fbde9d2bff64e78a9ffa151b",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "9982cbe15fa9d1a100730cfd7787004164023d1ec59578848e6084c7a00edd0a",
+        "Cargo.toml.orig": "4bf58dbb04bc4c28b6c42094dbf3edeab041934362d721957110ded362591665",
+        "README.md": "a83c3885c914b2e01b48f06ecd1533e04d70ed9020494183662652e4a2b6d7f5",
+        "src/lib.rs": "128fd0c566d25ac57e1a7552fb58421a75e9062a91bb23d5f2c1340ddf101bc1",
+        "src/map.rs": "3855e0b4e81da637f59607e124c8003552ed259d56445011d6b1916bb9a38148"
+      }
+    },
+    {
+      "name": "skipdb",
+      "version": "0.2.1",
+      "repository": "https://github.com/al8n/skipdb",
+      "description": "An embedded, in-memory, zero-copy, atomicity, consistency, MVCC, almost lock-free and serializable snapshot isolation database engine.",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/skipdb/0.2.1/source/",
+      "published_checksum": "12300a6fbbecfb551d7efd3ccfb1cd7d4bf0cf04633ffd65a8a9951884c62711",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "e6a0d727e6cff28ac2147a6b9f7d37530d3211a4ab08f3e2d75bb10395400343",
+        "Cargo.toml.orig": "e42537ce95178da01c7d8ebfa52531ab03fed102956c648aa1a9c6a0e9e76b98",
+        "README.md": "cbbc085479fff5198e25f9fdd78614a4197c8cf995e369bfb2dfbe72d5238b97",
+        "src/lib.rs": "2cd1731ad5a058bdacf932afb1ad64a3d2efcd58640949f1741d9ef6d8c3d1ec",
+        "src/optimistic/write.rs": "cc435085fd76f7bdc0227cf5032f5017284b3718eb39d503c31272b3d09bc131"
+      }
+    },
+    {
+      "name": "mvcc_cell",
+      "version": "0.1.2",
+      "repository": "https://gitlab.com/2e71828/mvcc_cell",
+      "description": "Software-transactional memory for Rust",
+      "license": "Apache-2.0",
+      "source": "https://docs.rs/crate/mvcc_cell/0.1.2/source/",
+      "published_checksum": "cb761277b6c68c669e34c682ebb2b3405a757be1591a79c93ef005a1b16aff04",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "752f1688e3451c61a27d06095a17361236250845ab97dccd8bfad194699131d5",
+        "Cargo.toml.orig": "db101c12201646cc99ab219b46abaa66faa09b3f2ec524b93f61fb339808022d",
+        "README.md": "38c08b791b59778fe64a197000c5a1f1c7265f5e2570acd37a311a848311d3d2",
+        "src/lib.rs": "4f0ccbbffc62b3e16a9f555119a9fbbbc5d098499f008850d679d6323bc3755f"
+      }
+    },
+    {
+      "name": "boxcar",
+      "version": "0.2.14",
+      "repository": "https://github.com/ibraheemdev/boxcar",
+      "description": "A concurrent, append-only vector",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/boxcar/0.2.14/source/",
+      "published_checksum": "36f64beae40a84da1b4b26ff2761a5b895c12adc41dc25aaee1c4f2bbfe97a6e",
+      "in_lock": false,
+      "audited_files_sha256": {
+        "Cargo.toml": "8e772ae3e5c44e9efe2a9b41ef2516343f295435daf98434c3a84dee2a1e1377",
+        "Cargo.toml.orig": "ac9fa9820d0a89631d91ca73db906547bfe3e918d8a321f2e7f40e9fae014924",
+        "README.md": "b4500225efa69a2fa5a7df124777ddb849cd078d254f1261d0057d08b9b6f8db",
+        "src/lib.rs": "f0f54c15ca3796dfd6da2541954e3a75097a759d89f27ebd280a4d7dc8f093f8"
+      }
+    },
+    {
+      "name": "hashbrown",
+      "version": "0.17.1",
+      "repository": "https://github.com/rust-lang/hashbrown",
+      "description": "A Rust port of Google's SwissTable hash map",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/hashbrown/0.17.1/source/",
+      "published_checksum": "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "afcb0e62d498f756bd4ddf69785c8282d01ee4fa40016158c7eac12ceb302f8c",
+        "Cargo.toml.orig": "3e1f9929f381f46f969ea49faab281dc3c6ee08b24ef41f3ac8e2eec209ca078",
+        "README.md": "d58265d24271a49876da9c77eaaa00093e01e41011e7e603da1f738ecdec4f47",
+        "src/lib.rs": "23de74f311e3584574b39041df306b0cbb9ecb700ed33fba1e02ba9d26f70a23",
+        "src/map.rs": "b79497ce537ffc5ed4f8f3399434b9216c01e7927fdc434fee190e9e9ce2abb0"
+      }
+    },
+    {
+      "name": "indexmap",
+      "version": "2.14.2",
+      "repository": "https://github.com/indexmap-rs/indexmap",
+      "description": "A hash table with consistent order and fast iteration.",
+      "license": "Apache-2.0 OR MIT",
+      "source": "https://docs.rs/crate/indexmap/2.14.2/source/",
+      "published_checksum": "cc4e190f5d26ca7051642629da2c52fc03bde85a03197c99408dcd291734c855",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "7b2aec83d5afb43fa5788bda468ce1d65df9dd8f406058e2eada3546ef906ea1",
+        "Cargo.toml.orig": "d199a2f6628011d552dae2748529adf8445259fb6e7ad504cd0f0b632ad58db3",
+        "README.md": "f002494bf69e5b7dde911cfdb99330dfdbc4780d79a8e51847dfb7d883d9ab0f",
+        "src/lib.rs": "c8e2f1c0e488ab63d832392a83e34fa82293854bfb5ff3def8eeca9545ab2bdd",
+        "src/map.rs": "3c02a5a60bf0caa5910a0b41165a84d85a91c6ba0e83426a090bb109a9e785fb"
+      }
+    },
+    {
+      "name": "btree-slab",
+      "version": "0.6.1",
+      "repository": "https://github.com/timothee-haudebourg/btree-slab",
+      "description": "A memory compact Slab-based B-tree implementation",
+      "license": "MIT/Apache-2.0",
+      "source": "https://docs.rs/crate/btree-slab/0.6.1/source/",
+      "published_checksum": "7a2b56d3029f075c4fa892428a098425b86cef5c89ae54073137ece416aef13c",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "f37fa209d7080053c86a25c22a5c153d2f01f46fa3e6e77cb288fdd23d7b2ecb",
+        "Cargo.toml.orig": "8571f847f2341ce3c46acdb1450781963bb0893c334e46deb8077e18e52075b3",
+        "README.md": "e0c6784b954bfdbdf5cdac7f836eca82e7ebdb2978a628649ffe7e38681cfa25",
+        "src/lib.rs": "6485d3a2b0e5272ef5eafc79ffe739d8e75d29a279796b670052057ce7f58ecc"
+      }
+    },
+    {
+      "name": "vart",
+      "version": "0.11.0",
+      "repository": "https://github.com/surrealdb/vart",
+      "description": "An immutable versioned adaptive radix trie.",
+      "license": "Apache-2.0",
+      "source": "https://docs.rs/crate/vart/0.11.0/source/",
+      "published_checksum": "b8cbaa03243c2457c85001bd95dae5ea7f78d12f0fb4c9759ed2a7659e6da3fc",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "d628efc4098e156d73bdbaae598e3443cd334c6db2b1c88792af09a86ceee42f",
+        "Cargo.toml.orig": "232db6be42bca731b8c93254fa762ae912d21ba7e23e9a1a874e3f4c78888ff6",
+        "README.md": "12f2d42ae91eb5814cec5cffd26524c234f3b229799f0113f11cd2e4ca4c2aab",
+        "src/lib.rs": "80b60d400c90446e268045e4fff3c2001a0e37553ae0683d385a6457f6e9ffe6",
+        "src/art.rs": "f60a511912c562a94baeffc08eeb83dfe59e356054a33070fcb169dc81e68720"
+      }
+    },
+    {
+      "name": "crossbeam-epoch",
+      "version": "0.9.21",
+      "repository": "https://github.com/crossbeam-rs/crossbeam",
+      "description": "Epoch-based garbage collection",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/crossbeam-epoch/0.9.21/source/",
+      "published_checksum": "dc74980687109a3b14c72fd458107bf0baa1da1a1a805e178d15501ba9b86d9d",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "630ac9711ae7d4844bd8b60929934e28c945c87a28eab65e320f940efb247805",
+        "Cargo.toml.orig": "8e56443ece70ac8d688da4cf423de4358593135a2d7017ec2b0fd7fe3a4bff43",
+        "README.md": "20b4b274397d2694db1254764b2cf266a33b3ce68918140f6a95b97a3653f99a",
+        "src/lib.rs": "a69c62d04cee1ab25c33f54fa1d289266a69a44d16016b19b4440c055335d9ed",
+        "build.rs": "c8c35fc536a2e6481549bc13979293cb51244cd9c72d4ed9e35c22a1d70fa9ae"
+      }
+    },
+    {
+      "name": "seize",
+      "version": "0.5.1",
+      "repository": "https://github.com/ibraheemdev/seize",
+      "description": "Fast, efficient, and predictable memory reclamation for concurrent data structures.",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/seize/0.5.1/source/",
+      "published_checksum": "5b55fb86dfd3a2f5f76ea78310a88f96c4ea21a3031f8d212443d56123fd0521",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "7f50cbca360d5a8ef665b9f544ca8afdd9d2641e0a7b3d99e3b977c5aa0951e6",
+        "Cargo.toml.orig": "2dda144483d578d9a05897d3d483c9ef26a0d6f46d2974a36fff00360744124a",
+        "README.md": "231a5a1f5dd7fe565ee6f6f9d5ccdae17589606858a8dd777257216eb1f7b34d",
+        "src/lib.rs": "bcd4b4e1ad7cad645db9cba43124614d8b787b0d025bd5a148ad5f6c6714a2d3"
+      }
+    }
+  ]
+}

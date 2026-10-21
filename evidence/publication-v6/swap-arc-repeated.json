@@ -1,0 +1,74 @@
+[
+  {
+    "repetition": 0,
+    "code": 101,
+    "stdout": "",
+    "stderr": "\nthread 'main' (51257185) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 63\n right: 64\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  {
+    "repetition": 1,
+    "code": 0,
+    "stdout": "{\"layer\":\"publication\",\"engine\":\"swap-arc\",\"threads\":8,\"rounds\":64,\"logical_readers\":20000,\"actual_reads\":1280000,\"wall_ns\":38071250,\"proof\":true,\"checksum\":76416737}\n",
+    "stderr": ""
+  },
+  {
+    "repetition": 2,
+    "code": 0,
+    "stdout": "{\"layer\":\"publication\",\"engine\":\"swap-arc\",\"threads\":8,\"rounds\":64,\"logical_readers\":20000,\"actual_reads\":1280000,\"wall_ns\":55451833,\"proof\":true,\"checksum\":81914930}\n",
+    "stderr": ""
+  },
+  {
+    "repetition": 3,
+    "code": 101,
+    "stdout": "",
+    "stderr": "\nthread 'main' (51257243) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 15\n right: 64\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  {
+    "repetition": 4,
+    "code": 101,
+    "stdout": "",
+    "stderr": "\nthread 'main' (51257293) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 15\n right: 64\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  {
+    "repetition": 5,
+    "code": 0,
+    "stdout": "{\"layer\":\"publication\",\"engine\":\"swap-arc\",\"threads\":8,\"rounds\":64,\"logical_readers\":20000,\"actual_reads\":1280000,\"wall_ns\":72137708,\"proof\":true,\"checksum\":81412409}\n",
+    "stderr": ""
+  },
+  {
+    "repetition": 6,
+    "code": 101,
+    "stdout": "",
+    "stderr": "\nthread 'main' (51257380) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 15\n right: 64\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  {
+    "repetition": 7,
+    "code": 101,
+    "stdout": "",
+    "stderr": "\nthread 'main' (51257420) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 13\n right: 64\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  {
+    "repetition": 8,
+    "code": 101,
+    "stdout": "",
+    "stderr": "\nthread 'main' (51257458) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 26\n right: 64\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  {
+    "repetition": 9,
+    "code": 101,
+    "stdout": "",
+    "stderr": "\nthread 'main' (51257493) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 21\n right: 64\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  {
+    "repetition": 10,
+    "code": 101,
+    "stdout": "",
+    "stderr": "\nthread 'main' (51257535) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 24\n right: 64\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  {
+    "repetition": 11,
+    "code": 101,
+    "stdout": "",
+    "stderr": "\nthread 'main' (51257591) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 43\n right: 64\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  }
+]

@@ -1,0 +1,146 @@
+{
+  "binary_sha256": "19a80ece0c202d255ca4c56fe06ba670bd33114565f403cc778ba7ff71f594dd",
+  "claim": "concurrent behavior only, overlapping required selection work; not isolated timings",
+  "results": [
+    {
+      "engine": "rwlock",
+      "threads": 1,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"rwlock\",\"threads\":1,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":17195500,\"proof\":true,\"checksum\":20012527}\n",
+      "error": ""
+    },
+    {
+      "engine": "rwlock",
+      "threads": 2,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"rwlock\",\"threads\":2,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":52643792,\"proof\":true,\"checksum\":17821970}\n",
+      "error": ""
+    },
+    {
+      "engine": "rwlock",
+      "threads": 4,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"rwlock\",\"threads\":4,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":75023208,\"proof\":true,\"checksum\":16855027}\n",
+      "error": ""
+    },
+    {
+      "engine": "rwlock",
+      "threads": 8,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"rwlock\",\"threads\":8,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":94627792,\"proof\":true,\"checksum\":17920000}\n",
+      "error": ""
+    },
+    {
+      "engine": "mutex",
+      "threads": 1,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"mutex\",\"threads\":1,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":11526958,\"proof\":true,\"checksum\":20446202}\n",
+      "error": ""
+    },
+    {
+      "engine": "mutex",
+      "threads": 2,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"mutex\",\"threads\":2,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":17283625,\"proof\":true,\"checksum\":20358442}\n",
+      "error": ""
+    },
+    {
+      "engine": "mutex",
+      "threads": 4,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"mutex\",\"threads\":4,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":21590167,\"proof\":true,\"checksum\":20276040}\n",
+      "error": ""
+    },
+    {
+      "engine": "mutex",
+      "threads": 8,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"mutex\",\"threads\":8,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":27468166,\"proof\":true,\"checksum\":20242451}\n",
+      "error": ""
+    },
+    {
+      "engine": "arc-swap",
+      "threads": 1,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"arc-swap\",\"threads\":1,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":11411208,\"proof\":true,\"checksum\":20446702}\n",
+      "error": ""
+    },
+    {
+      "engine": "arc-swap",
+      "threads": 2,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"arc-swap\",\"threads\":2,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":13406833,\"proof\":true,\"checksum\":20470374}\n",
+      "error": ""
+    },
+    {
+      "engine": "arc-swap",
+      "threads": 4,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"arc-swap\",\"threads\":4,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":31901000,\"proof\":true,\"checksum\":20466652}\n",
+      "error": ""
+    },
+    {
+      "engine": "arc-swap",
+      "threads": 8,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"arc-swap\",\"threads\":8,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":38323709,\"proof\":true,\"checksum\":15151501}\n",
+      "error": ""
+    },
+    {
+      "engine": "swap-arc",
+      "threads": 1,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"swap-arc\",\"threads\":1,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":9349958,\"proof\":true,\"checksum\":20468640}\n",
+      "error": ""
+    },
+    {
+      "engine": "swap-arc",
+      "threads": 2,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"swap-arc\",\"threads\":2,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":12566458,\"proof\":true,\"checksum\":20460272}\n",
+      "error": ""
+    },
+    {
+      "engine": "swap-arc",
+      "threads": 4,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"swap-arc\",\"threads\":4,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":29094167,\"proof\":true,\"checksum\":18805876}\n",
+      "error": ""
+    },
+    {
+      "engine": "swap-arc",
+      "threads": 8,
+      "code": 101,
+      "output": "",
+      "error": "\nthread 'main' (51242876) panicked at benches/publication.rs:130:5:\nassertion `left == right` failed\n  left: 3\n right: 32\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+    },
+    {
+      "engine": "rcu-cell",
+      "threads": 1,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"rcu-cell\",\"threads\":1,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":9721083,\"proof\":true,\"checksum\":20465823}\n",
+      "error": ""
+    },
+    {
+      "engine": "rcu-cell",
+      "threads": 2,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"rcu-cell\",\"threads\":2,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":53961709,\"proof\":true,\"checksum\":19518018}\n",
+      "error": ""
+    },
+    {
+      "engine": "rcu-cell",
+      "threads": 4,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"rcu-cell\",\"threads\":4,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":27267334,\"proof\":true,\"checksum\":18315937}\n",
+      "error": ""
+    },
+    {
+      "engine": "rcu-cell",
+      "threads": 8,
+      "code": 0,
+      "output": "{\"layer\":\"publication\",\"engine\":\"rcu-cell\",\"threads\":8,\"rounds\":32,\"logical_readers\":20000,\"actual_reads\":640000,\"wall_ns\":76949834,\"proof\":true,\"checksum\":72321}\n",
+      "error": ""
+    }
+  ]
+}

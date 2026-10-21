@@ -61,7 +61,28 @@
     {
       "path": "storage-retention.json",
       "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "build/state-v1",
+      "reason": "Selected first broad 79-configuration performance baseline and useful full-content proof executable"
+    },
+    {
+      "path": "build/state-v2",
+      "reason": "Required exact native-MVCC mismatch reproducer; corrective adapter validation must retain failed comparison"
+    },
+    {
+      "path": "build/state-v6",
+      "reason": "Selected expanded 125-configuration exact-proof and development measurement executable"
+    },
+    {
+      "path": "build/publication-v6",
+      "reason": "Selected native threaded publication capability proof executable, including failing baseline"
     }
   ],
-  "safe_to_remove": []
+  "safe_to_remove": [
+    {
+      "path": "build/state-v3",
+      "reason": "Completed unmeasured intermediate; source revision and successful correctness log retained in Git, not selected as a measurement baseline"
+    }
+  ]
 }

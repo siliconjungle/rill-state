@@ -1,0 +1,18 @@
+   Compiling rill-state v0.1.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state)
+warning: use of deprecated method `indexmap::IndexMap::<K, V, S>::remove`: `remove` disrupts the map order -- use `swap_remove` or `shift_remove` for explicit behavior.
+   --> benches/state.rs:215:22
+    |
+215 |                 self.remove(k);
+    |                      ^^^^^^
+...
+236 | map_impl!(indexmap::IndexMap<Key,Value>,indexmap::IndexMap::new());
+    | ------------------------------------------------------------------ in this macro invocation
+    |
+    = note: `#[warn(deprecated)]` on by default
+    = note: this warning originates in the macro `map_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: `rill-state` (bench "state") generated 1 warning
+    Finished `bench` profile [optimized] target(s) in 13.65s
+  Executable benches src/lib.rs (rill-state/target/release/deps/rill_state-6a8566e08bd15186)
+  Executable benches/publication.rs (rill-state/target/release/deps/publication-08a7fd659cb65c83)
+  Executable benches/state.rs (rill-state/target/release/deps/state-dc1d4e93c3f872e6)

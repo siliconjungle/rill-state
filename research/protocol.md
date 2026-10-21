@@ -30,6 +30,8 @@ branch sizes, sorted pages, hash pages, overlay depth and existing persistent st
 Parallel development timings may select designs; they cannot establish final superiority.
 Keep failed candidates and failures visible in the selection record. The same initial
 state, trace, batch semantics, snapshot retention and work counts apply to every engine.
+Every initial state case pins its pre-measurement snapshot; `slow` additionally retains
+up to 16 recent views. Unpinned reclamation is a separate required experiment.
 No timing-dependent work omission, competitor timeouts counted as wins, or per-case oracle
 selection of a different final engine is allowed.
 

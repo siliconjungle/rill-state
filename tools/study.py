@@ -6,10 +6,11 @@ fresh serial processes, holdout seeds and the separate strict acceptance gate.
 """
 import argparse, concurrent.futures, hashlib, itertools, json, os, pathlib, platform, random, re, subprocess, time
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-EXTERNAL=['std-hash','std-btree','hashbrown','hashbrown-sip','indexmap','btree-slab','im-hash','im-ord','imbl-hash','imbl-ord','imhm','imhm-sip','rpds-hash','rpds-redblack','vart','papaya-copy','dashmap-copy','flurry-copy']+[f'chunk-{n}' for n in [8,16,32,64,128]]+[f'chunkbatch-{n}' for n in [8,16,32,64,128]]
-INDEPENDENT=[f'{family}-{n}' for family in ['hashpages','sortedpages'] for n in [16,64,256,1024,4096,16384]]+[f'overlay-{n}' for n in [1,2,4,8,16,32]]
+EXTERNAL=['std-hash','std-btree','hashbrown','hashbrown-sip','indexmap','btree-slab','im-hash','im-ord','imbl-hash','imbl-ord','imhm','imhm-sip','rpds-hash','rpds-redblack','vart','papaya-copy','dashmap-copy','flurry-copy','skipdb']+[f'chunk-{n}' for n in [8,16,32,64,128]]+[f'chunkbatch-{n}' for n in [8,16,32,64,128]]
+INDEPENDENT=[f'{family}-{n}' for family in ['hashpages','sortedpages'] for n in [16,64,256,1024,4096,16384]]+[f'overlay-{n}' for n in [1,2,4,8,16,32]]+[f'mvcc-{n}' for n in [1,16,64,256]]+[f'slots-{n}'for n in [8,16,32,64,128,256,512,1024]]
 RILL=[f'rill-{1<<bits}-{1<<branch}' for bits in range(6,17,2) for branch in range(0,min(bits,10)+1,2)]
-ENGINES=EXTERNAL+INDEPENDENT+RILL
+RILLFAST=[e.replace('rill-','rillfast-')for e in RILL]
+ENGINES=EXTERNAL+INDEPENDENT+RILL+RILLFAST
 CASES=['idle','single','sparse','hot','churn','burst','replace','slow','read','scan','acquire','feed']
 def source_hash():
     h=hashlib.sha256()
@@ -45,7 +46,7 @@ def main():
     tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode=='prove')for _ in range(a.repetitions)for e,c,s in itertools.product(engines,cases,seeds)]
     random.Random(0x51A7E).shuffle(tasks)
     workers=1 if a.mode=='serial'else a.workers
-    receipt=dict(schema=1,mode=a.mode,claim='correctness'if a.mode=='prove'else'selection only'if a.mode=='screen'else'isolated timing; acceptance not implied',workers=workers,source_sha256=source_hash(),binary_sha256=binary_hash,platform=platform.platform(),machine=platform.machine(),rustc=subprocess.check_output(['rustc','-Vv'],text=True),engines=engines,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks))
+    receipt=dict(schema=1,mode=a.mode,claim='correctness'if a.mode=='prove'else'selection only'if a.mode=='screen'else'isolated timing; acceptance not implied',workers=workers,source_sha256=source_hash(),orchestrator_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),binary_sha256=binary_hash,platform=platform.platform(),machine=platform.machine(),rustc=subprocess.check_output(['rustc','-Vv'],text=True),engines=engines,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks))
     (folder/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
     passed=0;errors=[]
     with (folder/'runs.jsonl').open('w')as out,concurrent.futures.ThreadPoolExecutor(max_workers=workers)as pool:

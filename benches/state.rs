@@ -500,16 +500,28 @@ impl Engine for SkipDb {
         let mut len = self.current.len;
         if !ops.is_empty() {
             let mut tx = self.db.write_with_capacity(ops.len());
+            // Coalesce the state mutation, while preserving every original operation
+            // in the journal. Avoid depending on transactional read-your-delete for
+            // repeated keys; compute net live count from the pre-batch snapshot.
+            let mut unique = BTreeMap::new();
             for op in &ops {
                 match op {
+                    Op::Put(k, _) | Op::Delete(k) => {
+                        unique.insert(*k, op);
+                    }
+                }
+            }
+            for (k, op) in unique {
+                let existed = self.current.get(&k).is_some();
+                match op {
                     Op::Put(k, v) => {
-                        if tx.get(k).unwrap().is_none() {
+                        if !existed {
                             len += 1;
                         }
                         tx.insert(*k, *v).unwrap();
                     }
                     Op::Delete(k) => {
-                        if tx.get(k).unwrap().is_some() {
+                        if existed {
                             len -= 1;
                         }
                         tx.remove(*k).unwrap();
@@ -712,6 +724,64 @@ impl<const N: usize> Map for immutable_chunkmap::map::Map<Key, Value, N> {
 struct HashPages<const N: usize> {
     pages: Vec<Arc<HashMap<Key, Value>>>,
     len: usize,
+}
+
+/// Independent indexed-slot design: reuse the key index across value-only updates;
+/// COW packed value pages. Key churn clones the compact index once per batch.
+#[derive(Clone)]
+struct Slots<const N: usize> {
+    index: Arc<hashbrown::HashMap<Key, usize>>,
+    pages: Vec<Arc<Vec<Option<(Key, Value)>>>>,
+    free: Vec<usize>,
+    next: usize,
+}
+impl<const N: usize> Map for Slots<N> {
+    fn empty() -> Self {
+        Self {
+            index: Arc::new(hashbrown::HashMap::new()),
+            pages: Vec::new(),
+            free: Vec::new(),
+            next: 0,
+        }
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        let i = *self.index.get(k)?;
+        self.pages[i / N][i % N].map(|(_, v)| v)
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        let i = if let Some(i) = self.index.get(&k) {
+            *i
+        } else {
+            let i = self.free.pop().unwrap_or_else(|| {
+                let i = self.next;
+                self.next += 1;
+                if i / N == self.pages.len() {
+                    self.pages.push(Arc::new(vec![None; N]));
+                }
+                i
+            });
+            Arc::make_mut(&mut self.index).insert(k, i);
+            i
+        };
+        Arc::make_mut(&mut self.pages[i / N])[i % N] = Some((k, v));
+    }
+    fn del(&mut self, k: &Key) {
+        if let Some(i) = self.index.get(k).copied() {
+            Arc::make_mut(&mut self.index).remove(k);
+            Arc::make_mut(&mut self.pages[i / N])[i % N] = None;
+            self.free.push(i);
+        }
+    }
+    fn len(&self) -> usize {
+        self.index.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for page in &self.pages {
+            for (k, v) in page.iter().flatten() {
+                f(*k, *v);
+            }
+        }
+    }
 }
 impl<const N: usize> Map for HashPages<N> {
     fn empty() -> Self {
@@ -1139,6 +1209,14 @@ fn main() {
         "mvcc-16" => dispatch!(Mvcc<16>),
         "mvcc-64" => dispatch!(Mvcc<64>),
         "mvcc-256" => dispatch!(Mvcc<256>),
+        "slots-8" => dispatch!(Slots<8>),
+        "slots-16" => dispatch!(Slots<16>),
+        "slots-32" => dispatch!(Slots<32>),
+        "slots-64" => dispatch!(Slots<64>),
+        "slots-128" => dispatch!(Slots<128>),
+        "slots-256" => dispatch!(Slots<256>),
+        "slots-512" => dispatch!(Slots<512>),
+        "slots-1024" => dispatch!(Slots<1024>),
         "papaya-copy" => dispatch!(papaya::HashMap<Key,Value>),
         "dashmap-copy" => dispatch!(dashmap::DashMap<Key,Value>),
         "flurry-copy" => dispatch!(flurry::HashMap<Key,Value>),
