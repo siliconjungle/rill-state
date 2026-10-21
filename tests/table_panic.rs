@@ -126,30 +126,59 @@ fn probing_growth_clone_panic_preserves_current_and_retained_bindings() {
 }
 #[test]
 fn paged_delete_clone_panic_preserves_probe_reachability() {
-    let fail = Arc::new(AtomicBool::new(false));
-    let mut map = ProbeMap::<u64, Value, BuildHasherDefault<Collision>, 70, 16>::default();
+    use std::sync::atomic::AtomicU64;
+    struct PagedValue {
+        n: u64,
+        fail_at: Arc<AtomicU64>,
+    }
+    impl Clone for PagedValue {
+        fn clone(&self) -> Self {
+            assert_ne!(
+                self.n,
+                self.fail_at.load(Ordering::Relaxed),
+                "injected paged clone failure"
+            );
+            Self {
+                n: self.n,
+                fail_at: self.fail_at.clone(),
+            }
+        }
+    }
+    let fail_at = Arc::new(AtomicU64::new(u64::MAX));
+    let mut base = ProbeMap::<u64, PagedValue, BuildHasherDefault<Collision>, 70, 16>::default();
     for n in 0..32 {
-        map.insert(
+        base.insert(
             n,
-            Value {
+            PagedValue {
                 n,
-                fail: fail.clone(),
+                fail_at: fail_at.clone(),
             },
         );
     }
-    let old = map.clone();
-    fail.store(true, Ordering::Relaxed);
-    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| map.remove(&0)));
-    assert!(result.is_err());
-    assert_eq!(map.len(), 32);
-    assert_eq!(map.iter().count(), 32);
-    for n in 0..32 {
-        assert_eq!(map.get(&n).unwrap().n, n);
-        assert_eq!(old.get(&n).unwrap().n, n);
+    let mut panics = 0;
+    // Cover every victim/failure pair, independently of growth or iterator order.
+    for victim in 0..32 {
+        for failure in 0..32 {
+            let mut map = base.clone();
+            fail_at.store(failure, Ordering::Relaxed);
+            let result =
+                std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| map.remove(&victim)));
+            fail_at.store(u64::MAX, Ordering::Relaxed);
+            match result {
+                Err(_) => panics += 1,
+                Ok(value) => assert_eq!(value.unwrap().n, victim),
+            }
+            assert_eq!(map.len(), map.iter().count());
+            assert_eq!(map.len(), 31 + usize::from(map.get(&victim).is_some()));
+            for n in 0..32 {
+                if n != victim {
+                    assert_eq!(map.get(&n).unwrap().n, n);
+                }
+                assert_eq!(base.get(&n).unwrap().n, n);
+            }
+        }
     }
-    fail.store(false, Ordering::Relaxed);
-    map.remove(&0);
-    assert_eq!(map.len(), 31);
+    assert!(panics > 0, "the injected clone failures must be exercised");
 }
 #[test]
 fn flat_batch_delete_drop_panic_keeps_counts_and_probe_chains() {
