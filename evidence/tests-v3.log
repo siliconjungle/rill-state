@@ -1,0 +1,29 @@
+   Compiling rill-state v0.1.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state)
+    Finished `test` profile [unoptimized] target(s) in 0.62s
+     Running unittests src/lib.rs (rill-state/target/debug/deps/rill_state-6fdbd8f157897a77)
+
+running 2 tests
+test internal_tests::future_cursor_rejected ... ok
+test internal_tests::revision_exhaustion_does_not_change_state ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/contracts.rs (rill-state/target/debug/deps/contracts-baa6551b5302aca5)
+
+running 7 tests
+test gaps_empty_batches_duplicate_keys_and_foreign_cursors ... ok
+test invalid_layouts_fail_before_allocation ... ok
+test zero_history_is_explicit_and_snapshot_outlives_store ... ok
+test panicking_input_does_not_publish_partial_batch ... ok
+test colliding_non_numeric_keys_and_non_copy_values ... ok
+test twenty_thousand_pinned_readers_share_a_revision ... ok
+test random_replay_old_snapshots_and_layouts ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.27s
+
+   Doc-tests rill_state
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
