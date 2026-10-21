@@ -284,3 +284,21 @@ and newly covered shapes of existing libraries, not additional independent crate
 Hash-builder security tradeoffs remain explicit. Require full state/revision/feed
 and retained-reader proofs before development timing; no missing control counts
 as beaten. New controls are compiled into a separately bound frozen executable.
+
+## Borrowed-value full oracle and recovery capability
+
+The next generic verifier compares every visited complete value directly with
+the independent BTreeMap model, records unique cloned keys in a BTreeSet and
+requires exact reported/visited cardinalities. It independently checks point
+lookup for every model key, in addition to each existing missing/read query.
+Old revisions and exact ordered feeds retain their checks. It avoids cloning
+payloads merely to inspect them. Negative-control tests must reject duplicate,
+missing and unknown rows, wrong lengths, middle-payload corruption and bad point
+lookups; a non-Clone payload test prevents a hidden payload-clone requirement.
+This strengthens coverage while reducing verification allocations; it is not
+a library-speed claim. Prior frozen executable proofs continue unchanged.
+
+Mutable research maps must also keep counts and probe reachability valid after
+a caught user Clone/Drop panic, although a batch can partially apply. Negative
+proofs and corrected regression inputs are retained. Atomic engine publication
+continues to use external staging; no transactional claim is added to raw maps.

@@ -484,3 +484,47 @@ are measured constraints. Source admission remains open. Rust 1.85, current-stab
 and comparison CI all passed for code revision 1fe9e7d19e5ce4dfd5e05fc4383d95c3523a21cd.
 No holdout seed or final acceptance criterion has changed. Experimental layouts
 remain opt-in, and the original across-the-board objective has not passed.
+
+## Embedded directories, stronger controls and recovery hardening
+
+Eighty sharded-inline configurations compare five embedded directory sizes,
+four maximum fills, two builder-storage policies and two batching strategies.
+All 2,400 small and 2,400 full-size scalar normal-behavior checks passed, as did
+10,240 small generic checks. The 2,610-process parallel scalar screen completed
+with matching outputs; it overlapped required proof/compilation work and is
+selection evidence only. Full-size generic and four-reader matrices remain in
+progress in their original frozen executables, with exact source bindings.
+
+The streaming memory extension passed 56 small and 84 full-size cases. Every
+tracked payload was reclaimed, each retained view matched its model and exact
+journal counts matched. With 64 recent views, an initial pin and fixed256
+payloads, shard-shared-group-70-1024 retained 69.95 MiB of owned payloads versus
+320.51 MiB for both the flat read-leading layout and hashbrown's copy adapter,
+and 15.97 MiB for record-paged16. Instrumented process RSS in that cell was
+117.27, 730.44, 402.27 and 34.52 MiB respectively. Other directory/load choices
+retained much more memory. These are v23 instrumented payload/process results,
+not total library heap, current-version speed or a universal memory win.
+
+The control matrix now includes native/fast standard HashMap and IndexMap plus
+generic standard BTreeMap, preserving native defaults and the explicit hasher
+security distinction. Its scalar extension passed 90 small and 90 full-size
+checks plus 12 four-reader probes; its six-control generic matrix passed 768
+small and 768 full-size checks plus 192 four-reader probes. No new control is
+counted as another independent crate or as beaten without matching measurements.
+
+Fault injection exposed recovery errors in the experimental raw maps. The
+corrected source stages replacement tables, prepares affected probing pages
+before deletion, defers removed-object drops and guards outer sharded counts
+while unwinding. All 61 contract/oracle tests and all-target Clippy pass. The
+original narrow paged-failure probe assumed an iterator/growth order; it was
+replaced with every 32-by-32 victim/failure pair, which reproduced actual lookup
+corruption against the retained pre-fix library. The selected failing binaries,
+exact inputs and correction review are retained. Default Store publication
+staging is unchanged; raw-map batches remain nontransactional.
+
+The updated generic oracle compares borrowed full values, checks unique iteration
+and checks every model-key lookup without cloning payloads. Malformed iterator,
+length, payload and lookup controls pass their rejection tests. Fresh corrected
+executables will be proved and measured separately. No new backend is selected;
+the original across-the-board performance objective and final holdout gate remain
+open, and the holdout seeds remain untouched.

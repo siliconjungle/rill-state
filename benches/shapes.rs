@@ -1,5 +1,7 @@
 //! Generic key/payload-shape checks and development measurements. This complements,
 //! rather than replaces, the registered inline-u64 comparison and final holdout gate.
+#[path = "support/exact.rs"]
+mod exact;
 use rill_state::{
     experimental::{
         ArrayRecordMap, CopyKeys, HasherPolicy, InlineSliceMap, KeyPolicy, OwnedHasher, ProbeMap,
@@ -494,12 +496,11 @@ trait Read<K: Key, V: Value>: Clone + Send + Sync {
     fn get(&self, k: &K) -> Option<&V>;
     fn len(&self) -> usize;
     fn visit(&self, f: impl FnMut(&K, &V));
-    fn contents(&self) -> BTreeMap<K, V> {
-        let mut m = BTreeMap::new();
-        self.visit(|k, v| {
-            assert!(m.insert(k.clone(), v.clone()).is_none());
-        });
-        m
+    fn assert_matches(&self, expected: &BTreeMap<K, V>) {
+        let mut check = exact::ExactRows::new(expected, self.len());
+        self.visit(|k, v| check.observe(k, v));
+        check.finish();
+        exact::assert_gets(expected, |key| self.get(key));
     }
     fn checksum(&self) -> u64 {
         let mut sum = 0u64;
@@ -760,7 +761,7 @@ fn run<K: Key, V: Value, E: Engine<K, V>>(mut engine: E, o: &Options) {
                 engine.publish(ops);
             }
         });
-        assert_eq!(engine.view().contents(), final_expected);
+        engine.view().assert_matches(&final_expected);
         println!("{{\"engine\":\"{}\",\"shape\":\"{}\",\"case\":\"{}\",\"seed\":{},\"records\":{},\"readers\":{},\"rounds\":{},\"verified\":true,\"threads\":4,\"thread_checked\":true}}",o.engine,o.shape,o.case,o.seed,o.records,o.readers,o.rounds);
         return;
     }
@@ -776,13 +777,13 @@ fn run<K: Key, V: Value, E: Engine<K, V>>(mut engine: E, o: &Options) {
             let view = engine.view();
             assert_eq!(view.revision(), after + 1);
             assert_eq!(view.len(), truth.len());
-            assert_eq!(view.contents(), truth);
+            view.assert_matches(&truth);
             for k in &reads {
                 assert_eq!(view.get(k), truth.get(k));
             }
             for (v, m, r) in &old {
                 assert_eq!(v.revision(), *r);
-                assert_eq!(v.contents(), *m);
+                v.assert_matches(m);
             }
             if old.len() < 5 {
                 old.push((view, truth.clone(), after + 1));
