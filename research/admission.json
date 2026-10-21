@@ -132,22 +132,22 @@
       "name": "evmap",
       "version": "11.0.0",
       "source": "https://docs.rs/crate/evmap/11.0.0/source/",
-      "status": "independent-backend-adapted-full-size-proof-passed",
-      "reason": "Native guard progress limit is proved by frozen traces. Independent backend per staged revision preserves arbitrary retained old readers. Three adapters passed 90 full-size checks and 12 four-reader probes collectively; publication copying and native guard/mutex costs are explicit. Development timing is pending; no universal win claimed."
+      "status": "independent-backend-adapted-proved-and-development-measured",
+      "reason": "Native guard progress limit is proved by frozen traces. Independent-backend adapters passed complete state/revision/feed and concurrent old-view probes, then parallel selection and serial development measurements. Copying, native guard and read-handle Mutex costs remain explicit; this is not native short-reader throughput or a universal win."
     },
     {
       "name": "left-right",
       "version": "0.11.8",
       "source": "https://docs.rs/crate/left-right/0.11.8/source/",
-      "status": "independent-backend-adapted-full-size-proof-passed",
-      "reason": "Native guard progress limit is proved by frozen traces. Independent backend per staged revision preserves arbitrary retained old readers. Three adapters passed 90 full-size checks and 12 four-reader probes collectively; publication copying and native guard/mutex costs are explicit. Development timing is pending; no universal win claimed."
+      "status": "independent-backend-adapted-proved-and-development-measured",
+      "reason": "Native guard progress limit is proved by frozen traces. Independent-backend adapters passed complete state/revision/feed and concurrent old-view probes, then parallel selection and serial development measurements. Copying, native guard and read-handle Mutex costs remain explicit; this is not native short-reader throughput or a universal win."
     },
     {
       "name": "flashmap",
       "version": "0.2.0",
       "source": "https://docs.rs/crate/flashmap/0.2.0/source/",
-      "status": "independent-backend-adapted-full-size-proof-passed",
-      "reason": "Native guard progress limit is proved by frozen traces. Independent backend per staged revision preserves arbitrary retained old readers. Three adapters passed 90 full-size checks and 12 four-reader probes collectively; publication copying and native guard/mutex costs are explicit. Development timing is pending; no universal win claimed."
+      "status": "independent-backend-adapted-proved-and-development-measured",
+      "reason": "Native guard progress limit is proved by frozen traces. Independent-backend adapters passed complete state/revision/feed and concurrent old-view probes, then parallel selection and serial development measurements. Copying, native guard and read-handle Mutex costs remain explicit; this is not native short-reader throughput or a universal win."
     },
     {
       "name": "rcu-clean",

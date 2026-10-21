@@ -309,3 +309,36 @@ Frozen executable receipts are now checked against original Git source hashes,
 so new implementations can build while earlier versions continue running without
 mislabeling their inputs or copying whole worktrees. Final holdout seeds remain
 untouched. The original across-the-board performance objective remains unpassed.
+
+## Complete serial development sweep after compact records
+
+The generic serial sweep completed 8,832 fresh processes with output agreement:
+23 configurations × eight shapes × eight cases × two development seeds × three
+repetitions, at 12 measured revisions per process. All 1,472 per-configuration
+cells and all raw rows are retained, including defaults, fast-hasher variants,
+mixed sizes and every tested regression. Separately, the guarded-backend serial
+comparison completed 720 matching-output processes across eight configurations,
+all 15 scalar cases, both development seeds and three repetitions at 32 measured
+revisions. No other candidate process ran concurrently in these serial sweeps;
+other users' workers were not stopped. These are development comparisons, not
+the registered 64-revision/seven-repetition holdout acceptance gate.
+
+For the fixed record-paged16 candidate versus fixed shared-paged16, read-only
+medians fell by about 1.3–12.7% across the eight tested shapes. Hashbrown still
+led every read-only shape. The compact candidate had a lower total median than
+hashbrown in 26 of 64 shape/workload cells and a higher median in 38; it therefore
+fails the original across-the-board target. Dense String/mixed-key workloads
+also regressed versus independently shared keys, consistent with cloning the
+canonical String into each compact replacement record. No per-case envelope of
+different original layouts is presented as one universally winning engine.
+See fixed-candidate-comparison.json for all 64 direct comparisons.
+
+Disassembly of the retained compact String getter shows the paged path loading
+a Vec header's length and separate payload pointer before scanning a page. A
+next read-locality experiment should compare fixed-size Arc array pages with
+these existing Vec-backed pages, preserving safe Rust, independent snapshots
+and the same full contract. The assembly was inspected without retaining an
+insight-only full dump. This is a hypothesis, not a measured improvement.
+
+The original goal remains open, with source admission gaps and read-performance
+losses still explicit. Final holdout seeds remain unused.
