@@ -197,6 +197,18 @@
     {
       "path": "build/retention-v22",
       "reason": "Required frozen instrumented inline-slice retention/reclamation proof with all four fill thresholds and reference engines"
+    },
+    {
+      "path": "build/state-v23",
+      "reason": "Required frozen embedded-directory sharded-inline correctness, retention and comparative measurement input"
+    },
+    {
+      "path": "build/shapes-v23",
+      "reason": "Required frozen embedded-directory sharded-inline correctness, retention and comparative measurement input"
+    },
+    {
+      "path": "build/retention-v23",
+      "reason": "Required frozen embedded-directory sharded-inline correctness, retention and comparative measurement input"
     }
   ],
   "safe_to_remove": [

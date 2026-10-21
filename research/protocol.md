@@ -62,6 +62,37 @@ swap primitives are a separate publication-layer comparison, not complete state 
 Missing comparisons, compile failures, unproven contracts or any loss leave the original
 objective incomplete. Publish the public library and research with that status explicit.
 
+## Embedded sharded-inline experiment
+
+After the flat slice's publication/retention regressions, register independently
+growing inline COW tables in an embedded fixed-size directory. One global builder
+hashes a key once; bits starting at 32 select the table, while its normalized full
+cached hash selects the local probe home and guards full key equality. Zero/MAX
+normalization collisions must still preserve distinct keys. Root clones copy the
+directory's Arc handles, and mutations detach touched tables. This avoids a
+separate heap directory load but adds routing and root-clone work; no speed or
+memory gain is assumed.
+
+Register 80 configurations for both scalar and generic executables: directory
+counts 1/16/64/256/1024, maximum fills 25/50/70/85, shared/inline storage for the
+same builder and per-operation/grouped batching. Grouped batching hashes all
+input keys once, counts/scatters indices stably by table and detaches each table
+once between grows. Both scratch Vec allocations, both passes and directory
+scans are timed. Only per-key state order is required across reordered tables;
+the unchanged external journal retains every original operation in exact order.
+Clone/drop side effects across keys have no ordering guarantee, as with existing
+COW cloning. These are configurations of one original family, not 80 libraries.
+
+Prove collisions/wrap/deletion/growth, canonical metadata/reinsertion, borrowed
+keys, zero/MAX fingerprints, retained old views and final payload release. A
+counted-value probe must show only the touched table copied; a counted builder
+must show exactly one hash per operation even during growth. Run small/full
+scalar and eight-shape matrices with the existing seeds, plus actual four-reader
+checks. Streaming retention must include multiple table counts and both batching
+policies. Parallel timings remain selection evidence. Serial comparisons include
+hashbrown, persistent-map references and the strongest previous fixed layouts.
+Keep every regression visible; final holdout seeds and requirements are unchanged.
+
 ## Contiguous inline-slice experiment
 
 Register InlineSliceMap with four maximum fill thresholds (25/50/70/85), shared

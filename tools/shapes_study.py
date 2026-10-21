@@ -11,6 +11,8 @@ ARRAY_SPARSE=[f'array-{k}-sparse{p}'for k in ['copy','shared']for p in [64,1024]
 ENGINES+=ARRAY_OWNED+ARRAY_SPARSE
 INLINE=list(study.INLINE)
 ENGINES+=INLINE
+SHARDS=list(study.SHARDS)
+ENGINES+=SHARDS
 SHAPES=['u64-inline','string-inline','u64-owned256','string-owned256','u64-shared256','string-shared256','mixed-owned','mixed-shared']
 CASES=['single','sparse','churn','burst','read','scan','slow','miss100']
 def main():

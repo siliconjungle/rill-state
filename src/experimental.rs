@@ -14,6 +14,9 @@ use std::{
 #[path = "experimental/inline_slice.rs"]
 mod inline_slice;
 pub use inline_slice::InlineSliceMap;
+#[path = "experimental/sharded_inline.rs"]
+mod sharded_inline;
+pub use sharded_inline::ShardedInlineMap;
 
 #[derive(Clone)]
 struct Entry<K, V> {

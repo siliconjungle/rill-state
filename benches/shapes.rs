@@ -3,7 +3,7 @@
 use rill_state::{
     experimental::{
         ArrayRecordMap, CopyKeys, HasherPolicy, InlineSliceMap, KeyPolicy, OwnedHasher, ProbeMap,
-        RecordMap, SharedHasher, SharedKeys, SharedMap, SplitMap,
+        RecordMap, ShardedInlineMap, SharedHasher, SharedKeys, SharedMap, SplitMap,
     },
     Config, Cursor, Mutation, Snapshot, Store,
 };
@@ -327,6 +327,41 @@ impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
 }
 impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
     for ProbeMap<K, V, hashbrown::DefaultHashBuilder, L, P>
+{
+    fn new() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &K) -> Option<&V> {
+        self.get(k)
+    }
+    fn put(&mut self, k: K, v: V) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &K) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(&K, &V)) {
+        for (k, v) in self.iter() {
+            f(k, v);
+        }
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        self.apply(ops);
+    }
+}
+impl<
+        K: Key,
+        V: Value,
+        const L: usize,
+        const N: usize,
+        HP: HasherPolicy<hashbrown::DefaultHashBuilder>,
+        const G: bool,
+    > Map<K, V> for ShardedInlineMap<K, V, hashbrown::DefaultHashBuilder, L, N, HP, G>
+where
+    HP::Stored: Send + Sync,
 {
     fn new() -> Self {
         Self::default()
@@ -788,6 +823,246 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
         };
     }
     match o.engine.as_str() {
+        "shard-shared-each-25-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,1,SharedHasher,false>)
+        }
+        "shard-shared-each-25-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,16,SharedHasher,false>)
+        }
+        "shard-shared-each-25-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,64,SharedHasher,false>)
+        }
+        "shard-shared-each-25-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,256,SharedHasher,false>)
+        }
+        "shard-shared-each-25-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,1024,SharedHasher,false>)
+        }
+        "shard-shared-each-70-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,1,SharedHasher,false>)
+        }
+        "shard-shared-each-70-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,16,SharedHasher,false>)
+        }
+        "shard-shared-each-70-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,64,SharedHasher,false>)
+        }
+        "shard-shared-each-70-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,256,SharedHasher,false>)
+        }
+        "shard-shared-each-70-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,1024,SharedHasher,false>)
+        }
+        "shard-shared-group-25-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,1,SharedHasher,true>)
+        }
+        "shard-shared-group-25-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,16,SharedHasher,true>)
+        }
+        "shard-shared-group-25-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,64,SharedHasher,true>)
+        }
+        "shard-shared-group-25-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,256,SharedHasher,true>)
+        }
+        "shard-shared-group-25-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,1024,SharedHasher,true>)
+        }
+        "shard-shared-group-70-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,1,SharedHasher,true>)
+        }
+        "shard-shared-group-70-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,16,SharedHasher,true>)
+        }
+        "shard-shared-group-70-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,64,SharedHasher,true>)
+        }
+        "shard-shared-group-70-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,256,SharedHasher,true>)
+        }
+        "shard-shared-group-70-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,1024,SharedHasher,true>)
+        }
+        "shard-owned-each-25-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,1,OwnedHasher,false>)
+        }
+        "shard-owned-each-25-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,16,OwnedHasher,false>)
+        }
+        "shard-owned-each-25-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,64,OwnedHasher,false>)
+        }
+        "shard-owned-each-25-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,256,OwnedHasher,false>)
+        }
+        "shard-owned-each-25-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,1024,OwnedHasher,false>)
+        }
+        "shard-owned-each-70-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,1,OwnedHasher,false>)
+        }
+        "shard-owned-each-70-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,16,OwnedHasher,false>)
+        }
+        "shard-owned-each-70-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,64,OwnedHasher,false>)
+        }
+        "shard-owned-each-70-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,256,OwnedHasher,false>)
+        }
+        "shard-owned-each-70-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,1024,OwnedHasher,false>)
+        }
+        "shard-owned-group-25-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,1,OwnedHasher,true>)
+        }
+        "shard-owned-group-25-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,16,OwnedHasher,true>)
+        }
+        "shard-owned-group-25-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,64,OwnedHasher,true>)
+        }
+        "shard-owned-group-25-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,256,OwnedHasher,true>)
+        }
+        "shard-owned-group-25-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,1024,OwnedHasher,true>)
+        }
+        "shard-owned-group-70-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,1,OwnedHasher,true>)
+        }
+        "shard-owned-group-70-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,16,OwnedHasher,true>)
+        }
+        "shard-owned-group-70-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,64,OwnedHasher,true>)
+        }
+        "shard-owned-group-70-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,256,OwnedHasher,true>)
+        }
+        "shard-owned-group-70-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,70,1024,OwnedHasher,true>)
+        }
+        "shard-shared-each-50-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,1,SharedHasher,false>)
+        }
+        "shard-shared-each-50-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,16,SharedHasher,false>)
+        }
+        "shard-shared-each-50-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,64,SharedHasher,false>)
+        }
+        "shard-shared-each-50-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,256,SharedHasher,false>)
+        }
+        "shard-shared-each-50-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,1024,SharedHasher,false>)
+        }
+        "shard-shared-each-85-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,1,SharedHasher,false>)
+        }
+        "shard-shared-each-85-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,16,SharedHasher,false>)
+        }
+        "shard-shared-each-85-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,64,SharedHasher,false>)
+        }
+        "shard-shared-each-85-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,256,SharedHasher,false>)
+        }
+        "shard-shared-each-85-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,1024,SharedHasher,false>)
+        }
+        "shard-shared-group-50-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,1,SharedHasher,true>)
+        }
+        "shard-shared-group-50-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,16,SharedHasher,true>)
+        }
+        "shard-shared-group-50-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,64,SharedHasher,true>)
+        }
+        "shard-shared-group-50-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,256,SharedHasher,true>)
+        }
+        "shard-shared-group-50-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,1024,SharedHasher,true>)
+        }
+        "shard-shared-group-85-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,1,SharedHasher,true>)
+        }
+        "shard-shared-group-85-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,16,SharedHasher,true>)
+        }
+        "shard-shared-group-85-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,64,SharedHasher,true>)
+        }
+        "shard-shared-group-85-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,256,SharedHasher,true>)
+        }
+        "shard-shared-group-85-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,1024,SharedHasher,true>)
+        }
+        "shard-owned-each-50-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,1,OwnedHasher,false>)
+        }
+        "shard-owned-each-50-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,16,OwnedHasher,false>)
+        }
+        "shard-owned-each-50-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,64,OwnedHasher,false>)
+        }
+        "shard-owned-each-50-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,256,OwnedHasher,false>)
+        }
+        "shard-owned-each-50-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,1024,OwnedHasher,false>)
+        }
+        "shard-owned-each-85-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,1,OwnedHasher,false>)
+        }
+        "shard-owned-each-85-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,16,OwnedHasher,false>)
+        }
+        "shard-owned-each-85-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,64,OwnedHasher,false>)
+        }
+        "shard-owned-each-85-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,256,OwnedHasher,false>)
+        }
+        "shard-owned-each-85-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,1024,OwnedHasher,false>)
+        }
+        "shard-owned-group-50-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,1,OwnedHasher,true>)
+        }
+        "shard-owned-group-50-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,16,OwnedHasher,true>)
+        }
+        "shard-owned-group-50-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,64,OwnedHasher,true>)
+        }
+        "shard-owned-group-50-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,256,OwnedHasher,true>)
+        }
+        "shard-owned-group-50-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,1024,OwnedHasher,true>)
+        }
+        "shard-owned-group-85-1" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,1,OwnedHasher,true>)
+        }
+        "shard-owned-group-85-16" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,16,OwnedHasher,true>)
+        }
+        "shard-owned-group-85-64" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,64,OwnedHasher,true>)
+        }
+        "shard-owned-group-85-256" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,256,OwnedHasher,true>)
+        }
+        "shard-owned-group-85-1024" => {
+            map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,85,1024,OwnedHasher,true>)
+        }
         "inline-shared-span-25" => {
             map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,25,SharedHasher,true>)
         }

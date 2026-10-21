@@ -1,7 +1,7 @@
 #![cfg(feature = "experimental")]
 use rill_state::experimental::{
     ArrayRecordMap, CopyKeys, HasherPolicy, InlineSliceMap, KeyPolicy, OwnedHasher, ProbeMap,
-    RecordMap, SharedHasher, SharedKeys, SharedMap, SplitMap,
+    RecordMap, ShardedInlineMap, SharedHasher, SharedKeys, SharedMap, SplitMap,
 };
 use rill_state::Mutation;
 use std::{
@@ -803,6 +803,357 @@ fn inline_shared_builder_supports_a_nonclone_hasher() {
     .is_err());
     assert!(std::panic::catch_unwind(
         InlineSliceMap::<u64, u64, std::collections::hash_map::RandomState, 91>::default
+    )
+    .is_err());
+}
+
+impl<
+        S: std::hash::BuildHasher,
+        const L: usize,
+        const N: usize,
+        HP: HasherPolicy<S>,
+        const G: bool,
+    > Subject for ShardedInlineMap<String, Arc<Vec<u8>>, S, L, N, HP, G>
+{
+    fn put(&mut self, k: String, v: Arc<Vec<u8>>) -> Option<Arc<Vec<u8>>> {
+        self.insert(k, v)
+    }
+    fn del(&mut self, k: &str) -> Option<Arc<Vec<u8>>> {
+        self.remove(k)
+    }
+    fn read(&self, k: &str) -> Option<&Arc<Vec<u8>>> {
+        self.get(k)
+    }
+    fn contents(&self) -> BTreeMap<String, Arc<Vec<u8>>> {
+        self.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn batch(&mut self, ops: Vec<Mutation<String, Arc<Vec<u8>>>>) {
+        self.apply(&ops);
+    }
+}
+
+#[test]
+fn sharded_inline_collisions_wrap_growth_and_ordered_duplicates() {
+    macro_rules! policy {
+        ($l:literal,$n:literal) => {
+            oracle(ShardedInlineMap::<
+                _,
+                _,
+                BuildHasherDefault<Wrap>,
+                $l,
+                $n,
+                SharedHasher,
+                false,
+            >::default());
+            oracle(ShardedInlineMap::<
+                _,
+                _,
+                BuildHasherDefault<Wrap>,
+                $l,
+                $n,
+                SharedHasher,
+                true,
+            >::default());
+            oracle(ShardedInlineMap::<
+                _,
+                _,
+                BuildHasherDefault<Wrap>,
+                $l,
+                $n,
+                OwnedHasher,
+                false,
+            >::default());
+            oracle(ShardedInlineMap::<
+                _,
+                _,
+                BuildHasherDefault<Wrap>,
+                $l,
+                $n,
+                OwnedHasher,
+                true,
+            >::default());
+        };
+    }
+    macro_rules! load {
+        ($l:literal) => {
+            policy!($l, 1);
+            policy!($l, 16);
+            policy!($l, 64);
+            policy!($l, 256);
+            policy!($l, 1024);
+        };
+    }
+    load!(25);
+    load!(50);
+    load!(70);
+    load!(85);
+    oracle(ShardedInlineMap::<
+        _,
+        _,
+        BuildHasherDefault<Zero>,
+        70,
+        64,
+        SharedHasher,
+        true,
+    >::default());
+}
+
+#[test]
+fn sharded_inline_random_distribution_preserves_retained_views() {
+    oracle(ShardedInlineMap::<String, Arc<Vec<u8>>>::default());
+    oracle(ShardedInlineMap::<
+        _,
+        _,
+        std::collections::hash_map::RandomState,
+        50,
+        256,
+        OwnedHasher,
+        true,
+    >::default());
+}
+
+#[test]
+fn sharded_inline_detaches_only_the_touched_table() {
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    #[derive(Default, Clone)]
+    struct Distributed(u64);
+    impl Hasher for Distributed {
+        fn finish(&self) -> u64 {
+            ((self.0 % 16) << 32) | (self.0 / 16 + 1)
+        }
+        fn write(&mut self, b: &[u8]) {
+            self.0 = u64::from_ne_bytes(b.try_into().unwrap());
+        }
+        fn write_u64(&mut self, k: u64) {
+            self.0 = k;
+        }
+    }
+    struct Value(u64, Arc<AtomicUsize>);
+    impl Clone for Value {
+        fn clone(&self) -> Self {
+            self.1.fetch_add(1, Ordering::Relaxed);
+            Self(self.0, self.1.clone())
+        }
+    }
+    fn check<const G: bool>() {
+        let clones = Arc::new(AtomicUsize::new(0));
+        let mut map = ShardedInlineMap::<
+            u64,
+            Value,
+            BuildHasherDefault<Distributed>,
+            70,
+            16,
+            OwnedHasher,
+            G,
+        >::default();
+        for i in 0..1024 {
+            map.insert(i, Value(i, clones.clone()));
+        }
+        let old = map.clone();
+        assert_eq!(clones.load(Ordering::Relaxed), 0);
+        map.apply(&[Mutation::Put(0, Value(9999, clones.clone()))]);
+        assert_eq!(clones.load(Ordering::Relaxed), 65);
+        assert_eq!(old.get(&0).unwrap().0, 0);
+        assert_eq!(map.get(&0).unwrap().0, 9999);
+        for i in 1..1024 {
+            assert_eq!(map.get(&i).unwrap().0, i);
+        }
+    }
+    check::<false>();
+    check::<true>();
+}
+
+#[test]
+fn sharded_inline_hashes_once_per_input_operation_even_when_growing() {
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    #[derive(Clone)]
+    struct Builder(Arc<AtomicUsize>);
+    impl std::hash::BuildHasher for Builder {
+        type Hasher = std::collections::hash_map::DefaultHasher;
+        fn build_hasher(&self) -> Self::Hasher {
+            self.0.fetch_add(1, Ordering::Relaxed);
+            Self::Hasher::new()
+        }
+    }
+    fn check<const G: bool>() {
+        let calls = Arc::new(AtomicUsize::new(0));
+        let mut map = ShardedInlineMap::<u64, u64, _, 50, 64, OwnedHasher, G>::with_hasher(
+            Builder(calls.clone()),
+        );
+        let ops: Vec<_> = (0..7000).map(|i| Mutation::Put(i, i)).collect();
+        map.apply(&ops);
+        assert_eq!(calls.load(Ordering::Relaxed), ops.len());
+        let old = map.clone();
+        let ops: Vec<_> = (0..1000)
+            .flat_map(|i| {
+                [
+                    Mutation::Delete(i),
+                    Mutation::Put(i, i + 1),
+                    Mutation::Put(i, i + 2),
+                ]
+            })
+            .collect();
+        map.apply(&ops);
+        assert_eq!(calls.load(Ordering::Relaxed), 7000 + ops.len());
+        for i in 0..7000 {
+            assert_eq!(old.get(&i), Some(&i));
+            assert_eq!(map.get(&i), Some(&(if i < 1000 { i + 2 } else { i })));
+        }
+        assert_eq!(map.len(), 7000);
+    }
+    check::<false>();
+    check::<true>();
+}
+
+#[test]
+fn sharded_inline_zero_and_max_fingerprints_keep_distinct_keys() {
+    #[derive(Default, Clone)]
+    struct Edges(u64);
+    impl Hasher for Edges {
+        fn finish(&self) -> u64 {
+            match self.0 {
+                0 => 0,
+                1 => u64::MAX,
+                n => (n << 32) | 15,
+            }
+        }
+        fn write(&mut self, b: &[u8]) {
+            self.0 = u64::from_ne_bytes(b.try_into().unwrap());
+        }
+        fn write_u64(&mut self, k: u64) {
+            self.0 = k;
+        }
+    }
+    fn check<const G: bool>() {
+        let mut map=ShardedInlineMap::<u64,u64,BuildHasherDefault<Edges>,70,16,OwnedHasher,G>::default();
+        map.apply(
+            &(0..200)
+                .map(|i| Mutation::Put(i, i + 99))
+                .collect::<Vec<_>>(),
+        );
+        let old = map.clone();
+        map.apply(&[
+            Mutation::Delete(0),
+            Mutation::Put(1, 999),
+            Mutation::Delete(63),
+            Mutation::Put(0, 111),
+        ]);
+        assert_eq!(map.get(&0), Some(&111));
+        assert_eq!(map.get(&1), Some(&999));
+        assert_eq!(map.get(&63), None);
+        for i in 0..200 {
+            assert_eq!(old.get(&i), Some(&(i + 99)));
+        }
+        assert_eq!(map.len(), 199);
+    }
+    check::<false>();
+    check::<true>();
+}
+
+#[test]
+fn sharded_inline_canonical_metadata_survives_grouping_and_reinsertion() {
+    #[derive(Clone)]
+    struct Key(u64, &'static str);
+    impl PartialEq for Key {
+        fn eq(&self, other: &Self) -> bool {
+            self.0 == other.0
+        }
+    }
+    impl Eq for Key {}
+    impl std::hash::Hash for Key {
+        fn hash<H: Hasher>(&self, h: &mut H) {
+            self.0.hash(h);
+        }
+    }
+    fn check<const G: bool>() {
+        let mut map = ShardedInlineMap::<
+            Key,
+            u64,
+            std::collections::hash_map::RandomState,
+            70,
+            16,
+            SharedHasher,
+            G,
+        >::default();
+        map.insert(Key(1, "original"), 10);
+        let old = map.clone();
+        map.apply(&[
+            Mutation::Put(Key(2, "other"), 22),
+            Mutation::Put(Key(1, "ignored"), 30),
+        ]);
+        assert_eq!(map.iter().find(|(k, _)| k.0 == 1).unwrap().0 .1, "original");
+        map.apply(&[
+            Mutation::Delete(Key(1, "query")),
+            Mutation::Put(Key(2, "ignored"), 23),
+            Mutation::Put(Key(1, "fresh"), 40),
+        ]);
+        assert_eq!(map.iter().find(|(k, _)| k.0 == 1).unwrap().0 .1, "fresh");
+        assert_eq!(old.iter().next().unwrap().0 .1, "original");
+        assert_eq!(old.get(&Key(1, "query")), Some(&10));
+    }
+    check::<false>();
+    check::<true>();
+}
+
+#[test]
+fn sharded_inline_reclaims_payload_after_last_view_and_removed_value() {
+    fn check<const G: bool>() {
+        let value = Arc::new(vec![1u8; 4096]);
+        let weak = Arc::downgrade(&value);
+        let mut map = ShardedInlineMap::<
+            String,
+            _,
+            std::collections::hash_map::RandomState,
+            70,
+            64,
+            SharedHasher,
+            G,
+        >::default();
+        map.insert("key".into(), value);
+        let old = map.clone();
+        let removed = map.remove("key").unwrap();
+        drop(old);
+        assert!(weak.upgrade().is_some());
+        drop(removed);
+        assert!(weak.upgrade().is_none());
+        assert!(map.is_empty());
+    }
+    check::<false>();
+    check::<true>();
+}
+
+#[test]
+fn sharded_inline_nonclone_builders_and_invalid_parameters() {
+    struct NotClone;
+    impl std::hash::BuildHasher for NotClone {
+        type Hasher = Wrap;
+        fn build_hasher(&self) -> Wrap {
+            Wrap
+        }
+    }
+    let mut map = ShardedInlineMap::<u64, u64, _, 70, 16>::with_hasher(NotClone);
+    map.insert(1, 10);
+    let old = map.clone();
+    map.insert(1, 20);
+    assert_eq!(old.get(&1), Some(&10));
+    assert_eq!(map.get(&1), Some(&20));
+    assert!(std::panic::catch_unwind(
+        ShardedInlineMap::<u64, u64, std::collections::hash_map::RandomState, 70, 0>::default
+    )
+    .is_err());
+    assert!(std::panic::catch_unwind(
+        ShardedInlineMap::<u64, u64, std::collections::hash_map::RandomState, 70, 3>::default
+    )
+    .is_err());
+    assert!(std::panic::catch_unwind(
+        ShardedInlineMap::<u64, u64, std::collections::hash_map::RandomState, 70, 8192>::default
+    )
+    .is_err());
+    assert!(std::panic::catch_unwind(
+        ShardedInlineMap::<u64, u64, std::collections::hash_map::RandomState, 19, 16>::default
     )
     .is_err());
 }

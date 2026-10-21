@@ -334,6 +334,48 @@ impl<const L: usize, const P: usize> Map
 }
 impl<
         const L: usize,
+        const N: usize,
+        HP: rill_state::experimental::HasherPolicy<hashbrown::DefaultHashBuilder>,
+        const G: bool,
+    > Map
+    for rill_state::experimental::ShardedInlineMap<
+        Key,
+        Value,
+        hashbrown::DefaultHashBuilder,
+        L,
+        N,
+        HP,
+        G,
+    >
+where
+    HP::Stored: Send + Sync,
+{
+    fn empty() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.iter() {
+            f(*k, *v);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        self.apply(ops);
+    }
+}
+impl<
+        const L: usize,
         HP: rill_state::experimental::HasherPolicy<hashbrown::DefaultHashBuilder>,
         const SPAN: bool,
     > Map
@@ -1926,6 +1968,246 @@ fn main() {
         };
     }
     match o.engine.as_str() {
+        "shard-shared-each-25-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,1,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-25-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-25-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,64,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-25-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,256,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-25-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,1024,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-50-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,1,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-50-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,16,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-50-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,64,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-50-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,256,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-50-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,1024,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-70-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-70-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-70-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,64,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-70-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-70-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1024,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-85-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,1,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-85-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,16,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-85-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,64,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-85-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,256,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-each-85-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,1024,rill_state::experimental::SharedHasher,false>)
+        }
+        "shard-shared-group-25-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,1,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-25-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-25-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,64,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-25-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,256,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-25-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,1024,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-50-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,1,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-50-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,16,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-50-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,64,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-50-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,256,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-50-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,1024,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-70-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-70-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-70-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,64,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-70-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-70-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1024,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-85-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,1,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-85-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,16,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-85-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,64,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-85-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,256,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-shared-group-85-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,1024,rill_state::experimental::SharedHasher,true>)
+        }
+        "shard-owned-each-25-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,1,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-25-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-25-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,64,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-25-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,256,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-25-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,1024,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-50-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,1,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-50-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,16,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-50-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,64,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-50-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,256,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-50-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,1024,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-70-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-70-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-70-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,64,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-70-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-70-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1024,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-85-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,1,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-85-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,16,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-85-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,64,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-85-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,256,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-each-85-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,1024,rill_state::experimental::OwnedHasher,false>)
+        }
+        "shard-owned-group-25-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,1,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-25-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-25-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,64,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-25-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,256,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-25-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,1024,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-50-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,1,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-50-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,16,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-50-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,64,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-50-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,256,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-50-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,1024,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-70-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-70-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-70-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,64,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-70-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-70-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1024,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-85-1" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,1,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-85-16" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,16,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-85-64" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,64,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-85-256" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,256,rill_state::experimental::OwnedHasher,true>)
+        }
+        "shard-owned-group-85-1024" => {
+            dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,85,1024,rill_state::experimental::OwnedHasher,true>)
+        }
         "inline-shared-span-25" => {
             dispatch!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,true>)
         }
