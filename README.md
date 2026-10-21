@@ -96,7 +96,9 @@ owner is dropped. Payload accounting is not total heap usage or a speed result.
 inline keys/values, a nonzero cached-hash niche and no per-record allocation.
 Sixteen configurations compare fill thresholds, read probing and builder storage.
 Its core behavior tests pass, as do 2,528 small and 2,528 full-size scalar/generic
-checks and 512 four-reader probes. Frozen serial development timing is running.
+checks and 512 four-reader probes. Its serial development sweep completed 10,902
+processes with matching outputs. A fixed layout improves scalar read medians
+but loses 59 of 64 generic cases to hashbrown; no overall winner is selected.
 Streaming probes across four representative configurations reclaim
 all payloads, but retain much more owned payload data than the paged layouts.
 

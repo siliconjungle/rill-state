@@ -457,9 +457,30 @@ probe-25-0 candidate had lower read, burst and replacement medians by about
 10.6%, 14.2% and 11.5% in this same binary's sweep. Both use the same builder
 storage and probing style; the new layout changes the Arc slice and slot
 representation. Indexed probing also improved many but not all matched cells.
-Every fixed candidate and policy contrast remains visible. Whole-process CPU,
-RSS and short-run revision-percentile diagnostics are explicitly separated from
-the measured interval and from service-capacity/tail-latency claims.
+Every fixed candidate and policy contrast remains visible. Whole-process CPU and
+RSS include setup outside the timing interval. Short-run revision-percentile
+medians remain diagnostics, without service-capacity or tail-latency claims.
 
-The eight-shape serial comparison is still running. No holdout seed or final
-acceptance criterion has changed, and the default backend remains unselected.
+## Complete inline generic serial comparison
+
+The eight-shape sweep completed all 8,832 serial processes with matching outputs:
+23 configurations, eight shapes, eight cases, two development seeds and three
+repetitions at 12 measured revisions. Together with the scalar sweep this is
+10,902 processes for v22; the v21 and v22 serial phases total 21,984 fresh runs.
+Every fixed layout, matched policy and regression remains in the complete data.
+
+The fixed inline-owned-index-25 candidate had lower total medians than hashbrown
+in five of 64 generic cells and higher medians in 59. Its read-only ratios were
+0.958/0.984 for mixed-owned/shared, 0.992/1.041/1.022 for String inline/owned/shared,
+and 1.052/1.076/0.974 for u64 inline/owned/shared respectively. Thus four read
+shapes improved descriptively and four regressed; the 12.8% scalar read advantage
+does not establish a general getter advantage across these call sites and data
+shapes. The fixed array-owned-copy-low16 reference remains lower in 29 cells
+and higher in 35, also losing every read-only shape. Neither is an overall winner.
+
+The next implementation needs to reduce copying on publication while preserving
+read locality; the flat layout's owned-payload retention and update regressions
+are measured constraints. Source admission remains open. Rust 1.85, current-stable
+and comparison CI all passed for code revision 1fe9e7d19e5ce4dfd5e05fc4383d95c3523a21cd.
+No holdout seed or final acceptance criterion has changed. Experimental layouts
+remain opt-in, and the original across-the-board objective has not passed.
