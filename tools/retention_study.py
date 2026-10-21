@@ -39,13 +39,19 @@ def main():
     parser.add_argument('--binary',type=pathlib.Path,required=True);parser.add_argument('--build-receipt',type=pathlib.Path,required=True);parser.add_argument('--label',required=True)
     parser.add_argument('--records',type=int,default=20000);parser.add_argument('--changed',type=int,default=200);parser.add_argument('--rounds',type=int,default=256);parser.add_argument('--windows',default='0,16,64');parser.add_argument('--workers',type=int,default=1);parser.add_argument('--engines')
     args=parser.parse_args();assert re.fullmatch(r'[A-Za-z0-9_.-]+',args.label)
+    windows=[int(v)for v in args.windows.split(',')]
+    if not (args.records>0 and 0<args.changed<=args.records and
+            args.rounds*args.changed>=args.records and args.workers>0 and
+            windows and all(w>=0 for w in windows)):
+        parser.error('retention requires positive records/workers, 0 < changed <= records, '
+                     'rounds * changed >= records and nonnegative windows')
     binary=args.binary.resolve();binding=json.loads(args.build_receipt.read_text())
     assert hashlib.sha256(binary.read_bytes()).hexdigest()==binding['binary_sha256']
     assert study.source_hash_at(binding['source_commit'])==binding['source_sha256']
     source=subprocess.check_output(['git','show',binding['source_commit']+':examples/retention_profile.rs'],cwd=ROOT)
     assert hashlib.sha256(source).hexdigest()==binding['example_sha256']
     folder=ROOT/'evidence'/args.label;folder.mkdir(exist_ok=False)
-    engines=args.engines.split(',')if args.engines else ENGINES;windows=[int(v)for v in args.windows.split(',')]
+    engines=args.engines.split(',')if args.engines else ENGINES
     tasks=[(binary,e,args.records,args.changed,args.rounds,w,p,m)for e,w,p,m in itertools.product(engines,windows,[False,True],[False,True])]
     random.Random(0xA11C).shuffle(tasks)
     layout=json.loads(subprocess.check_output([str(binary),'--layout-only'],text=True))
