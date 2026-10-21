@@ -25,7 +25,7 @@ def source_hash():
 def source_hash_at(commit):
     """Verify frozen inputs against Git, without copying another checkout."""
     paths=subprocess.check_output(['git','ls-tree','-r','--name-only',commit,'--','Cargo.toml','Cargo.lock','src','benches'],cwd=ROOT,text=True).splitlines()
-    paths=sorted(p for p in paths if p in ('Cargo.toml','Cargo.lock') or p.endswith('.rs'))
+    paths=sorted((p for p in paths if p in ('Cargo.toml','Cargo.lock') or p.endswith('.rs')),key=lambda p:pathlib.PurePosixPath(p).parts)
     h=hashlib.sha256()
     for path in paths:
         h.update(path.encode()+b'\0'+subprocess.check_output(['git','show',f'{commit}:{path}'],cwd=ROOT))
