@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "state": "active required comparative correctness and performance study",
+  "keep": [
+    {
+      "path": ".git",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": ".gitignore",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": ".github",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "Cargo.toml",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "Cargo.lock",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "README.md",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "LICENSE-MIT",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "LICENSE-APACHE",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "src",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "tests",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "benches",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "tools",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "research",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "evidence",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    },
+    {
+      "path": "storage-retention.json",
+      "reason": "Required implementation, reproducibility input, or selected proof and measurement evidence"
+    }
+  ],
+  "safe_to_remove": []
+}

@@ -1,0 +1,57 @@
+[package]
+name = "rill-state"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Generic versioned snapshots and bounded incremental change feeds"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/siliconjungle/rill-state"
+readme = "README.md"
+
+[features]
+default = []
+comparisons = ["dep:im", "dep:imbl", "dep:rpds", "dep:hashbrown", "dep:arc-swap", "dep:immutable-chunkmap", "dep:papaya", "dep:dashmap", "dep:evmap", "dep:flashmap", "dep:left-right", "dep:swap-arc", "dep:imhm", "dep:btree-slab", "dep:indexmap", "dep:vart", "dep:skipdb", "dep:mvcc_cell", "dep:rcu_cell", "dep:scc", "dep:flurry", "dep:leapfrog", "dep:contrie"]
+
+[dependencies]
+im = { version = "=15.1.0", optional = true }
+imbl = { version = "=7.0.2", optional = true }
+rpds = { version = "=1.2.1", optional = true }
+hashbrown = { version = "=0.17.1", optional = true }
+arc-swap = { version = "=1.9.3", optional = true }
+immutable-chunkmap = { version = "=2.1.4", optional = true }
+papaya = { version = "=0.2.5", optional = true }
+dashmap = { version = "=6.2.1", optional = true }
+evmap = { version = "=11.0.0", optional = true }
+flashmap = { version = "=0.2.0", optional = true }
+left-right = { version = "=0.11.8", optional = true }
+swap-arc = { version = "=0.1.1", optional = true }
+
+imhm = { version = "=0.1.0", optional = true }
+persistent_hashmap = { version = "=0.4.0", optional = true }
+btree-slab = { version = "=0.6.1", optional = true }
+indexmap = { version = "=2.14.2", optional = true }
+vart = { version = "=0.11.0", optional = true }
+skipdb = { version = "=0.2.1", optional = true }
+mvcc_cell = { version = "=0.1.2", optional = true }
+rcu_cell = { version = "=1.2.4", optional = true }
+scc = { version = "=3.8.8", optional = true }
+flurry = { version = "=0.5.2", optional = true }
+leapfrog = { version = "=0.3.3", optional = true, features = ["stable_alloc"] }
+contrie = { version = "=0.1.4", optional = true }
+
+[[bench]]
+name = "state"
+harness = false
+required-features = ["comparisons"]
+
+[profile.dev]
+debug = 0
+incremental = false
+
+[profile.release]
+debug = 0
+incremental = false
+
+[profile.bench]
+debug = 0
+incremental = false

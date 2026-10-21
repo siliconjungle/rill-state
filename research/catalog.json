@@ -1,0 +1,4565 @@
+{
+  "fetched_at": "2026-10-21T18:57:39.328013+00:00",
+  "crates": [
+    {
+      "name": "im",
+      "url": "https://index.crates.io/2/im",
+      "version": "15.1.0",
+      "checksum": "d0acd33ff0285af998aaf9b57342af478078f53492322fafc47450e09397e0e9",
+      "rust_version": "1.46.0",
+      "source": "https://docs.rs/crate/im/15.1.0/source/",
+      "dependencies": [
+        {
+          "name": "arbitrary",
+          "req": "^1.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "bitmaps",
+          "req": "^2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "metrohash",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "pretty_assertions",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "proptest",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "proptest",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "proptest-derive",
+          "req": "^0.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "quickcheck",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [
+            "small_rng"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand_core",
+          "req": "^0.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand_xoshiro",
+          "req": "^0.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "refpool",
+          "req": "^0.4",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "sized-chunks",
+          "req": "^0.6.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "typenum",
+          "req": "^1.12",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "version_check",
+          "req": "^0.9",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "build"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "im-rc",
+      "url": "https://index.crates.io/im/-r/im-rc",
+      "version": "15.1.0",
+      "checksum": "af1955a75fa080c677d3972822ec4bad316169ab1cfc6c257a942c2265dbe5fe",
+      "rust_version": "1.46.0",
+      "source": "https://docs.rs/crate/im-rc/15.1.0/source/",
+      "dependencies": [
+        {
+          "name": "arbitrary",
+          "req": "^1.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "bitmaps",
+          "req": "^2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "metrohash",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "pretty_assertions",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "proptest",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "proptest",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "proptest-derive",
+          "req": "^0.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "quickcheck",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [
+            "small_rng"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand_core",
+          "req": "^0.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand_xoshiro",
+          "req": "^0.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "refpool",
+          "req": "^0.4",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "sized-chunks",
+          "req": "^0.6.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "typenum",
+          "req": "^1.12",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "version_check",
+          "req": "^0.9",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "build"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "imbl",
+      "url": "https://index.crates.io/im/bl/imbl",
+      "version": "7.0.2",
+      "checksum": "46bad832b9b463ed9398b8506488cc2e3b897a9d44f13af115f382aac71f4fec",
+      "rust_version": "1.85",
+      "source": "https://docs.rs/crate/imbl/7.0.2/source/",
+      "dependencies": [
+        {
+          "name": "arbitrary",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "archery",
+          "req": "^1.2.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "bincode",
+          "req": "^2.0.1",
+          "features": [
+            "alloc",
+            "std"
+          ],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "criterion",
+          "req": "^0.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "equivalent",
+          "req": "^1.0.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "half",
+          "req": "^2.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "imbl-sized-chunks",
+          "req": "^0.2.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "metrohash",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "pretty_assertions",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "proptest",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "proptest",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "proptest-derive",
+          "req": "^0.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "quickcheck",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.9",
+          "features": [
+            "small_rng"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand_core",
+          "req": "^0.9",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand_xoshiro",
+          "req": "^0.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rpds",
+          "req": "^1.1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_core",
+          "req": "^1.0.224",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_core",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "static_assertions",
+          "req": "^1.1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "version_check",
+          "req": "^0.9",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "build"
+        },
+        {
+          "name": "wide",
+          "req": "^0.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "imbl-rc",
+      "url": "https://index.crates.io/im/bl/imbl-rc",
+      "status": "metadata_unavailable",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "rpds",
+      "url": "https://index.crates.io/rp/ds/rpds",
+      "version": "1.2.1",
+      "checksum": "e025feb26210bc196b908e72deb063b1b4000754304341cbc168a1e72c857ebc",
+      "rust_version": "1.85.0",
+      "source": "https://docs.rs/crate/rpds/1.2.1/source/",
+      "dependencies": [
+        {
+          "name": "archery",
+          "req": "^1.2.2",
+          "features": [
+            "triomphe"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "criterion",
+          "req": "^0.8.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "pretty_assertions",
+          "req": "^1.4.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.10.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.12.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.228",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1.0.149",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "smallvec",
+          "req": "^1.15.1",
+          "features": [
+            "const_generics"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "static_assertions",
+          "req": "^1.1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "archery",
+      "url": "https://index.crates.io/ar/ch/archery",
+      "version": "1.2.3",
+      "checksum": "33ca55ee147b1926dbea904f50fe4902494e97bc742205abbbf10c709e43815f",
+      "rust_version": "1.85.0",
+      "source": "https://docs.rs/crate/archery/1.2.3/source/",
+      "dependencies": [
+        {
+          "name": "criterion",
+          "req": "^0.8.2",
+          "features": [
+            "html_reports"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "pretty_assertions",
+          "req": "^1.4.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.229",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1.0.150",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "static_assertions",
+          "req": "^1.1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "triomphe",
+          "req": "^0.1.16",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "immutable-chunkmap",
+      "url": "https://index.crates.io/im/mu/immutable-chunkmap",
+      "version": "2.1.4",
+      "checksum": "da5fe4d67d09ce2c08ff406f6758ec716206c28be92357ae5d5f798c2ef4b548",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/immutable-chunkmap/2.1.4/source/",
+      "dependencies": [
+        {
+          "name": "arcstr",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "arrayvec",
+          "req": "^0.7",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "compact_str",
+          "req": "^0.9",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "fxhash",
+          "req": "^0.2",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "hashbrown",
+          "req": "^0.15",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "netidx-value",
+          "req": "^0.32",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "paste",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "poolshark",
+          "req": "^0.2.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde",
+          "req": "^1",
+          "features": [
+            "alloc"
+          ],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "imhm",
+      "url": "https://index.crates.io/im/hm/imhm",
+      "version": "0.1.0",
+      "checksum": "fface6bccf2e9ad69a14e853d2c00bf13d40ed59ab63d07dde555a67acb67220",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/imhm/0.1.0/source/",
+      "dependencies": [
+        {
+          "name": "ahash",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "anyhow",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "arcstr",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "compact_str",
+          "req": "^0.9",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "imbl",
+          "req": "^7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "immutable-chunkmap",
+          "req": "^2.1.4",
+          "features": [
+            "pool"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "nohash",
+          "req": "^0.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rustc-hash",
+          "req": "^2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "triomphe",
+          "req": "^0.1.16",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "persistent_hashmap",
+      "url": "https://index.crates.io/pe/rs/persistent_hashmap",
+      "version": "0.4.0",
+      "checksum": "0c329d38bdd60f866811da79e199b8b9bdab9c3e4bea2b1749240d87ef1268dc",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/persistent_hashmap/0.4.0/source/",
+      "dependencies": [
+        {
+          "name": "persistent_array",
+          "req": "^0.5.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "twox-hash",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "persistent-vec",
+      "url": "https://index.crates.io/pe/rs/persistent-vec",
+      "status": "metadata_unavailable",
+      "error": ""
+    },
+    {
+      "name": "rpds-patched",
+      "url": "https://index.crates.io/rp/ds/rpds-patched",
+      "status": "metadata_unavailable",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "pvec",
+      "url": "https://index.crates.io/pv/ec/pvec",
+      "version": "0.2.1",
+      "checksum": "9c8a33f1001bd132cb71613d6c4160d90ae93e324c2ee1d863e462ea36033ca3",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/pvec/0.2.1/source/",
+      "dependencies": [
+        {
+          "name": "criterion",
+          "req": "^0.3.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "im",
+          "req": "^14.0.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "im-rc",
+          "req": "^14.0.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "num",
+          "req": "^0.2.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand_xorshift",
+          "req": "^0.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.73",
+          "features": [
+            "rc"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_derive",
+          "req": "^1.0.73",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1.0.26",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "immer",
+      "url": "https://index.crates.io/im/me/immer",
+      "status": "metadata_unavailable",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "imstr",
+      "url": "https://index.crates.io/im/st/imstr",
+      "version": "0.2.0",
+      "checksum": "7d3441deb04ea9c6b472f313be54d585428cd6a68cdb8dcf40cf43744bec78fe",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/imstr/0.2.0/source/",
+      "dependencies": [
+        {
+          "name": "criterion",
+          "req": "^0.4.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "nom",
+          "req": "^7.1.3",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "peg",
+          "req": "^0.8.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "peg-runtime",
+          "req": "^0.8.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.159",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "arc-swap",
+      "url": "https://index.crates.io/ar/c-/arc-swap",
+      "version": "1.9.3",
+      "checksum": "380962b3d93b99642e50b9febf72c071e97e8b32d86eae9cf4ef582bb960ae6e",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/arc-swap/1.9.3/source/",
+      "dependencies": [
+        {
+          "name": "adaptive-barrier",
+          "req": "~1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "criterion",
+          "req": "~0.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "crossbeam-utils",
+          "req": "~0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "itertools",
+          "req": "^0.14",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "num_cpus",
+          "req": "~1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "once_cell",
+          "req": "~1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "parking_lot",
+          "req": "~0.12",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "proptest",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rustversion",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1",
+          "features": [
+            "rc"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_derive",
+          "req": "^1.0.130",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_test",
+          "req": "^1.0.177",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "swap-arc",
+      "url": "https://index.crates.io/sw/ap/swap-arc",
+      "version": "0.1.1",
+      "checksum": "56706d45a27230f3497fa83f8fdc338b95c00f443a9717876d65b071df7735a2",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/swap-arc/0.1.1/source/",
+      "dependencies": [
+        {
+          "name": "arc-swap",
+          "req": "^1.5.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "cfg-if",
+          "req": "^1.0.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "crossbeam-utils",
+          "req": "^0.8.14",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "likely_stable",
+          "req": "^0.1.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "thread_local",
+          "req": "^1.1.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "aarc",
+      "url": "https://index.crates.io/aa/rc/aarc",
+      "version": "0.4.0",
+      "checksum": "2983a0444d84c8c444870d9ec8df75d540d042fb4ca7160829c83721f214264f",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/aarc/0.4.0/source/",
+      "dependencies": [
+        {
+          "name": "fast-smr",
+          "req": "^0.2.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "triomphe",
+      "url": "https://index.crates.io/tr/io/triomphe",
+      "version": "0.1.17",
+      "checksum": "0d15f4f5898bcfc5d8a8e45ed30b2f108d710c1a2e5489dbf80e078f707181bc",
+      "rust_version": "1.85",
+      "source": "https://docs.rs/crate/triomphe/0.1.17/source/",
+      "dependencies": [
+        {
+          "name": "arc-swap",
+          "req": "^1.3.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "stable_deref_trait",
+          "req": "^1.1.1",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "unsize",
+          "req": "^1.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "evmap",
+      "url": "https://index.crates.io/ev/ma/evmap",
+      "version": "11.0.0",
+      "checksum": "1b8874945f036109c72242964c1174cf99434e30cfa45bf45fedc983f50046f8",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/evmap/11.0.0/source/",
+      "dependencies": [
+        {
+          "name": "hashbag",
+          "req": "^0.1.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "indexmap",
+          "req": "^2.12.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "indexmap-amortized",
+          "req": "^1.6.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "left-right",
+          "req": "^0.11.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "quickcheck",
+          "req": "^1.0.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "quickcheck_macros",
+          "req": "^1.1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.9.2",
+          "features": [
+            "alloc"
+          ],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.9.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "smallvec",
+          "req": "^1.0.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "left-right",
+      "url": "https://index.crates.io/le/ft/left-right",
+      "version": "0.11.8",
+      "checksum": "8bc015ded5d9b3054dbbdb63332cdd6ee42352ccef19e911e25117490e2f48ee",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/left-right/0.11.8/source/",
+      "dependencies": [
+        {
+          "name": "crossbeam-utils",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "loom",
+          "req": "^0.7.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(loom)",
+          "kind": "normal"
+        },
+        {
+          "name": "slab",
+          "req": "^0.4.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "flashmap",
+      "url": "https://index.crates.io/fl/as/flashmap",
+      "version": "0.2.0",
+      "checksum": "566589e568236559f699a9cd296e939deafb36338bd7781d462538eb5bef5254",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/flashmap/0.2.0/source/",
+      "dependencies": [
+        {
+          "name": "hashbrown",
+          "req": "^0.16.1",
+          "features": [
+            "inline-more",
+            "raw-entry"
+          ],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "loom",
+          "req": "^0.7.2",
+          "features": [
+            "checkpoint"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "num_cpus",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "slab",
+          "req": "^0.4.12",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "rcu-clean",
+      "url": "https://index.crates.io/rc/u-/rcu-clean",
+      "version": "0.1.8",
+      "checksum": "c31d41ffa7e36ad4fcf6cf9dcd825511e953d7698d27bfdd94b1f759c9895598",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/rcu-clean/0.1.8/source/",
+      "dependencies": [
+        {
+          "name": "criterion",
+          "req": "^0.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "once_cell",
+          "req": "^1.17.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "rcu_cell",
+      "url": "https://index.crates.io/rc/u_/rcu_cell",
+      "version": "1.2.4",
+      "checksum": "ac63dc14052e2dea100fe8e3b256bb3e29799f4a059ad3af871811856218fc5b",
+      "rust_version": "1.84",
+      "source": "https://docs.rs/crate/rcu_cell/1.2.4/source/",
+      "dependencies": [
+        {
+          "name": "arc-swap",
+          "req": "^1.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "crossbeam-utils",
+          "req": "^0.8.20",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "spin",
+          "req": "^0.12",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "scc",
+      "url": "https://index.crates.io/3/s/scc",
+      "version": "3.8.8",
+      "checksum": "5d5f8ca67c4f6208caf824037a6a9df0211b4e0937fccc4f543441f294d04511",
+      "rust_version": "1.85.0",
+      "source": "https://docs.rs/crate/scc/3.8.8/source/",
+      "dependencies": [
+        {
+          "name": "criterion",
+          "req": "^0.8",
+          "features": [
+            "async_futures"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "equivalent",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "fnv",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "futures",
+          "req": "^0.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "loom",
+          "req": "^0.7",
+          "features": [
+            "checkpoint"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "proptest",
+          "req": "^1.11",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "saa",
+          "req": "^5.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "sdd",
+          "req": "^4.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_test",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "static_assertions",
+          "req": "^1.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "tokio",
+          "req": "^1.53",
+          "features": [
+            "full"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "papaya",
+      "url": "https://index.crates.io/pa/pa/papaya",
+      "version": "0.2.5",
+      "checksum": "da2442474a9404698c42509b8967f437249dbc7b50493e83020333d3943ec0ae",
+      "rust_version": "1.72.0",
+      "source": "https://docs.rs/crate/papaya/0.2.5/source/",
+      "dependencies": [
+        {
+          "name": "base64",
+          "req": "^0.22",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "criterion",
+          "req": "^0.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "dashmap",
+          "req": "^5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "equivalent",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "hdrhistogram",
+          "req": "^7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "num_cpus",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "seize",
+          "req": "^0.5",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "tokio",
+          "req": "^1",
+          "features": [
+            "fs",
+            "rt"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "dashmap",
+      "url": "https://index.crates.io/da/sh/dashmap",
+      "version": "6.2.1",
+      "checksum": "e6361d5c062261c78a176addb82d4c821ae42bed6089de0e12603cd25de2059c",
+      "rust_version": "1.65",
+      "source": "https://docs.rs/crate/dashmap/6.2.1/source/",
+      "dependencies": [
+        {
+          "name": "arbitrary",
+          "req": "^1.4.2",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "cfg-if",
+          "req": "^1.0.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "crossbeam-utils",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "hashbrown",
+          "req": "^0.14.5",
+          "features": [
+            "raw"
+          ],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "lock_api",
+          "req": "^0.4.13",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "once_cell",
+          "req": "^1.21.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "parking_lot_core",
+          "req": "^0.9.11",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.10.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.228",
+          "features": [
+            "derive"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "typesize",
+          "req": "^0.1.14",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "flurry",
+      "url": "https://index.crates.io/fl/ur/flurry",
+      "version": "0.5.2",
+      "checksum": "cf5efcf77a4da27927d3ab0509dec5b0954bb3bc59da5a1de9e52642ebd4cdf9",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/flurry/0.5.2/source/",
+      "dependencies": [
+        {
+          "name": "ahash",
+          "req": "^0.8.4",
+          "features": [
+            "compile-time-rng"
+          ],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "criterion",
+          "req": "^0.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "num_cpus",
+          "req": "^1.12.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "parking_lot",
+          "req": "^0.12",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.3",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "regex",
+          "req": "^1.6.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": "cfg(any())",
+          "kind": "normal"
+        },
+        {
+          "name": "seize",
+          "req": "^0.3.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.105",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1.0.50",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "leapfrog",
+      "url": "https://index.crates.io/le/ap/leapfrog",
+      "version": "0.3.3",
+      "checksum": "051c43359ac3022f1703b7996522be4db9c5e5e8781636ee90a41c4c567ff0ee",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/leapfrog/0.3.3/source/",
+      "dependencies": [
+        {
+          "name": "allocator-api2",
+          "req": "^0.2.15",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "atomic",
+          "req": "^0.5.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "core_affinity",
+          "req": "^0.8.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "criterion",
+          "req": "^0.5.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_crate",
+          "req": "^1.0.136",
+          "features": [
+            "derive"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal",
+          "package": "serde"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1.0.50",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "chashmap",
+      "url": "https://index.crates.io/ch/as/chashmap",
+      "version": "2.2.2",
+      "checksum": "ff41a3c2c1e39921b9003de14bf0439c7b63a9039637c291e1a64925d8ddfa45",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/chashmap/2.2.2/source/",
+      "dependencies": [
+        {
+          "name": "owning_ref",
+          "req": "^0.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "parking_lot",
+          "req": "^0.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "contrie",
+      "url": "https://index.crates.io/co/nt/contrie",
+      "version": "0.1.4",
+      "checksum": "d4658d3e5b0a1219f7c6f8af841d67507288008b76fce9cc2edb59f1a2e6123e",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/contrie/0.1.4/source/",
+      "dependencies": [
+        {
+          "name": "arrayvec",
+          "req": "~0.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "bitflags",
+          "req": "~1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "crossbeam-epoch",
+          "req": "~0.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "crossbeam-utils",
+          "req": "~0.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "proptest",
+          "req": "~0.9.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "~0.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "~1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "~1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "smallvec",
+          "req": "~0.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "version-sync",
+          "req": "~0.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "crossbeam-skiplist",
+      "url": "https://index.crates.io/cr/os/crossbeam-skiplist",
+      "version": "0.1.3",
+      "checksum": "df29de440c58ca2cc6e587ec3d22347551a32435fbde9d2bff64e78a9ffa151b",
+      "rust_version": "1.61",
+      "source": "https://docs.rs/crate/crossbeam-skiplist/0.1.3/source/",
+      "dependencies": [
+        {
+          "name": "crossbeam-epoch",
+          "req": "^0.9.17",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "crossbeam-utils",
+          "req": "^0.8.18",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "skipdb",
+      "url": "https://index.crates.io/sk/ip/skipdb",
+      "version": "0.2.1",
+      "checksum": "12300a6fbbecfb551d7efd3ccfb1cd7d4bf0cf04633ffd65a8a9951884c62711",
+      "rust_version": "1.75.0",
+      "source": "https://docs.rs/crate/skipdb/0.2.1/source/",
+      "dependencies": [
+        {
+          "name": "cheap-clone",
+          "req": "^0.1",
+          "features": [
+            "std"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "crossbeam-channel",
+          "req": "^0.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "scopeguard",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "skipdb-core",
+          "req": "^0.2",
+          "features": [
+            "default"
+          ],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "txn",
+          "req": "^0.1",
+          "features": [
+            "default"
+          ],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "wmark",
+          "req": "^0.1",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "mvcc_cell",
+      "url": "https://index.crates.io/mv/cc/mvcc_cell",
+      "version": "0.1.2",
+      "checksum": "cb761277b6c68c669e34c682ebb2b3405a757be1591a79c93ef005a1b16aff04",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/mvcc_cell/0.1.2/source/",
+      "dependencies": [
+        {
+          "name": "guest_cell",
+          "req": "^0.1.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "parking_lot",
+          "req": "^0.12.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "proptest",
+          "req": "^1.0.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "mvcc-core",
+      "url": "https://index.crates.io/mv/cc/mvcc-core",
+      "version": "0.1.0",
+      "checksum": "39fdb1d983e5dcb88197085e3aeb3cee2cbe983ea1e576e058a1d3a8d1e7b6dc",
+      "rust_version": "1.96",
+      "source": "https://docs.rs/crate/mvcc-core/0.1.0/source/",
+      "dependencies": [
+        {
+          "name": "crossbeam-epoch",
+          "req": "^0.9.20",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "mvcc-derive",
+          "req": "^0.1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "parking_lot",
+          "req": "^0.12.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "boxcar",
+      "url": "https://index.crates.io/bo/xc/boxcar",
+      "version": "0.2.14",
+      "checksum": "36f64beae40a84da1b4b26ff2761a5b895c12adc41dc25aaee1c4f2bbfe97a6e",
+      "rust_version": "1.72.0",
+      "source": "https://docs.rs/crate/boxcar/0.2.14/source/",
+      "dependencies": [
+        {
+          "name": "criterion",
+          "req": "^0.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "loom",
+          "req": "^0.7",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": "cfg(loom)",
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "elsa",
+      "url": "https://index.crates.io/el/sa/elsa",
+      "version": "1.11.2",
+      "checksum": "9abf33c656a7256451ebb7d0082c5a471820c31269e49d807c538c252352186e",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/elsa/1.11.2/source/",
+      "dependencies": [
+        {
+          "name": "indexmap",
+          "req": "^2.0.2",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "stable_deref_trait",
+          "req": "^1.1.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "redb",
+      "url": "https://index.crates.io/re/db/redb",
+      "version": "4.4.0",
+      "checksum": "39178e0a867f9e3eaa6292a4ab1dd3613f2519c5b564341e1e7b29b270736cc4",
+      "rust_version": "1.90",
+      "source": "https://docs.rs/crate/redb/4.4.0/source/",
+      "dependencies": [
+        {
+          "name": "chrono_v0_4",
+          "req": "^0.4.41",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal",
+          "package": "chrono"
+        },
+        {
+          "name": "libc",
+          "req": "^0.2.174",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(any(target_os = \"linux\", target_vendor = \"apple\"))",
+          "kind": "normal"
+        },
+        {
+          "name": "libc",
+          "req": "^0.2.174",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(target_os = \"wasi\")",
+          "kind": "normal"
+        },
+        {
+          "name": "log",
+          "req": "^0.4.17",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.10.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "redb2_6",
+          "req": "=2.6.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev",
+          "package": "redb"
+        },
+        {
+          "name": "tempfile",
+          "req": "^3.5.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "uuid",
+          "req": "^1.17.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "uuid",
+          "req": "^1.17.0",
+          "features": [
+            "v4"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "sled",
+      "url": "https://index.crates.io/sl/ed/sled",
+      "version": "0.34.7",
+      "checksum": "7f96b4737c2ce5987354855aed3797279def4ebf734436c6aa4552cf8e169935",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/sled/0.34.7/source/",
+      "dependencies": [
+        {
+          "name": "backtrace",
+          "req": "^0.3.61",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "byteorder",
+          "req": "^1.3.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "color-backtrace",
+          "req": "^0.5.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "crc32fast",
+          "req": "^1.2.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "crossbeam-epoch",
+          "req": "^0.9.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "crossbeam-utils",
+          "req": "^0.8.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "env_logger",
+          "req": "^0.8.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "fs2",
+          "req": "^0.4.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(any(target_os = \"linux\", target_os = \"macos\", target_os = \"windows\"))",
+          "kind": "normal"
+        },
+        {
+          "name": "fxhash",
+          "req": "^0.2.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "libc",
+          "req": "^0.2.101",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "log",
+          "req": "^0.4.14",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "log",
+          "req": "^0.4.11",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "parking_lot",
+          "req": "^0.11.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "quickcheck",
+          "req": "^0.9.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.7.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand_chacha",
+          "req": "^0.2.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand_distr",
+          "req": "^0.3.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rio",
+          "req": "^0.9.4",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "zerocopy",
+          "req": "^0.3.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "zstd",
+          "req": "^0.9.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "rusqlite",
+      "url": "https://index.crates.io/ru/sq/rusqlite",
+      "version": "0.40.2",
+      "checksum": "23f2a97da3e3873c73cb2a2e71b35c40ff95e0b1eefa8d72d8499a6928c3b5b3",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/rusqlite/0.40.2/source/",
+      "dependencies": [
+        {
+          "name": "bencher",
+          "req": "^0.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "bitflags",
+          "req": "^2.6.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "chrono",
+          "req": "^0.4.42",
+          "features": [
+            "clock"
+          ],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "chrono",
+          "req": "^0.4.42",
+          "features": [
+            "wasmbind"
+          ],
+          "optional": true,
+          "default_features": false,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "normal"
+        },
+        {
+          "name": "csv",
+          "req": "^1.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "doc-comment",
+          "req": "^0.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "fallible-iterator",
+          "req": "^0.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "fallible-streaming-iterator",
+          "req": "^0.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "getrandom",
+          "req": "^0.4",
+          "features": [
+            "wasm_js"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "dev"
+        },
+        {
+          "name": "hashlink",
+          "req": "^0.12",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "jiff",
+          "req": "^0.2",
+          "features": [
+            "std"
+          ],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "jiff",
+          "req": "^0.2",
+          "features": [
+            "js"
+          ],
+          "optional": true,
+          "default_features": false,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "normal"
+        },
+        {
+          "name": "libsqlite3-sys",
+          "req": "^0.38.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "normal"
+        },
+        {
+          "name": "libsqlite3-sys",
+          "req": "^0.38.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(not(all(target_family = \"wasm\", target_os = \"unknown\")))",
+          "kind": "normal"
+        },
+        {
+          "name": "regex",
+          "req": "^1.5.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rusqlite-macros",
+          "req": "^0.4.3",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "self_cell",
+          "req": "^1.1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "smallvec",
+          "req": "^1.6.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "sqlite-wasm-rs",
+          "req": "^0.5.1",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "normal"
+        },
+        {
+          "name": "sqlite-wasm-rs",
+          "req": "^0.5.1",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "dev"
+        },
+        {
+          "name": "tempfile",
+          "req": "^3.1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "time",
+          "req": "^0.3.47",
+          "features": [
+            "formatting",
+            "macros",
+            "parsing"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "time",
+          "req": "^0.3.47",
+          "features": [
+            "wasm-bindgen"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "normal"
+        },
+        {
+          "name": "unicase",
+          "req": "^2.6.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "url",
+          "req": "^2.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "uuid",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "uuid",
+          "req": "^1.0",
+          "features": [
+            "js"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "normal"
+        },
+        {
+          "name": "uuid",
+          "req": "^1.0",
+          "features": [
+            "v4"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "uuid",
+          "req": "^1.0",
+          "features": [
+            "js"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "dev"
+        },
+        {
+          "name": "wasm-bindgen",
+          "req": "^0.2.104",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "dev"
+        },
+        {
+          "name": "wasm-bindgen-test",
+          "req": "^0.3.54",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(all(target_family = \"wasm\", target_os = \"unknown\"))",
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "heed",
+      "url": "https://index.crates.io/he/ed/heed",
+      "version": "0.22.1",
+      "checksum": "ad82d6598ccf1dac15c8b758a1bd282b755b6776be600429176757190a1b0202",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/heed/0.22.1/source/",
+      "dependencies": [
+        {
+          "name": "bitflags",
+          "req": "^2.9.4",
+          "features": [
+            "serde"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "byteorder",
+          "req": "^1.5.0",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "heed-traits",
+          "req": "^0.20.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "heed-types",
+          "req": "^0.21.0",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "libc",
+          "req": "^0.2.175",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "lmdb-master-sys",
+          "req": "^0.2.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "memchr",
+          "req": "^2.7.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "once_cell",
+          "req": "^1.21.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "page_size",
+          "req": "^0.6.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.9.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.10.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "roaring",
+          "req": "^0.10.10",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.223",
+          "features": [
+            "derive"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.223",
+          "features": [
+            "derive"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "synchronoise",
+          "req": "^1.0.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "tempfile",
+          "req": "^3.22.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "url",
+          "req": "^2.5.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(windows)",
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "sanakirja",
+      "url": "https://index.crates.io/sa/na/sanakirja",
+      "version": "1.4.3",
+      "checksum": "81aaf70d064e2122209f04d01fd91e8908e7a327b516236e1cbc0c3f34ac6d11",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/sanakirja/1.4.3/source/",
+      "dependencies": [
+        {
+          "name": "crc32fast",
+          "req": "^1.2",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "env_logger",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "fs2",
+          "req": "^0.4",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "lazy_static",
+          "req": "^1.4",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "libc",
+          "req": "^0.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "lmdb-rs",
+          "req": "^0.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "log",
+          "req": "^0.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "memmap2",
+          "req": "^0.9",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "parking_lot",
+          "req": "^0.11",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [
+            "small_rng"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "sanakirja-core",
+          "req": "^1.4.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "sled",
+          "req": "^0.34",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "tempfile",
+          "req": "^3.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "thiserror",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "uuid_",
+          "req": "^0.8",
+          "features": [
+            "v4"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev",
+          "package": "uuid"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "orx-concurrent-vec",
+      "url": "https://index.crates.io/or/x-/orx-concurrent-vec",
+      "version": "4.1.0",
+      "checksum": "14f6c0b666163e1e93ee5be20682fda1a9ad179c51afdbeba1063dccd740ce25",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/orx-concurrent-vec/4.1.0/source/",
+      "dependencies": [
+        {
+          "name": "append-only-vec",
+          "req": "^0.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "boxcar",
+          "req": "^0.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "clap",
+          "req": "^4.6",
+          "features": [
+            "derive"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "criterion",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "orx-concurrent-option",
+          "req": "^1.6",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "orx-fixed-vec",
+          "req": "^4.0",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "orx-iterable",
+          "req": "^1.3",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "orx-pinned-concurrent-col",
+          "req": "^3.0",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "orx-pinned-vec",
+          "req": "^4.0",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "orx-pseudo-default",
+          "req": "^2.1",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "orx-split-vec",
+          "req": "^4.0",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.9",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand_chacha",
+          "req": "^0.9",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.12",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_json",
+          "req": "^1.0",
+          "features": [
+            "std"
+          ],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "test-case",
+          "req": "^3.3",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "hashbrown",
+      "url": "https://index.crates.io/ha/sh/hashbrown",
+      "version": "0.17.1",
+      "checksum": "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a",
+      "rust_version": "1.85.0",
+      "source": "https://docs.rs/crate/hashbrown/0.17.1/source/",
+      "dependencies": [
+        {
+          "name": "alloc",
+          "req": "^1.0.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal",
+          "package": "rustc-std-workspace-alloc"
+        },
+        {
+          "name": "allocator-api2",
+          "req": "^0.2.9",
+          "features": [
+            "alloc"
+          ],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "bumpalo",
+          "req": "^3.13.0",
+          "features": [
+            "allocator-api2"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "core",
+          "req": "^1.0.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal",
+          "package": "rustc-std-workspace-core"
+        },
+        {
+          "name": "criterion",
+          "req": "^0.7",
+          "features": [
+            "html_reports"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "equivalent",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "fnv",
+          "req": "^1.0.7",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "foldhash",
+          "req": "^0.2.0",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "libc",
+          "req": "^0.2.155",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": "cfg(unix)",
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.9.0",
+          "features": [
+            "small_rng"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.9.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.220",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": "cfg(any())",
+          "kind": "normal"
+        },
+        {
+          "name": "serde_core",
+          "req": "^1.0.221",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde_test",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "indexmap",
+      "url": "https://index.crates.io/in/de/indexmap",
+      "version": "2.14.2",
+      "checksum": "cc4e190f5d26ca7051642629da2c52fc03bde85a03197c99408dcd291734c855",
+      "rust_version": "1.85",
+      "source": "https://docs.rs/crate/indexmap/2.14.2/source/",
+      "dependencies": [
+        {
+          "name": "arbitrary",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "borsh",
+          "req": "^1.2",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "equivalent",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "fastrand",
+          "req": "^2",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "fnv",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "hashbrown",
+          "req": "^0.17",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "itertools",
+          "req": "^0.14",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "quickcheck",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "quickcheck",
+          "req": "^1.1",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.9",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.220",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": "cfg(any())",
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0",
+          "features": [
+            "derive"
+          ],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_core",
+          "req": "^1.0.220",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "sval",
+          "req": "^2",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "ordermap",
+      "url": "https://index.crates.io/or/de/ordermap",
+      "version": "1.2.2",
+      "checksum": "16a756ddcdeb6c0efc8927bdf0ed112885815a35ba350472a467be5104f01ca1",
+      "rust_version": "1.85",
+      "source": "https://docs.rs/crate/ordermap/1.2.2/source/",
+      "dependencies": [
+        {
+          "name": "arbitrary",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "borsh",
+          "req": "^1.5.6",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "fastrand",
+          "req": "^2",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "fnv",
+          "req": "^1.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "indexmap",
+          "req": "^2.14.2",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "itertools",
+          "req": "^0.14",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "quickcheck",
+          "req": "^1.0",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "quickcheck",
+          "req": "~1.0",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rayon",
+          "req": "^1.9",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0.220",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": "cfg(any())",
+          "kind": "normal"
+        },
+        {
+          "name": "serde",
+          "req": "^1.0",
+          "features": [
+            "derive"
+          ],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "serde_core",
+          "req": "^1.0.220",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "sval",
+          "req": "^2",
+          "features": [],
+          "optional": true,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "btree-slab",
+      "url": "https://index.crates.io/bt/re/btree-slab",
+      "version": "0.6.1",
+      "checksum": "7a2b56d3029f075c4fa892428a098425b86cef5c89ae54073137ece416aef13c",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/btree-slab/0.6.1/source/",
+      "dependencies": [
+        {
+          "name": "cc-traits",
+          "req": "^2.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8.5",
+          "features": [
+            "small_rng"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "slab",
+          "req": "^0.4.5",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "smallvec",
+          "req": "^1.8.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "vart",
+      "url": "https://index.crates.io/va/rt/vart",
+      "version": "0.11.0",
+      "checksum": "b8cbaa03243c2457c85001bd95dae5ea7f78d12f0fb4c9759ed2a7659e6da3fc",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/vart/0.11.0/source/",
+      "dependencies": [
+        {
+          "name": "byteslice",
+          "req": "^0.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "criterion",
+          "req": "^0.5.1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "divan",
+          "req": "^0.1.14",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "imbl",
+          "req": "^7.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8.5",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "rart",
+      "url": "https://index.crates.io/ra/rt/rart",
+      "version": "0.11.0",
+      "checksum": "5488e63dd903d52e19ac2103ad488e612bc81d1291079fc2e23e60be515c3a1a",
+      "rust_version": null,
+      "source": "https://docs.rs/crate/rart/0.11.0/source/",
+      "dependencies": [
+        {
+          "name": "blart",
+          "req": "^0.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "criterion",
+          "req": "^0.8",
+          "features": [
+            "html_reports"
+          ],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "imbl",
+          "req": "^7.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "micromeasure",
+          "req": "^0.15",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "num-traits",
+          "req": "^0.2",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "proptest",
+          "req": "^1.6",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "rand",
+          "req": "^0.9",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "shuttle",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "simdeez",
+          "req": "^2.0",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "triomphe",
+          "req": "^0.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "crossbeam-epoch",
+      "url": "https://index.crates.io/cr/os/crossbeam-epoch",
+      "version": "0.9.21",
+      "checksum": "dc74980687109a3b14c72fd458107bf0baa1da1a1a805e178d15501ba9b86d9d",
+      "rust_version": "1.61",
+      "source": "https://docs.rs/crate/crossbeam-epoch/0.9.21/source/",
+      "dependencies": [
+        {
+          "name": "crossbeam-utils",
+          "req": "^0.8.18",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "loom-crate",
+          "req": "^0.7.1",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": "cfg(crossbeam_loom)",
+          "kind": "normal",
+          "package": "loom"
+        },
+        {
+          "name": "rand",
+          "req": "^0.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "seize",
+      "url": "https://index.crates.io/se/iz/seize",
+      "version": "0.5.1",
+      "checksum": "5b55fb86dfd3a2f5f76ea78310a88f96c4ea21a3031f8d212443d56123fd0521",
+      "rust_version": "1.72.0",
+      "source": "https://docs.rs/crate/seize/0.5.1/source/",
+      "dependencies": [
+        {
+          "name": "criterion",
+          "req": "^0.7.0",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "crossbeam-epoch",
+          "req": "^0.9.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "haphazard",
+          "req": "^0.1.8",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "libc",
+          "req": "^0.2",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "windows-sys",
+          "req": ">=0.52, <=0.61",
+          "features": [
+            "Win32_System_Threading"
+          ],
+          "optional": true,
+          "default_features": true,
+          "target": "cfg(windows)",
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    },
+    {
+      "name": "left-right-copy",
+      "url": "https://index.crates.io/le/ft/left-right-copy",
+      "status": "metadata_unavailable",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "multiversion",
+      "url": "https://index.crates.io/mu/lt/multiversion",
+      "version": "0.9.1",
+      "checksum": "064516e3530f0916620d0ec77549b3cc9fb83be97af00271ea3396bc52bd931c",
+      "rust_version": "1.86",
+      "source": "https://docs.rs/crate/multiversion/0.9.1/source/",
+      "dependencies": [
+        {
+          "name": "criterion",
+          "req": "^0.4",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "multiversion-macros",
+          "req": "^0.9.1",
+          "features": [],
+          "optional": false,
+          "default_features": false,
+          "target": null,
+          "kind": "normal"
+        },
+        {
+          "name": "rustversion",
+          "req": "^1",
+          "features": [],
+          "optional": false,
+          "default_features": true,
+          "target": null,
+          "kind": "dev"
+        },
+        {
+          "name": "target-features",
+          "req": "^0.2",
+          "features": [],
+          "optional": true,
+          "default_features": true,
+          "target": null,
+          "kind": "normal"
+        }
+      ],
+      "status": "discovered"
+    }
+  ]
+}
