@@ -190,6 +190,66 @@ impl Map for Vart{
     fn visit(&self,mut f:impl FnMut(Key,Value)){for(k,v,_,_)in self.0.iter(){f(u64::from_be_bytes(k.try_into().unwrap()),*v);}}
 }
 
+type Db=skipdb::optimistic::OptimisticDb<Key,Value>;
+type ReadTx=skipdb::ReadTransaction<Key,Value,Db,txn::HashCm<Key>>;
+#[derive(Clone)]
+struct DbView{transaction:Arc<ReadTx>,len:usize}
+impl ReadView for DbView{
+    fn get(&self,k:&Key)->Option<Value>{self.transaction.get(k).map(|e|*e.value())}
+    fn len(&self)->usize{self.len}
+    fn checksum(&self)->u64{self.transaction.iter().fold(0u64,|sum,e|sum.wrapping_add(digest(*e.key(),*e.value())))}
+    fn contents(&self)->BTreeMap<Key,Value>{self.transaction.iter().map(|e|(*e.key(),*e.value())).collect()}
+}
+struct SkipDb{db:Db,current:DbView,journal:Compared<HashMap<Key,Value>>}
+impl SkipDb{
+    fn new()->Self{let db=Db::new();let current=DbView{transaction:Arc::new(db.read()),len:0};Self{db,current,journal:Compared::new()}}
+}
+impl Engine for SkipDb{
+    type View=DbView;
+    fn publish(&mut self,ops:Vec<Op>){
+        let mut len=self.current.len;
+        if !ops.is_empty(){
+            let mut tx=self.db.write_with_capacity(ops.len());
+            for op in &ops{match op{
+                Op::Put(k,v)=>{if tx.get(k).unwrap().is_none(){len+=1;}tx.insert(*k,*v).unwrap();},
+                Op::Delete(k)=>{if tx.get(k).unwrap().is_some(){len-=1;}tx.remove(*k).unwrap();}
+            }}
+            tx.commit().unwrap();
+        }
+        self.current=DbView{transaction:Arc::new(self.db.read()),len};
+        // The common journal, without an extra map or hidden snapshot copy.
+        self.journal.revision+=1;let operations:Arc<[Op]>=ops.into();self.journal.count+=operations.len();self.journal.history.push_back((self.journal.revision,operations));
+        while self.journal.history.len()>64||self.journal.count>1_000_000{self.journal.count-=self.journal.history.pop_front().unwrap().1.len();}
+    }
+    fn snapshot(&self)->Self::View{self.current.clone()}
+    fn feed(&self,after:u64)->Vec<Arc<[Op]>>{self.journal.feed(after)}
+    fn feed_summary(&self,after:u64)->(usize,usize){self.journal.feed_summary(after)}
+    fn revision(&self)->u64{self.journal.revision}
+}
+
+/// Independent MVCC chains with version-bound snapshot pins and periodic collection.
+/// All writes in a batch use one lock; readers select the last version <= their pin.
+#[derive(Clone)]
+struct Mvcc<const GC:usize>{shared:Arc<std::sync::RwLock<Chains>>,pin:Arc<u64>,len:usize}
+struct Chains{entries:HashMap<Key,Vec<(u64,Option<Value>)>>,pins:Vec<std::sync::Weak<u64>>}
+impl<const GC:usize> Map for Mvcc<GC>{
+    fn empty()->Self{let pin=Arc::new(0);Self{shared:Arc::new(std::sync::RwLock::new(Chains{entries:HashMap::new(),pins:vec![Arc::downgrade(&pin)]})),pin,len:0}}
+    fn get(&self,k:&Key)->Option<Value>{let guard=self.shared.read().unwrap();let chain=guard.entries.get(k)?;let i=chain.partition_point(|(r,_)|r<=&*self.pin);if i==0{None}else{chain[i-1].1}}
+    fn put(&mut self,k:Key,v:Value){self.batch(&[Op::Put(k,v)]);}
+    fn del(&mut self,k:&Key){self.batch(&[Op::Delete(*k)]);}
+    fn len(&self)->usize{self.len}
+    fn visit(&self,mut f:impl FnMut(Key,Value)){for(k,chain)in &self.shared.read().unwrap().entries{let i=chain.partition_point(|(r,_)|r<=&*self.pin);if i>0{if let Some(v)=chain[i-1].1{f(*k,v);}}}}
+    fn batch(&mut self,ops:&[Op]){
+        let rev=*self.pin+1;let next=Arc::new(rev);let mut shared=self.shared.write().unwrap();shared.pins.push(Arc::downgrade(&next));
+        for op in ops{let(k,v)=match op{Op::Put(k,v)=>(*k,Some(*v)),Op::Delete(k)=>(*k,None)};let chain=shared.entries.entry(k).or_default();let was=chain.last().is_some_and(|(_,v)|v.is_some());self.len+=usize::from(v.is_some());self.len-=usize::from(was);chain.push((rev,v));}
+        self.pin=next;
+        if GC>0 && rev%GC as u64==0{
+            let mut oldest=rev;shared.pins.retain(|p|if let Some(p)=p.upgrade(){oldest=oldest.min(*p);true}else{false});
+            shared.entries.retain(|_,chain|{let n=chain.partition_point(|(r,_)|*r<=oldest).saturating_sub(1);if n>0{chain.drain(..n);}!(chain.len()==1&&chain[0].0<=oldest&&chain[0].1.is_none())});
+        }
+    }
+}
+
 impl Map for rpds::HashTrieMapSync<Key,Value> {
     fn empty()->Self{Self::new_sync()}
     fn get(&self,k:&Key)->Option<Value>{self.get(k).copied()}
@@ -329,12 +389,14 @@ fn main(){
         let store=Store::new(Config{partitions,branch_size,..Config::default()}).unwrap();let zero=store.snapshot().cursor();
         run(Rill{store,cursors:vec![zero]},&o);return;
     }
+    if o.engine=="skipdb"{run(SkipDb::new(),&o);return;}
     macro_rules! dispatch{($ty:ty)=>{run(Compared::<$ty>::new(),&o)}}
     match o.engine.as_str(){
         "std-hash"=>dispatch!(HashMap<Key,Value>),"std-btree"=>dispatch!(BTreeMap<Key,Value>),
         "hashbrown"=>dispatch!(hashbrown::HashMap<Key,Value>),"hashbrown-sip"=>dispatch!(hashbrown::HashMap<Key,Value,std::collections::hash_map::RandomState>),
         "indexmap"=>dispatch!(indexmap::IndexMap<Key,Value>),"btree-slab"=>dispatch!(btree_slab::BTreeMap<Key,Value>),
         "imhm"=>dispatch!(imhm::Map<Key,Value>),"imhm-sip"=>dispatch!(imhm::Map<Key,Value,std::collections::hash_map::RandomState>),
+        "mvcc-1"=>dispatch!(Mvcc<1>),"mvcc-16"=>dispatch!(Mvcc<16>),"mvcc-64"=>dispatch!(Mvcc<64>),"mvcc-256"=>dispatch!(Mvcc<256>),
         "papaya-copy"=>dispatch!(papaya::HashMap<Key,Value>),"dashmap-copy"=>dispatch!(dashmap::DashMap<Key,Value>),"flurry-copy"=>dispatch!(flurry::HashMap<Key,Value>),"vart"=>dispatch!(Vart),
         "im-hash"=>dispatch!(im::HashMap<Key,Value>),"im-ord"=>dispatch!(im::OrdMap<Key,Value>),
         "imbl-hash"=>dispatch!(imbl::HashMap<Key,Value>),"imbl-ord"=>dispatch!(imbl::OrdMap<Key,Value>),

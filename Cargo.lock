@@ -1145,6 +1145,7 @@ dependencies = [
  "scc",
  "skipdb",
  "swap-arc",
+ "txn",
  "vart",
 ]
 
