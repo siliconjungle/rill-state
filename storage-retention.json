@@ -145,6 +145,14 @@
     {
       "path": "build/scc-probe-v17",
       "reason": "Required native capacity-growth correction and corrected snapshot-adapter exact proofs"
+    },
+    {
+      "path": "build/state-v18",
+      "reason": "Selected compact-record and mixed-size full-contract proofs and development comparison executable"
+    },
+    {
+      "path": "build/shapes-v18",
+      "reason": "Selected compact-record and mixed-size full-contract proofs and development comparison executable"
     }
   ],
   "safe_to_remove": [
@@ -187,6 +195,14 @@
     {
       "path": "build/pr-body-v17.md",
       "reason": "Completed successful public PR body update input; exact published text is retained on GitHub"
+    },
+    {
+      "path": "evidence/build-v18.jsonl",
+      "reason": "Completed unmeasured precursor build superseded by canonical-key-correct v18b build; source history retained."
+    },
+    {
+      "path": "evidence/build-v18.log",
+      "reason": "Completed unmeasured precursor build superseded by canonical-key-correct v18b build; source history retained."
     }
   ]
 }

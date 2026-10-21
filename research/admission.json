@@ -132,22 +132,22 @@
       "name": "evmap",
       "version": "11.0.0",
       "source": "https://docs.rs/crate/evmap/11.0.0/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "pinned-source-reviewed-capture-adapter-pending",
+      "reason": "Native guarded readers can prevent subsequent publication. Independent retained-revision adapter still requires implementation/proof/measurement; no exclusion or win is inferred. Exact primary-source hashes and proposed contract-preserving adapter are in guarded-map-review.json/.md."
     },
     {
       "name": "left-right",
       "version": "0.11.8",
       "source": "https://docs.rs/crate/left-right/0.11.8/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "pinned-source-reviewed-capture-adapter-pending",
+      "reason": "Native guarded readers can prevent subsequent publication. Independent retained-revision adapter still requires implementation/proof/measurement; no exclusion or win is inferred. Exact primary-source hashes and proposed contract-preserving adapter are in guarded-map-review.json/.md."
     },
     {
       "name": "flashmap",
       "version": "0.2.0",
       "source": "https://docs.rs/crate/flashmap/0.2.0/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "pinned-source-reviewed-capture-adapter-pending",
+      "reason": "Native guarded readers can prevent subsequent publication. Independent retained-revision adapter still requires implementation/proof/measurement; no exclusion or win is inferred. Exact primary-source hashes and proposed contract-preserving adapter are in guarded-map-review.json/.md."
     },
     {
       "name": "rcu-clean",
