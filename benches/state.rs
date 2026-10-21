@@ -372,7 +372,7 @@ impl Clone for SccCapture {
             rows.push((*k, *v));
             true
         });
-        let copy = scc::HashMap::with_capacity_and_hasher(self.0.capacity(), self.1.clone());
+        let copy = scc::HashMap::with_capacity_and_hasher(rows.len(), self.1.clone());
         for (k, v) in rows {
             copy.insert_sync(k, v).unwrap();
         }

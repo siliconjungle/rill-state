@@ -133,6 +133,10 @@
     {
       "path": "build/state-v16",
       "reason": "Required shared-record layout full-size proof, threaded and serial development comparison input"
+    },
+    {
+      "path": "build/scc-probe-v16",
+      "reason": "Required frozen native clone-chain/retirement mismatch reproduction across four bounded modes"
     }
   ],
   "safe_to_remove": [

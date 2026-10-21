@@ -192,3 +192,53 @@ See evidence/shapes-v14-serial-development/descriptive-change.json for all repor
 changes, including regressions. No holdout seeds have been consumed.
 
 The original broad performance objective remains unpassed.
+
+## Faster persistent baselines and shared-record COW pages
+
+The im/imbl/rpds fast-hasher variants use the same explicit hashbrown builder as
+the probing candidates, while default-hasher baselines remain available. Generic
+im/rpds adapters avoid replacement-key cloning through borrowed updates. Five
+new generic competitor configurations passed 480 exact 20,000-record checks
+(v15). The new original shared-record family shares canonical keys and values
+inside probing pages, trading reference counts and pointer reads for less copying
+of untouched heap data. Its four occupancy70 generic layouts passed 384 exact
+full-size checks. The combined new competitors and shared layouts passed 216
+four-reader retained-view checks (v16).
+
+The full affected scalar suite passed 1,380 exact 20,000-record checks: all 30
+Probe/Split layouts, 12 shared-record layouts, three fast persistent competitors
+and hashbrown, across 15 cases and both development seeds. Core/experimental
+tests (17) and Clippy passed locally. These results prove tested behavior rather
+than performance superiority. Serial development measurements follow separately;
+the final holdout gate has not been run.
+
+SCC follow-up: a standalone native API program now reproduces the stall in a
+clone chain with retained old maps and full contents/read checks. All four bounded
+variants hit the 10-second diagnostic deadline near revision 21: native clone or
+explicit capture into a fresh-hasher map, each with retirement or with all roots
+kept. Thus simply delaying root retirement or replacing the copied hasher did not
+resolve this observation. The frozen binary, source commit/hash and complete logs
+are bound in evidence/scc-native-modes-v16/receipt.json. This is a reproducible
+native observation on this arm64/toolchain combination, not a completed upstream
+root-cause analysis, a universal library-failure claim or a benchmark victory.
+
+The 1,728-process serial v16 development comparison completed with exact output
+agreement (12 engines × six shapes × four cases × two development seeds × three
+process repetitions; 12 measured revisions). In the selected String/owned256
+burst fixture, the shared flat layout median was 2.090 ms/revision versus
+hashbrown's 3.215 ms (about 35% lower); sparse shared-paged64 was 0.642 ms versus
+1.873 ms. However, every read-only shape still favored hashbrown, and numeric
+inline burst favored hashbrown by a large margin. Shared storage also introduces
+regressions for several inline/shared-value cases. All 288 descriptive cells,
+publication/read breakdowns and process RSS are retained, without significance
+or across-the-board claims. The original objective remains unpassed.
+
+Native SCC source inspection after stack sampling identified a capacity-growth
+hypothesis: Clone passes capacity() to with_capacity_and_hasher(), which treats
+its input as an entry count and adds table slack before power-of-two rounding.
+Our capture adapter repeated the same pattern. Repeating it can grow a table
+without growing its live records. The sample showed a 4.9 GB physical footprint,
+with active iteration/drop work rather than a confirmed mutex deadlock. A new
+bounded capacity trace and allocation-by-live-length correction must prove the
+cause and validate the corrected adapter; prior deadline observations remain
+retained and are never counted as wins.

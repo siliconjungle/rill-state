@@ -1,0 +1,55 @@
+{
+  "source_commit": "76e7b93d9519b7d2b03f94489d32046a6f9e8118",
+  "source_sha256": "4f55b21d8b2f5625c7ebea5dc4e7f08a56812971ed29c1917d10f8742f9f11e4",
+  "binary_sha256": "96470aba4439b5506d20e79c26d0137abe05e6f6d3b58aa2975c99b6a77902e0",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "variants": [
+    [],
+    [
+      "--keep-all"
+    ],
+    [
+      "--fresh-hasher"
+    ],
+    [
+      "--fresh-hasher",
+      "--keep-all"
+    ]
+  ],
+  "deadline_seconds": 10,
+  "claim": "Native API diagnostic; no performance admission or ranking",
+  "runs": [
+    {
+      "arguments": [],
+      "log": "default.log",
+      "returncode": 124,
+      "elapsed_seconds": 10.472700834274292
+    },
+    {
+      "arguments": [
+        "--keep-all"
+      ],
+      "log": "keep-all.log",
+      "returncode": 124,
+      "elapsed_seconds": 10.476579189300537
+    },
+    {
+      "arguments": [
+        "--fresh-hasher"
+      ],
+      "log": "fresh-hasher.log",
+      "returncode": 124,
+      "elapsed_seconds": 10.052469968795776
+    },
+    {
+      "arguments": [
+        "--fresh-hasher",
+        "--keep-all"
+      ],
+      "log": "fresh-hasher-keep-all.log",
+      "returncode": 124,
+      "elapsed_seconds": 10.10510516166687
+    }
+  ],
+  "complete": true
+}

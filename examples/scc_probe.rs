@@ -16,6 +16,8 @@ fn main() {
             std::process::exit(124);
         }
     });
+    let by_len = std::env::args().any(|s| s == "--by-len");
+    let capacity_only = std::env::args().any(|s| s == "--capacity-only");
     let keep_all = std::env::args().any(|s| s == "--keep-all");
     let fresh_hasher = std::env::args().any(|s| s == "--fresh-hasher");
     let mut map = Arc::new(scc::HashMap::<u64, [u64; 4]>::new());
@@ -27,15 +29,21 @@ fn main() {
     eprintln!("inserted {}", map.len());
     let first = map.clone();
     let mut old = Vec::new();
-    for r in 0..128 {
-        eprintln!("revision {r}: clone start");
-        let next = if fresh_hasher {
+    let rounds = if capacity_only { 8 } else { 128 };
+    for r in 0..rounds {
+        eprintln!(
+            "revision {r}: clone start capacity={} len={}",
+            map.capacity(),
+            map.len()
+        );
+        let next = if fresh_hasher || by_len {
             let mut rows = Vec::new();
             map.iter_sync(|k, v| {
                 rows.push((*k, *v));
                 true
             });
-            let copy = scc::HashMap::with_capacity(map.capacity());
+            let copy =
+                scc::HashMap::with_capacity(if by_len { rows.len() } else { map.capacity() });
             for (k, v) in rows {
                 copy.insert_sync(k, v).unwrap();
             }
@@ -43,7 +51,7 @@ fn main() {
         } else {
             Arc::new((*map).clone())
         };
-        eprintln!("revision {r}: cloned");
+        eprintln!("revision {r}: cloned capacity={}", next.capacity());
         for i in 0u64..512 {
             next.entry_sync(i.wrapping_mul(0x9e3779b97f4a7c15).rotate_left(17))
                 .and_modify(|v| *v = [r; 4])
@@ -90,7 +98,7 @@ fn main() {
         eprintln!("revision {r}: checked");
     }
     assert_eq!(first.read_sync(&0, |_, v| *v), Some([0; 4]));
-    assert_eq!(map.read_sync(&0, |_, v| *v), Some([127; 4]));
+    assert_eq!(map.read_sync(&0, |_, v| *v), Some([rounds - 1; 4]));
     done.store(true, Ordering::Release);
     println!("native SCC probe passed");
 }

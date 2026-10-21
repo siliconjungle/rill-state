@@ -168,7 +168,7 @@
       "version": "3.8.8",
       "source": "https://docs.rs/crate/scc/3.8.8/source/",
       "status": "adapter-stall-unresolved",
-      "reason": "Native API/retirement probes pass, but both clone and capture snapshot adapters stall under bounded exact oracle checks. Not admitted; no timeout counted as a performance win."
+      "reason": "Native simple probes pass, but a native clone-chain/retained-view program and both snapshot adapters stall under bounded exact checks. Four native copy/retention modes reproduce the deadline on arm64. Root cause unresolved; no timeout counted as a performance win."
     },
     {
       "name": "papaya",
