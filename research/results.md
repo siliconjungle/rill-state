@@ -405,3 +405,24 @@ Its nonzero-hash niche uses 48-byte numeric slots versus the prior tagged layout
 zero/MAX hash collisions. Sixteen configurations are registered. Thirty-eight
 core/experimental tests and Clippy pass; full-size proofs precede any timing.
 The selected default Store and the final holdout gate remain unchanged.
+
+The inline-slice phase passed 480 small and 480 full-size scalar checks across
+all 16 configurations, plus 2,048 small generic checks. Its 690-process parallel
+screen completed with matching outputs; that screen overlapped untimed proof/
+validation work and is selection evidence only. Full-size generic and actual
+concurrent-reader checks are still running. The expanded all-target comparison
+Clippy check passes after naming complex types, making intentional shared-empty
+initialization explicit and calling IndexMap's swap_remove directly (the pinned
+deprecated remove method simply delegates to swap_remove).
+
+The inline streaming retention study passed 48 small and 72 full-size probes:
+four representative inline configurations and two references, all retention
+windows, both initial-pin modes and both payload distributions. Every full view
+and independently derived journal count matched; all tracked payloads were
+reclaimed after final ownership release. With 64 recent views, an initial pin
+and fixed256 values, all four flat variants retained 320.51 MiB of owned payloads,
+the same as the whole-table-copy hashbrown adapter, versus 15.97 MiB for the fixed
+record-paged16 reference. Instrumented peak RSS ranged from 463.92 to 819.47 MiB
+for the flat variants, versus 440.38 MiB for hashbrown and 34.09 MiB for the paged
+reference in that cell. This confirms a real retention regression, not a total
+heap or timing conclusion. All 72 cells remain visible.
