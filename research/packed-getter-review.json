@@ -1,0 +1,22 @@
+{
+  "source_commit": "5e8035a6495287226ed8c6cf634d37bc301b714f",
+  "binary": "build/state-v26",
+  "binary_sha256": "b12ddc08442428ddcad02db314e164a8d5d857736086cf9c1a3797874eca7de2",
+  "command": [
+    "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-objdump",
+    "--disassemble",
+    "--no-show-raw-insn",
+    "--start-address=0x1007151a4",
+    "--stop-address=0x10071528c",
+    "build/state-v26"
+  ],
+  "assembly": "evidence/packed-getter-v26.asm",
+  "assembly_sha256": "3f3bb371d0a18f2e0d43a2229e1ea35c2ddb019baa9c71b64b4ae2d9f551fa56",
+  "scope": "One compiled aarch64 scalar u64/[u64;4] getter instance; not a general performance claim.",
+  "observations": [
+    "LLVM inlines the table find into the scalar Map getter and forwards the matched cached word and row address; there is no second control-word load on success.",
+    "A successful-slot comparison against control length remains before returning the value.",
+    "PackedIndexMap was left unchanged; CompactIndexMap uses one shared fused lookup for both width policies, with its own always-wide control."
+  ],
+  "decision": "Do not attribute the read regression to a source-level reload eliminated by the compiler. Test smaller control words as a separate hypothesis; no cache-miss cause or speed improvement is established by disassembly alone."
+}

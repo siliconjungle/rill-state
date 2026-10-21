@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "tools/describe_shapes.py",
+    "evidence/shapes-v26-screen"
+  ],
+  "exit_code": 1,
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/tools/describe_shapes.py\", line 81, in <module>\n    main()\n  File \"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/tools/describe_shapes.py\", line 73, in main\n    data = describe(args.folder, screen=args.screen)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/tools/describe_shapes.py\", line 16, in describe\n    assert receipt['mode'] == 'serial' and receipt['workers'] == 1\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "claim": "Default reporter rejects a parallel screen; --screen is required and writes a separately labeled selection report.",
+  "reporter_source_commit": "37986813d563d54130bc8ac785727906183e4d18",
+  "reporter_sha256": "6c1bdda7af6d312e22c3b03af9c8864d033d6646e603d7727a68af20db0f5d5e"
+}

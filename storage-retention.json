@@ -415,6 +415,30 @@
     {
       "path": "build/pr-body-v26.md",
       "reason": "Completed and confirmed public packed-map research PR update; exact published text retained on GitHub."
+    },
+    {
+      "path": "evidence/tests-v27-initial.log",
+      "reason": "Completed unselected validation staging superseded by final 85-test v27d proof and all-target lint. The first full launch had a test-helper generic-argument compile error; no engine failure or timing is inferred."
+    },
+    {
+      "path": "evidence/tests-v27.log",
+      "reason": "Completed unselected validation staging superseded by final 85-test v27d proof and all-target lint. The first full launch had a test-helper generic-argument compile error; no engine failure or timing is inferred."
+    },
+    {
+      "path": "evidence/tests-v27b.log",
+      "reason": "Completed unselected validation staging superseded by final 85-test v27d proof and all-target lint. The first full launch had a test-helper generic-argument compile error; no engine failure or timing is inferred."
+    },
+    {
+      "path": "evidence/tests-v27c.log",
+      "reason": "Completed unselected validation staging superseded by final 85-test v27d proof and all-target lint. The first full launch had a test-helper generic-argument compile error; no engine failure or timing is inferred."
+    },
+    {
+      "path": "/tmp/rill-state-v25-stages.json",
+      "reason": "Completed dry-run display only; immutable plans and exact actual receipts retain the reproduction inputs."
+    },
+    {
+      "path": "/tmp/rill-state-v26-stages.json",
+      "reason": "Completed dry-run display only; immutable plans and exact actual receipts retain the reproduction inputs."
     }
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "source_commit": "1cf52314deb86fc142fe9ed4c4f9c64406b6dc5f",
+  "source_sha256": "4f4e359ce82783972798b863964213931b0a75abdec866056b1cc09f654e9eb4",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "tests_passed": 85,
+  "commands": [
+    "RUSTUP_TOOLCHAIN=stable CARGO_BUILD_JOBS=2 cargo test --locked --no-default-features --features experimental",
+    "RUSTUP_TOOLCHAIN=stable CARGO_BUILD_JOBS=2 cargo clippy --locked --all-targets --features comparisons -- -D warnings"
+  ],
+  "scope": "Core/oracle/recovery tests and comparison target type/lint checks. Compact width conversion is tested past 100000 rows, including failed stored-key hashing. This is not timed conversion, comparative speed or full-size/threaded admission for CompactIndexMap.",
+  "inputs_and_logs": {
+    "evidence/tests-v27d.log": "43ea095f14c61ab3065a3726328796df3d5bf4b3b488bad44643eaf3f9681ed9",
+    "evidence/clippy-v27.log": "02f391111460ef4175aeae78273a3d05fd703e9ae29d8b5272b3a2e56bf1ed7c",
+    "tests/compact_index.rs": "f37d5bcc7f224acec61645be24785e8b3ae19906f0a60f3e9c06f6bf21385340",
+    "tests/contracts.rs": "0b48d7f382a344ceb04c12561db3f72c6557763055943d9b62bc5dd1a96fbc5f",
+    "tests/exact_oracle.rs": "a6bfd59d074954333b22dbd0fd6b4c32a595dd3013bfccc57f1868b43aee521c",
+    "tests/experimental.rs": "49c0d050c68c5ee621e20501421081094859cf9784d1bc3d34a542e4c7ed73e4",
+    "tests/packed_index.rs": "c3152d44a2ca592d0b866802cefc6cbe9a42fefbc530671cabfcdeae6badba2e",
+    "tests/sharded_panic.rs": "251defeb296daba40ed13da29710f1a7272223af47ee5cd740a7ad4ed0bcce98",
+    "tests/table_panic.rs": "14c78d8abf6cd34616a99989e697316609f50f9e1776d2cbd5db649bcf15ed47"
+  }
+}

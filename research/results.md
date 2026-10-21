@@ -572,3 +572,40 @@ receipt/reproduction and the subsequent driver preflight correction are retained
 with the repeated staging errors retired.
 
 Rust 1.85, stable and comparison CI passed for core source 5e8035a6495287226ed8c6cf634d37bc301b714f (run 39692602369 at evidence head 8e5f1441539eaa178e464522943a84633e6b26f9). This is portability/smoke evidence, not full-size packed-map admission.
+
+
+## Packed selection and adaptive control widths
+
+The corrected v25 panel completed all six exact proof matrices: 17,496 fresh
+processes with complete tuple/binary/compiler/source/driver audits. Its broad
+screens and fixed serial panels remain separate phases; serial acceptance is
+not inferred from proof completion or parallel medians.
+
+The v26 packed family passed 750 small scalar and 3,200 small generic checks,
+independently audited, followed by 750 scalar and 3,200 generic parallel timing
+runs with matching outputs. All 16 packed policies and nine fixed references
+remain visible in the raw rows and explicitly labeled selection reports. These
+runs overlapped required proof/compilation work. For the fixed
+packed-owned-once-70 candidate, the scalar scan median ratio was 0.278 to
+hashbrown, while read and miss100 ratios were 2.101 and 3.087. Its generic panel
+had lower total medians in 23 cells and higher medians in 41; every read-only and
+miss-only shape was higher. Seven scan shapes were lower and one higher.
+These are noisy selection observations, not isolated speed or confidence claims.
+
+Disassembly of a frozen scalar getter shows LLVM already forwards the matched
+index word and dense row pointer. The suspected second control load is absent;
+a successful-slot bounds check remains. No change was made to PackedIndexMap on
+the unsupported reload hypothesis. A new CompactIndexMap instead tests adaptive
+four/eight-byte controls against an always-wide control sharing its fused lookup
+and dense storage. Thirty-two policies are registered. Controls use boxed slices
+to keep the Table header at 48 bytes on 64-bit hosts. At 20,000 rows the 25%-fill
+adaptive policy has already widened; it must not be reported as a narrow-word
+measurement. Smaller metadata is an unproven latency hypothesis.
+
+The new source passes 85 local tests and all-target comparison Clippy. Width
+reconstruction hashes are counted exactly; a stored-key Hash panic preserves
+current and retained narrow views, retry succeeds, and the map continues beyond
+100,000 rows with a further wide growth. All builder/fill/batch/width variants
+receive collision/model checks. No comparative timing, timed conversion or
+full-size/threaded admission is established for CompactIndexMap yet. The default
+Store, final holdout seeds and original across-the-board objective are unchanged.
