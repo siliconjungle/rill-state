@@ -284,6 +284,8 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher> Store<K, V, S> {
             len: 0,
             hasher: Arc::new(hasher),
         });
+        // Keep the 1.85 API; newer toolchains rename it to try_update.
+        #[allow(deprecated, reason = "Preserve the supported Rust 1.85 atomic API")]
         let store = NEXT_ID
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1))
             .expect("store identity exhausted");

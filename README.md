@@ -95,9 +95,9 @@ owner is dropped. Payload accounting is not total heap usage or a speed result.
 `InlineSliceMap` is a further experimental layout: one contiguous COW slice with
 inline keys/values, a nonzero cached-hash niche and no per-record allocation.
 Sixteen configurations compare fill thresholds, read probing and builder storage.
-Its core behavior tests pass, as do all 480 full-size scalar checks and 2,048
-small generic checks. Full-size generic and concurrent-view validation is in
-progress. Streaming probes across four representative configurations reclaim
+Its core behavior tests pass, as do 2,528 small and 2,528 full-size scalar/generic
+checks and 512 four-reader probes. Frozen serial development timing is running.
+Streaming probes across four representative configurations reclaim
 all payloads, but retain much more owned payload data than the paged layouts.
 
 Default study lists omit the known investigative `scc-copy` native Clone chain,

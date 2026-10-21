@@ -426,3 +426,17 @@ record-paged16 reference. Instrumented peak RSS ranged from 463.92 to 819.47 MiB
 for the flat variants, versus 440.38 MiB for hashbrown and 34.09 MiB for the paged
 reference in that cell. This confirms a real retention regression, not a total
 heap or timing conclusion. All 72 cells remain visible.
+
+The remaining 2,048 full-size generic checks and all 512 actual four-reader
+probes subsequently passed. The independent audit verifies exact tuple coverage,
+all executable completion markers and frozen source/binary/compiler/driver
+bindings across all five v22 proof matrices (5,568 processes total). It does not
+replace the internal complete-view/revision/feed assertions or establish speed.
+Fresh serial development comparisons are now running against the same fixed
+references; the final holdout seeds remain unused.
+
+The new all-target CI Clippy gate exposed a newer-toolchain deprecation of
+AtomicU64::fetch_update. Rust 1.85 compatibility requires the older API, so only
+that constructor statement has a documented deprecation exception. The allocation
+algorithm and measured frozen binaries are unchanged; local all-target Clippy
+passes. Both Rust 1.85 and current-stable CI remain required.
