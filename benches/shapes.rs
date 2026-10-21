@@ -127,7 +127,7 @@ type ImblFast<K, V> =
     imbl::GenericHashMap<K, V, hashbrown::DefaultHashBuilder, imbl::shared_ptr::DefaultSharedPtr>;
 map!(ImblFast<K,V>,ImblFast::with_hasher(Default::default()));
 map!(im::HashMap<K,V>,im::HashMap::new());
-map!(im::HashMap<K,V,hashbrown::DefaultHashBuilder>,im::HashMap::with_hasher(Default::default()));
+map!(im::HashMap<K,V,hashbrown::DefaultHashBuilder>,im::HashMap::with_hasher(hashbrown::DefaultHashBuilder::default()));
 impl<K: Key, V: Value, H: BuildHasher + Clone + Default + Send + Sync> Map<K, V>
     for rpds::HashTrieMapSync<K, V, H>
 {

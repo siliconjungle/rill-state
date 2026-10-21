@@ -242,7 +242,7 @@ map_impl!(imbl::HashMap<Key,Value>,imbl::HashMap::new());
 type ImblFast<K, V> =
     imbl::GenericHashMap<K, V, hashbrown::DefaultHashBuilder, imbl::shared_ptr::DefaultSharedPtr>;
 map_impl!(ImblFast<Key,Value>,ImblFast::with_hasher(Default::default()));
-map_impl!(im::HashMap<Key,Value,hashbrown::DefaultHashBuilder>,im::HashMap::with_hasher(Default::default()));
+map_impl!(im::HashMap<Key,Value,hashbrown::DefaultHashBuilder>,im::HashMap::with_hasher(hashbrown::DefaultHashBuilder::default()));
 
 map_impl!(imbl::OrdMap<Key,Value>,imbl::OrdMap::new());
 map_impl!(indexmap::IndexMap<Key,Value>,indexmap::IndexMap::new());
