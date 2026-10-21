@@ -4,6 +4,8 @@ import argparse,concurrent.futures,hashlib,itertools,json,pathlib,platform,rando
 import study
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 ENGINES=['hashbrown','hashbrown-sip','imbl-hash','imbl-fast','im-hash','im-fast','rpds-hash','rpds-fast','imhm','probe-flat','probe-paged16','probe-paged64','split','record-flat','record-paged16','record-paged64','record-paged256','shared-flat','shared-paged16','shared-paged64','shared-paged256','rill','rillfast']
+ARRAYS=[f'array-{k}{p}'for k in ['copy','shared']for p in [16,64,256,1024]]+[f'array-{k}-low{p}'for k in ['copy','shared']for p in [16,256]]
+ENGINES+=ARRAYS+['record-lowflat','probe-lowflat']
 SHAPES=['u64-inline','string-inline','u64-owned256','string-owned256','u64-shared256','string-shared256','mixed-owned','mixed-shared']
 CASES=['single','sparse','churn','burst','read','scan','slow','miss100']
 def main():

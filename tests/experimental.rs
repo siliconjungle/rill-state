@@ -1,5 +1,7 @@
 #![cfg(feature = "experimental")]
-use rill_state::experimental::{ProbeMap, RecordMap, SharedMap, SplitMap};
+use rill_state::experimental::{
+    ArrayRecordMap, CopyKeys, KeyPolicy, ProbeMap, RecordMap, SharedKeys, SharedMap, SplitMap,
+};
 use rill_state::Mutation;
 use std::{
     collections::BTreeMap,
@@ -228,6 +230,212 @@ fn shared_records_clone_only_changed_values_and_release_final_owners() {
     assert_eq!(drops.load(Ordering::SeqCst), 1);
     drop(map);
     assert_eq!(drops.load(Ordering::SeqCst), 2);
+}
+impl<S: std::hash::BuildHasher, const L: usize, const P: usize, KP: KeyPolicy<String>> Subject
+    for ArrayRecordMap<String, Arc<Vec<u8>>, S, L, P, KP>
+{
+    fn put(&mut self, k: String, v: Arc<Vec<u8>>) -> Option<Arc<Vec<u8>>> {
+        self.insert(k, v).map(|r| r.value().clone())
+    }
+    fn del(&mut self, k: &str) -> Option<Arc<Vec<u8>>> {
+        self.remove(k).map(|r| r.value().clone())
+    }
+    fn read(&self, k: &str) -> Option<&Arc<Vec<u8>>> {
+        self.get(k)
+    }
+    fn contents(&self) -> BTreeMap<String, Arc<Vec<u8>>> {
+        self.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn batch(&mut self, ops: Vec<Mutation<String, Arc<Vec<u8>>>>) {
+        self.apply(&ops);
+    }
+}
+#[test]
+fn array_pages_preserve_collisions_wraparound_batches_and_borrowed_reads() {
+    macro_rules! pages {
+        ($l:literal,$kp:ty) => {
+            oracle(ArrayRecordMap::<_, _, BuildHasherDefault<Wrap>, $l, 1, $kp>::default());
+            oracle(ArrayRecordMap::<_, _, BuildHasherDefault<Wrap>, $l, 16, $kp>::default());
+            oracle(ArrayRecordMap::<_, _, BuildHasherDefault<Wrap>, $l, 64, $kp>::default());
+            oracle(ArrayRecordMap::<_, _, BuildHasherDefault<Wrap>, $l, 256, $kp>::default());
+        };
+    }
+    pages!(25, CopyKeys);
+    pages!(50, CopyKeys);
+    pages!(70, CopyKeys);
+    pages!(85, CopyKeys);
+    pages!(25, SharedKeys);
+    pages!(50, SharedKeys);
+    pages!(70, SharedKeys);
+    pages!(85, SharedKeys);
+    oracle(ArrayRecordMap::<
+        _,
+        _,
+        BuildHasherDefault<Zero>,
+        70,
+        16,
+        CopyKeys,
+    >::default());
+    oracle(ArrayRecordMap::<
+        _,
+        _,
+        BuildHasherDefault<Zero>,
+        70,
+        16,
+        SharedKeys,
+    >::default());
+}
+#[test]
+fn large_array_pages_grow_without_changing_retained_records() {
+    fn check<KP: KeyPolicy<String>>() {
+        let mut map = ArrayRecordMap::<
+            String,
+            Arc<Vec<u8>>,
+            std::collections::hash_map::RandomState,
+            70,
+            1024,
+            KP,
+        >::default();
+        let mut model = BTreeMap::new();
+        let mut old = Vec::new();
+        for step in 0..7 {
+            for id in step * 1000..(step + 1) * 1000 {
+                let k = format!("large {id}");
+                let v = Arc::new(vec![(id % 251) as u8; 17]);
+                map.insert(k.clone(), v.clone());
+                model.insert(k, v);
+            }
+            assert_eq!(map.contents(), model);
+            old.push((map.clone(), model.clone()));
+        }
+        for id in (0..7000).step_by(3) {
+            let k = format!("large {id}");
+            map.remove(k.as_str());
+            model.remove(&k);
+        }
+        assert_eq!(map.contents(), model);
+        for (view, expected) in old {
+            assert_eq!(view.contents(), expected);
+        }
+    }
+    check::<CopyKeys>();
+    check::<SharedKeys>();
+}
+#[test]
+fn array_key_policies_preserve_identity_with_distinct_copy_costs() {
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    struct Key {
+        id: u64,
+        label: &'static str,
+        clones: Arc<AtomicUsize>,
+    }
+    impl Clone for Key {
+        fn clone(&self) -> Self {
+            self.clones.fetch_add(1, Ordering::Relaxed);
+            Self {
+                id: self.id,
+                label: self.label,
+                clones: self.clones.clone(),
+            }
+        }
+    }
+    impl PartialEq for Key {
+        fn eq(&self, other: &Self) -> bool {
+            self.id == other.id
+        }
+    }
+    impl Eq for Key {}
+    impl std::hash::Hash for Key {
+        fn hash<H: Hasher>(&self, state: &mut H) {
+            self.id.hash(state);
+        }
+    }
+    fn check<KP: KeyPolicy<Key>>(expected: usize) {
+        let count = Arc::new(AtomicUsize::new(0));
+        let mut map=ArrayRecordMap::<Key,u64,std::collections::hash_map::RandomState,70,16,KP>::default();
+        map.insert(
+            Key {
+                id: 1,
+                label: "canonical",
+                clones: count.clone(),
+            },
+            0,
+        );
+        let old = map.clone();
+        for epoch in 1..=100 {
+            map.insert(
+                Key {
+                    id: 1,
+                    label: "replacement",
+                    clones: count.clone(),
+                },
+                epoch,
+            );
+        }
+        map.apply(&[Mutation::Put(
+            Key {
+                id: 1,
+                label: "batch",
+                clones: count.clone(),
+            },
+            101,
+        )]);
+        let (k, v) = map.iter().next().unwrap();
+        assert_eq!(k.label, "canonical");
+        assert_eq!(*v, 101);
+        let (k, v) = old.iter().next().unwrap();
+        assert_eq!(k.label, "canonical");
+        assert_eq!(*v, 0);
+        assert_eq!(count.load(Ordering::Relaxed), expected);
+    }
+    check::<CopyKeys>(101);
+    check::<SharedKeys>(0);
+}
+#[test]
+fn array_records_release_after_final_snapshot_and_returned_handle() {
+    fn check<KP: KeyPolicy<String>>() {
+        let data = Arc::new(vec![3u8; 4096]);
+        let weak = Arc::downgrade(&data);
+        let mut map = ArrayRecordMap::<
+            String,
+            _,
+            std::collections::hash_map::RandomState,
+            70,
+            16,
+            KP,
+        >::default();
+        map.insert("key".into(), data);
+        let old = map.clone();
+        let removed = map.remove("key").unwrap();
+        drop(old);
+        assert!(weak.upgrade().is_some());
+        drop(removed);
+        assert!(weak.upgrade().is_none());
+    }
+    check::<CopyKeys>();
+    check::<SharedKeys>();
+}
+#[test]
+fn array_page_parameters_are_checked_before_allocation() {
+    assert!(std::panic::catch_unwind(
+        ArrayRecordMap::<u64, u64, std::collections::hash_map::RandomState, 70, 0>::default
+    )
+    .is_err());
+    assert!(std::panic::catch_unwind(
+        ArrayRecordMap::<u64, u64, std::collections::hash_map::RandomState, 70, 3>::default
+    )
+    .is_err());
+    assert!(std::panic::catch_unwind(
+        ArrayRecordMap::<u64, u64, std::collections::hash_map::RandomState, 70, 8192>::default
+    )
+    .is_err());
+    assert!(std::panic::catch_unwind(
+        ArrayRecordMap::<u64, u64, std::collections::hash_map::RandomState, 91, 16>::default
+    )
+    .is_err());
 }
 fn oracle<M: Subject>(mut m: M) {
     let mut truth = BTreeMap::new();

@@ -1,7 +1,9 @@
 //! Generic key/payload-shape checks and development measurements. This complements,
 //! rather than replaces, the registered inline-u64 comparison and final holdout gate.
 use rill_state::{
-    experimental::{ProbeMap, RecordMap, SharedMap, SplitMap},
+    experimental::{
+        ArrayRecordMap, CopyKeys, KeyPolicy, ProbeMap, RecordMap, SharedKeys, SharedMap, SplitMap,
+    },
     Config, Cursor, Mutation, Snapshot, Store,
 };
 use std::{
@@ -324,6 +326,35 @@ impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
 }
 impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
     for ProbeMap<K, V, hashbrown::DefaultHashBuilder, L, P>
+{
+    fn new() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &K) -> Option<&V> {
+        self.get(k)
+    }
+    fn put(&mut self, k: K, v: V) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &K) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(&K, &V)) {
+        for (k, v) in self.iter() {
+            f(k, v);
+        }
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        self.apply(ops);
+    }
+}
+impl<K: Key, V: Value, const L: usize, const P: usize, KP: KeyPolicy<K>> Map<K, V>
+    for ArrayRecordMap<K, V, hashbrown::DefaultHashBuilder, L, P, KP>
+where
+    KP::Stored: Send + Sync,
 {
     fn new() -> Self {
         Self::default()
@@ -723,6 +754,38 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
         "rpds-hash" => map!(rpds::HashTrieMapSync<K,V>),
         "rpds-fast" => map!(rpds::HashTrieMapSync<K,V,hashbrown::DefaultHashBuilder>),
         "imhm" => map!(imhm::Map<K,V>),
+        "array-copy16" => map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,70,16,CopyKeys>),
+        "array-copy64" => map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,70,64,CopyKeys>),
+        "array-copy256" => map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,70,256,CopyKeys>),
+        "array-copy1024" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,70,1024,CopyKeys>)
+        }
+        "array-shared16" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,70,16,SharedKeys>)
+        }
+        "array-shared64" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,70,64,SharedKeys>)
+        }
+        "array-shared256" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,70,256,SharedKeys>)
+        }
+        "array-shared1024" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,70,1024,SharedKeys>)
+        }
+        "array-copy-low16" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,50,16,CopyKeys>)
+        }
+        "array-copy-low256" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,50,256,CopyKeys>)
+        }
+        "array-shared-low16" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,50,16,SharedKeys>)
+        }
+        "array-shared-low256" => {
+            map!(ArrayRecordMap<K,V,hashbrown::DefaultHashBuilder,50,256,SharedKeys>)
+        }
+        "record-lowflat" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,50,0>),
+        "probe-lowflat" => map!(ProbeMap<K,V,hashbrown::DefaultHashBuilder,25,0>),
         "record-flat" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,0>),
         "record-paged16" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,16>),
         "record-paged64" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,64>),

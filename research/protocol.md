@@ -178,3 +178,27 @@ views, then the store. After enough full update cycles, releasing the initial ro
 must drop exactly 20,000 old stored values; after all owners drop, both tracked
 instances and payload bytes must be zero. These are ownership/memory observations,
 not speed claims or complete physical-heap bounds.
+
+## Fixed-size array pages and canonical-key sharing
+
+Register ArrayRecordMap using Arc<[Slot; PAGE]> instead of Arc<Vec<Slot>> for
+COW pages. Each slot contains a full cached hash and an optional immutable
+record Arc. Array pages remove the per-page Vec length/data header and separate
+payload allocation. Safe Rust only; PAGE must be a power of two in 1..=4096.
+
+Compare two compile-time key policies: CopyKeys clones the canonical stored key
+into each replacement; SharedKeys retains that key through Arc and clones the
+handle instead. Both preserve the original key's observable metadata, borrowed
+lookup, exact Eq/Hash matching, old snapshots and backward-shift deletion. Sharing
+adds key indirection and allocations, which must be measured even for small keys.
+
+The scalar matrix adds 32 configurations: two policies × maximum fill thresholds
+25/50/70/85 × page widths 16/64/256/1024. These are configurations, not independent
+libraries. Generic shape selection adds all eight policy/page combinations at
+maximum fill70, four policy/page16-or256 combinations at fill50, plus stronger
+existing record-flat(fill50) and probe-flat(fill25) read baselines. Initial fill
+and warm-up remain outside the interval; no per-case engine switch is allowed
+for final acceptance. First prove small/full-size exact contents, revisions and
+ordered feeds, then threaded old views. Parallel screens are selection only;
+serial development comparisons retain all gains and regressions. No change to
+original primary requirements or untouched final holdout seeds.
