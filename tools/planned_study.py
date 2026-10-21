@@ -23,8 +23,9 @@ def stages(plan, version, workers):
         ('state', 'tools/study.py', plan['scalar_references']),
         ('shapes', 'tools/shapes_study.py', plan['generic_references']),
     ]:
-        broad = list(dict.fromkeys(plan['all_small_proof_shards'] + references))
-        selected = list(dict.fromkeys(plan['selected_fixed_shards'] + references))
+        broad = list(dict.fromkeys(plan.get('broad_candidates', plan.get('all_small_proof_shards', [])) + references))
+        selected = list(dict.fromkeys(plan.get('selected_candidates', plan.get('selected_fixed_shards', [])) + references))
+        assert broad and selected
         for phase, mode, engines, settings in [
             ('proof-small', 'prove', broad, plan['proof']['small']),
             ('proof-20k', 'prove', selected, plan['proof']['full_selected']),
@@ -52,6 +53,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('plan', type=pathlib.Path)
     parser.add_argument('--workers', type=int, default=2)
+    parser.add_argument('--phases', help='Optional comma-separated phase subset; other required proofs remain pending')
     parser.add_argument('--list', action='store_true', help='Inspect exact stages without launching')
     args = parser.parse_args()
     assert 1 <= args.workers <= 4
@@ -60,6 +62,11 @@ def main():
     version = plan['source_binary_version']
     assert version.isalnum()
     commands = stages(plan, version, args.workers)
+    if args.phases:
+        phases = args.phases.split(',')
+        assert len(set(phases)) == len(phases)
+        assert set(phases) <= {s['phase'] for s in commands}
+        commands = [s for s in commands if s['phase'] in phases]
     assert len({s['label'] for s in commands}) == len(commands)
     if args.list:
         print(json.dumps(commands, indent=2))
@@ -73,7 +80,8 @@ def main():
                    driver_source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
                    claim='Development stages only; holdout acceptance not implied',
                    bindings=bindings, stages=commands, completed=[], started_at_unix=time.time())
-    output = study.ROOT / 'evidence' / f'planned-{version}-receipt.json'
+    suffix = '-' + '-'.join(dict.fromkeys(s['phase'] for s in commands)) if args.phases else ''
+    output = study.ROOT / 'evidence' / f'planned-{version}{suffix}-receipt.json'
     with output.open('x') as stream:
         json.dump(receipt, stream, indent=2)
         stream.write('\n')

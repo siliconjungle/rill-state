@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "status": "Packed-family development selection; full-size exact and threaded admission remains required",
+  "source_binary_version": "v26",
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "broad_candidates": [
+    "packed-shared-each-25",
+    "packed-shared-each-50",
+    "packed-shared-each-70",
+    "packed-shared-each-85",
+    "packed-shared-once-25",
+    "packed-shared-once-50",
+    "packed-shared-once-70",
+    "packed-shared-once-85",
+    "packed-owned-each-25",
+    "packed-owned-each-50",
+    "packed-owned-each-70",
+    "packed-owned-each-85",
+    "packed-owned-once-25",
+    "packed-owned-once-50",
+    "packed-owned-once-70",
+    "packed-owned-once-85"
+  ],
+  "selected_candidates": [
+    "packed-shared-each-25",
+    "packed-shared-each-50",
+    "packed-shared-each-70",
+    "packed-shared-each-85",
+    "packed-shared-once-25",
+    "packed-shared-once-50",
+    "packed-shared-once-70",
+    "packed-shared-once-85",
+    "packed-owned-each-25",
+    "packed-owned-each-50",
+    "packed-owned-each-70",
+    "packed-owned-each-85",
+    "packed-owned-once-25",
+    "packed-owned-once-50",
+    "packed-owned-once-70",
+    "packed-owned-once-85"
+  ],
+  "scalar_references": [
+    "hashbrown",
+    "std-fast",
+    "indexmap-fast",
+    "imbl-fast",
+    "imhm",
+    "inline-owned-index-25",
+    "shard-owned-group-50-1024",
+    "shard-shared-group-25-16",
+    "array-owned-copy-25-16"
+  ],
+  "generic_references": [
+    "hashbrown",
+    "std-fast",
+    "indexmap-fast",
+    "imbl-fast",
+    "imhm",
+    "inline-owned-index-25",
+    "shard-owned-group-50-1024",
+    "shard-shared-group-25-16",
+    "array-owned-copy-low16"
+  ],
+  "selection_basis": "Every one of the sixteen packed policies is registered before measurements. Matching fast-hasher standard HashMap/IndexMap, two persistent-map references and earlier fixed layouts remain visible. No per-workload engine envelope or final superiority is accepted.",
+  "proof": {
+    "small": {
+      "records": 1000,
+      "readers": 1000,
+      "rounds": 8
+    },
+    "full_selected": {
+      "records": 20000,
+      "readers": 20000,
+      "rounds": 12
+    },
+    "thread_selected": {
+      "records": 20000,
+      "readers": 20000,
+      "rounds": 12,
+      "cases": [
+        "sparse",
+        "churn"
+      ]
+    }
+  },
+  "timing": {
+    "scalar_rounds": 32,
+    "generic_rounds": 12,
+    "serial_repetitions": 3,
+    "parallel_claim": "Selection only; runs may overlap required proofs, so no isolated speed claim",
+    "serial_claim": "Descriptive development results, subject to actual job-interval isolation audit and unchanged final holdout gate"
+  },
+  "initial_phases": [
+    "proof-small",
+    "screen"
+  ],
+  "remaining_required_phases": [
+    "proof-20k",
+    "threaded-20k",
+    "serial"
+  ],
+  "interpretation": "Small proofs precede exploratory parallel timing. Full-size and threaded correctness are not inferred from timing checksums; unsuccessful admission leaves a candidate unproven and never counted as a win."
+}

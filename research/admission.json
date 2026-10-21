@@ -83,8 +83,8 @@
       "name": "pvec",
       "version": "0.2.1",
       "source": "https://docs.rs/crate/pvec/0.2.1/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "source-reviewed-vector-adapter-pending",
+      "reason": "Persistent vector, not a complete key/value snapshot engine. Candidate backing for dense rows, with an explicit key index. Its arc feature is required for cross-thread retained views. First cloning a flat representation constructs a tree; account for conversion and compare tree-start mode as well. small_branch is a separate compile-time variation, requiring its own pinned binary and matched controls. Additional Debug bound must not narrow the generic row API without an explicit wrapper. See vector-and-ordered-map-review.json."
     },
     {
       "name": "immer",
@@ -314,8 +314,8 @@
       "name": "ordermap",
       "version": "1.2.2",
       "source": "https://docs.rs/crate/ordermap/1.2.2/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "source-reviewed-wrapper-adapter-pending",
+      "reason": "Wrapper over IndexMap providing order-sensitive collection semantics. Do not count this as an independent indexing algorithm, or infer speed from the existing IndexMap measurements. Review and adapt the actual exposed removal behavior before timing it against the unordered state contract. See vector-and-ordered-map-review.json."
     },
     {
       "name": "btree-slab",
