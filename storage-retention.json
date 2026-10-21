@@ -239,8 +239,8 @@
       "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
     },
     {
-      "path": "build/pr-body-v25.md",
-      "reason": "Exact input for current public research PR update; retire after confirmed publication."
+      "path": "build/retention-v26",
+      "reason": "Selected packed dense-row instrumented ownership/reclamation proof executable; all variants use the same build profile and inputs."
     }
   ],
   "safe_to_remove": [
@@ -375,6 +375,14 @@
     {
       "path": "evidence/clippy-v25d.log",
       "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "build/pr-body-v25.md",
+      "reason": "Completed and confirmed public PR update; published text retained on GitHub, no active owner."
+    },
+    {
+      "path": "evidence/clippy-v26.log",
+      "reason": "Completed initial all-target check superseded by successful v26b check including the added retention adapters and final code commit."
     }
   ]
 }
