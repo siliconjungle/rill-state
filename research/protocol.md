@@ -130,3 +130,27 @@ Run small exact proofs before full-size proofs. Selection uses both existing
 development seeds and eight existing generic cases. This extends required
 generality evidence and does not replace the original primary scalar matrix,
 stalled-reader/reclamation work or final holdout gate.
+
+## Guarded-backend copy adapters
+
+Pinned native progress probes hold an old reader while another thread attempts
+three publications. flashmap, evmap and left-right each completed one, then
+waited until that old guard was released; all three then completed and the old
+value stayed unchanged. These are capability observations, not speed rankings.
+
+Register flashmap-copy, evmap-copy and left-right-copy using a freshly owned
+native backend for each staged nonempty revision. Clone copies the old complete
+contents; native mutation is batched before publishing the new backend. The
+common journal preserves every ordered original operation. Reads use native
+guards. The evmap and left-right read handles are not Sync, so their adapter
+read path uses a Mutex; writer Mutexes supply Sync eligibility but use get_mut
+on exclusive mutation paths. flashmap uses its conditional Sync read handle
+directly. flashmap/evmap use native default hashers; left-right uses an explicitly
+initialized hashbrown map cloned into both sides so replay has identical hash
+state. Copying, guard acquisition and synchronization are included in adapter
+costs, which must not be described as native short-lived-reader throughput.
+
+These are additional configurations/capability adaptations, not claims of three
+new independent persistent snapshot algorithms or universal performance wins.
+Full scalar content/revision/feed proofs and concurrent old-reader probes are
+required before timing.

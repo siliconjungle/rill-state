@@ -353,6 +353,205 @@ impl<const L: usize> Map
         }
     }
 }
+// Native two-copy engines need independently owned backends to keep arbitrary
+// old revisions without blocking later publications. Capturing/rebuilding and
+// native guard costs belong to this adapter, not native short-reader throughput.
+struct FlashCopy {
+    write: std::sync::Mutex<flashmap::WriteHandle<Key, Value>>,
+    read: flashmap::ReadHandle<Key, Value>,
+}
+impl Clone for FlashCopy {
+    fn clone(&self) -> Self {
+        let mut next = Self::empty();
+        {
+            let mut view = next.write.get_mut().unwrap().guard();
+            self.visit(|k, v| {
+                view.insert(k, v);
+            });
+        }
+        next
+    }
+}
+impl Map for FlashCopy {
+    fn empty() -> Self {
+        let (write, read) = flashmap::new();
+        Self {
+            write: std::sync::Mutex::new(write),
+            read,
+        }
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.read.guard().get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.write.get_mut().unwrap().guard().insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.write.get_mut().unwrap().guard().remove(*k);
+    }
+    fn len(&self) -> usize {
+        self.read.guard().len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        let view = self.read.guard();
+        for (k, v) in view.iter() {
+            f(*k, *v);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        let mut view = self.write.get_mut().unwrap().guard();
+        for op in ops {
+            match op {
+                Op::Put(k, v) => {
+                    view.insert(*k, *v);
+                }
+                Op::Delete(k) => {
+                    view.remove(*k);
+                }
+            }
+        }
+    }
+}
+struct EvmapCopy {
+    write: std::sync::Mutex<evmap::WriteHandle<Key, Value>>,
+    read: std::sync::Mutex<evmap::ReadHandle<Key, Value>>,
+}
+impl Clone for EvmapCopy {
+    fn clone(&self) -> Self {
+        let mut next = Self::empty();
+        let write = next.write.get_mut().unwrap();
+        self.visit(|k, v| {
+            write.update(k, v);
+        });
+        write.publish();
+        next
+    }
+}
+impl Map for EvmapCopy {
+    fn empty() -> Self {
+        let (mut write, read) = evmap::new();
+        write.publish();
+        Self {
+            write: std::sync::Mutex::new(write),
+            read: std::sync::Mutex::new(read),
+        }
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.read.lock().unwrap().get_one(k).map(|v| *v)
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.write.get_mut().unwrap().update(k, v).publish();
+    }
+    fn del(&mut self, k: &Key) {
+        self.write.get_mut().unwrap().empty(*k).publish();
+    }
+    fn len(&self) -> usize {
+        self.read.lock().unwrap().len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        let read = self.read.lock().unwrap();
+        let view = read.enter().unwrap();
+        for (k, values) in view.iter() {
+            let mut values = values.iter();
+            let value = *values.next().unwrap();
+            assert!(values.next().is_none());
+            f(*k, value);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        let write = self.write.get_mut().unwrap();
+        for op in ops {
+            match op {
+                Op::Put(k, v) => {
+                    write.update(*k, *v);
+                }
+                Op::Delete(k) => {
+                    write.empty(*k);
+                }
+            }
+        }
+        write.publish();
+    }
+}
+#[derive(Clone)]
+struct LeftData(hashbrown::HashMap<Key, Value>);
+impl left_right::Absorb<Op> for LeftData {
+    fn absorb_first(&mut self, op: &mut Op, _: &Self) {
+        match op {
+            Op::Put(k, v) => {
+                self.0.insert(*k, *v);
+            }
+            Op::Delete(k) => {
+                self.0.remove(k);
+            }
+        }
+    }
+    fn sync_with(&mut self, other: &Self) {
+        self.0 = other.0.clone();
+    }
+}
+struct LeftCopy {
+    write: std::sync::Mutex<left_right::WriteHandle<LeftData, Op>>,
+    read: std::sync::Mutex<left_right::ReadHandle<LeftData>>,
+}
+impl Clone for LeftCopy {
+    fn clone(&self) -> Self {
+        let mut next = Self::empty();
+        let write = next.write.get_mut().unwrap();
+        self.visit(|k, v| {
+            write.append(Op::Put(k, v));
+        });
+        write.publish();
+        next
+    }
+}
+impl Map for LeftCopy {
+    fn empty() -> Self {
+        // Cloning one explicitly initialized table gives both sides identical
+        // hash-builder state, as required by left-right's operational replay.
+        let (mut write, read) = left_right::new_from_empty(LeftData(hashbrown::HashMap::new()));
+        write.publish();
+        Self {
+            write: std::sync::Mutex::new(write),
+            read: std::sync::Mutex::new(read),
+        }
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.read.lock().unwrap().enter().unwrap().0.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.write
+            .get_mut()
+            .unwrap()
+            .append(Op::Put(k, v))
+            .publish();
+    }
+    fn del(&mut self, k: &Key) {
+        self.write
+            .get_mut()
+            .unwrap()
+            .append(Op::Delete(*k))
+            .publish();
+    }
+    fn len(&self) -> usize {
+        self.read.lock().unwrap().enter().unwrap().0.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        let read = self.read.lock().unwrap();
+        let view = read.enter().unwrap();
+        for (k, v) in view.0.iter() {
+            f(*k, *v);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        let write = self.write.get_mut().unwrap();
+        for op in ops {
+            write.append(op.clone());
+        }
+        write.publish();
+    }
+}
+
 impl Map for scc::HashMap<Key, Value> {
     fn empty() -> Self {
         Self::new()
@@ -1639,6 +1838,9 @@ fn main() {
     match o.engine.as_str() {
         "scc-copy" => dispatch!(scc::HashMap<Key,Value>),
         "scc-capture" => dispatch!(SccCapture),
+        "flashmap-copy" => dispatch!(FlashCopy),
+        "evmap-copy" => dispatch!(EvmapCopy),
+        "left-right-copy" => dispatch!(LeftCopy),
         "contrie-copy" => dispatch!(contrie::ConMap<Key,Value>),
         "leapfrog-copy" => dispatch!(Leap),
         "leapmap-copy" => dispatch!(LeapConcurrent),

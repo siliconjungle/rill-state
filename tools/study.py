@@ -6,7 +6,7 @@ fresh serial processes, holdout seeds and the separate strict acceptance gate.
 """
 import argparse, concurrent.futures, hashlib, itertools, json, os, pathlib, platform, random, re, signal, subprocess, time
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-EXTERNAL=['std-hash','std-btree','hashbrown','hashbrown-sip','indexmap','btree-slab','im-hash','im-ord','imbl-hash','imbl-fast','im-fast','rpds-fast','imbl-ord','imhm','imhm-sip','rpds-hash','rpds-redblack','vart','papaya-copy','dashmap-copy','flurry-copy','skipdb','scc-copy','contrie-copy','leapfrog-copy','leapmap-copy','scc-capture']+[f'chunk-{n}' for n in [8,16,32,64,128]]+[f'chunkbatch-{n}' for n in [8,16,32,64,128]]
+EXTERNAL=['std-hash','std-btree','hashbrown','hashbrown-sip','indexmap','btree-slab','im-hash','im-ord','imbl-hash','imbl-fast','im-fast','rpds-fast','imbl-ord','imhm','imhm-sip','rpds-hash','rpds-redblack','vart','papaya-copy','dashmap-copy','flurry-copy','skipdb','scc-copy','contrie-copy','leapfrog-copy','leapmap-copy','scc-capture','flashmap-copy','evmap-copy','left-right-copy']+[f'chunk-{n}' for n in [8,16,32,64,128]]+[f'chunkbatch-{n}' for n in [8,16,32,64,128]]
 INDEPENDENT=[f'{family}-{n}' for family in ['hashpages','sortedpages'] for n in [16,64,256,1024,4096,16384]]+[f'overlay-{n}' for n in [1,2,4,8,16,32]]+[f'mvcc-{n}' for n in [1,16,64,256]]+[f'slots-{n}'for n in [8,16,32,64,128,256,512,1024]]
 RILL=[f'rill-{1<<bits}-{1<<branch}' for bits in range(6,17,2) for branch in range(0,min(bits,10)+1,2)]
 RILLFAST=[e.replace('rill-','rillfast-')for e in RILL]
