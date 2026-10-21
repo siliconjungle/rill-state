@@ -193,6 +193,10 @@
     {
       "path": "build/shapes-v22",
       "reason": "Required frozen contiguous-inline slice correctness, threaded-read and comparative development measurement input"
+    },
+    {
+      "path": "build/retention-v22",
+      "reason": "Required frozen instrumented inline-slice retention/reclamation proof with all four fill thresholds and reference engines"
     }
   ],
   "safe_to_remove": [

@@ -3,7 +3,10 @@
 #[cfg(feature = "comparisons")]
 mod profile {
     use rill_state::{
-        experimental::{ArrayRecordMap, CopyKeys, ProbeMap, RecordMap, SharedKeys, SharedMap},
+        experimental::{
+            ArrayRecordMap, CopyKeys, InlineSliceMap, OwnedHasher, ProbeMap, RecordMap,
+            SharedHasher, SharedKeys, SharedMap,
+        },
         Config, Mutation, Snapshot, Store,
     };
     use std::{
@@ -143,6 +146,10 @@ mod profile {
     paged!(ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,CopyKeys>);
     paged!(ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,SharedKeys>);
     paged!(ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,SharedKeys>);
+    paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,25,SharedHasher,true>);
+    paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,50,OwnedHasher,false>);
+    paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,70,SharedHasher,false>);
+    paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,85,OwnedHasher,true>);
     trait Read: Clone {
         fn revision(&self) -> u64;
         fn len(&self) -> usize;
@@ -361,6 +368,58 @@ mod profile {
             mixed: get("--mixed", "false").parse().unwrap(),
         };
         match o.engine.as_str() {
+            "inline-shared-span-25" => run(
+                Compared::<
+                    InlineSliceMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        25,
+                        SharedHasher,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "inline-owned-index-50" => run(
+                Compared::<
+                    InlineSliceMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        50,
+                        OwnedHasher,
+                        false,
+                    >,
+                >::new(),
+                o,
+            ),
+            "inline-shared-index-70" => run(
+                Compared::<
+                    InlineSliceMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        70,
+                        SharedHasher,
+                        false,
+                    >,
+                >::new(),
+                o,
+            ),
+            "inline-owned-span-85" => run(
+                Compared::<
+                    InlineSliceMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        85,
+                        OwnedHasher,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
             "array-copy16" => run(
                 Compared::<
                     ArrayRecordMap<Key, Value, hashbrown::DefaultHashBuilder, 70, 16, CopyKeys>,
