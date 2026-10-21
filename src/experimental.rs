@@ -17,6 +17,9 @@ pub use inline_slice::InlineSliceMap;
 #[path = "experimental/sharded_inline.rs"]
 mod sharded_inline;
 pub use sharded_inline::ShardedInlineMap;
+#[path = "experimental/packed_index.rs"]
+mod packed_index;
+pub use packed_index::PackedIndexMap;
 
 #[derive(Clone)]
 struct Entry<K, V> {

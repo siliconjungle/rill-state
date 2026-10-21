@@ -85,7 +85,7 @@ heap-value publication workloads, but adds pointer reads and allocations; it doe
 not improve every shape. The default Store has not switched to this prototype.
 
 Fixed-size `ArrayRecordMap` pages additionally compare copied/shared canonical
-keys and shared/inline hash-builder storage. Sixty-one contract/oracle tests and
+keys and shared/inline hash-builder storage. Seventy-two contract/oracle tests and
 Clippy pass. Full-size state/feed proofs and retained-reader probes pass for the
 registered array configurations, followed by 11,082 matching-output serial
 development runs. These layouts still lose important workloads to hashbrown.
@@ -106,10 +106,20 @@ all payloads, but retain much more owned payload data than the paged layouts.
 tables on writes. Eighty configurations compare directory sizes, maximum fills,
 builder storage and per-operation/grouped batching. Grouping includes hashing,
 stable counting/scattering and scratch allocation costs. Its core checks pass;
-full-size comparative validation is running. No speed improvement is claimed yet.
+the original sweep passed 27,840 small/full/threaded proof processes. A corrected
+executable with the stronger oracle is undergoing fresh proofs and comparison.
+No speed improvement is claimed yet.
 Interrupted clones, growth and destructors now preserve usable mutable maps;
 staging is still required for atomic batches. The proof harness checks complete
 borrowed payloads, unique iteration and every model key without cloning values.
+
+`PackedIndexMap` is another opt-in experiment: complete K/V rows in dense storage,
+with cached 32-bit hashes and row indices packed into 8-byte probing words.
+Sixteen configurations vary fill, builder storage and lazy/once-per-batch COW.
+Complete keys still determine equality. Hash truncation, explicit 32-bit index
+limits and whole-table copying are documented tradeoffs. Collision, canonical-key,
+swap-removal, retention and panic-recovery checks pass. Comparative performance
+and full-size contracts for this new family remain unproven.
 
 Default study lists omit the known investigative `scc-copy` native Clone chain,
 whose capacity doubles with each copy in pinned scc 3.8.8. It is not counted as a

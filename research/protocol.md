@@ -62,6 +62,17 @@ swap primitives are a separate publication-layer comparison, not complete state 
 Missing comparisons, compile failures, unproven contracts or any loss leave the original
 objective incomplete. Publish the public library and research with that status explicit.
 
+## Packed dense-row experiment
+
+The separate [registered plan](packed-index-plan.md) compares sixteen fixed
+`PackedIndexMap` configurations: fills 25/50/70/85, shared/inline builder storage,
+and lazy-per-operation/once-per-nonempty-batch detachment. Dense iteration avoids
+scanning empty index slots; an extra indexed lookup and whole-table COW can
+regress reads/publications. Cached 32-bit hashes never replace full key equality.
+Report the explicit row/capacity limits and hash-truncation tradeoff. Include
+native and matching-fast-hasher IndexMap controls. Successful unit/recovery tests
+do not establish full-size behavior, general performance or final acceptance.
+
 ## Embedded sharded-inline experiment
 
 After the flat slice's publication/retention regressions, register independently

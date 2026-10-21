@@ -1,6 +1,7 @@
 # Packed index over dense rows
 
-Status: registered next layout hypothesis, not a measured improvement.
+Status: implemented as opt-in `PackedIndexMap`; validation is in progress. No
+performance improvement has been measured for this family.
 
 The 80-way sharded scalar screen still has dense-publication and scan losses.
 The previously measured flat inline table also clones empty-slot storage and

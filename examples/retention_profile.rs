@@ -4,8 +4,8 @@
 mod profile {
     use rill_state::{
         experimental::{
-            ArrayRecordMap, CopyKeys, InlineSliceMap, OwnedHasher, ProbeMap, RecordMap,
-            ShardedInlineMap, SharedHasher, SharedKeys, SharedMap,
+            ArrayRecordMap, CopyKeys, InlineSliceMap, OwnedHasher, PackedIndexMap, ProbeMap,
+            RecordMap, ShardedInlineMap, SharedHasher, SharedKeys, SharedMap,
         },
         Config, Mutation, Snapshot, Store,
     };
@@ -151,6 +151,10 @@ mod profile {
     paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,70,SharedHasher,false>);
     paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,85,OwnedHasher,true>);
     paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,25,OwnedHasher,false>);
+    paged!(PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,SharedHasher,false>);
+    paged!(PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,OwnedHasher,true>);
+    paged!(PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,SharedHasher,true>);
+    paged!(PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,OwnedHasher,false>);
     paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,SharedHasher,false>);
     paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,64,OwnedHasher,true>);
     paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,256,OwnedHasher,false>);
@@ -373,6 +377,58 @@ mod profile {
             mixed: get("--mixed", "false").parse().unwrap(),
         };
         match o.engine.as_str() {
+            "packed-shared-each-25" => run(
+                Compared::<
+                    PackedIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        25,
+                        SharedHasher,
+                        false,
+                    >,
+                >::new(),
+                o,
+            ),
+            "packed-owned-once-50" => run(
+                Compared::<
+                    PackedIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        50,
+                        OwnedHasher,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "packed-shared-once-70" => run(
+                Compared::<
+                    PackedIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        70,
+                        SharedHasher,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "packed-owned-each-85" => run(
+                Compared::<
+                    PackedIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        85,
+                        OwnedHasher,
+                        false,
+                    >,
+                >::new(),
+                o,
+            ),
             "shard-shared-each-25-16" => run(
                 Compared::<
                     ShardedInlineMap<

@@ -1970,6 +1970,54 @@ fn main() {
         };
     }
     match o.engine.as_str() {
+        "packed-shared-each-25" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,false>)
+        }
+        "packed-shared-each-50" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::SharedHasher,false>)
+        }
+        "packed-shared-each-70" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,false>)
+        }
+        "packed-shared-each-85" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::SharedHasher,false>)
+        }
+        "packed-shared-once-25" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,true>)
+        }
+        "packed-shared-once-50" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::SharedHasher,true>)
+        }
+        "packed-shared-once-70" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,true>)
+        }
+        "packed-shared-once-85" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::SharedHasher,true>)
+        }
+        "packed-owned-each-25" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,false>)
+        }
+        "packed-owned-each-50" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,false>)
+        }
+        "packed-owned-each-70" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,false>)
+        }
+        "packed-owned-each-85" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,false>)
+        }
+        "packed-owned-once-25" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,true>)
+        }
+        "packed-owned-once-50" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,true>)
+        }
+        "packed-owned-once-70" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,true>)
+        }
+        "packed-owned-once-85" => {
+            dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,true>)
+        }
         "shard-shared-each-25-1" => {
             dispatch!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,1,rill_state::experimental::SharedHasher,false>)
         }
@@ -2686,5 +2734,46 @@ fn main() {
         "overlay-16" => dispatch!(Overlay<16>),
         "overlay-32" => dispatch!(Overlay<32>),
         _ => panic!("unknown engine {}", o.engine),
+    }
+}
+
+impl<
+        const L: usize,
+        HP: rill_state::experimental::HasherPolicy<hashbrown::DefaultHashBuilder>,
+        const B: bool,
+    > Map
+    for rill_state::experimental::PackedIndexMap<
+        Key,
+        Value,
+        hashbrown::DefaultHashBuilder,
+        L,
+        HP,
+        B,
+    >
+where
+    HP::Stored: Send + Sync,
+{
+    fn empty() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.iter() {
+            f(*k, *v);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        self.apply(ops);
     }
 }

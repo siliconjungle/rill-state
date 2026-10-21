@@ -529,3 +529,28 @@ length, payload and lookup controls pass their rejection tests. Fresh corrected
 executables will be proved and measured separately. No new backend is selected;
 the original across-the-board performance objective and final holdout gate remain
 open, and the holdout seeds remain untouched.
+
+
+## Corrected execution panel and packed dense-row prototype
+
+All original sharded proofs, including the full generic and four-reader sweeps,
+now pass. The independently audited v23/v24 matrices total 29,760 fresh processes.
+The corrected v25 executables are frozen at source 840abc6c31e98ee4d734315ec1f5d385001b52d5.
+A predeclared development panel runs fresh small/full/threaded proofs, broad
+parallel screens and then serial comparisons. Its serial panel has 20 fixed
+scalar configurations and 19 generic configurations, including matching-fast
+standard HashMap/IndexMap controls. All phases have separate immutable labels;
+no new serial result is claimed before those phases finish.
+
+The next original family, PackedIndexMap, implements dense complete K/V rows and
+8-byte cached-32-bit-hash/index words. Sixteen options vary fill, builder storage
+and when a writable table is acquired. Empty batches never detach; once-per-batch
+pays to detach even for a batch containing only absent deletes. All 72 tests pass,
+including deliberate equal-low-32-bit hashes, zero/MAX words, every removal victim
+across three collision homes, canonical/borrowed keys, retained roots, final
+payload release and Clone/Hash/Drop failures. Growth's counted builder proof uses
+exactly one hash per inserted input, without hashing existing rows. A deletion
+can hash the last dense row to repair its index; that work is not omitted.
+This new family has no comparative timing or full-size admission yet. Its whole
+COW table still clones owned payloads, and cached hash truncation and bounded
+indices remain explicit limitations. No default selection or holdout gate changed.
