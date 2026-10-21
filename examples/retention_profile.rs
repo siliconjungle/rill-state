@@ -5,7 +5,7 @@ mod profile {
     use rill_state::{
         experimental::{
             ArrayRecordMap, CopyKeys, InlineSliceMap, OwnedHasher, ProbeMap, RecordMap,
-            SharedHasher, SharedKeys, SharedMap,
+            ShardedInlineMap, SharedHasher, SharedKeys, SharedMap,
         },
         Config, Mutation, Snapshot, Store,
     };
@@ -150,6 +150,11 @@ mod profile {
     paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,50,OwnedHasher,false>);
     paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,70,SharedHasher,false>);
     paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,85,OwnedHasher,true>);
+    paged!(InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,25,OwnedHasher,false>);
+    paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,SharedHasher,false>);
+    paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,64,OwnedHasher,true>);
+    paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,256,OwnedHasher,false>);
+    paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1024,SharedHasher,true>);
     trait Read: Clone {
         fn revision(&self) -> u64;
         fn len(&self) -> usize;
@@ -368,6 +373,75 @@ mod profile {
             mixed: get("--mixed", "false").parse().unwrap(),
         };
         match o.engine.as_str() {
+            "shard-shared-each-25-16" => run(
+                Compared::<
+                    ShardedInlineMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        25,
+                        16,
+                        SharedHasher,
+                        false,
+                    >,
+                >::new(),
+                o,
+            ),
+            "shard-owned-group-70-64" => run(
+                Compared::<
+                    ShardedInlineMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        70,
+                        64,
+                        OwnedHasher,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "shard-owned-each-25-256" => run(
+                Compared::<
+                    ShardedInlineMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        25,
+                        256,
+                        OwnedHasher,
+                        false,
+                    >,
+                >::new(),
+                o,
+            ),
+            "shard-shared-group-70-1024" => run(
+                Compared::<
+                    ShardedInlineMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        70,
+                        1024,
+                        SharedHasher,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "inline-owned-index-25" => run(
+                Compared::<
+                    InlineSliceMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        25,
+                        OwnedHasher,
+                        false,
+                    >,
+                >::new(),
+                o,
+            ),
             "inline-shared-span-25" => run(
                 Compared::<
                     InlineSliceMap<
