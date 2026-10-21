@@ -239,6 +239,11 @@ map_impl!(hashbrown::HashMap<Key,Value,std::collections::hash_map::RandomState>,
 map_impl!(im::HashMap<Key,Value>,im::HashMap::new());
 map_impl!(im::OrdMap<Key,Value>,im::OrdMap::new());
 map_impl!(imbl::HashMap<Key,Value>,imbl::HashMap::new());
+type ImblFast<K, V> =
+    imbl::GenericHashMap<K, V, hashbrown::DefaultHashBuilder, imbl::shared_ptr::DefaultSharedPtr>;
+map_impl!(ImblFast<Key,Value>,ImblFast::with_hasher(Default::default()));
+map_impl!(im::HashMap<Key,Value,hashbrown::DefaultHashBuilder>,im::HashMap::with_hasher(Default::default()));
+
 map_impl!(imbl::OrdMap<Key,Value>,imbl::OrdMap::new());
 map_impl!(indexmap::IndexMap<Key,Value>,indexmap::IndexMap::new());
 map_impl!(btree_slab::BTreeMap<Key,Value>,btree_slab::BTreeMap::new());
@@ -936,9 +941,11 @@ impl<const GC: usize> Map for Mvcc<GC> {
     }
 }
 
-impl Map for rpds::HashTrieMapSync<Key, Value> {
+impl<H: std::hash::BuildHasher + Clone + Default + Send + Sync> Map
+    for rpds::HashTrieMapSync<Key, Value, H>
+{
     fn empty() -> Self {
-        Self::new_sync()
+        Self::new_with_hasher_and_ptr_kind(H::default())
     }
     fn get(&self, k: &Key) -> Option<Value> {
         self.get(k).copied()
@@ -1700,6 +1707,9 @@ fn main() {
         "im-hash" => dispatch!(im::HashMap<Key,Value>),
         "im-ord" => dispatch!(im::OrdMap<Key,Value>),
         "imbl-hash" => dispatch!(imbl::HashMap<Key,Value>),
+        "imbl-fast" => dispatch!(ImblFast<Key,Value>),
+        "im-fast" => dispatch!(im::HashMap<Key,Value,hashbrown::DefaultHashBuilder>),
+        "rpds-fast" => dispatch!(rpds::HashTrieMapSync<Key,Value,hashbrown::DefaultHashBuilder>),
         "imbl-ord" => dispatch!(imbl::OrdMap<Key,Value>),
         "rpds-hash" => dispatch!(rpds::HashTrieMapSync<Key,Value>),
         "rpds-redblack" => dispatch!(rpds::RedBlackTreeMapSync<Key,Value>),

@@ -123,6 +123,52 @@ macro_rules! map {
 map!(hashbrown::HashMap<K,V>,hashbrown::HashMap::new());
 map!(hashbrown::HashMap<K,V,std::collections::hash_map::RandomState>,hashbrown::HashMap::with_hasher(Default::default()));
 map!(imbl::HashMap<K,V>,imbl::HashMap::new());
+type ImblFast<K, V> =
+    imbl::GenericHashMap<K, V, hashbrown::DefaultHashBuilder, imbl::shared_ptr::DefaultSharedPtr>;
+map!(ImblFast<K,V>,ImblFast::with_hasher(Default::default()));
+map!(im::HashMap<K,V>,im::HashMap::new());
+map!(im::HashMap<K,V,hashbrown::DefaultHashBuilder>,im::HashMap::with_hasher(Default::default()));
+impl<K: Key, V: Value, H: BuildHasher + Clone + Default + Send + Sync> Map<K, V>
+    for rpds::HashTrieMapSync<K, V, H>
+{
+    fn new() -> Self {
+        Self::new_with_hasher_and_ptr_kind(H::default())
+    }
+    fn get(&self, k: &K) -> Option<&V> {
+        self.get(k)
+    }
+    fn put(&mut self, k: K, v: V) {
+        self.insert_mut(k, v);
+    }
+    fn del(&mut self, k: &K) {
+        self.remove_mut(k);
+    }
+    fn len(&self) -> usize {
+        self.size()
+    }
+    fn visit(&self, mut f: impl FnMut(&K, &V)) {
+        for (k, v) in self.iter() {
+            f(k, v);
+        }
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        for op in ops {
+            match op {
+                Mutation::Put(k, v) => {
+                    if let Some(prior) = self.get_mut(k) {
+                        *prior = v.clone();
+                    } else {
+                        self.insert_mut(k.clone(), v.clone());
+                    }
+                }
+                Mutation::Delete(k) => {
+                    self.remove_mut(k);
+                }
+            }
+        }
+    }
+}
+
 impl<K: Key, V: Value> Map<K, V> for imhm::Map<K, V> {
     fn new() -> Self {
         Self::new()
@@ -556,6 +602,11 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
         "hashbrown" => map!(hashbrown::HashMap<K,V>),
         "hashbrown-sip" => map!(hashbrown::HashMap<K,V,std::collections::hash_map::RandomState>),
         "imbl-hash" => map!(imbl::HashMap<K,V>),
+        "imbl-fast" => map!(ImblFast<K,V>),
+        "im-hash" => map!(im::HashMap<K,V>),
+        "im-fast" => map!(im::HashMap<K,V,hashbrown::DefaultHashBuilder>),
+        "rpds-hash" => map!(rpds::HashTrieMapSync<K,V>),
+        "rpds-fast" => map!(rpds::HashTrieMapSync<K,V,hashbrown::DefaultHashBuilder>),
         "imhm" => map!(imhm::Map<K,V>),
         "probe-flat" => map!(ProbeMap<K,V,hashbrown::DefaultHashBuilder,70,0>),
         "probe-paged16" => map!(ProbeMap<K,V,hashbrown::DefaultHashBuilder,70,16>),
