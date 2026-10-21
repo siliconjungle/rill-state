@@ -1,7 +1,7 @@
 //! Generic key/payload-shape checks and development measurements. This complements,
 //! rather than replaces, the registered inline-u64 comparison and final holdout gate.
 use rill_state::{
-    experimental::{ProbeMap, SharedMap, SplitMap},
+    experimental::{ProbeMap, RecordMap, SharedMap, SplitMap},
     Config, Cursor, Mutation, Snapshot, Store,
 };
 use std::{
@@ -22,6 +22,21 @@ impl Key for u64 {
 impl Key for String {
     fn make(n: u64) -> Self {
         format!("tenant/{:016x}/resource/{n:016x}", <u64 as Key>::make(n))
+    }
+}
+#[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+struct VariableKey(String);
+impl Key for VariableKey {
+    fn make(id: u64) -> Self {
+        const SUFFIX: [usize; 16] = [
+            0, 0, 0, 8, 8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 512, 1024,
+        ];
+        let mut key = format!("k/{id:016x}/");
+        key.extend(std::iter::repeat_n(
+            (b'a' + (id % 26) as u8) as char,
+            SUFFIX[id as usize % 16],
+        ));
+        Self(key)
     }
 }
 trait Value: Clone + PartialEq + Eq + std::fmt::Debug + Send + Sync {
@@ -60,6 +75,52 @@ impl Value for Arc<[u8]> {
     }
     fn touch(&self) -> u64 {
         touch_bytes(self)
+    }
+}
+fn mixed_bytes(id: u64, epoch: u64) -> Vec<u8> {
+    let len = match id.wrapping_add(epoch) % 32 {
+        0..=7 => 0,
+        8..=11 => 8,
+        12..=15 => 32,
+        16..=23 => 128,
+        24..=27 => 512,
+        28..=30 => 2048,
+        _ => 4096,
+    };
+    let mut data = vec![id.wrapping_add(epoch) as u8; len];
+    if len >= 8 {
+        data[..8].copy_from_slice(&(id ^ epoch).to_le_bytes());
+    }
+    if len >= 16 {
+        data[len - 8..].copy_from_slice(&epoch.to_le_bytes());
+    }
+    data
+}
+fn touch_mixed(data: &[u8]) -> u64 {
+    if data.is_empty() {
+        0
+    } else {
+        touch_bytes(data) ^ (data.len() as u64)
+    }
+}
+#[derive(Clone, Eq, PartialEq, Debug)]
+struct MixedOwned(Vec<u8>);
+impl Value for MixedOwned {
+    fn make(id: u64, epoch: u64) -> Self {
+        Self(mixed_bytes(id, epoch))
+    }
+    fn touch(&self) -> u64 {
+        touch_mixed(&self.0)
+    }
+}
+#[derive(Clone, Eq, PartialEq, Debug)]
+struct MixedShared(Arc<[u8]>);
+impl Value for MixedShared {
+    fn make(id: u64, epoch: u64) -> Self {
+        Self(mixed_bytes(id, epoch).into())
+    }
+    fn touch(&self) -> u64 {
+        touch_mixed(&self.0)
     }
 }
 trait Map<K: Key, V: Value>: Clone + Send + Sync {
@@ -209,6 +270,33 @@ impl<K: Key, V: Value> Map<K, V> for imhm::Map<K, V> {
 }
 impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
     for SharedMap<K, V, hashbrown::DefaultHashBuilder, L, P>
+{
+    fn new() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &K) -> Option<&V> {
+        self.get(k)
+    }
+    fn put(&mut self, k: K, v: V) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &K) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(&K, &V)) {
+        for (k, v) in self.iter() {
+            f(k, v);
+        }
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        self.apply(ops);
+    }
+}
+impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
+    for RecordMap<K, V, hashbrown::DefaultHashBuilder, L, P>
 {
     fn new() -> Self {
         Self::default()
@@ -635,6 +723,10 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
         "rpds-hash" => map!(rpds::HashTrieMapSync<K,V>),
         "rpds-fast" => map!(rpds::HashTrieMapSync<K,V,hashbrown::DefaultHashBuilder>),
         "imhm" => map!(imhm::Map<K,V>),
+        "record-flat" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,0>),
+        "record-paged16" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,16>),
+        "record-paged64" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,64>),
+        "record-paged256" => map!(RecordMap<K,V,hashbrown::DefaultHashBuilder,70,256>),
         "shared-flat" => map!(SharedMap<K,V,hashbrown::DefaultHashBuilder,70,0>),
         "shared-paged16" => map!(SharedMap<K,V,hashbrown::DefaultHashBuilder,70,16>),
         "shared-paged64" => map!(SharedMap<K,V,hashbrown::DefaultHashBuilder,70,64>),
@@ -654,6 +746,8 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
 fn main() {
     let o = options();
     match o.shape.as_str() {
+        "mixed-owned" => dispatch::<VariableKey, MixedOwned>(&o),
+        "mixed-shared" => dispatch::<VariableKey, MixedShared>(&o),
         "u64-inline" => dispatch::<u64, [u64; 4]>(&o),
         "string-inline" => dispatch::<String, [u64; 4]>(&o),
         "u64-owned256" => dispatch::<u64, Vec<u8>>(&o),

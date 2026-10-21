@@ -3,8 +3,8 @@
 import argparse,concurrent.futures,hashlib,itertools,json,pathlib,platform,random,subprocess,time
 import study
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-ENGINES=['hashbrown','hashbrown-sip','imbl-hash','imbl-fast','im-hash','im-fast','rpds-hash','rpds-fast','imhm','probe-flat','probe-paged16','probe-paged64','split','shared-flat','shared-paged16','shared-paged64','shared-paged256','rill','rillfast']
-SHAPES=['u64-inline','string-inline','u64-owned256','string-owned256','u64-shared256','string-shared256']
+ENGINES=['hashbrown','hashbrown-sip','imbl-hash','imbl-fast','im-hash','im-fast','rpds-hash','rpds-fast','imhm','probe-flat','probe-paged16','probe-paged64','split','record-flat','record-paged16','record-paged64','record-paged256','shared-flat','shared-paged16','shared-paged64','shared-paged256','rill','rillfast']
+SHAPES=['u64-inline','string-inline','u64-owned256','string-owned256','u64-shared256','string-shared256','mixed-owned','mixed-shared']
 CASES=['single','sparse','churn','burst','read','scan','slow','miss100']
 def main():
  p=argparse.ArgumentParser();p.add_argument('mode',choices=['prove','thread','screen','serial']);p.add_argument('--binary',type=pathlib.Path,required=True);p.add_argument('--label',required=True);p.add_argument('--engines');p.add_argument('--shapes');p.add_argument('--cases');p.add_argument('--records',type=int,default=20000);p.add_argument('--readers',type=int,default=20000);p.add_argument('--rounds',type=int,default=16);p.add_argument('--repetitions',type=int,default=1);p.add_argument('--workers',type=int,default=3);p.add_argument('--seeds',default='4815162342,2937471921');a=p.parse_args()

@@ -272,14 +272,34 @@ impl<const L: usize, const P: usize> Map
         }
     }
     fn batch(&mut self, ops: &[Op]) {
-        let ops: Vec<_> = ops
-            .iter()
-            .map(|op| match op {
-                Op::Put(k, v) => rill_state::Mutation::Put(*k, *v),
-                Op::Delete(k) => rill_state::Mutation::Delete(*k),
-            })
-            .collect();
-        self.apply(&ops);
+        self.apply(ops);
+    }
+}
+impl<const L: usize, const P: usize> Map
+    for rill_state::experimental::RecordMap<Key, Value, hashbrown::DefaultHashBuilder, L, P>
+{
+    fn empty() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.iter() {
+            f(*k, *v);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        self.apply(ops);
     }
 }
 impl<const L: usize, const P: usize> Map
@@ -1739,6 +1759,42 @@ fn main() {
         "flurry-copy" => dispatch!(flurry::HashMap<Key,Value>),
         "vart" => dispatch!(Vart),
         "im-hash" => dispatch!(im::HashMap<Key,Value>),
+        "record-50-0" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,0>)
+        }
+        "record-50-16" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,16>)
+        }
+        "record-50-64" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,64>)
+        }
+        "record-50-256" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,50,256>)
+        }
+        "record-70-0" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,0>)
+        }
+        "record-70-16" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,16>)
+        }
+        "record-70-64" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,64>)
+        }
+        "record-70-256" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,256>)
+        }
+        "record-85-0" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,0>)
+        }
+        "record-85-16" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,16>)
+        }
+        "record-85-64" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,64>)
+        }
+        "record-85-256" => {
+            dispatch!(rill_state::experimental::RecordMap<Key,Value,hashbrown::DefaultHashBuilder,85,256>)
+        }
         "shared-50-0" => {
             dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,50,0>)
         }

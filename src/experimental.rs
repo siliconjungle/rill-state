@@ -104,6 +104,9 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
         self.get_by(self.hasher.hash_one(key), |stored| stored.borrow() == key)
     }
     fn get_by(&self, hash: u64, matches: impl Fn(&K) -> bool) -> Option<&V> {
+        self.entry_by(hash, matches).map(|entry| &entry.value)
+    }
+    fn entry_by(&self, hash: u64, matches: impl Fn(&K) -> bool) -> Option<&Entry<K, V>> {
         let start = hash as usize & self.mask;
         if P == 0 {
             let page = &self.pages[0];
@@ -112,7 +115,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
             for slot in page[start..].iter().chain(page[..start].iter()) {
                 match slot {
                     None => return None,
-                    Some(e) if e.hash == hash && matches(&e.key) => return Some(&e.value),
+                    Some(e) if e.hash == hash && matches(&e.key) => return Some(e),
                     _ => {}
                 }
             }
@@ -124,7 +127,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
             for slot in &page[i % P..] {
                 match slot {
                     None => return None,
-                    Some(e) if e.hash == hash && matches(&e.key) => return Some(&e.value),
+                    Some(e) if e.hash == hash && matches(&e.key) => return Some(e),
                     _ => {}
                 }
             }
@@ -390,6 +393,157 @@ impl<K: Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize> SharedMap<
     /// Visit all live bindings in unspecified order.
     pub fn iter(&self) -> impl Iterator<Item = (&K, &V)> {
         self.inner.iter().map(|(k, v)| (k.as_ref(), v.as_ref()))
+    }
+}
+
+/// One immutable key/value allocation retained by a `RecordMap` snapshot. Values
+/// with interior mutability still require application discipline, as with `Arc<T>`.
+pub struct SharedRecord<K, V> {
+    key: K,
+    value: V,
+}
+impl<K, V> SharedRecord<K, V> {
+    /// Stored key of this immutable record.
+    pub fn key(&self) -> &K {
+        &self.key
+    }
+    /// Stored value of this immutable record.
+    pub fn value(&self) -> &V {
+        &self.value
+    }
+}
+struct RecordHandle<K, V>(Arc<SharedRecord<K, V>>);
+impl<K, V> Clone for RecordHandle<K, V> {
+    fn clone(&self) -> Self {
+        Self(self.0.clone())
+    }
+}
+impl<K: Hash, V> Hash for RecordHandle<K, V> {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.0.key.hash(state);
+    }
+}
+impl<K: PartialEq, V> PartialEq for RecordHandle<K, V> {
+    fn eq(&self, other: &Self) -> bool {
+        self.0.key == other.0.key
+    }
+}
+impl<K: Eq, V> Eq for RecordHandle<K, V> {}
+
+/// Probing pages whose slots contain a cached hash and one shared record handle.
+/// Key and value occupy the same allocation, reducing slot width and reference
+/// count traffic relative to `SharedMap`. Replacement clones a borrowed input key
+/// rather than retaining its canonical allocation. This is an explicit locality/
+/// allocation tradeoff, not a selected default or a transactional mutation API.
+pub struct RecordMap<K, V, S = RandomState, const LOAD: usize = 70, const PAGE: usize = 16> {
+    inner: ProbeMap<RecordHandle<K, V>, (), S, LOAD, PAGE>,
+}
+impl<K, V, S, const L: usize, const P: usize> Clone for RecordMap<K, V, S, L, P> {
+    fn clone(&self) -> Self {
+        Self {
+            inner: self.inner.clone(),
+        }
+    }
+}
+impl<K: Hash + Eq, V, S: BuildHasher + Default, const L: usize, const P: usize> Default
+    for RecordMap<K, V, S, L, P>
+{
+    fn default() -> Self {
+        Self::with_hasher(S::default())
+    }
+}
+impl<K: Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize> RecordMap<K, V, S, L, P> {
+    /// Construct a map with a chosen hash builder and the selected const layout.
+    pub fn with_hasher(hasher: S) -> Self {
+        Self {
+            inner: ProbeMap::with_hasher(hasher),
+        }
+    }
+    /// Look up a compatible borrowed key without allocation or reference-count work.
+    pub fn get<Q: Hash + Eq + ?Sized>(&self, key: &Q) -> Option<&V>
+    where
+        K: Borrow<Q>,
+    {
+        self.inner
+            .entry_by(self.inner.hasher.hash_one(key), |r| r.0.key.borrow() == key)
+            .map(|entry| &entry.key.0.value)
+    }
+    /// Insert a new immutable record, returning the replaced record if present.
+    pub fn insert(&mut self, key: K, value: V) -> Option<Arc<SharedRecord<K, V>>> {
+        let hash = self.inner.hasher.hash_one(&key);
+        let (mut i, found) = self.inner.find_by(hash, |r| r.0.key == key);
+        let record = RecordHandle(Arc::new(SharedRecord { key, value }));
+        if found {
+            return Some(
+                std::mem::replace(&mut self.inner.slot_mut(i).as_mut().unwrap().key, record).0,
+            );
+        }
+        if self.inner.len + 1 > (self.inner.mask + 1) * L / 100 {
+            self.inner.grow();
+            i = self.inner.find_by(hash, |r| r.0.key == record.0.key).0;
+        }
+        *self.inner.slot_mut(i) = Some(Entry {
+            hash,
+            key: record,
+            value: (),
+        });
+        self.inner.len += 1;
+        None
+    }
+    /// Remove a compatible borrowed key, returning its independently retained record.
+    pub fn remove<Q: Hash + Eq + ?Sized>(&mut self, key: &Q) -> Option<Arc<SharedRecord<K, V>>>
+    where
+        K: Borrow<Q>,
+    {
+        let (i, found) = self
+            .inner
+            .find_by(self.inner.hasher.hash_one(key), |r| r.0.key.borrow() == key);
+        found.then(|| self.inner.remove_at(i).key.0)
+    }
+    /// Apply borrowed ordered mutations, cloning only each submitted replacement.
+    pub fn apply(&mut self, operations: &[Mutation<K, V>])
+    where
+        K: Clone,
+        V: Clone,
+    {
+        for op in operations {
+            match op {
+                Mutation::Put(k, v) => {
+                    self.insert(k.clone(), v.clone());
+                }
+                Mutation::Delete(k) => {
+                    self.remove(k);
+                }
+            }
+        }
+    }
+    /// Number of live bindings.
+    pub fn len(&self) -> usize {
+        self.inner.len()
+    }
+    /// Whether there are no live bindings.
+    pub fn is_empty(&self) -> bool {
+        self.inner.is_empty()
+    }
+    /// Visit live bindings in unspecified order.
+    pub fn iter(&self) -> impl Iterator<Item = (&K, &V)> {
+        self.inner.iter().map(|(r, ())| (&r.0.key, &r.0.value))
+    }
+}
+
+#[cfg(all(test, target_pointer_width = "64"))]
+mod layout_tests {
+    use super::*;
+    #[test]
+    fn record_slot_reduces_shared_slot_width_on_64_bit_targets() {
+        assert_eq!(
+            std::mem::size_of::<Option<Entry<RecordHandle<u64, [u64; 4]>, ()>>>(),
+            16
+        );
+        assert_eq!(
+            std::mem::size_of::<Option<Entry<Arc<u64>, Arc<[u64; 4]>>>>(),
+            24
+        );
     }
 }
 

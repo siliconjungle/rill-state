@@ -104,3 +104,28 @@ counts are part of its cost, including for inline values. Register occupancy
 in the generic six-shape matrix. Apply the same complete-content, ordered-feed,
 revision and four-reader proofs before considering development timing. No changes
 to the frozen holdout seeds or final acceptance criteria.
+
+## Compact shared records and mixed-size extension
+
+RecordMap packs the key and value into one shared immutable allocation. Slots
+hold a cached full hash and one Arc handle (16 bytes on the tested 64-bit target,
+versus 24 bytes for independent shared keys/values). The key must be cloned for
+borrowed replacements, unlike SharedMap's canonical-key sharing. Register
+occupancy 50/70/85 × flat/16/64/256 pages as 12 scalar configurations, with the
+four occupancy70 layouts in the generic matrix. SharedMap's scalar adapter now
+applies its existing borrowed input batch directly, removing an unnecessary
+intermediate operation Vec; prior scalar comparisons include that avoidable cost.
+Earlier generic shape timings do not have that cost and remain separate.
+
+Add mixed-owned and mixed-shared shapes: unique ASCII String key prefixes of 19
+bytes with deterministic suffix lengths [0,0,0,8,8,16,24,32,48,64,96,128,192,256,512,1024].
+Payload length depends on (id+epoch) modulo 32: 0 (8/32), 8 (4/32), 32 (4/32),
+128 (8/32), 512 (4/32), 2048 (3/32), 4096 (1/32) bytes. Thus key sizes vary across
+records and payload sizes change over revisions. Owned Vec and shared Arc payloads
+use identical logical bytes. Timed reads touch only prefix/suffix and length;
+untimed proofs compare complete bytes, exact feeds and retained old revisions.
+
+Run small exact proofs before full-size proofs. Selection uses both existing
+development seeds and eight existing generic cases. This extends required
+generality evidence and does not replace the original primary scalar matrix,
+stalled-reader/reclamation work or final holdout gate.

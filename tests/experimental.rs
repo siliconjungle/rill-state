@@ -1,5 +1,5 @@
 #![cfg(feature = "experimental")]
-use rill_state::experimental::{ProbeMap, SharedMap, SplitMap};
+use rill_state::experimental::{ProbeMap, RecordMap, SharedMap, SplitMap};
 use rill_state::Mutation;
 use std::{
     collections::BTreeMap,
@@ -102,6 +102,65 @@ impl<S: std::hash::BuildHasher, const L: usize, const P: usize> Subject
     fn batch(&mut self, ops: Vec<Mutation<String, Arc<Vec<u8>>>>) {
         self.apply(&ops);
     }
+}
+impl<S: std::hash::BuildHasher, const L: usize, const P: usize> Subject
+    for RecordMap<String, Arc<Vec<u8>>, S, L, P>
+{
+    fn put(&mut self, k: String, v: Arc<Vec<u8>>) -> Option<Arc<Vec<u8>>> {
+        self.insert(k, v).map(|r| r.value().clone())
+    }
+    fn del(&mut self, k: &str) -> Option<Arc<Vec<u8>>> {
+        self.remove(k).map(|r| r.value().clone())
+    }
+    fn read(&self, k: &str) -> Option<&Arc<Vec<u8>>> {
+        self.get(k)
+    }
+    fn contents(&self) -> BTreeMap<String, Arc<Vec<u8>>> {
+        self.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn batch(&mut self, ops: Vec<Mutation<String, Arc<Vec<u8>>>>) {
+        self.apply(&ops);
+    }
+}
+#[test]
+fn packed_records_preserve_borrowed_reads_collisions_and_retained_views() {
+    macro_rules! pages {
+        ($l:literal) => {
+            oracle(RecordMap::<_, _, BuildHasherDefault<Wrap>, $l, 0>::default());
+            oracle(RecordMap::<_, _, BuildHasherDefault<Wrap>, $l, 16>::default());
+            oracle(RecordMap::<_, _, BuildHasherDefault<Wrap>, $l, 64>::default());
+            oracle(RecordMap::<_, _, BuildHasherDefault<Wrap>, $l, 256>::default());
+        };
+    }
+    pages!(50);
+    pages!(70);
+    pages!(85);
+    oracle(RecordMap::<_, _, BuildHasherDefault<Zero>, 70, 16>::default());
+}
+#[test]
+fn packed_records_release_after_last_snapshot_and_removed_handle() {
+    let value = Arc::new(vec![7u8; 4096]);
+    let weak = Arc::downgrade(&value);
+    let mut map = RecordMap::<String, _>::default();
+    map.insert("key".into(), value);
+    let view = map.clone();
+    let removed = map.remove("key").unwrap();
+    assert_eq!(removed.key(), "key");
+    assert_eq!(removed.value().len(), 4096);
+    drop(view);
+    assert!(weak.upgrade().is_some());
+    drop(removed);
+    assert!(weak.upgrade().is_none());
+    // Snapshot cloning itself imposes no Clone bound on the underlying K/V.
+    struct NonClone;
+    let mut map = RecordMap::<u64, NonClone>::default();
+    map.insert(1, NonClone);
+    let old = map.clone();
+    map.remove(&1);
+    assert!(old.get(&1).is_some());
 }
 #[test]
 fn shared_records_survive_collision_growth_deletion_and_old_readers() {
