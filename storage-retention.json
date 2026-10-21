@@ -235,6 +235,10 @@
     {
       "path": "evidence/retention-build-v19.log",
       "reason": "Completed unselected build before value-layout metadata; final build log and frozen source/binary receipt supersede it."
+    },
+    {
+      "path": "build/pr-body-v19.md",
+      "reason": "Completed successful public PR update input; exact published text is retained on GitHub."
     }
   ]
 }
