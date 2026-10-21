@@ -21,6 +21,31 @@ def source_hash():
     h=hashlib.sha256()
     for p in sorted([ROOT/'Cargo.toml',ROOT/'Cargo.lock',*ROOT.glob('src/**/*.rs'),*ROOT.glob('benches/**/*.rs')]): h.update(p.relative_to(ROOT).as_posix().encode()+b'\0'+p.read_bytes())
     return h.hexdigest()
+def source_hash_at(commit):
+    """Verify frozen inputs against Git, without copying another checkout."""
+    paths=subprocess.check_output(['git','ls-tree','-r','--name-only',commit,'--','Cargo.toml','Cargo.lock','src','benches'],cwd=ROOT,text=True).splitlines()
+    paths=sorted(p for p in paths if p in ('Cargo.toml','Cargo.lock') or p.endswith('.rs'))
+    h=hashlib.sha256()
+    for path in paths:
+        h.update(path.encode()+b'\0'+subprocess.check_output(['git','show',f'{commit}:{path}'],cwd=ROOT))
+    return h.hexdigest()
+
+def build_binding(binary):
+    """A frozen executable keeps its original inputs while other variants change."""
+    binary=pathlib.Path(binary).resolve();digest=hashlib.sha256(binary.read_bytes()).hexdigest()
+    match=re.search(r'-(v[0-9a-z]+)$',binary.name)
+    path=ROOT/'evidence'/f'build-{match.group(1)}-receipt.json' if match else None
+    if path and path.exists():
+        receipt=json.loads(path.read_text())
+        assert digest in receipt['binaries'].values(),f'binary does not match {path}'
+        assert source_hash_at(receipt['source_commit'])==receipt['source_sha256'],f'Git inputs do not match {path}'
+        return dict(source_sha256=receipt['source_sha256'],source_commit=receipt['source_commit'],
+                    rustc=receipt['rustc'],binary_sha256=digest,build_binding=str(path.relative_to(ROOT)),
+                    build_binding_sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+    return dict(source_sha256=source_hash(),source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+                rustc=subprocess.check_output(['rustc','-Vv'],text=True),binary_sha256=digest,
+                build_binding='unattested current worktree; development only')
+
 def run_bounded(command,timeout=300):
     """A timeout retires only this invocation's newly owned process group.
 
@@ -76,6 +101,8 @@ def main():
     random.Random(0x51A7E).shuffle(tasks)
     workers=1 if a.mode=='serial'else a.workers
     receipt=dict(schema=1,mode=a.mode,claim='correctness'if a.mode in ('prove','thread')else'selection only'if a.mode=='screen'else'isolated timing; acceptance not implied',workers=workers,source_sha256=source_hash(),source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),orchestrator_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),binary_sha256=binary_hash,platform=platform.platform(),machine=platform.machine(),rustc=subprocess.check_output(['rustc','-Vv'],text=True),engines=engines,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks))
+    receipt.update(build_binding(binary))
+    receipt['driver_source_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     (folder/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
     passed=0;errors=[]
     with (folder/'runs.jsonl').open('w')as out,concurrent.futures.ThreadPoolExecutor(max_workers=workers)as pool:
