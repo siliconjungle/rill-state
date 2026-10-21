@@ -40,3 +40,23 @@ a separate useful contract. Read-handle Clone creates another reader of current
 state, not an independently retained immutable revision. Native guarded APIs
 therefore cannot silently replace the registered snapshot contract. Implemented
 and measured capture adapters are still required before any broad win claim.
+
+## Native observation and implemented comparison
+
+The frozen native guarded-retention example confirmed the same trace in all
+three pinned backends: one publication completed while an old guard was held,
+the next attempt waited during the 250 ms observation window, and publications
+two and three completed after release. The retained value remained zero. This
+is not a throughput result and is consistent with the primary-source wait paths.
+Exact source/executable/compiler bindings and full traces are retained under
+evidence/guarded-native-v18.
+
+Independent-backend adapters are now implemented in benches/state.rs: native
+flashmap/evmap map copies and a left-right operational state containing a
+hashbrown table initialized once and cloned to both sides. Native keys and
+32-byte inline values are unchanged. Evmap and left-right read handles use
+Mutex for the registered Sync view requirement; exclusive writes use get_mut.
+Each adapter passed 90 small checks, 90 20,000-record checks collectively
+(15 cases × two seeds × three configurations), and 12 four-reader old-view
+probes. These are contract-preserving adaptations; native guard acquisition
+and copying costs must remain explicit in subsequent measurements.

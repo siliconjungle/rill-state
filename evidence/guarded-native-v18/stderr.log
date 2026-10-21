@@ -1,0 +1,12 @@
+flashmap: held-reader events [Attempt(1), Published(1), Attempt(2)]
+flashmap: released-reader event Published(2)
+flashmap: released-reader event Attempt(3)
+flashmap: released-reader event Published(3)
+evmap: held-reader events [Attempt(1), Published(1), Attempt(2)]
+evmap: released-reader event Published(2)
+evmap: released-reader event Attempt(3)
+evmap: released-reader event Published(3)
+left-right: held-reader events [Attempt(1), Published(1), Attempt(2)]
+left-right: released-reader event Published(2)
+left-right: released-reader event Attempt(3)
+left-right: released-reader event Published(3)

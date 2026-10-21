@@ -153,6 +153,14 @@
     {
       "path": "build/shapes-v18",
       "reason": "Selected compact-record and mixed-size full-contract proofs and development comparison executable"
+    },
+    {
+      "path": "build/state-v19",
+      "reason": "Required independently retained native guarded-backend comparison proofs and timing input"
+    },
+    {
+      "path": "build/guarded-native-v18",
+      "reason": "Required frozen native retained-reader progress capability proof executable"
     }
   ],
   "safe_to_remove": [
@@ -203,6 +211,22 @@
     {
       "path": "evidence/build-v18.log",
       "reason": "Completed unmeasured precursor build superseded by canonical-key-correct v18b build; source history retained."
+    },
+    {
+      "path": "evidence/build-v19.jsonl",
+      "reason": "Completed unmeasured compile staging superseded by successful public evmap handles re-export build; exact corrected source is committed."
+    },
+    {
+      "path": "evidence/build-v19.log",
+      "reason": "Completed unmeasured compile staging superseded by successful public evmap handles re-export build; exact corrected source is committed."
+    },
+    {
+      "path": "evidence/build-v19b.jsonl",
+      "reason": "Completed unmeasured compile staging superseded by successful public evmap handles re-export build; exact corrected source is committed."
+    },
+    {
+      "path": "evidence/build-v19b.log",
+      "reason": "Completed unmeasured compile staging superseded by successful public evmap handles re-export build; exact corrected source is committed."
     }
   ]
 }

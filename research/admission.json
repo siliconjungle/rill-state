@@ -132,22 +132,22 @@
       "name": "evmap",
       "version": "11.0.0",
       "source": "https://docs.rs/crate/evmap/11.0.0/source/",
-      "status": "pinned-source-reviewed-capture-adapter-pending",
-      "reason": "Native guarded readers can prevent subsequent publication. Independent retained-revision adapter still requires implementation/proof/measurement; no exclusion or win is inferred. Exact primary-source hashes and proposed contract-preserving adapter are in guarded-map-review.json/.md."
+      "status": "independent-backend-adapted-full-size-proof-passed",
+      "reason": "Native guard progress limit is proved by frozen traces. Independent backend per staged revision preserves arbitrary retained old readers. Three adapters passed 90 full-size checks and 12 four-reader probes collectively; publication copying and native guard/mutex costs are explicit. Development timing is pending; no universal win claimed."
     },
     {
       "name": "left-right",
       "version": "0.11.8",
       "source": "https://docs.rs/crate/left-right/0.11.8/source/",
-      "status": "pinned-source-reviewed-capture-adapter-pending",
-      "reason": "Native guarded readers can prevent subsequent publication. Independent retained-revision adapter still requires implementation/proof/measurement; no exclusion or win is inferred. Exact primary-source hashes and proposed contract-preserving adapter are in guarded-map-review.json/.md."
+      "status": "independent-backend-adapted-full-size-proof-passed",
+      "reason": "Native guard progress limit is proved by frozen traces. Independent backend per staged revision preserves arbitrary retained old readers. Three adapters passed 90 full-size checks and 12 four-reader probes collectively; publication copying and native guard/mutex costs are explicit. Development timing is pending; no universal win claimed."
     },
     {
       "name": "flashmap",
       "version": "0.2.0",
       "source": "https://docs.rs/crate/flashmap/0.2.0/source/",
-      "status": "pinned-source-reviewed-capture-adapter-pending",
-      "reason": "Native guarded readers can prevent subsequent publication. Independent retained-revision adapter still requires implementation/proof/measurement; no exclusion or win is inferred. Exact primary-source hashes and proposed contract-preserving adapter are in guarded-map-review.json/.md."
+      "status": "independent-backend-adapted-full-size-proof-passed",
+      "reason": "Native guard progress limit is proved by frozen traces. Independent backend per staged revision preserves arbitrary retained old readers. Three adapters passed 90 full-size checks and 12 four-reader probes collectively; publication copying and native guard/mutex costs are explicit. Development timing is pending; no universal win claimed."
     },
     {
       "name": "rcu-clean",
