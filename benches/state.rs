@@ -413,8 +413,8 @@ impl Map for FlashCopy {
     }
 }
 struct EvmapCopy {
-    write: std::sync::Mutex<evmap::WriteHandle<Key, Value>>,
-    read: std::sync::Mutex<evmap::ReadHandle<Key, Value>>,
+    write: std::sync::Mutex<evmap::write::WriteHandle<Key, Value>>,
+    read: std::sync::Mutex<evmap::read::ReadHandle<Key, Value>>,
 }
 impl Clone for EvmapCopy {
     fn clone(&self) -> Self {
@@ -443,7 +443,7 @@ impl Map for EvmapCopy {
         self.write.get_mut().unwrap().update(k, v).publish();
     }
     fn del(&mut self, k: &Key) {
-        self.write.get_mut().unwrap().empty(*k).publish();
+        self.write.get_mut().unwrap().remove_entry(*k).publish();
     }
     fn len(&self) -> usize {
         self.read.lock().unwrap().len()
@@ -466,7 +466,7 @@ impl Map for EvmapCopy {
                     write.update(*k, *v);
                 }
                 Op::Delete(k) => {
-                    write.empty(*k);
+                    write.remove_entry(*k);
                 }
             }
         }
