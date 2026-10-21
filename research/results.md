@@ -554,3 +554,19 @@ can hash the last dense row to repair its index; that work is not omitted.
 This new family has no comparative timing or full-size admission yet. Its whole
 COW table still clones owned payloads, and cached hash truncation and bounded
 indices remain explicit limitations. No default selection or holdout gate changed.
+
+
+The packed retention extension passed 48 corrected small and 72 full-size
+instrumented cases. Every retained view and exact journal count matched, and all
+tracked payloads were reclaimed. In fixed256/window64/pinned-initial, all four
+packed configurations retained 320.51 MiB of owned payloads and made 5,191,200
+instrumented Value clones, matching hashbrown's copy adapter. The record-paged16
+reference retained 15.97 MiB and made 71,200 clones. Packed process RSS ranged
+from 412.30 to 462.47 MiB versus hashbrown's 433.97 MiB and the paged reference's
+34.62 MiB. These are same-build instrumented process/payload observations;
+structural/allocator overhead is excluded from payload counts and no speed or
+universal heap improvement follows. Dense storage does not solve whole-table
+owned-payload retention. The initial 64-round small launch was invalid because
+it did not replace every initial record; it produced no measurements. Its exact
+receipt/reproduction and the subsequent driver preflight correction are retained,
+with the repeated staging errors retired.

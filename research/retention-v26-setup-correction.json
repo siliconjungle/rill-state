@@ -1,0 +1,69 @@
+{
+  "kind": "Invalid retention experiment setup, not engine failure or timing evidence",
+  "original_receipt": {
+    "kind": "instrumented-payload-retention",
+    "claim": "Owned Vec payload bytes and live Value instances only, not total library heap; RSS includes instrumentation, metadata and fixture. No timing acceptance.",
+    "build": {
+      "source_commit": "5e8035a6495287226ed8c6cf634d37bc301b714f",
+      "source_sha256": "f555208a02fa501364e63d94615c327c172c4ec8357655764520f694460bca19",
+      "example_sha256": "8d377808256c28dc41f8f2ade75049b61d1ff02dbd1e7ceedab52ab910aa45d9",
+      "binary_sha256": "4baef507abe8211c535fce38bea3facbf9037513f2b8706904fd9deef5a8f006",
+      "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+      "command": "RUSTUP_TOOLCHAIN=stable CARGO_BUILD_JOBS=2 cargo build --locked --release --features comparisons --example retention_profile --message-format=json",
+      "source_preflight": {
+        "source_config": null,
+        "direct_cargo_arguments": [],
+        "prepared_outside_measurement": true
+      },
+      "timing": "Instrumented ownership/reclamation proof, never speed acceptance"
+    },
+    "build_receipt_sha256": "ff4f5bc27ed0e158796365543295d1a554553b03ffc8422db92ed22594ef6a58",
+    "driver_sha256": "d3db535660f41639e0acc7e87d77b15faacf0519ba89dc25ae055e393343a209",
+    "executor_sha256": "b31b54b06b444c360ef52eb6a15d1650ffa8ce062f478a76d675c73b915f5fb0",
+    "driver_source_commit": "5e8035a6495287226ed8c6cf634d37bc301b714f",
+    "layout": {
+      "instrumented_value_bytes": 40
+    },
+    "engines": [
+      "packed-shared-each-25",
+      "packed-owned-once-50",
+      "packed-shared-once-70",
+      "packed-owned-each-85",
+      "hashbrown",
+      "record-paged16"
+    ],
+    "records": 1000,
+    "changed": 10,
+    "rounds": 64,
+    "windows": [
+      0,
+      16
+    ],
+    "workers": 1,
+    "tasks": 48,
+    "completed": 0,
+    "errors": 48,
+    "complete": true
+  },
+  "rejected_invocations": 48,
+  "first_rejection": {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/retention-v26",
+      "packed-owned-once-50",
+      "1000",
+      "10",
+      "64",
+      "0",
+      "True",
+      "True"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/retention-v26\", \"--engine\", \"packed-owned-once-50\", \"--records\", \"1000\", \"--changed\", \"10\", \"--rounds\", \"64\", \"--window\", \"0\", \"--pin-initial\", \"true\", \"--mixed\", \"true\"], \"code\": 101, \"stdout\": \"\", \"stderr\": \"\\nthread 'main' (976203) panicked at examples/retention_profile.rs:294:9:\\nassertion failed: o.records > 0 && o.changed > 0 && o.changed <= o.records &&\\n    o.rounds * o.changed >= o.records\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.00\\nuser 0.00\\nsys 0.00\\n             1851392  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                 272  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                   4  involuntary context switches\\n            14742289  instructions retired\\n             5616598  cycles elapsed\\n              999736  peak memory footprint\\n\"}"
+  },
+  "cause": "1000 records, 10 changed per round and 64 rounds cannot replace all initial records; the fixture requires rounds * changed >= records.",
+  "correction": "Use 256 rounds; new driver preflight rejects invalid dimensions before creating a result folder or launching workers.",
+  "preflight_regression": "evidence/retention-v26-preflight-rejection.json",
+  "corrected_proofs": [
+    "evidence/retention-v26-small-corrected",
+    "evidence/retention-v26-20k"
+  ]
+}

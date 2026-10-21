@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+    "tools/retention_study.py",
+    "--binary",
+    "build/retention-v26",
+    "--build-receipt",
+    "evidence/retention-v26-build-receipt.json",
+    "--label",
+    "retention-v26-must-not-launch",
+    "--records",
+    "1000",
+    "--changed",
+    "10",
+    "--rounds",
+    "64"
+  ],
+  "exit_code": 2,
+  "stderr": "usage: retention_study.py [-h] --binary BINARY --build-receipt BUILD_RECEIPT\n                          --label LABEL [--records RECORDS]\n                          [--changed CHANGED] [--rounds ROUNDS]\n                          [--windows WINDOWS] [--workers WORKERS]\n                          [--engines ENGINES]\nretention_study.py: error: retention requires positive records/workers, 0 < changed <= records, rounds * changed >= records and nonnegative windows\n",
+  "created_evidence_folder": false,
+  "claim": "Invalid experiment input rejected before worker launch; not an engine result"
+}
