@@ -1,0 +1,370 @@
+{
+  "schema": 1,
+  "notes": "This is a transparent work queue. Missing or pending implementations leave the original broad objective incomplete.",
+  "sources": [
+    {
+      "name": "im",
+      "version": "15.1.0",
+      "source": "https://docs.rs/crate/im/15.1.0/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "im-rc",
+      "version": "15.1.0",
+      "source": "https://docs.rs/crate/im-rc/15.1.0/source/",
+      "status": "different-concurrency-contract",
+      "reason": "Rc-based persistent collections cannot supply cross-thread retained snapshots without changing ownership; no direct Send/Sync score claimed."
+    },
+    {
+      "name": "imbl",
+      "version": "7.0.2",
+      "source": "https://docs.rs/crate/imbl/7.0.2/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "imbl-rc",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "rpds",
+      "version": "1.2.1",
+      "source": "https://docs.rs/crate/rpds/1.2.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "archery",
+      "version": "1.2.3",
+      "source": "https://docs.rs/crate/archery/1.2.3/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    },
+    {
+      "name": "immutable-chunkmap",
+      "version": "2.1.4",
+      "source": "https://docs.rs/crate/immutable-chunkmap/2.1.4/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "imhm",
+      "version": "0.1.0",
+      "source": "https://docs.rs/crate/imhm/0.1.0/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "persistent_hashmap",
+      "version": "0.4.0",
+      "source": "https://docs.rs/crate/persistent_hashmap/0.4.0/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "persistent-vec",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": ""
+    },
+    {
+      "name": "rpds-patched",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "pvec",
+      "version": "0.2.1",
+      "source": "https://docs.rs/crate/pvec/0.2.1/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "immer",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "imstr",
+      "version": "0.2.0",
+      "source": "https://docs.rs/crate/imstr/0.2.0/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "arc-swap",
+      "version": "1.9.3",
+      "source": "https://docs.rs/crate/arc-swap/1.9.3/source/",
+      "status": "publication-probed",
+      "reason": "Reference publication primitive, separately measured; not a complete state engine. SwapArc has an observed arm64 freshness failure and is not admitted as correct."
+    },
+    {
+      "name": "swap-arc",
+      "version": "0.1.1",
+      "source": "https://docs.rs/crate/swap-arc/0.1.1/source/",
+      "status": "publication-probed",
+      "reason": "Reference publication primitive, separately measured; not a complete state engine. SwapArc has an observed arm64 freshness failure and is not admitted as correct."
+    },
+    {
+      "name": "aarc",
+      "version": "0.4.0",
+      "source": "https://docs.rs/crate/aarc/0.4.0/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "triomphe",
+      "version": "0.1.17",
+      "source": "https://docs.rs/crate/triomphe/0.1.17/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    },
+    {
+      "name": "evmap",
+      "version": "11.0.0",
+      "source": "https://docs.rs/crate/evmap/11.0.0/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "left-right",
+      "version": "0.11.8",
+      "source": "https://docs.rs/crate/left-right/0.11.8/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "flashmap",
+      "version": "0.2.0",
+      "source": "https://docs.rs/crate/flashmap/0.2.0/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "rcu-clean",
+      "version": "0.1.8",
+      "source": "https://docs.rs/crate/rcu-clean/0.1.8/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "rcu_cell",
+      "version": "1.2.4",
+      "source": "https://docs.rs/crate/rcu_cell/1.2.4/source/",
+      "status": "publication-probed",
+      "reason": "Reference publication primitive, separately measured; not a complete state engine. SwapArc has an observed arm64 freshness failure and is not admitted as correct."
+    },
+    {
+      "name": "scc",
+      "version": "3.8.8",
+      "source": "https://docs.rs/crate/scc/3.8.8/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "papaya",
+      "version": "0.2.5",
+      "source": "https://docs.rs/crate/papaya/0.2.5/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "dashmap",
+      "version": "6.2.1",
+      "source": "https://docs.rs/crate/dashmap/6.2.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "flurry",
+      "version": "0.5.2",
+      "source": "https://docs.rs/crate/flurry/0.5.2/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "leapfrog",
+      "version": "0.3.3",
+      "source": "https://docs.rs/crate/leapfrog/0.3.3/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "chashmap",
+      "version": "2.2.2",
+      "source": "https://docs.rs/crate/chashmap/2.2.2/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "contrie",
+      "version": "0.1.4",
+      "source": "https://docs.rs/crate/contrie/0.1.4/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "crossbeam-skiplist",
+      "version": "0.1.3",
+      "source": "https://docs.rs/crate/crossbeam-skiplist/0.1.3/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "skipdb",
+      "version": "0.2.1",
+      "source": "https://docs.rs/crate/skipdb/0.2.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "mvcc_cell",
+      "version": "0.1.2",
+      "source": "https://docs.rs/crate/mvcc_cell/0.1.2/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "mvcc-core",
+      "version": "0.1.0",
+      "source": "https://docs.rs/crate/mvcc-core/0.1.0/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "boxcar",
+      "version": "0.2.14",
+      "source": "https://docs.rs/crate/boxcar/0.2.14/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "elsa",
+      "version": "1.11.2",
+      "source": "https://docs.rs/crate/elsa/1.11.2/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "redb",
+      "version": "4.4.0",
+      "source": "https://docs.rs/crate/redb/4.4.0/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "sled",
+      "version": "0.34.7",
+      "source": "https://docs.rs/crate/sled/0.34.7/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "rusqlite",
+      "version": "0.40.2",
+      "source": "https://docs.rs/crate/rusqlite/0.40.2/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "heed",
+      "version": "0.22.1",
+      "source": "https://docs.rs/crate/heed/0.22.1/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "sanakirja",
+      "version": "1.4.3",
+      "source": "https://docs.rs/crate/sanakirja/1.4.3/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "orx-concurrent-vec",
+      "version": "4.1.0",
+      "source": "https://docs.rs/crate/orx-concurrent-vec/4.1.0/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "hashbrown",
+      "version": "0.17.1",
+      "source": "https://docs.rs/crate/hashbrown/0.17.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "indexmap",
+      "version": "2.14.2",
+      "source": "https://docs.rs/crate/indexmap/2.14.2/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "ordermap",
+      "version": "1.2.2",
+      "source": "https://docs.rs/crate/ordermap/1.2.2/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "btree-slab",
+      "version": "0.6.1",
+      "source": "https://docs.rs/crate/btree-slab/0.6.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "vart",
+      "version": "0.11.0",
+      "source": "https://docs.rs/crate/vart/0.11.0/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "rart",
+      "version": "0.11.0",
+      "source": "https://docs.rs/crate/rart/0.11.0/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "crossbeam-epoch",
+      "version": "0.9.21",
+      "source": "https://docs.rs/crate/crossbeam-epoch/0.9.21/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    },
+    {
+      "name": "seize",
+      "version": "0.5.1",
+      "source": "https://docs.rs/crate/seize/0.5.1/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    },
+    {
+      "name": "left-right-copy",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "multiversion",
+      "version": "0.9.1",
+      "source": "https://docs.rs/crate/multiversion/0.9.1/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    }
+  ]
+}

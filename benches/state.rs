@@ -27,6 +27,7 @@ fn digest(k: u64, v: Value) -> u64 {
 }
 
 trait ReadView: Clone {
+    fn revision(&self) -> u64;
     fn get(&self, k: &Key) -> Option<Value>;
     fn len(&self) -> usize;
     fn checksum(&self) -> u64;
@@ -41,6 +42,9 @@ trait Engine {
     fn feed_summary(&self, after: u64) -> (usize, usize);
 }
 impl<S: BuildHasher> ReadView for Snapshot<Key, Value, S> {
+    fn revision(&self) -> u64 {
+        self.cursor().revision()
+    }
     fn get(&self, k: &Key) -> Option<Value> {
         self.get(k).copied()
     }
@@ -110,32 +114,30 @@ trait Map: Clone {
         }
     }
 }
-struct Version<M> {
-    map: M,
-}
-struct View<M>(Arc<Version<M>>);
+struct View<M>(Arc<M>, u64);
 impl<M> Clone for View<M> {
     fn clone(&self) -> Self {
-        Self(self.0.clone())
+        Self(self.0.clone(), self.1)
     }
 }
 impl<M: Map> ReadView for View<M> {
+    fn revision(&self) -> u64 {
+        self.1
+    }
     fn get(&self, k: &Key) -> Option<Value> {
-        self.0.map.get(k)
+        self.0.get(k)
     }
     fn len(&self) -> usize {
-        self.0.map.len()
+        self.0.len()
     }
     fn checksum(&self) -> u64 {
         let mut sum = 0u64;
-        self.0
-            .map
-            .visit(|k, v| sum = sum.wrapping_add(digest(k, v)));
+        self.0.visit(|k, v| sum = sum.wrapping_add(digest(k, v)));
         sum
     }
     fn contents(&self) -> BTreeMap<Key, Value> {
         let mut m = BTreeMap::new();
-        self.0.map.visit(|k, v| {
+        self.0.visit(|k, v| {
             assert!(m.insert(k, v).is_none());
         });
         m
@@ -150,7 +152,7 @@ struct Compared<M> {
 impl<M: Map> Compared<M> {
     fn new() -> Self {
         Self {
-            current: View(Arc::new(Version { map: M::empty() })),
+            current: View(Arc::new(M::empty()), 0),
             history: VecDeque::new(),
             revision: 0,
             count: 0,
@@ -161,10 +163,15 @@ impl<M: Map> Engine for Compared<M> {
     type View = View<M>;
     fn publish(&mut self, ops: Vec<Op>) {
         let ops: Arc<[Op]> = ops.into();
-        let mut map = self.current.0.map.clone();
-        map.batch(&ops);
-        self.current = View(Arc::new(Version { map }));
+        // Empty revisions change the cursor/journal, not the state. In particular,
+        // a mutable HashMap baseline must not pay for an unnecessary full copy.
+        if !ops.is_empty() {
+            let mut map = (*self.current.0).clone();
+            map.batch(&ops);
+            self.current.0 = Arc::new(map);
+        }
         self.revision += 1;
+        self.current.1 = self.revision;
         self.count += ops.len();
         self.history.push_back((self.revision, ops));
         while self.history.len() > 64 || self.count > 1_000_000 {
@@ -455,8 +462,12 @@ type ReadTx = skipdb::ReadTransaction<Key, Value, Db, txn::HashCm<Key>>;
 struct DbView {
     transaction: Arc<ReadTx>,
     len: usize,
+    revision: u64,
 }
 impl ReadView for DbView {
+    fn revision(&self) -> u64 {
+        self.revision
+    }
     fn get(&self, k: &Key) -> Option<Value> {
         self.transaction.get(k).map(|e| *e.value())
     }
@@ -486,6 +497,7 @@ impl SkipDb {
         let current = DbView {
             transaction: Arc::new(db.read()),
             len: 0,
+            revision: 0,
         };
         Self {
             db,
@@ -530,10 +542,11 @@ impl Engine for SkipDb {
             }
             tx.commit().unwrap();
         }
-        self.current = DbView {
-            transaction: Arc::new(self.db.read()),
-            len,
-        };
+        if !ops.is_empty() {
+            self.current.transaction = Arc::new(self.db.read());
+        }
+        self.current.len = len;
+        self.current.revision += 1;
         // The common journal, without an extra map or hidden snapshot copy.
         self.journal.revision += 1;
         let operations: Arc<[Op]> = ops.into();
@@ -1055,7 +1068,8 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
                 truth.insert(k, v);
             }
         }
-        let mut old = vec![(before.clone(), truth.clone())];
+        assert_eq!(before.revision(), engine.revision());
+        let mut old = vec![(before.clone(), truth.clone(), before.revision())];
         let mut after = engine.revision();
         for ops in input {
             for op in &ops {
@@ -1074,16 +1088,18 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
             assert_eq!(&*batches[0], &ops);
             after = engine.revision();
             let snap = engine.snapshot();
+            assert_eq!(snap.revision(), after);
             assert_eq!(snap.len(), truth.len());
             assert_eq!(snap.contents(), truth);
             for k in &reads {
                 assert_eq!(snap.get(k), truth.get(k).copied());
             }
-            for (view, expected) in &old {
+            for (view, expected, revision) in &old {
+                assert_eq!(view.revision(), *revision);
                 assert_eq!(view.contents(), *expected);
             }
             if old.len() < 5 {
-                old.push((snap, truth.clone()));
+                old.push((snap, truth.clone(), after));
             }
         }
         println!("{{\"engine\":\"{}\",\"case\":\"{}\",\"seed\":{},\"verified\":true,\"records\":{},\"readers\":{},\"rounds\":{}}}",o.engine,o.case,o.seed,o.records,o.readers,o.rounds);

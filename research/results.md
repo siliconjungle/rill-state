@@ -94,3 +94,27 @@ variants and indexed value pages are promising in individual cases but do not ye
 establish superiority. The default generic library remains the original COW-page
 family with the keyed standard hasher. Indexed-slot alternatives currently live in
 the comparison harness pending a justified generic implementation selection.
+
+## Baseline review correction
+
+The first adapter copied mutable maps even for empty revisions. This is unnecessary:
+an empty revision can reuse the immutable map allocation and advance only snapshot
+metadata and the journal. Consequently the initial idle/static-read/scan/acquisition
+measurements are provisional and must not support a superiority claim. A follow-up
+changes all adapters to reuse unchanged state and adds explicit revision values and
+old-revision checks to every snapshot view. The earlier raw measurements remain
+available as an audit trail. New proofs and measurements must use the corrected driver.
+
+The corrected driver passed 3,000 small and 1,000 full-size complete-content/revision
+checks across all 125 configurations. A selected 12-engine serial development comparison
+uses the same development seeds, 32 revisions and three process repetitions. It is not
+the frozen holdout comparison, does not cover every candidate, does not establish a
+multiple-comparison-corrected win, and is not the final acceptance gate.
+
+The serial development comparison completed all 864 fresh processes with output
+agreement. At 20,000 records/readers, the corrected hashbrown adapter led the selected
+single/sparse/burst/replacement/point-read cases. Indexed value pages narrowed the gap
+but did not beat it. Compact sorted pages led scans; acquisition results clustered
+closely. These descriptive outcomes reinforce that the current Rill implementation
+has not passed the original goal. See `evidence/serial-v7-development` for raw timings,
+per-process medians and the registered candidate list. No holdout seeds were consumed.

@@ -9,7 +9,8 @@ def fetch(name):
     req = urllib.request.Request(url, headers={'User-Agent':'rill-state-comparative-research/0.1 (https://github.com/siliconjungle/rill-state)'})
     try:
         with urllib.request.urlopen(req, timeout=30, context=ssl.create_default_context(cafile='/etc/ssl/cert.pem')) as f: data=[json.loads(line) for line in f if line.strip()]
-        info=next(v for v in reversed(data) if not v.get('yanked') and '-' not in v['vers']); version=info['vers']
+        stable=[v for v in data if not v.get('yanked') and '-' not in v['vers']]
+        info=max(stable,key=lambda v:tuple(int(n)for n in v['vers'].split('+')[0].split('.'))); version=info['vers']
         return dict(name=name, url=url, version=version, checksum=info.get('cksum'), rust_version=info.get('rust_version'), source=f'https://docs.rs/crate/{name}/{version}/source/', dependencies=info.get('deps'), status='discovered')
     except Exception as e: return dict(name=name,url=url,status='metadata_unavailable',error=str(e))
 if __name__=='__main__':
