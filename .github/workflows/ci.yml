@@ -22,7 +22,7 @@ jobs:
       - run: cargo bench --locked --features comparisons --no-run
       - name: Exact comparator behavior (no speed claims from shared CI)
         run: |
-          for engine in rill-4096-64 rillfast-4096-64 probe-70-0 probe-70-64 split-70 contrie-copy leapfrog-copy imbl-hash imhm rpds-hash hashbrown chunkbatch-16 vart skipdb mvcc-16; do
+          for engine in rill-4096-64 rillfast-4096-64 probe-70-0 probe-70-64 shared-70-0 shared-70-16 shared-85-256 split-70 contrie-copy leapfrog-copy imbl-hash imbl-fast im-fast imhm rpds-hash rpds-fast hashbrown chunkbatch-16 vart skipdb mvcc-16; do
             cargo bench --locked --features comparisons --bench state -- --engine "$engine" --case churn --records 2000 --readers 2000 --rounds 12 --verify
           done
       - name: Concurrent publication contracts
@@ -35,7 +35,7 @@ jobs:
         run: cargo bench --locked --features comparisons --bench publication -- --engine swap-arc --threads 8 --rounds 32 --verify
       - name: Generic key and payload shapes
         run: |
-          for engine in hashbrown imhm probe-flat probe-paged16 split rillfast; do
+          for engine in hashbrown imbl-fast im-fast rpds-fast imhm probe-flat probe-paged16 shared-flat shared-paged16 split rillfast; do
             for shape in u64-inline string-inline u64-owned256 string-owned256 u64-shared256 string-shared256; do
               cargo bench --locked --features comparisons --bench shapes -- --engine "$engine" --shape "$shape" --case churn --records 1000 --readers 1000 --rounds 6 --verify
             done
@@ -45,6 +45,6 @@ jobs:
         run: RILL_DIAGNOSTIC=1 cargo bench --locked --features comparisons --bench state -- --engine scc-copy --case churn --records 512 --readers 512 --rounds 16 --verify
       - name: Concurrent retained generic views
         run: |
-          for engine in hashbrown probe-paged16 rillfast; do
+          for engine in hashbrown imbl-fast rpds-fast probe-paged16 shared-paged16 rillfast; do
             cargo bench --locked --features comparisons --bench shapes -- --engine "$engine" --shape string-owned256 --case sparse --records 1000 --readers 2000 --rounds 6 --thread-check
           done

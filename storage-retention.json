@@ -129,6 +129,14 @@
     {
       "path": "build/state-v15",
       "reason": "Selected fast-hasher persistent competitor breadth proof and performance reproduction executable"
+    },
+    {
+      "path": "build/shapes-v16",
+      "reason": "Required shared-record layout full-size proof, threaded and serial development comparison input"
+    },
+    {
+      "path": "build/state-v16",
+      "reason": "Required shared-record layout full-size proof, threaded and serial development comparison input"
     }
   ],
   "safe_to_remove": [

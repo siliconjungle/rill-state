@@ -167,8 +167,8 @@
       "name": "scc",
       "version": "3.8.8",
       "source": "https://docs.rs/crate/scc/3.8.8/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "adapter-stall-unresolved",
+      "reason": "Native API/retirement probes pass, but both clone and capture snapshot adapters stall under bounded exact oracle checks. Not admitted; no timeout counted as a performance win."
     },
     {
       "name": "papaya",
@@ -195,8 +195,8 @@
       "name": "leapfrog",
       "version": "0.3.3",
       "source": "https://docs.rs/crate/leapfrog/0.3.3/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "adapted-with-explicit-caveats",
+      "reason": "Native single-owner HashMap requires Mutex for shared reads and external exact cardinality; separate native concurrent LeapMap reconstructs retained views. Corrected padding-free tagged values pass selected large proofs. Earlier failures retained."
     },
     {
       "name": "chashmap",
@@ -209,8 +209,8 @@
       "name": "contrie",
       "version": "0.1.4",
       "source": "https://docs.rs/crate/contrie/0.1.4/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "adapted-and-small-proof",
+      "reason": "Actual published crate behind copied immutable-view adapter; broad small proofs completed, not a native concurrent throughput ranking."
     },
     {
       "name": "crossbeam-skiplist",
