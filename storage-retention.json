@@ -447,6 +447,10 @@
     {
       "path": "/tmp/rill-state-v26-stages.json",
       "reason": "Completed dry-run display only; immutable plans and exact actual receipts retain the reproduction inputs."
+    },
+    {
+      "path": "build/pr-body-v27.md",
+      "reason": "Completed and confirmed public research PR update; exact published text retained on GitHub."
     }
   ]
 }
