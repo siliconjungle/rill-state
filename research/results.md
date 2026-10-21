@@ -258,3 +258,11 @@ from the research. Native capacity reproduction is bounded to eight copies, and
 CI requires the corrected 128-copy native mode and capture adapter. A separate
 owned-process-group timeout proof confirms that a deadline retires both its own
 time wrapper and child, rather than leaving an orphan benchmark running.
+
+The corrected SCC comparison completed all 450 serial development processes with
+matching outputs: five selected engines × all 15 scalar cases × two development
+seeds × three repetitions, at 32 measured revisions per process. Complete
+75-cell descriptive medians are retained in evidence/state-v17-scc-serial-development,
+including publication/read breakdowns and process RSS. This is a newly admitted
+adapter comparison, not native SCC concurrent throughput or the final holdout
+gate. No missing or failed native-copy variant is counted as a win.

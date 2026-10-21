@@ -183,6 +183,10 @@
     {
       "path": "evidence/scc-clone-chain-v16.log",
       "reason": "Completed initial unbound native observation superseded by exact frozen four-mode failure receipts and capacity/root-cause proof; full selected failure evidence is retained."
+    },
+    {
+      "path": "build/pr-body-v17.md",
+      "reason": "Completed successful public PR body update input; exact published text is retained on GitHub"
     }
   ]
 }

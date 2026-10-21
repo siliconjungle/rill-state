@@ -2,6 +2,7 @@
 """Describe a complete serial development study; never a superiority gate."""
 import argparse
 import collections
+import hashlib
 import json
 import pathlib
 import statistics
@@ -10,11 +11,13 @@ import statistics
 def describe(folder):
     receipt = json.loads((folder / 'receipt.json').read_text())
     assert receipt['mode'] == 'serial' and receipt['workers'] == 1
-    assert receipt['output_agreement'] and receipt['errors'] == 0
+    assert receipt['output_agreement'] and receipt.get('errors', receipt.get('failures', 0)) == 0
     rows = [json.loads(line) for line in (folder / 'runs.jsonl').read_text().splitlines()]
     assert len(rows) == receipt['tasks'] == receipt['completed']
+    for row in rows:
+        row.setdefault('shape', 'u64-inline')
     expected = {(engine, shape, case, seed, rep)
-                for engine in receipt['engines'] for shape in receipt['shapes']
+                for engine in receipt['engines'] for shape in receipt.get('shapes', ['u64-inline'])
                 for case in receipt['cases'] for seed in receipt['seeds']
                 for rep in range(receipt['repetitions'])}
     actual = [(r['engine'], r['shape'], r['case'], r['seed'], r['repetition']) for r in rows]
@@ -39,6 +42,7 @@ def describe(folder):
                       'multiple-comparison corrected superiority or final acceptance',
                 memory='Peak RSS includes the full process fixture, inputs, oracle and output storage; '
                        'not library-only heap memory',
+                reporter_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),
                 source_commit=receipt['source_commit'], source_sha256=receipt['source_sha256'],
                 binary_sha256=receipt['binary_sha256'], cells=cells)
 
