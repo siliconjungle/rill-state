@@ -237,6 +237,10 @@
     {
       "path": "build/shapes-v25",
       "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/pr-body-v25.md",
+      "reason": "Exact input for current public research PR update; retire after confirmed publication."
     }
   ],
   "safe_to_remove": [

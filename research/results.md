@@ -492,8 +492,9 @@ four maximum fills, two builder-storage policies and two batching strategies.
 All 2,400 small and 2,400 full-size scalar normal-behavior checks passed, as did
 10,240 small generic checks. The 2,610-process parallel scalar screen completed
 with matching outputs; it overlapped required proof/compilation work and is
-selection evidence only. Full-size generic and four-reader matrices remain in
-progress in their original frozen executables, with exact source bindings.
+selection evidence only. All 10,240 full-size generic checks and 2,560 four-reader probes also passed.
+Independent audits verify the complete tuple sets, completion markers and frozen
+source/binary/compiler/driver bindings for these original v23 executables.
 
 The streaming memory extension passed 56 small and 84 full-size cases. Every
 tracked payload was reclaimed, each retained view matched its model and exact
