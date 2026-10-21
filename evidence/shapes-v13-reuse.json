@@ -1,0 +1,5 @@
+{
+  "source_commit": "5f50f4b582b3da52b316a71f3c64d84e8140146f",
+  "same_binary_sha256": "3be1123d0fa4ddc54eacc9f5a4d6c3a795e00682c39a8ba25b3a67bab73c8eea",
+  "reason": "Only the separate scalar adapter changed; Cargo confirms the generic executable is current and byte-identical to the fully proven v12 binary."
+}

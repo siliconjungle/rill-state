@@ -113,6 +113,14 @@
     {
       "path": "build/state-v13",
       "reason": "Required padding-free atomic adapter correction proofs; retains failed v12 comparison separately"
+    },
+    {
+      "path": "build/state-v14",
+      "reason": "Selected bounded-span lookup optimization correctness/performance input"
+    },
+    {
+      "path": "build/shapes-v14",
+      "reason": "Selected generic lookup optimization comparison executable"
     }
   ],
   "safe_to_remove": [

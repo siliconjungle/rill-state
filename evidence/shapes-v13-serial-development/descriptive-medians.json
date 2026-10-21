@@ -1,0 +1,162 @@
+{
+  "claim": "Descriptive serial development medians; not significance, all-competitor superiority or final acceptance",
+  "unit": "milliseconds per revision",
+  "results": {
+    "u64-inline": {
+      "sparse": {
+        "hashbrown": 0.116045125,
+        "imhm": 0.17187670833333335,
+        "probe-flat": 0.32359720833333333,
+        "probe-paged16": 0.326138875,
+        "rillfast": 0.5001770833333333,
+        "imbl-hash": 0.7221787916666667
+      },
+      "burst": {
+        "hashbrown": 0.16823266666666664,
+        "imhm": 0.38839412500000003,
+        "probe-flat": 0.46240279166666665,
+        "probe-paged16": 0.79181425,
+        "rillfast": 1.0560104166666666,
+        "imbl-hash": 1.1312864999999999
+      },
+      "read": {
+        "hashbrown": 0.06331945833333333,
+        "imhm": 0.14369441666666666,
+        "probe-flat": 0.21138366666666664,
+        "probe-paged16": 0.28932291666666665,
+        "imbl-hash": 0.4598419583333333,
+        "rillfast": 0.4679705
+      }
+    },
+    "string-inline": {
+      "sparse": {
+        "imhm": 0.5857222083333333,
+        "probe-paged16": 0.6023541666666667,
+        "rillfast": 0.8159409583333335,
+        "hashbrown": 0.9031336666666666,
+        "imbl-hash": 0.9781319583333332,
+        "probe-flat": 1.1344895833333333
+      },
+      "burst": {
+        "hashbrown": 1.0364982916666667,
+        "probe-flat": 1.3830955,
+        "imhm": 1.4459322916666668,
+        "rillfast": 2.0490850416666664,
+        "probe-paged16": 2.16771875,
+        "imbl-hash": 2.211569458333333
+      },
+      "read": {
+        "hashbrown": 0.245513875,
+        "probe-flat": 0.372079875,
+        "imhm": 0.412734375,
+        "probe-paged16": 0.47223608333333333,
+        "rillfast": 0.728888875,
+        "imbl-hash": 0.7695017083333333
+      }
+    },
+    "u64-owned256": {
+      "sparse": {
+        "imhm": 0.45448958333333334,
+        "probe-paged16": 0.4975,
+        "rillfast": 0.6158159583333334,
+        "hashbrown": 0.836802125,
+        "imbl-hash": 0.9829843333333335,
+        "probe-flat": 1.0827674166666665
+      },
+      "burst": {
+        "hashbrown": 1.5035173333333334,
+        "probe-flat": 1.9836163333333334,
+        "imhm": 2.028335041666667,
+        "probe-paged16": 2.547234333333333,
+        "rillfast": 2.683907958333333,
+        "imbl-hash": 2.7696735833333337
+      },
+      "read": {
+        "hashbrown": 0.10044445833333333,
+        "imhm": 0.20422220833333332,
+        "probe-flat": 0.23179166666666667,
+        "probe-paged16": 0.3247152916666667,
+        "rillfast": 0.46572741666666667,
+        "imbl-hash": 0.49506595833333333
+      }
+    },
+    "string-owned256": {
+      "sparse": {
+        "probe-paged16": 0.896855875,
+        "rillfast": 0.972842,
+        "imhm": 0.9856197916666667,
+        "imbl-hash": 1.474550375,
+        "hashbrown": 1.9039375416666666,
+        "probe-flat": 2.0605225833333334
+      },
+      "burst": {
+        "hashbrown": 3.1334253333333333,
+        "probe-flat": 3.4266249999999996,
+        "imhm": 3.8563124583333335,
+        "rillfast": 4.147171875,
+        "probe-paged16": 4.367696208333333,
+        "imbl-hash": 4.960130208333332
+      },
+      "read": {
+        "hashbrown": 0.3039253333333333,
+        "probe-flat": 0.4149652916666666,
+        "imhm": 0.49203125000000003,
+        "probe-paged16": 0.5951735833333334,
+        "rillfast": 0.7654097083333333,
+        "imbl-hash": 0.8920399166666667
+      }
+    },
+    "u64-shared256": {
+      "sparse": {
+        "hashbrown": 0.19785245833333331,
+        "imhm": 0.24127254166666665,
+        "probe-paged16": 0.356637125,
+        "probe-flat": 0.389894125,
+        "rillfast": 0.5214010833333333,
+        "imbl-hash": 0.755545125
+      },
+      "burst": {
+        "hashbrown": 0.6241770416666667,
+        "probe-flat": 0.8054201666666667,
+        "imhm": 0.9223542083333334,
+        "probe-paged16": 1.2100867916666669,
+        "rillfast": 1.3725295000000002,
+        "imbl-hash": 1.9161180416666665
+      },
+      "read": {
+        "hashbrown": 0.09651908333333334,
+        "imhm": 0.18149479166666668,
+        "probe-flat": 0.21063541666666663,
+        "probe-paged16": 0.296265625,
+        "rillfast": 0.46177433333333334,
+        "imbl-hash": 0.5701007083333334
+      }
+    },
+    "string-shared256": {
+      "sparse": {
+        "imhm": 0.653045125,
+        "probe-paged16": 0.7292951249999999,
+        "rillfast": 0.8661319166666667,
+        "hashbrown": 0.9420468333333333,
+        "imbl-hash": 1.0534288333333333,
+        "probe-flat": 1.20575
+      },
+      "burst": {
+        "hashbrown": 1.7500364583333334,
+        "probe-flat": 2.018701375,
+        "imhm": 2.159241333333333,
+        "rillfast": 2.549795125,
+        "probe-paged16": 2.8054513749999996,
+        "imbl-hash": 2.970774333333333
+      },
+      "read": {
+        "hashbrown": 0.28334725,
+        "probe-flat": 0.4146128333333333,
+        "imhm": 0.479166625,
+        "probe-paged16": 0.5524288333333334,
+        "rillfast": 0.7550364583333333,
+        "imbl-hash": 0.8372604166666666
+      }
+    }
+  }
+}

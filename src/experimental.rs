@@ -99,11 +99,31 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
         K: Borrow<Q>,
     {
         let hash = self.hasher.hash_one(key);
-        let (i, found) = self.find(key, hash);
-        if found {
-            self.slot(i).as_ref().map(|e| &e.value)
-        } else {
-            None
+        let start = hash as usize & self.mask;
+        if P == 0 {
+            let page = &self.pages[0];
+            // Walk each contiguous span directly. The iterator establishes the
+            // bounds once, and a hit returns its value without indexing it again.
+            for slot in page[start..].iter().chain(page[..start].iter()) {
+                match slot {
+                    None => return None,
+                    Some(e) if e.hash == hash && e.key.borrow() == key => return Some(&e.value),
+                    _ => {}
+                }
+            }
+            return None;
+        }
+        let mut i = start;
+        loop {
+            let page = &self.pages[i / P];
+            for slot in &page[i % P..] {
+                match slot {
+                    None => return None,
+                    Some(e) if e.hash == hash && e.key.borrow() == key => return Some(&e.value),
+                    _ => {}
+                }
+            }
+            i = (((i / P) + 1) * P) & self.mask;
         }
     }
     /// Insert or replace; return the previous value. Existing stored keys are preserved.
