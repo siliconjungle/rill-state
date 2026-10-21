@@ -171,3 +171,24 @@ to 128 iterations, while two snapshot-adapter forms hit the bounded diagnostic d
 The native copied form and the capture-before-insert form are not performance wins and
 are not admitted as fully correct engines. Other candidate work proceeds independently.
 The original performance goal is still unpassed.
+
+## Strengthened full-size proof and lookup optimization
+
+The corrected borrowed-key generic baseline passed 960 exact checks at 20,000
+records and 240 four-reader retained-view probes (v12). The padding-free leapfrog
+adapter then passed all 30 large scalar checks (v13). Earlier failed observations
+remain retained rather than counted as performance wins.
+
+The contiguous-span ProbeMap lookup change passed 420 full-size scalar layout
+checks, 288 full-size generic shape checks and 72 four-reader probes (v14). Both
+v13 and v14 serial development comparisons completed 648 fresh processes each
+with matching outputs: six engines, six shapes, three cases, two development seeds
+and three repetitions, with 12 measured revisions per process. These descriptive
+comparisons are not the registered final gate. The paged16 prototype's read median
+fell by roughly 3.5–16.7% across the six tested shapes, but it still lost reads to
+hashbrown. Some flat-layout cells regressed. The paged prototype led the selected
+sparse String/owned256 case; hashbrown led the selected read and dense-update cases.
+See evidence/shapes-v14-serial-development/descriptive-change.json for all reported
+changes, including regressions. No holdout seeds have been consumed.
+
+The original broad performance objective remains unpassed.

@@ -135,6 +135,10 @@
     {
       "path": "build/state-v8",
       "reason": "Interrupted run superseded by full v9 exact proofs on all non-stalled configurations; source and interrupted receipts are retained in Git"
+    },
+    {
+      "path": "evidence/build-v11.log",
+      "reason": "Completed unselected compile staging log superseded by retained v12/v14 build logs and exact proof inputs; no active build owns this path."
     }
   ]
 }

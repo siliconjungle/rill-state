@@ -1,0 +1,329 @@
+{
+  "claim": "Descriptive serial development comparison, separate runs, not paired confidence or final acceptance",
+  "cells": [
+    {
+      "shape": "u64-inline",
+      "case": "read",
+      "engine": "probe-paged16",
+      "old_ms": 0.28932291666666665,
+      "new_ms": 0.25649999999999995,
+      "ratio": 0.8865526552655264,
+      "hashbrown_ms": 0.06168575
+    },
+    {
+      "shape": "string-owned256",
+      "case": "burst",
+      "engine": "probe-paged16",
+      "old_ms": 4.367696208333333,
+      "new_ms": 4.391871541666667,
+      "ratio": 1.0055350308675792,
+      "hashbrown_ms": 3.0760920416666666
+    },
+    {
+      "shape": "u64-owned256",
+      "case": "burst",
+      "engine": "probe-flat",
+      "old_ms": 1.9836163333333334,
+      "new_ms": 1.8231753333333334,
+      "ratio": 0.9191169192832821,
+      "hashbrown_ms": 1.7174496666666665
+    },
+    {
+      "shape": "u64-shared256",
+      "case": "sparse",
+      "engine": "probe-flat",
+      "old_ms": 0.389894125,
+      "new_ms": 0.3737812083333334,
+      "ratio": 0.9586736100045965,
+      "hashbrown_ms": 0.18843579166666669
+    },
+    {
+      "shape": "u64-shared256",
+      "case": "burst",
+      "engine": "probe-paged16",
+      "old_ms": 1.2100867916666669,
+      "new_ms": 1.1314392500000001,
+      "ratio": 0.9350066935625795,
+      "hashbrown_ms": 0.592298625
+    },
+    {
+      "shape": "string-inline",
+      "case": "sparse",
+      "engine": "probe-paged16",
+      "old_ms": 0.6023541666666667,
+      "new_ms": 0.5772604166666667,
+      "ratio": 0.9583405388579531,
+      "hashbrown_ms": 0.8662413333333333
+    },
+    {
+      "shape": "string-shared256",
+      "case": "burst",
+      "engine": "probe-flat",
+      "old_ms": 2.018701375,
+      "new_ms": 1.9848020833333333,
+      "ratio": 0.9832073767390846,
+      "hashbrown_ms": 1.688168375
+    },
+    {
+      "shape": "u64-inline",
+      "case": "sparse",
+      "engine": "probe-paged16",
+      "old_ms": 0.326138875,
+      "new_ms": 0.30057987500000005,
+      "ratio": 0.9216315442309662,
+      "hashbrown_ms": 0.11335591666666667
+    },
+    {
+      "shape": "u64-shared256",
+      "case": "sparse",
+      "engine": "probe-paged16",
+      "old_ms": 0.356637125,
+      "new_ms": 0.3221197916666667,
+      "ratio": 0.903214413436814,
+      "hashbrown_ms": 0.18843579166666669
+    },
+    {
+      "shape": "u64-inline",
+      "case": "read",
+      "engine": "probe-flat",
+      "old_ms": 0.21138366666666664,
+      "new_ms": 0.20336458333333335,
+      "ratio": 0.9620638459925162,
+      "hashbrown_ms": 0.06168575
+    },
+    {
+      "shape": "string-inline",
+      "case": "burst",
+      "engine": "probe-flat",
+      "old_ms": 1.3830955,
+      "new_ms": 1.37081075,
+      "ratio": 0.9911179307574929,
+      "hashbrown_ms": 1.04446875
+    },
+    {
+      "shape": "string-inline",
+      "case": "burst",
+      "engine": "probe-paged16",
+      "old_ms": 2.16771875,
+      "new_ms": 2.1927899583333335,
+      "ratio": 1.0115657108807743,
+      "hashbrown_ms": 1.04446875
+    },
+    {
+      "shape": "u64-inline",
+      "case": "sparse",
+      "engine": "probe-flat",
+      "old_ms": 0.32359720833333333,
+      "new_ms": 0.30385070833333333,
+      "ratio": 0.9389781509497468,
+      "hashbrown_ms": 0.11335591666666667
+    },
+    {
+      "shape": "string-inline",
+      "case": "read",
+      "engine": "probe-paged16",
+      "old_ms": 0.47223608333333333,
+      "new_ms": 0.4555000416666667,
+      "ratio": 0.964560010856152,
+      "hashbrown_ms": 0.23527429166666666
+    },
+    {
+      "shape": "string-shared256",
+      "case": "sparse",
+      "engine": "probe-flat",
+      "old_ms": 1.20575,
+      "new_ms": 1.1981076666666666,
+      "ratio": 0.9936617596240236,
+      "hashbrown_ms": 0.9375121666666666
+    },
+    {
+      "shape": "u64-inline",
+      "case": "burst",
+      "engine": "probe-flat",
+      "old_ms": 0.46240279166666665,
+      "new_ms": 0.43018754166666673,
+      "ratio": 0.9303307623124754,
+      "hashbrown_ms": 0.17175
+    },
+    {
+      "shape": "u64-owned256",
+      "case": "sparse",
+      "engine": "probe-paged16",
+      "old_ms": 0.4975,
+      "new_ms": 0.43402779166666666,
+      "ratio": 0.8724176716917923,
+      "hashbrown_ms": 0.8595520833333333
+    },
+    {
+      "shape": "string-owned256",
+      "case": "read",
+      "engine": "probe-paged16",
+      "old_ms": 0.5951735833333334,
+      "new_ms": 0.5460207916666666,
+      "ratio": 0.9174143593682682,
+      "hashbrown_ms": 0.30046700000000004
+    },
+    {
+      "shape": "string-shared256",
+      "case": "read",
+      "engine": "probe-flat",
+      "old_ms": 0.4146128333333333,
+      "new_ms": 0.412173625,
+      "ratio": 0.9941169010285499,
+      "hashbrown_ms": 0.280204875
+    },
+    {
+      "shape": "string-owned256",
+      "case": "burst",
+      "engine": "probe-flat",
+      "old_ms": 3.4266249999999996,
+      "new_ms": 3.3860729166666665,
+      "ratio": 0.9881655905349045,
+      "hashbrown_ms": 3.0760920416666666
+    },
+    {
+      "shape": "string-shared256",
+      "case": "sparse",
+      "engine": "probe-paged16",
+      "old_ms": 0.7292951249999999,
+      "new_ms": 0.6315520833333333,
+      "ratio": 0.8659760111975703,
+      "hashbrown_ms": 0.9375121666666666
+    },
+    {
+      "shape": "u64-shared256",
+      "case": "read",
+      "engine": "probe-flat",
+      "old_ms": 0.21063541666666663,
+      "new_ms": 0.199888875,
+      "ratio": 0.9489803669452551,
+      "hashbrown_ms": 0.0916875
+    },
+    {
+      "shape": "string-owned256",
+      "case": "sparse",
+      "engine": "probe-flat",
+      "old_ms": 2.0605225833333334,
+      "new_ms": 2.1429930416666667,
+      "ratio": 1.040024049724279,
+      "hashbrown_ms": 1.8041892499999999
+    },
+    {
+      "shape": "string-owned256",
+      "case": "sparse",
+      "engine": "probe-paged16",
+      "old_ms": 0.896855875,
+      "new_ms": 0.7954479166666667,
+      "ratio": 0.88692948202705,
+      "hashbrown_ms": 1.8041892499999999
+    },
+    {
+      "shape": "string-shared256",
+      "case": "burst",
+      "engine": "probe-paged16",
+      "old_ms": 2.8054513749999996,
+      "new_ms": 2.6739010416666664,
+      "ratio": 0.9531090310437716,
+      "hashbrown_ms": 1.688168375
+    },
+    {
+      "shape": "u64-owned256",
+      "case": "read",
+      "engine": "probe-paged16",
+      "old_ms": 0.3247152916666667,
+      "new_ms": 0.27054691666666664,
+      "ratio": 0.8331819400251527,
+      "hashbrown_ms": 0.10025345833333334
+    },
+    {
+      "shape": "u64-shared256",
+      "case": "read",
+      "engine": "probe-paged16",
+      "old_ms": 0.296265625,
+      "new_ms": 0.273769125,
+      "ratio": 0.9240664521913402,
+      "hashbrown_ms": 0.0916875
+    },
+    {
+      "shape": "string-shared256",
+      "case": "read",
+      "engine": "probe-paged16",
+      "old_ms": 0.5524288333333334,
+      "new_ms": 0.5046284583333334,
+      "ratio": 0.9134723386692645,
+      "hashbrown_ms": 0.280204875
+    },
+    {
+      "shape": "u64-inline",
+      "case": "burst",
+      "engine": "probe-paged16",
+      "old_ms": 0.79181425,
+      "new_ms": 0.7500694583333334,
+      "ratio": 0.9472795650410855,
+      "hashbrown_ms": 0.17175
+    },
+    {
+      "shape": "string-inline",
+      "case": "sparse",
+      "engine": "probe-flat",
+      "old_ms": 1.1344895833333333,
+      "new_ms": 1.1109774166666666,
+      "ratio": 0.9792751145430673,
+      "hashbrown_ms": 0.8662413333333333
+    },
+    {
+      "shape": "u64-owned256",
+      "case": "read",
+      "engine": "probe-flat",
+      "old_ms": 0.23179166666666667,
+      "new_ms": 0.215795125,
+      "ratio": 0.9309874168614057,
+      "hashbrown_ms": 0.10025345833333334
+    },
+    {
+      "shape": "u64-shared256",
+      "case": "burst",
+      "engine": "probe-flat",
+      "old_ms": 0.8054201666666667,
+      "new_ms": 0.7698090416666667,
+      "ratio": 0.9557856551476962,
+      "hashbrown_ms": 0.592298625
+    },
+    {
+      "shape": "string-owned256",
+      "case": "read",
+      "engine": "probe-flat",
+      "old_ms": 0.4149652916666666,
+      "new_ms": 0.42356425,
+      "ratio": 1.0207221146105894,
+      "hashbrown_ms": 0.30046700000000004
+    },
+    {
+      "shape": "u64-owned256",
+      "case": "sparse",
+      "engine": "probe-flat",
+      "old_ms": 1.0827674166666665,
+      "new_ms": 1.1034652916666667,
+      "ratio": 1.0191157165254559,
+      "hashbrown_ms": 0.8595520833333333
+    },
+    {
+      "shape": "string-inline",
+      "case": "read",
+      "engine": "probe-flat",
+      "old_ms": 0.372079875,
+      "new_ms": 0.36801387500000005,
+      "ratio": 0.9890722388573153,
+      "hashbrown_ms": 0.23527429166666666
+    },
+    {
+      "shape": "u64-owned256",
+      "case": "burst",
+      "engine": "probe-paged16",
+      "old_ms": 2.547234333333333,
+      "new_ms": 2.3694253333333335,
+      "ratio": 0.9301952719177913,
+      "hashbrown_ms": 1.7174496666666665
+    }
+  ]
+}
