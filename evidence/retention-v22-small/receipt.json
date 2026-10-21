@@ -1,0 +1,40 @@
+{
+  "kind": "instrumented-payload-retention",
+  "claim": "Owned Vec payload bytes and live Value instances only, not total library heap; RSS includes instrumentation, metadata and fixture. No timing acceptance.",
+  "build": {
+    "source_commit": "7aa07f6158403068335be99f117e6ab600731a59",
+    "source_sha256": "c7f340e3efc460c1b63f449382b3c2270e5a1ba8d742b55bb2613ed206f478dc",
+    "example_sha256": "586e713889f9f144d84cb6b1adc4ceae298d809688b883890140e56aa65563cb",
+    "binary_sha256": "90db4efe1d8c7db04d4fda3994fd4a1945e85009ea9a259fe0e6729604593916",
+    "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+    "command": "RUSTUP_TOOLCHAIN=stable cargo build --locked --release --features comparisons --example retention_profile",
+    "timing": "Instrumented ownership/reclamation proof, never speed acceptance"
+  },
+  "build_receipt_sha256": "ce3d78dee1528188849e857c8ab7f4ad2173e362b6bb2e68a1c3f11974ce7460",
+  "driver_sha256": "d3db535660f41639e0acc7e87d77b15faacf0519ba89dc25ae055e393343a209",
+  "executor_sha256": "9edb77b30143bdb2f795f2031183275556f2930e67b78a889404bbb0fb7d0b7a",
+  "driver_source_commit": "7aa07f6158403068335be99f117e6ab600731a59",
+  "layout": {
+    "instrumented_value_bytes": 40
+  },
+  "engines": [
+    "inline-shared-span-25",
+    "inline-owned-index-50",
+    "inline-shared-index-70",
+    "inline-owned-span-85",
+    "hashbrown",
+    "record-paged16"
+  ],
+  "records": 2000,
+  "changed": 20,
+  "rounds": 256,
+  "windows": [
+    0,
+    16
+  ],
+  "workers": 1,
+  "tasks": 48,
+  "completed": 48,
+  "errors": 0,
+  "complete": true
+}

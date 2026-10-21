@@ -507,9 +507,10 @@ trait Engine<K: Key, V: Value> {
     fn revision(&self) -> u64;
     fn feed(&self, after: u64) -> Vec<Vec<Mutation<K, V>>>;
 }
+type History<K, V> = VecDeque<(u64, Arc<[Mutation<K, V>]>)>;
 struct Compared<K: Key, V: Value, M: Map<K, V>> {
     view: View<M>,
-    history: VecDeque<(u64, Arc<[Mutation<K, V>]>)>,
+    history: History<K, V>,
     operations: usize,
 }
 impl<K: Key, V: Value, M: Map<K, V>> Compared<K, V, M> {

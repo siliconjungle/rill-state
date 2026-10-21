@@ -208,6 +208,9 @@ impl<M: Map> Engine for Compared<M> {
 
 macro_rules! map_impl {
     ($ty:ty,$new:expr) => {
+        map_impl!($ty, $new, remove);
+    };
+    ($ty:ty,$new:expr,$remove:ident) => {
         impl Map for $ty {
             fn empty() -> Self {
                 $new
@@ -219,7 +222,7 @@ macro_rules! map_impl {
                 self.insert(k, v);
             }
             fn del(&mut self, k: &Key) {
-                self.remove(k);
+                self.$remove(k);
             }
             fn len(&self) -> usize {
                 self.len()
@@ -245,7 +248,7 @@ map_impl!(ImblFast<Key,Value>,ImblFast::with_hasher(Default::default()));
 map_impl!(im::HashMap<Key,Value,hashbrown::DefaultHashBuilder>,im::HashMap::with_hasher(hashbrown::DefaultHashBuilder::default()));
 
 map_impl!(imbl::OrdMap<Key,Value>,imbl::OrdMap::new());
-map_impl!(indexmap::IndexMap<Key,Value>,indexmap::IndexMap::new());
+map_impl!(indexmap::IndexMap<Key,Value>,indexmap::IndexMap::new(),swap_remove);
 map_impl!(btree_slab::BTreeMap<Key,Value>,btree_slab::BTreeMap::new());
 
 impl<const L: usize, const P: usize> Map
@@ -1358,10 +1361,11 @@ struct HashPages<const N: usize> {
 #[derive(Clone)]
 struct Slots<const N: usize> {
     index: Arc<hashbrown::HashMap<Key, usize>>,
-    pages: Vec<Arc<Vec<Option<(Key, Value)>>>>,
+    pages: Vec<SlotPage>,
     free: Vec<usize>,
     next: usize,
 }
+type SlotPage = Arc<Vec<Option<(Key, Value)>>>;
 impl<const N: usize> Map for Slots<N> {
     fn empty() -> Self {
         Self {
@@ -1412,8 +1416,10 @@ impl<const N: usize> Map for Slots<N> {
 }
 impl<const N: usize> Map for HashPages<N> {
     fn empty() -> Self {
+        // Empty pages intentionally share one allocation until the first write.
+        let empty = Arc::new(HashMap::new());
         Self {
-            pages: vec![Arc::new(HashMap::new()); N],
+            pages: vec![empty; N],
             len: 0,
         }
     }
@@ -1459,8 +1465,9 @@ struct SortedPages<const N: usize> {
 }
 impl<const N: usize> Map for SortedPages<N> {
     fn empty() -> Self {
+        let empty = Arc::new(Vec::new());
         Self {
-            pages: vec![Arc::new(Vec::new()); N],
+            pages: vec![empty; N],
             len: 0,
         }
     }
