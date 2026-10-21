@@ -1,0 +1,7 @@
+{
+  "rows_sha256": "efde72ba85ce20ee9a8f17404f11d026fbad1c030632568ecf04c309073df60e",
+  "verifier_sha256": "d3db535660f41639e0acc7e87d77b15faacf0519ba89dc25ae055e393343a209",
+  "verified_rows": 56,
+  "exact_journal_counts": true,
+  "all_tracked_values_reclaimed": true
+}

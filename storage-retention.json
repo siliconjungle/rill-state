@@ -161,6 +161,10 @@
     {
       "path": "build/guarded-native-v18",
       "reason": "Required frozen native retained-reader progress capability proof executable"
+    },
+    {
+      "path": "build/retention-v19",
+      "reason": "Required instrumented streaming payload ownership, stalled-reader and reclamation proof input"
     }
   ],
   "safe_to_remove": [
@@ -227,6 +231,10 @@
     {
       "path": "evidence/build-v19b.log",
       "reason": "Completed unmeasured compile staging superseded by successful public evmap handles re-export build; exact corrected source is committed."
+    },
+    {
+      "path": "evidence/retention-build-v19.log",
+      "reason": "Completed unselected build before value-layout metadata; final build log and frozen source/binary receipt supersede it."
     }
   ]
 }

@@ -56,7 +56,7 @@ flashmap/evmap map copies and a left-right operational state containing a
 hashbrown table initialized once and cloned to both sides. Native keys and
 32-byte inline values are unchanged. Evmap and left-right read handles use
 Mutex for the registered Sync view requirement; exclusive writes use get_mut.
-Each adapter passed 90 small checks, 90 20,000-record checks collectively
+Together the adapters passed 90 small checks and 90 20,000-record checks
 (15 cases × two seeds × three configurations), and 12 four-reader old-view
 probes. These are contract-preserving adaptations; native guard acquisition
 and copying costs must remain explicit in subsequent measurements.

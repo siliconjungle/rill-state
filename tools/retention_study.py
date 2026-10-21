@@ -1,9 +1,21 @@
 #!/usr/bin/env python3
 """Instrumented payload retention/reclamation proof; never a speed ranking."""
+import collections
 import argparse,concurrent.futures,hashlib,itertools,json,pathlib,platform,random,re,subprocess
 import study
 ROOT=study.ROOT
 ENGINES=['hashbrown','imbl-fast','probe-paged16','shared-paged16','record-paged16','record-flat','rillfast']
+
+def validate_row(row):
+    assert row['verified'] and row['instrumented'] and row['after_all_drop']==0
+    # Independently derive the exact journal holdings from submitted batch lengths.
+    lengths=collections.deque();operations=0
+    for size in [row['records']]+[row['changed']]*row['rounds']:
+        lengths.append(size);operations+=size
+        while len(lengths)>64 or operations>1_000_000:operations-=lengths.popleft()
+    assert (row['history_batches'],row['history_operations'])==(len(lengths),operations)
+    assert row['peak_owned_payload_bytes']>=row['owned_payload_bytes_end']>=row['owned_payload_bytes_after_unpin']
+    assert row['live_values_after_window_drop']<=row['live_values_after_unpin']<=row['live_values_end']
 
 def execute(task):
     binary,engine,records,changed,rounds,window,pin,mixed=task
@@ -13,7 +25,7 @@ def execute(task):
     if result.returncode:raise RuntimeError(json.dumps(dict(command=command,code=result.returncode,stdout=result.stdout[-3000:],stderr=result.stderr[-3000:])))
     row=json.loads(result.stdout)
     for name,value in [('engine',engine),('records',records),('changed',changed),('rounds',rounds),('window',window),('pin_initial',pin),('mixed',mixed)]:assert row[name]==value,(name,row[name],value)
-    assert row['verified']and row['instrumented']and row['after_all_drop']==0
+    validate_row(row)
     if platform.system()=='Darwin':
         match=re.search(r'(\d+)\s+maximum resident set size',result.stderr)
         if match:row['instrumented_process_peak_rss']=int(match[1])

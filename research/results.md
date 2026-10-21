@@ -266,3 +266,46 @@ seeds × three repetitions, at 32 measured revisions per process. Complete
 including publication/read breakdowns and process RSS. This is a newly admitted
 adapter comparison, not native SCC concurrent throughput or the final holdout
 gate. No missing or failed native-copy variant is counted as a win.
+
+## Compact records, mixed sizes and broader retention proof
+
+The new original compact-record family puts canonical keys and values in one
+shared allocation. Its slot is 16 bytes versus 24 for separate shared key/value
+handles on the tested 64-bit layout. Replacements preserve stored-key metadata
+even when equality ignores it. Twelve maximum-load/page configurations are
+registered; they are parameter configurations, not independent libraries.
+Twenty-one core/experimental tests and Clippy passed. An unnecessary intermediate
+scalar SharedMap mutation Vec was also removed; earlier scalar timings include
+that avoidable adapter cost, while earlier generic-shape timings do not.
+
+All 1,650 small and 1,650 full-size scalar layout checks passed. The generic
+matrix passed 2,944 small and 2,944 20,000-record complete state/revision/feed
+checks, plus 736 four-reader old-view probes: 23 configurations, eight data
+shapes, eight cases and both development seeds. New mixed shapes vary actual
+String key lengths and owned/shared payload lengths across records/revisions.
+The scalar parallel development screen completed 1,740 matching-output processes
+across 58 configurations. Parallel results are selection evidence only.
+
+Independent guarded-backend adapters for flashmap, evmap and left-right passed
+90 small and 90 full-size checks collectively, plus 12 four-reader probes. Their
+240-process parallel development comparison completed with matching outputs;
+copying, guards and required read-handle Mutexes remain explicit adapter costs.
+They are not claimed as native short-reader throughput or native persistent
+snapshot engines.
+
+The instrumented streaming retention probe passed 56 small and 84 full-size
+cases across seven configurations, three retention windows, two initial-pin
+modes and two payload distributions. Every retained view matched its model,
+journal holdings matched independently derived exact counts, unpinning a fully
+replaced initial state released exactly 20,000 tracked stored values, and dropping
+all owners released every tracked value/payload byte. With 64 recent snapshots,
+a pinned initial root, fixed256 payloads and the common 64-batch journal, the
+compact paged and independently shared layouts ended at about 15.97 MiB of owned
+payloads versus 320.51 MiB for the hashbrown whole-table-copy adapter. This is
+payload ownership accounting on an instrumented 40-byte Value type, not total
+heap usage or a speed result. Full process RSS and every cell are retained.
+
+Frozen executable receipts are now checked against original Git source hashes,
+so new implementations can build while earlier versions continue running without
+mislabeling their inputs or copying whole worktrees. Final holdout seeds remain
+untouched. The original across-the-board performance objective remains unpassed.

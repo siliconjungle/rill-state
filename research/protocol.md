@@ -154,3 +154,27 @@ These are additional configurations/capability adaptations, not claims of three
 new independent persistent snapshot algorithms or universal performance wins.
 Full scalar content/revision/feed proofs and concurrent old-reader probes are
 required before timing.
+
+## Instrumented streaming retention/reclamation capability probe
+
+The retention_profile example tracks live Value instances, value clones and the
+sum of their owned Vec lengths through actual Drop/Clone operations. The Value
+layout is recorded (40 bytes on this target); counters are instrumentation, not
+the allocator or the total library heap. Process peak RSS includes metadata and
+these instrumented fixture types and is not a speed or uninstrumented Vec result.
+
+Stream one batch at a time, with 20,000 scattered u64 keys, 200 cyclic updates
+per revision and 256 revisions. No precomputed future trace or duplicate payload
+oracle retains obsolete values. Compare hashbrown and imbl copy/COW adapters,
+ProbeMap, independent shared values, compact record flat/paged variants and actual
+Rill Store. Every engine keeps an exact 64-batch/1,000,000-operation journal. Test
+recent-view windows 0/16/64, with/without an independently pinned initial view,
+and fixed256/mixed0..4096 payload sizes: 84 full-size cases. A smaller two-window
+screen first covers 56 cases at 2,000 records.
+
+Check every retained snapshot against a payload/epoch model, derive exact journal
+counts independently from batch lengths, release the pinned old root, then recent
+views, then the store. After enough full update cycles, releasing the initial root
+must drop exactly 20,000 old stored values; after all owners drop, both tracked
+instances and payload bytes must be zero. These are ownership/memory observations,
+not speed claims or complete physical-heap bounds.

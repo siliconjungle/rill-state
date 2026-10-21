@@ -1,0 +1,9 @@
+{
+  "source_commit": "ac376d13ef825785666b7ba7c65226f6952b7404",
+  "source_sha256": "4a94420bbc13739104b3e0ae5007527b8ba30b87a3172106d84b4d7833fc646c",
+  "example_sha256": "dff9f7582fdcf7cad4dd24f5abe39488783e2187def5cd4cf476a62ba882642f",
+  "binary_sha256": "2692347bc964395d136cb62f421cef955a2472a19660b37e04f66664cddfdbbf",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "command": "RUSTUP_TOOLCHAIN=stable cargo build --locked --release --features comparisons --example retention_profile",
+  "timing": "Instrumented ownership/reclamation proof, never a speed measurement"
+}
