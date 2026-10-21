@@ -389,11 +389,14 @@ impl Map for contrie::ConMap<Key, Value> {
         }
     }
 }
+// The library compares atomic values bytewise; every byte must be initialized.
+#[repr(C)]
 #[derive(Clone, Copy, Debug)]
 struct LeapValue {
     value: Value,
-    kind: u8,
+    kind: u64,
 }
+const _: () = assert!(std::mem::size_of::<LeapValue>() == 5 * std::mem::size_of::<u64>());
 impl leapfrog::Value for LeapValue {
     fn is_null(&self) -> bool {
         self.kind == 0

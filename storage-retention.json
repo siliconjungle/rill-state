@@ -109,6 +109,10 @@
     {
       "path": "build/shapes-v12",
       "reason": "Selected generic borrowed-key baseline, full-size shape and threaded correctness/performance reproduction"
+    },
+    {
+      "path": "build/state-v13",
+      "reason": "Required padding-free atomic adapter correction proofs; retains failed v12 comparison separately"
     }
   ],
   "safe_to_remove": [
