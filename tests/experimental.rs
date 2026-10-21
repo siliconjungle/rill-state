@@ -1,5 +1,5 @@
 #![cfg(feature = "experimental")]
-use rill_state::experimental::{ProbeMap, SplitMap};
+use rill_state::experimental::{ProbeMap, SharedMap, SplitMap};
 use rill_state::Mutation;
 use std::{
     collections::BTreeMap,
@@ -80,6 +80,67 @@ impl<S: std::hash::BuildHasher, const L: usize> Subject for SplitMap<String, Arc
     fn len(&self) -> usize {
         self.len()
     }
+}
+impl<S: std::hash::BuildHasher, const L: usize, const P: usize> Subject
+    for SharedMap<String, Arc<Vec<u8>>, S, L, P>
+{
+    fn put(&mut self, k: String, v: Arc<Vec<u8>>) -> Option<Arc<Vec<u8>>> {
+        self.insert(k, v).map(|v| v.as_ref().clone())
+    }
+    fn del(&mut self, k: &str) -> Option<Arc<Vec<u8>>> {
+        self.remove(k).map(|v| v.as_ref().clone())
+    }
+    fn read(&self, k: &str) -> Option<&Arc<Vec<u8>>> {
+        self.get(k)
+    }
+    fn contents(&self) -> BTreeMap<String, Arc<Vec<u8>>> {
+        self.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn batch(&mut self, ops: Vec<Mutation<String, Arc<Vec<u8>>>>) {
+        self.apply(&ops);
+    }
+}
+#[test]
+fn shared_records_survive_collision_growth_deletion_and_old_readers() {
+    macro_rules! pages {
+        ($l:literal) => {
+            oracle(SharedMap::<_, _, BuildHasherDefault<Wrap>, $l, 0>::default());
+            oracle(SharedMap::<_, _, BuildHasherDefault<Wrap>, $l, 16>::default());
+            oracle(SharedMap::<_, _, BuildHasherDefault<Wrap>, $l, 64>::default());
+            oracle(SharedMap::<_, _, BuildHasherDefault<Wrap>, $l, 256>::default());
+        };
+    }
+    pages!(50);
+    pages!(70);
+    pages!(85);
+    oracle(SharedMap::<_, _, BuildHasherDefault<Zero>, 70, 16>::default());
+}
+#[test]
+fn shared_records_clone_only_changed_values_and_release_final_owners() {
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    #[derive(Eq, PartialEq, Hash)]
+    struct CountedKey(String);
+    // Keys deliberately do not implement Clone: ordinary inserts, reads, removes
+    // and snapshot cloning must work without copying any underlying key or value.
+    struct CountedValue(Arc<AtomicUsize>);
+    impl Drop for CountedValue {
+        fn drop(&mut self) {
+            self.0.fetch_add(1, Ordering::SeqCst);
+        }
+    }
+    let drops = Arc::new(AtomicUsize::new(0));
+    let mut map = SharedMap::<CountedKey, CountedValue>::default();
+    map.insert(CountedKey("a".into()), CountedValue(drops.clone()));
+    let old = map.clone();
+    map.insert(CountedKey("a".into()), CountedValue(drops.clone()));
+    assert_eq!(drops.load(Ordering::SeqCst), 0);
+    drop(old);
+    assert_eq!(drops.load(Ordering::SeqCst), 1);
+    drop(map);
+    assert_eq!(drops.load(Ordering::SeqCst), 2);
 }
 fn oracle<M: Subject>(mut m: M) {
     let mut truth = BTreeMap::new();

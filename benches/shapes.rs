@@ -1,7 +1,7 @@
 //! Generic key/payload-shape checks and development measurements. This complements,
 //! rather than replaces, the registered inline-u64 comparison and final holdout gate.
 use rill_state::{
-    experimental::{ProbeMap, SplitMap},
+    experimental::{ProbeMap, SharedMap, SplitMap},
     Config, Cursor, Mutation, Snapshot, Store,
 };
 use std::{
@@ -205,6 +205,33 @@ impl<K: Key, V: Value> Map<K, V> for imhm::Map<K, V> {
                 }
             }
         }
+    }
+}
+impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
+    for SharedMap<K, V, hashbrown::DefaultHashBuilder, L, P>
+{
+    fn new() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &K) -> Option<&V> {
+        self.get(k)
+    }
+    fn put(&mut self, k: K, v: V) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &K) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(&K, &V)) {
+        for (k, v) in self.iter() {
+            f(k, v);
+        }
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        self.apply(ops);
     }
 }
 impl<K: Key, V: Value, const L: usize, const P: usize> Map<K, V>
@@ -608,6 +635,10 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
         "rpds-hash" => map!(rpds::HashTrieMapSync<K,V>),
         "rpds-fast" => map!(rpds::HashTrieMapSync<K,V,hashbrown::DefaultHashBuilder>),
         "imhm" => map!(imhm::Map<K,V>),
+        "shared-flat" => map!(SharedMap<K,V,hashbrown::DefaultHashBuilder,70,0>),
+        "shared-paged16" => map!(SharedMap<K,V,hashbrown::DefaultHashBuilder,70,16>),
+        "shared-paged64" => map!(SharedMap<K,V,hashbrown::DefaultHashBuilder,70,64>),
+        "shared-paged256" => map!(SharedMap<K,V,hashbrown::DefaultHashBuilder,70,256>),
         "probe-flat" => map!(ProbeMap<K,V,hashbrown::DefaultHashBuilder,70,0>),
         "probe-paged16" => map!(ProbeMap<K,V,hashbrown::DefaultHashBuilder,70,16>),
         "probe-paged64" => map!(ProbeMap<K,V,hashbrown::DefaultHashBuilder,70,64>),

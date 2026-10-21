@@ -249,6 +249,40 @@ map_impl!(indexmap::IndexMap<Key,Value>,indexmap::IndexMap::new());
 map_impl!(btree_slab::BTreeMap<Key,Value>,btree_slab::BTreeMap::new());
 
 impl<const L: usize, const P: usize> Map
+    for rill_state::experimental::SharedMap<Key, Value, hashbrown::DefaultHashBuilder, L, P>
+{
+    fn empty() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.iter() {
+            f(*k, *v);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        let ops: Vec<_> = ops
+            .iter()
+            .map(|op| match op {
+                Op::Put(k, v) => rill_state::Mutation::Put(*k, *v),
+                Op::Delete(k) => rill_state::Mutation::Delete(*k),
+            })
+            .collect();
+        self.apply(&ops);
+    }
+}
+impl<const L: usize, const P: usize> Map
     for rill_state::experimental::ProbeMap<Key, Value, hashbrown::DefaultHashBuilder, L, P>
 {
     fn empty() -> Self {
@@ -1705,6 +1739,42 @@ fn main() {
         "flurry-copy" => dispatch!(flurry::HashMap<Key,Value>),
         "vart" => dispatch!(Vart),
         "im-hash" => dispatch!(im::HashMap<Key,Value>),
+        "shared-50-0" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,50,0>)
+        }
+        "shared-50-16" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,50,16>)
+        }
+        "shared-50-64" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,50,64>)
+        }
+        "shared-50-256" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,50,256>)
+        }
+        "shared-70-0" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,70,0>)
+        }
+        "shared-70-16" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,70,16>)
+        }
+        "shared-70-64" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,70,64>)
+        }
+        "shared-70-256" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,70,256>)
+        }
+        "shared-85-0" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,85,0>)
+        }
+        "shared-85-16" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,85,16>)
+        }
+        "shared-85-64" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,85,64>)
+        }
+        "shared-85-256" => {
+            dispatch!(rill_state::experimental::SharedMap<Key,Value,hashbrown::DefaultHashBuilder,85,256>)
+        }
         "im-ord" => dispatch!(im::OrdMap<Key,Value>),
         "imbl-hash" => dispatch!(imbl::HashMap<Key,Value>),
         "imbl-fast" => dispatch!(ImblFast<Key,Value>),

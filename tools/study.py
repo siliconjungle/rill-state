@@ -11,7 +11,8 @@ INDEPENDENT=[f'{family}-{n}' for family in ['hashpages','sortedpages'] for n in 
 RILL=[f'rill-{1<<bits}-{1<<branch}' for bits in range(6,17,2) for branch in range(0,min(bits,10)+1,2)]
 RILLFAST=[e.replace('rill-','rillfast-')for e in RILL]
 PROBES=[f'probe-{load}-{page}'for load in [25,50,70,85,90]for page in [0,16,64,256,1024]]+[f'split-{load}'for load in [25,50,70,85,90]]
-ENGINES=EXTERNAL+INDEPENDENT+RILL+RILLFAST+PROBES
+SHARED=[f'shared-{l}-{p}'for l in [50,70,85]for p in [0,16,64,256]]
+ENGINES=EXTERNAL+INDEPENDENT+RILL+RILLFAST+PROBES+SHARED
 CASES=['idle','single','sparse','hot','churn','burst','replace','slow','read','scan','acquire','feed','miss10','miss50','miss100']
 def source_hash():
     h=hashlib.sha256()

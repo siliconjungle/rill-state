@@ -3,7 +3,7 @@
 import argparse,concurrent.futures,hashlib,itertools,json,pathlib,platform,random,subprocess,time
 import study
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-ENGINES=['hashbrown','hashbrown-sip','imbl-hash','imbl-fast','im-hash','im-fast','rpds-hash','rpds-fast','imhm','probe-flat','probe-paged16','probe-paged64','split','rill','rillfast']
+ENGINES=['hashbrown','hashbrown-sip','imbl-hash','imbl-fast','im-hash','im-fast','rpds-hash','rpds-fast','imhm','probe-flat','probe-paged16','probe-paged64','split','shared-flat','shared-paged16','shared-paged64','shared-paged256','rill','rillfast']
 SHAPES=['u64-inline','string-inline','u64-owned256','string-owned256','u64-shared256','string-shared256']
 CASES=['single','sparse','churn','burst','read','scan','slow','miss100']
 def main():
@@ -11,7 +11,7 @@ def main():
  engines=a.engines.split(',')if a.engines else ENGINES;shapes=a.shapes.split(',')if a.shapes else SHAPES;cases=a.cases.split(',')if a.cases else CASES;seeds=[int(n)for n in a.seeds.split(',')];assert all(c.isalnum()or c in'-_.'for c in a.label)
  binary=a.binary.resolve();folder=ROOT/'evidence'/a.label;folder.mkdir(exist_ok=False,parents=True);workers=1 if a.mode=='serial'else a.workers
  tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode in ('prove','thread'),shape,rep,a.mode=='thread')for rep in range(a.repetitions)for e,c,s,shape in itertools.product(engines,cases,seeds,shapes)];random.Random(0x5A9E).shuffle(tasks)
- receipt=dict(schema=1,layer='generic-shapes',mode=a.mode,claim='exact behavior'if a.mode in ('prove','thread')else'development selection only, not final acceptance',workers=workers,source_sha256=study.source_hash(),source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),binary_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),driver_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),executor_sha256=hashlib.sha256((ROOT/'tools/study.py').read_bytes()).hexdigest(),engines=engines,shapes=shapes,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks),platform=platform.platform())
+ receipt=dict(schema=1,layer='generic-shapes',mode=a.mode,claim='exact behavior'if a.mode in ('prove','thread')else'development selection only, not final acceptance',workers=workers,source_sha256=study.source_hash(),source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),binary_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),driver_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),executor_sha256=hashlib.sha256((ROOT/'tools/study.py').read_bytes()).hexdigest(),engines=engines,shapes=shapes,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks),platform=platform.platform(),rustc=subprocess.check_output(['rustc','-Vv'],text=True),machine=platform.machine())
  (folder/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');errors=[];completed=0;outputs={}
  with(folder/'runs.jsonl').open('w')as out,concurrent.futures.ThreadPoolExecutor(max_workers=workers)as pool:
   futures={pool.submit(study.execute,t):t for t in tasks}

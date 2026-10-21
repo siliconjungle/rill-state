@@ -86,3 +86,21 @@ before screening. Use parallel 512-record exact checks first and 20,000-record s
 runs. Generality selection complements the full primary matrix; it does not replace the
 original registered workloads or authorize a holdout claim. Every final size/shape and
 chosen engine still needs matching full-size proofs and the final serial acceptance gate.
+
+## Fast persistent hashers and shared-record page extension
+
+Add im/imbl/rpds fast-hasher variants using the same hashbrown DefaultHashBuilder
+as the probing and rillfast candidates; retain each default-hasher baseline too.
+This evaluates strongest available explicit settings, without conflating hasher
+security guarantees. Generic im/rpds adapters use borrowed mutation to preserve
+existing stored keys and avoid cloning replacement keys.
+
+The next original shared-record family stores canonical keys and values behind
+independent Arcs inside the existing probing pages. COW clones untouched handles
+instead of String/Vec allocations; writes retain the canonical key, allocate a new
+value and preserve old readers. Extra allocations, pointer loads and reference
+counts are part of its cost, including for inline values. Register occupancy
+50/70/85 and flat/16/64/256 pages (12 scalar layouts), with four occupancy70 layouts
+in the generic six-shape matrix. Apply the same complete-content, ordered-feed,
+revision and four-reader proofs before considering development timing. No changes
+to the frozen holdout seeds or final acceptance criteria.

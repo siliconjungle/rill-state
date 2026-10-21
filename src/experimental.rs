@@ -84,11 +84,14 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
     where
         K: Borrow<Q>,
     {
+        self.find_by(hash, |stored| stored.borrow() == key)
+    }
+    fn find_by(&self, hash: u64, matches: impl Fn(&K) -> bool) -> (usize, bool) {
         let mut i = hash as usize & self.mask;
         loop {
             match self.slot(i) {
                 None => return (i, false),
-                Some(e) if e.hash == hash && e.key.borrow() == key => return (i, true),
+                Some(e) if e.hash == hash && matches(&e.key) => return (i, true),
                 _ => i = (i + 1) & self.mask,
             }
         }
@@ -98,7 +101,9 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
     where
         K: Borrow<Q>,
     {
-        let hash = self.hasher.hash_one(key);
+        self.get_by(self.hasher.hash_one(key), |stored| stored.borrow() == key)
+    }
+    fn get_by(&self, hash: u64, matches: impl Fn(&K) -> bool) -> Option<&V> {
         let start = hash as usize & self.mask;
         if P == 0 {
             let page = &self.pages[0];
@@ -107,7 +112,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
             for slot in page[start..].iter().chain(page[..start].iter()) {
                 match slot {
                     None => return None,
-                    Some(e) if e.hash == hash && e.key.borrow() == key => return Some(&e.value),
+                    Some(e) if e.hash == hash && matches(&e.key) => return Some(&e.value),
                     _ => {}
                 }
             }
@@ -119,7 +124,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
             for slot in &page[i % P..] {
                 match slot {
                     None => return None,
-                    Some(e) if e.hash == hash && e.key.borrow() == key => return Some(&e.value),
+                    Some(e) if e.hash == hash && matches(&e.key) => return Some(&e.value),
                     _ => {}
                 }
             }
@@ -240,10 +245,10 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
         K: Borrow<Q>,
     {
         let hash = self.hasher.hash_one(key);
-        let (mut hole, found) = self.find(key, hash);
-        if !found {
-            return None;
-        }
+        let (hole, found) = self.find(key, hash);
+        found.then(|| self.remove_at(hole).value)
+    }
+    fn remove_at(&mut self, mut hole: usize) -> Entry<K, V> {
         let removed = self.slot_mut(hole).take().unwrap();
         self.len -= 1;
         let mut scan = (hole + 1) & self.mask;
@@ -256,7 +261,7 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
             }
             scan = (scan + 1) & self.mask;
         }
-        Some(removed.value)
+        removed
     }
     /// Number of live keys.
     pub fn len(&self) -> usize {
@@ -273,6 +278,118 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher, const L: usize, const P: us
             .flat_map(|p| p.iter())
             .filter_map(|e| e.as_ref())
             .map(|e| (&e.key, &e.value))
+    }
+}
+
+/// Copy-on-write probing pages with independently shared keys and values. A page
+/// copy clones reference counts rather than every untouched heap allocation. Updating
+/// a binding keeps its canonical key allocation. This trades additional pointer reads
+/// and record allocations for cheaper retained-page copies; it is not a selected default.
+/// As with `ProbeMap`, mutations are not transactions. Values with interior mutability
+/// remain the caller's responsibility. Removed/replaced values are returned as shared Arcs.
+pub struct SharedMap<K, V, S = RandomState, const LOAD: usize = 70, const PAGE: usize = 16> {
+    inner: ProbeMap<Arc<K>, Arc<V>, S, LOAD, PAGE>,
+}
+impl<K, V, S, const L: usize, const P: usize> Clone for SharedMap<K, V, S, L, P> {
+    fn clone(&self) -> Self {
+        Self {
+            inner: self.inner.clone(),
+        }
+    }
+}
+impl<K: Hash + Eq, V, S: BuildHasher + Default, const L: usize, const P: usize> Default
+    for SharedMap<K, V, S, L, P>
+{
+    fn default() -> Self {
+        Self::with_hasher(S::default())
+    }
+}
+impl<K: Hash + Eq, V, S: BuildHasher, const L: usize, const P: usize> SharedMap<K, V, S, L, P> {
+    /// Construct a shared-record map with the selected hasher and const layout.
+    pub fn with_hasher(hasher: S) -> Self {
+        Self {
+            inner: ProbeMap::with_hasher(hasher),
+        }
+    }
+    /// Look up a compatible borrowed key without allocating or cloning it.
+    pub fn get<Q: Hash + Eq + ?Sized>(&self, key: &Q) -> Option<&V>
+    where
+        K: Borrow<Q>,
+    {
+        self.inner
+            .get_by(self.inner.hasher.hash_one(key), |k| {
+                k.as_ref().borrow() == key
+            })
+            .map(AsRef::as_ref)
+    }
+    fn place(&mut self, mut i: usize, hash: u64, key: Arc<K>, value: Arc<V>) {
+        if self.inner.len + 1 > (self.inner.mask + 1) * L / 100 {
+            self.inner.grow();
+            i = self.inner.find_by(hash, |k| k.as_ref() == key.as_ref()).0;
+        }
+        *self.inner.slot_mut(i) = Some(Entry { hash, key, value });
+        self.inner.len += 1;
+    }
+    /// Insert or replace, retaining a canonical stored key and returning the old value.
+    pub fn insert(&mut self, key: K, value: V) -> Option<Arc<V>> {
+        let hash = self.inner.hasher.hash_one(&key);
+        let (i, found) = self.inner.find_by(hash, |stored| stored.as_ref() == &key);
+        let value = Arc::new(value);
+        if found {
+            Some(std::mem::replace(
+                &mut self.inner.slot_mut(i).as_mut().unwrap().value,
+                value,
+            ))
+        } else {
+            self.place(i, hash, Arc::new(key), value);
+            None
+        }
+    }
+    /// Remove a compatible borrowed key; retained snapshots keep the old allocation.
+    pub fn remove<Q: Hash + Eq + ?Sized>(&mut self, key: &Q) -> Option<Arc<V>>
+    where
+        K: Borrow<Q>,
+    {
+        let (i, found) = self.inner.find_by(self.inner.hasher.hash_one(key), |k| {
+            k.as_ref().borrow() == key
+        });
+        found.then(|| self.inner.remove_at(i).value)
+    }
+    /// Apply borrowed ordered mutations. Existing keys and untouched values are shared.
+    pub fn apply(&mut self, operations: &[Mutation<K, V>])
+    where
+        K: Clone,
+        V: Clone,
+    {
+        for op in operations {
+            match op {
+                Mutation::Put(k, v) => {
+                    let hash = self.inner.hasher.hash_one(k);
+                    let (i, found) = self.inner.find_by(hash, |stored| stored.as_ref() == k);
+                    let value = Arc::new(v.clone());
+                    if found {
+                        self.inner.slot_mut(i).as_mut().unwrap().value = value;
+                    } else {
+                        self.place(i, hash, Arc::new(k.clone()), value);
+                    }
+                }
+                Mutation::Delete(k) => {
+                    self.remove(k);
+                }
+            }
+        }
+    }
+    /// Number of live keys.
+    pub fn len(&self) -> usize {
+        self.inner.len()
+    }
+    /// Whether no keys are live.
+    pub fn is_empty(&self) -> bool {
+        self.inner.is_empty()
+    }
+    /// Visit all live bindings in unspecified order.
+    pub fn iter(&self) -> impl Iterator<Item = (&K, &V)> {
+        self.inner.iter().map(|(k, v)| (k.as_ref(), v.as_ref()))
     }
 }
 
