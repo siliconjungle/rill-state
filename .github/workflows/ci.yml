@@ -43,3 +43,8 @@ jobs:
       - name: Investigative SCC adapter (bounded, not an accepted performance baseline)
         continue-on-error: true
         run: RILL_DIAGNOSTIC=1 cargo bench --locked --features comparisons --bench state -- --engine scc-copy --case churn --records 512 --readers 512 --rounds 16 --verify
+      - name: Concurrent retained generic views
+        run: |
+          for engine in hashbrown probe-paged16 rillfast; do
+            cargo bench --locked --features comparisons --bench shapes -- --engine "$engine" --shape string-owned256 --case sparse --records 1000 --readers 2000 --rounds 6 --thread-check
+          done
