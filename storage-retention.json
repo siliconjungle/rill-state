@@ -209,6 +209,14 @@
     {
       "path": "build/retention-v23",
       "reason": "Required frozen embedded-directory sharded-inline correctness, retention and comparative measurement input"
+    },
+    {
+      "path": "build/state-v24",
+      "reason": "Required frozen strengthened standard/IndexMap control proofs and comparisons, retaining native-default and fast-builder settings"
+    },
+    {
+      "path": "build/shapes-v24",
+      "reason": "Required frozen strengthened standard/IndexMap control proofs and comparisons, retaining native-default and fast-builder settings"
     }
   ],
   "safe_to_remove": [

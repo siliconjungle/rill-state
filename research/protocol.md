@@ -272,3 +272,15 @@ fill25/page64-or1024 pairs. The latter thresholds were selected from the earlier
 parallel scalar screen for stronger read settings; parallel ranks are not final
 evidence. Prove seeded-builder cloning, non-Clone shared-builder support and
 retained snapshots before comparing timings. All existing final criteria remain.
+
+## Stronger standard-library and dense-index controls
+
+Add std-fast and indexmap-fast scalar controls with the same hashbrown default
+builder as the original fast layouts, keeping their native-default controls too.
+Extend generic shapes with standard HashMap (native/fast), standard BTreeMap and
+IndexMap (native/fast). Borrowed updates preserve canonical keys; explicit
+swap_remove matches pinned IndexMap's deprecated remove alias. These are settings
+and newly covered shapes of existing libraries, not additional independent crates.
+Hash-builder security tradeoffs remain explicit. Require full state/revision/feed
+and retained-reader proofs before development timing; no missing control counts
+as beaten. New controls are compiled into a separately bound frozen executable.

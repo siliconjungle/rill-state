@@ -144,6 +144,9 @@ trait Map<K: Key, V: Value>: Clone + Send + Sync {
 }
 macro_rules! map {
     ($ty:ty,$new:expr) => {
+        map!($ty, $new, remove);
+    };
+    ($ty:ty,$new:expr,$remove:ident) => {
         impl<K: Key, V: Value> Map<K, V> for $ty {
             fn new() -> Self {
                 $new
@@ -155,7 +158,7 @@ macro_rules! map {
                 self.insert(k, v);
             }
             fn del(&mut self, k: &K) {
-                self.remove(k);
+                self.$remove(k);
             }
             fn len(&self) -> usize {
                 self.len()
@@ -176,7 +179,7 @@ macro_rules! map {
                             }
                         }
                         Mutation::Delete(k) => {
-                            self.remove(k);
+                            self.$remove(k);
                         }
                     }
                 }
@@ -185,6 +188,11 @@ macro_rules! map {
     };
 }
 map!(hashbrown::HashMap<K,V>,hashbrown::HashMap::new());
+map!(std::collections::HashMap<K,V>,std::collections::HashMap::new());
+map!(std::collections::HashMap<K,V,hashbrown::DefaultHashBuilder>,std::collections::HashMap::with_hasher(hashbrown::DefaultHashBuilder::default()));
+map!(std::collections::BTreeMap<K,V>,std::collections::BTreeMap::new());
+map!(indexmap::IndexMap<K,V>,indexmap::IndexMap::new(),swap_remove);
+map!(indexmap::IndexMap<K,V,hashbrown::DefaultHashBuilder>,indexmap::IndexMap::with_hasher(hashbrown::DefaultHashBuilder::default()),swap_remove);
 map!(hashbrown::HashMap<K,V,std::collections::hash_map::RandomState>,hashbrown::HashMap::with_hasher(Default::default()));
 map!(imbl::HashMap<K,V>,imbl::HashMap::new());
 type ImblFast<K, V> =
@@ -1112,6 +1120,11 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
             map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,false>)
         }
         "hashbrown" => map!(hashbrown::HashMap<K,V>),
+        "std-hash" => map!(std::collections::HashMap<K,V>),
+        "std-fast" => map!(std::collections::HashMap<K,V,hashbrown::DefaultHashBuilder>),
+        "std-btree" => map!(std::collections::BTreeMap<K,V>),
+        "indexmap" => map!(indexmap::IndexMap<K,V>),
+        "indexmap-fast" => map!(indexmap::IndexMap<K,V,hashbrown::DefaultHashBuilder>),
         "hashbrown-sip" => map!(hashbrown::HashMap<K,V,std::collections::hash_map::RandomState>),
         "imbl-hash" => map!(imbl::HashMap<K,V>),
         "imbl-fast" => map!(ImblFast<K,V>),

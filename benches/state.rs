@@ -236,6 +236,7 @@ macro_rules! map_impl {
     };
 }
 map_impl!(HashMap<Key,Value>,HashMap::new());
+map_impl!(HashMap<Key,Value,hashbrown::DefaultHashBuilder>,HashMap::with_hasher(hashbrown::DefaultHashBuilder::default()));
 map_impl!(BTreeMap<Key,Value>,BTreeMap::new());
 map_impl!(hashbrown::HashMap<Key,Value>,hashbrown::HashMap::new());
 map_impl!(hashbrown::HashMap<Key,Value,std::collections::hash_map::RandomState>,hashbrown::HashMap::with_hasher(Default::default()));
@@ -249,6 +250,7 @@ map_impl!(im::HashMap<Key,Value,hashbrown::DefaultHashBuilder>,im::HashMap::with
 
 map_impl!(imbl::OrdMap<Key,Value>,imbl::OrdMap::new());
 map_impl!(indexmap::IndexMap<Key,Value>,indexmap::IndexMap::new(),swap_remove);
+map_impl!(indexmap::IndexMap<Key,Value,hashbrown::DefaultHashBuilder>,indexmap::IndexMap::with_hasher(hashbrown::DefaultHashBuilder::default()),swap_remove);
 map_impl!(btree_slab::BTreeMap<Key,Value>,btree_slab::BTreeMap::new());
 
 impl<const L: usize, const P: usize> Map
@@ -2547,12 +2549,14 @@ fn main() {
             dispatch!(rill_state::experimental::SplitMap<Key,Value,hashbrown::DefaultHashBuilder,90>)
         }
         "std-hash" => dispatch!(HashMap<Key,Value>),
+        "std-fast" => dispatch!(HashMap<Key,Value,hashbrown::DefaultHashBuilder>),
         "std-btree" => dispatch!(BTreeMap<Key,Value>),
         "hashbrown" => dispatch!(hashbrown::HashMap<Key,Value>),
         "hashbrown-sip" => {
             dispatch!(hashbrown::HashMap<Key,Value,std::collections::hash_map::RandomState>)
         }
         "indexmap" => dispatch!(indexmap::IndexMap<Key,Value>),
+        "indexmap-fast" => dispatch!(indexmap::IndexMap<Key,Value,hashbrown::DefaultHashBuilder>),
         "btree-slab" => dispatch!(btree_slab::BTreeMap<Key,Value>),
         "imhm" => dispatch!(imhm::Map<Key,Value>),
         "imhm-sip" => dispatch!(imhm::Map<Key,Value,std::collections::hash_map::RandomState>),

@@ -85,7 +85,7 @@ heap-value publication workloads, but adds pointer reads and allocations; it doe
 not improve every shape. The default Store has not switched to this prototype.
 
 Fixed-size `ArrayRecordMap` pages additionally compare copied/shared canonical
-keys and shared/inline hash-builder storage. Thirty-eight core/experimental tests and
+keys and shared/inline hash-builder storage. Forty-seven core/experimental tests and
 Clippy pass. Full-size state/feed proofs and retained-reader probes pass for the
 registered array configurations, followed by 11,082 matching-output serial
 development runs. These layouts still lose important workloads to hashbrown.
@@ -101,6 +101,12 @@ processes with matching outputs. A fixed layout improves scalar read medians
 but loses 59 of 64 generic cases to hashbrown; no overall winner is selected.
 Streaming probes across four representative configurations reclaim
 all payloads, but retain much more owned payload data than the paged layouts.
+
+`ShardedInlineMap` embeds a fixed table directory and copies only touched inline
+tables on writes. Eighty configurations compare directory sizes, maximum fills,
+builder storage and per-operation/grouped batching. Grouping includes hashing,
+stable counting/scattering and scratch allocation costs. Its core checks pass;
+full-size comparative validation is running. No speed improvement is claimed yet.
 
 Default study lists omit the known investigative `scc-copy` native Clone chain,
 whose capacity doubles with each copy in pinned scc 3.8.8. It is not counted as a

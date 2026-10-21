@@ -23,7 +23,7 @@ jobs:
       - run: cargo bench --locked --features comparisons --no-run
       - name: Exact comparator behavior (no speed claims from shared CI)
         run: |
-          for engine in rill-4096-64 rillfast-4096-64 probe-70-0 probe-70-64 shared-70-0 shared-70-16 shared-85-256 record-50-0 record-70-16 record-85-256 array-copy-25-16 array-copy-70-1024 array-shared-70-64 inline-shared-span-25 inline-shared-index-50 inline-owned-span-70 inline-owned-index-85 split-70 contrie-copy leapfrog-copy scc-capture flashmap-copy evmap-copy left-right-copy imbl-hash imbl-fast im-fast imhm rpds-hash rpds-fast hashbrown chunkbatch-16 vart skipdb mvcc-16; do
+          for engine in std-fast indexmap-fast shard-shared-each-25-16 shard-owned-group-70-1024 rill-4096-64 rillfast-4096-64 probe-70-0 probe-70-64 shared-70-0 shared-70-16 shared-85-256 record-50-0 record-70-16 record-85-256 array-copy-25-16 array-copy-70-1024 array-shared-70-64 inline-shared-span-25 inline-shared-index-50 inline-owned-span-70 inline-owned-index-85 split-70 contrie-copy leapfrog-copy scc-capture flashmap-copy evmap-copy left-right-copy imbl-hash imbl-fast im-fast imhm rpds-hash rpds-fast hashbrown chunkbatch-16 vart skipdb mvcc-16; do
             cargo bench --locked --features comparisons --bench state -- --engine "$engine" --case churn --records 2000 --readers 2000 --rounds 12 --verify
           done
       - name: Concurrent publication contracts
@@ -36,7 +36,7 @@ jobs:
         run: cargo bench --locked --features comparisons --bench publication -- --engine swap-arc --threads 8 --rounds 32 --verify
       - name: Generic key and payload shapes
         run: |
-          for engine in hashbrown imbl-fast im-fast rpds-fast imhm probe-flat probe-paged16 shared-flat shared-paged16 record-flat record-paged16 array-copy16 array-shared64 inline-shared-span-25 inline-shared-index-50 inline-owned-span-70 inline-owned-index-85 split rillfast; do
+          for engine in std-hash std-fast std-btree indexmap indexmap-fast shard-shared-each-25-16 shard-owned-group-70-1024 hashbrown imbl-fast im-fast rpds-fast imhm probe-flat probe-paged16 shared-flat shared-paged16 record-flat record-paged16 array-copy16 array-shared64 inline-shared-span-25 inline-shared-index-50 inline-owned-span-70 inline-owned-index-85 split rillfast; do
             for shape in u64-inline string-inline u64-owned256 string-owned256 u64-shared256 string-shared256 mixed-owned mixed-shared; do
               cargo bench --locked --features comparisons --bench shapes -- --engine "$engine" --shape "$shape" --case churn --records 1000 --readers 1000 --rounds 6 --verify
             done
