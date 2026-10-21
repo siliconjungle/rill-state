@@ -243,10 +243,6 @@
       "reason": "Selected packed dense-row instrumented ownership/reclamation proof executable; all variants use the same build profile and inputs."
     },
     {
-      "path": "build/pr-body-v26.md",
-      "reason": "Exact input for packed-map public PR update, pending confirmation of publication."
-    },
-    {
       "path": "build/state-v26",
       "reason": "Selected packed dense-row comparison executable for required correctness and performance measurements; retain exact source and build receipt."
     },
@@ -411,6 +407,10 @@
     {
       "path": "evidence/retention-v26-small",
       "reason": "Terminal invalid-setup staging (no measurements): all 48 invocations rejected insufficient trace coverage. Retained correction contains exact original receipt and one complete reproduction; corrected 120-case proofs supersede duplicate errors."
+    },
+    {
+      "path": "build/pr-body-v26.md",
+      "reason": "Completed and confirmed public packed-map research PR update; exact published text retained on GitHub."
     }
   ]
 }

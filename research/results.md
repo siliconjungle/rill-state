@@ -570,3 +570,5 @@ owned-payload retention. The initial 64-round small launch was invalid because
 it did not replace every initial record; it produced no measurements. Its exact
 receipt/reproduction and the subsequent driver preflight correction are retained,
 with the repeated staging errors retired.
+
+Rust 1.85, stable and comparison CI passed for core source 5e8035a6495287226ed8c6cf634d37bc301b714f (run 39692602369 at evidence head 8e5f1441539eaa178e464522943a84633e6b26f9). This is portability/smoke evidence, not full-size packed-map admission.

@@ -315,7 +315,7 @@
       "version": "1.2.2",
       "source": "https://docs.rs/crate/ordermap/1.2.2/source/",
       "status": "source-reviewed-wrapper-adapter-pending",
-      "reason": "Wrapper over IndexMap providing order-sensitive collection semantics. Do not count this as an independent indexing algorithm, or infer speed from the existing IndexMap measurements. Review and adapt the actual exposed removal behavior before timing it against the unordered state contract. See vector-and-ordered-map-review.json."
+      "reason": "Wrapper over IndexMap providing order-sensitive collection semantics. Clone delegates to the underlying IndexMap. Default remove uses shift removal, while explicit swap_remove delegates to IndexMap swap removal. Adapt actual OrderMap with native/fast builders and explicit removal policy; do not count it as an independent indexing algorithm or infer its measured speed from another crate. See vector-and-ordered-map-review.json."
     },
     {
       "name": "btree-slab",
