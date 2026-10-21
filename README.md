@@ -78,3 +78,17 @@ The opt-in `experimental` feature contains generic linear/split/shared-record CO
 APIs. They are not the selected default backend. The comparison suite also exercises
 String keys, owned and shared payloads, missing queries and concurrent retained-view
 reads. No performance admission follows merely from passing a small shape test.
+
+The shared-record experimental layouts retain keys and values behind independent
+Arcs, so copying a page shares untouched String/Vec allocations. This helps some
+heap-value publication workloads, but adds pointer reads and allocations; it does
+not improve every shape. The default Store has not switched to this prototype.
+
+Default study lists omit the known investigative `scc-copy` native Clone chain,
+whose capacity doubles with each copy in pinned scc 3.8.8. It is not counted as a
+performance win or silently removed from the admission queue. A bounded native
+reproduction is `cargo run --locked --release --features comparisons --example
+scc_probe -- --capacity-only`; `--by-len` checks the corrected allocation strategy.
+The explicit `scc-capture` comparison uses live record count and remains subject
+to full contract proof. Study deadlines apply to an invocation's own process group
+so an expired time wrapper cannot leave an unobserved candidate running.

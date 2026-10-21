@@ -167,8 +167,8 @@
       "name": "scc",
       "version": "3.8.8",
       "source": "https://docs.rs/crate/scc/3.8.8/source/",
-      "status": "adapter-stall-unresolved",
-      "reason": "Native simple probes pass, but a native clone-chain/retained-view program and both snapshot adapters stall under bounded exact checks. Four native copy/retention modes reproduce the deadline on arm64. Root cause unresolved; no timeout counted as a performance win."
+      "status": "corrected-capture-full-size-proof-passed",
+      "reason": "Pinned native Clone feeds slot capacity into an entry-count constructor and doubles capacity in chains. Frozen bounded trace confirms 1,024 to 262,144 slots in eight copies at 512 live entries; length-based copying stays 1,024 through 128 copies. Corrected capture adapter passed all 30 full-size checks and four threaded probes; native-copy remains investigative and is not a benchmark win."
     },
     {
       "name": "papaya",

@@ -242,3 +242,19 @@ with active iteration/drop work rather than a confirmed mutex deadlock. A new
 bounded capacity trace and allocation-by-live-length correction must prove the
 cause and validate the corrected adapter; prior deadline observations remain
 retained and are never counted as wins.
+
+The bounded native capacity trace confirmed growth from 1,024 to 262,144 slots
+in eight copies at a fixed 512 records. Both live-count modes kept exactly 1,024
+slots for all 128 copies, with retirement and with every old root retained. The
+corrected scc-capture adapter then passed all 30 full-size exact case/seed checks
+at 20,000 records and four four-reader probes. Native Clone's capacity growth
+remains a pinned-version capability issue, but the corrected capture adapter can
+now enter the measured comparison. This replaces the earlier unresolved cause;
+the failing frozen observations remain available.
+
+The default driver lists leave native scc-copy investigative, with an explicit
+record in the admission queue; it is not counted as a win or silently omitted
+from the research. Native capacity reproduction is bounded to eight copies, and
+CI requires the corrected 128-copy native mode and capture adapter. A separate
+owned-process-group timeout proof confirms that a deadline retires both its own
+time wrapper and child, rather than leaving an orphan benchmark running.

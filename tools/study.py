@@ -4,7 +4,7 @@
 Parallel timings are selection evidence only. Final superiority claims require
 fresh serial processes, holdout seeds and the separate strict acceptance gate.
 """
-import argparse, concurrent.futures, hashlib, itertools, json, os, pathlib, platform, random, re, subprocess, time
+import argparse, concurrent.futures, hashlib, itertools, json, os, pathlib, platform, random, re, signal, subprocess, time
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 EXTERNAL=['std-hash','std-btree','hashbrown','hashbrown-sip','indexmap','btree-slab','im-hash','im-ord','imbl-hash','imbl-fast','im-fast','rpds-fast','imbl-ord','imhm','imhm-sip','rpds-hash','rpds-redblack','vart','papaya-copy','dashmap-copy','flurry-copy','skipdb','scc-copy','contrie-copy','leapfrog-copy','leapmap-copy','scc-capture']+[f'chunk-{n}' for n in [8,16,32,64,128]]+[f'chunkbatch-{n}' for n in [8,16,32,64,128]]
 INDEPENDENT=[f'{family}-{n}' for family in ['hashpages','sortedpages'] for n in [16,64,256,1024,4096,16384]]+[f'overlay-{n}' for n in [1,2,4,8,16,32]]+[f'mvcc-{n}' for n in [1,16,64,256]]+[f'slots-{n}'for n in [8,16,32,64,128,256,512,1024]]
@@ -12,12 +12,35 @@ RILL=[f'rill-{1<<bits}-{1<<branch}' for bits in range(6,17,2) for branch in rang
 RILLFAST=[e.replace('rill-','rillfast-')for e in RILL]
 PROBES=[f'probe-{load}-{page}'for load in [25,50,70,85,90]for page in [0,16,64,256,1024]]+[f'split-{load}'for load in [25,50,70,85,90]]
 SHARED=[f'shared-{l}-{p}'for l in [50,70,85]for p in [0,16,64,256]]
-ENGINES=EXTERNAL+INDEPENDENT+RILL+RILLFAST+PROBES+SHARED
+CONFIGURATIONS=EXTERNAL+INDEPENDENT+RILL+RILLFAST+PROBES+SHARED
+INVESTIGATIVE=['scc-copy'] # Native Clone grows capacity on every retained publication.
+ENGINES=[e for e in CONFIGURATIONS if e not in INVESTIGATIVE]
 CASES=['idle','single','sparse','hot','churn','burst','replace','slow','read','scan','acquire','feed','miss10','miss50','miss100']
 def source_hash():
     h=hashlib.sha256()
     for p in sorted([ROOT/'Cargo.toml',ROOT/'Cargo.lock',*ROOT.glob('src/**/*.rs'),*ROOT.glob('benches/**/*.rs')]): h.update(p.relative_to(ROOT).as_posix().encode()+b'\0'+p.read_bytes())
     return h.hexdigest()
+def run_bounded(command,timeout=300):
+    """A timeout retires only this invocation's newly owned process group.
+
+    Killing the time wrapper alone can leave its benchmark child alive. Both
+    complete and failing candidates must have observable terminal ownership.
+    """
+    process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+                             text=True,start_new_session=True)
+    try:
+        stdout,stderr=process.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        try: os.killpg(process.pid,signal.SIGTERM)
+        except ProcessLookupError: pass
+        try: stdout,stderr=process.communicate(timeout=2)
+        except subprocess.TimeoutExpired:
+            try: os.killpg(process.pid,signal.SIGKILL)
+            except ProcessLookupError: pass
+            stdout,stderr=process.communicate()
+        raise subprocess.TimeoutExpired(command,timeout,output=stdout,stderr=stderr)
+    return subprocess.CompletedProcess(command,process.returncode,stdout,stderr)
+
 def execute(task):
     binary,engine,case,seed,records,readers,rounds,proof,*extra=task
     cmd=[str(binary),'--engine',engine,'--case',case,'--seed',str(seed),'--records',str(records),'--readers',str(readers),'--rounds',str(rounds)]
@@ -25,7 +48,7 @@ def execute(task):
     if extra and extra[0]:cmd+=['--shape',extra[0]]
     if len(extra)>2 and extra[2]:cmd+=['--thread-check']
     wrapper=['/usr/bin/time','-l','-p'] if platform.system()=='Darwin' else ['/usr/bin/time','-v']
-    start=time.time(); result=subprocess.run(wrapper+cmd,capture_output=True,text=True,timeout=300)
+    start=time.time(); result=run_bounded(wrapper+cmd,timeout=300)
     if result.returncode: raise RuntimeError(json.dumps(dict(command=cmd,code=result.returncode,stderr=result.stderr[-3000:],stdout=result.stdout[-3000:])))
     row=json.loads(result.stdout)
     if platform.system()=='Darwin':

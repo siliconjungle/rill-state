@@ -1,0 +1,2 @@
+{"timeout_observed": true, "owned_parent_and_child_received_termination": true, "captured_output": "{\"parent\": 69897, \"child\": 69898}\nready"}
+Normal process output also preserved; no external worker was signalled.

@@ -137,6 +137,14 @@
     {
       "path": "build/scc-probe-v16",
       "reason": "Required frozen native clone-chain/retirement mismatch reproduction across four bounded modes"
+    },
+    {
+      "path": "build/state-v17",
+      "reason": "Required native capacity-growth correction and corrected snapshot-adapter exact proofs"
+    },
+    {
+      "path": "build/scc-probe-v17",
+      "reason": "Required native capacity-growth correction and corrected snapshot-adapter exact proofs"
     }
   ],
   "safe_to_remove": [
@@ -171,6 +179,10 @@
     {
       "path": "build/state-v15",
       "reason": "Completed unmeasured scalar compile intermediate; v16 supersedes it for actual strengthened full-size proofs. Exact source remains in Git and successful build metadata is retained."
+    },
+    {
+      "path": "evidence/scc-clone-chain-v16.log",
+      "reason": "Completed initial unbound native observation superseded by exact frozen four-mode failure receipts and capacity/root-cause proof; full selected failure evidence is retained."
     }
   ]
 }
