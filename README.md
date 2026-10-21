@@ -92,3 +92,16 @@ scc_probe -- --capacity-only`; `--by-len` checks the corrected allocation strate
 The explicit `scc-capture` comparison uses live record count and remains subject
 to full contract proof. Study deadlines apply to an invocation's own process group
 so an expired time wrapper cannot leave an unobserved candidate running.
+
+Compact `RecordMap` experiments put key and value in one immutable allocation,
+while preserving canonical stored-key metadata on replacement. The generic
+comparison now includes mixed String lengths and mixed owned/shared payload
+lengths. These extensions do not select a new default or establish superiority.
+
+For instrumented ownership/reclamation evidence, `examples/retention_profile.rs`
+streams batches without retaining future payload inputs, checks old snapshot
+contents and releases the pinned root, recent views and store in stages. Its
+counters cover owned payload lengths and Value instances, not total heap usage
+or speed; `tools/retention_study.py` records 0/16/64-view windows and verifies exact
+journal holdings. Run with `--features comparisons`; source/binary receipts and
+all full-size cells are retained under `evidence/retention-v19-20k`.

@@ -40,6 +40,11 @@ jobs:
               cargo bench --locked --features comparisons --bench shapes -- --engine "$engine" --shape "$shape" --case churn --records 1000 --readers 1000 --rounds 6 --verify
             done
           done
+      - name: Streaming payload reclamation contracts (instrumented, not timings)
+        run: |
+          for engine in hashbrown imbl-fast shared-paged16 record-paged16 rillfast; do
+            cargo run --locked --release --features comparisons --example retention_profile -- --engine "$engine" --records 2000 --changed 20 --rounds 256 --window 16 --pin-initial true --mixed true
+          done
       - name: Native guarded-reader progress contracts
         run: cargo run --locked --release --features comparisons --example guarded_retention
       - name: Native SCC capacity-growth reproduction and live-count correction
