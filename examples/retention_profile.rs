@@ -334,6 +334,13 @@ mod profile {
     }
     pub fn main() {
         let args: Vec<_> = std::env::args().collect();
+        if args.iter().any(|a| a == "--layout-only") {
+            println!(
+                "{{\"instrumented_value_bytes\":{}}}",
+                std::mem::size_of::<Value>()
+            );
+            return;
+        }
         let get = |name: &str, default: &str| {
             args.windows(2)
                 .find(|p| p[0] == name)
