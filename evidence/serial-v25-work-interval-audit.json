@@ -1,0 +1,34 @@
+{
+  "claim": "Recorded own build/proof/screen intervals and final validation log writes precede the serial phases. The next v27 build starts after pipeline completion. This does not certify an otherwise idle host, paired confidence, universal speed or live-connection capacity.",
+  "phases": {
+    "state": {
+      "first_process_start": 1792626195.187039,
+      "cohort_finish": 1792626225.033536,
+      "source_commit": "840abc6c31e98ee4d734315ec1f5d385001b52d5",
+      "binary_sha256": "e1f5041223870d91bea838f200ec52a6ee618227f7d6cbde6b946ba1964d7d69",
+      "processes": 1800,
+      "rows_sha256": "db4921c493f92d10256d49e11c787608c19bba0977a2c1acc615bec47ff2b08c"
+    },
+    "shapes": {
+      "first_process_start": 1792626225.391063,
+      "cohort_finish": 1792626512.720094,
+      "source_commit": "840abc6c31e98ee4d734315ec1f5d385001b52d5",
+      "binary_sha256": "8e29000afce2e43df34de0e4c69d2df084854bfa26bd02fa1cd0f87ebff199e7",
+      "processes": 7296,
+      "rows_sha256": "69459e7f0cee26d83520e2c6f872365f2717474a8238f31d2e2fdfa0ec0dad25"
+    }
+  },
+  "prior_recorded_ends": {
+    "build-v26": 1792625348.8338501,
+    "state-v26s-proof-small": 1792625354.008207,
+    "state-v26s-screen": 1792625360.443289,
+    "shapes-v26-proof-small": 1792625490.792835,
+    "shapes-v26-screen": 1792625607.528329,
+    "last-log-write:evidence/tests-v27d.log": 1792625912.6341105,
+    "last-log-write:evidence/clippy-v27.log": 1792625916.135839
+  },
+  "all_prior_recorded_ends_before_serial": true,
+  "next_build_start": 1792626595.928353,
+  "pipeline_finish": 1792626512.735538,
+  "next_build_after_serial": true
+}

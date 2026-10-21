@@ -609,3 +609,24 @@ current and retained narrow views, retry succeeds, and the map continues beyond
 receive collision/model checks. No comparative timing, timed conversion or
 full-size/threaded admission is established for CompactIndexMap yet. The default
 Store, final holdout seeds and original across-the-board objective are unchanged.
+
+
+## Complete corrected sharded serial panel
+
+The v25 serial phases finished all 1,800 scalar and 7,296 generic processes with
+matching outputs: respectively 20 and 19 fixed configurations, both development
+seeds and three fresh repetitions. The recorded own build/proof/screen work and
+final validation log writes precede these serial phases; v27 compilation starts
+after the pipeline finishes. This interval audit does not certify an otherwise
+idle host or turn descriptive medians into corrected confidence bounds.
+
+No sharded configuration wins every cell. Fixed shard-shared-group-25-16 has a
+scalar read ratio of 1.108 to hashbrown and higher generic read medians in all
+eight shapes; its generic total medians are lower in eight cells and higher in
+56. The larger shard-owned-group-50-1024 is lower in 25 generic cells and higher
+in 39. The fixed array-owned-copy-low16 reference remains lower in 29 cells and
+higher in 35. The stronger std-fast control is lower than hashbrown in 11/15
+scalar and 35/64 generic cells, reinforcing the need for multiple controls.
+Complete fixed-candidate tables retain every loss. These development counts do
+not select a per-case engine or establish an overall winner. The original
+objective remains unmet, and the holdout seeds remain unused.
