@@ -21,6 +21,14 @@ def compare(folder):
             shared = candidate.replace('array-owned-', 'array-', 1)
             if shared in engines:
                 pairs.append(('inline versus shared hash builder', candidate, shared))
+        if candidate.startswith('inline-owned-'):
+            shared = candidate.replace('inline-owned-', 'inline-shared-', 1)
+            if shared in engines:
+                pairs.append(('inline versus shared hash builder', candidate, shared))
+        if candidate.startswith('inline-') and '-index-' in candidate:
+            spans = candidate.replace('-index-', '-span-', 1)
+            if spans in engines:
+                pairs.append(('indexed versus contiguous-span probing', candidate, spans))
         if candidate.startswith('array-') and '-shared-' in candidate:
             copied = candidate.replace('-shared-', '-copy-', 1)
             if copied in engines:
@@ -51,8 +59,9 @@ def compare(folder):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('folder', type=pathlib.Path)
+    parser.add_argument('--output', type=pathlib.Path)
     args = parser.parse_args()
-    output = args.folder / 'layout-comparisons.json'
+    output = args.output or args.folder / 'layout-comparisons.json'
     data = compare(args.folder)
     with output.open('x') as stream:
         json.dump(data, stream, indent=2)

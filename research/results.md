@@ -440,3 +440,26 @@ AtomicU64::fetch_update. Rust 1.85 compatibility requires the older API, so only
 that constructor statement has a documented deprecation exception. The allocation
 algorithm and measured frozen binaries are unchanged; local all-target Clippy
 passes. Both Rust 1.85 and current-stable CI remain required.
+
+## Inline-slice scalar serial comparison
+
+All 2,070 scalar serial processes completed with matching outputs: 23 fixed
+configurations, all 15 cases, two development seeds and three repetitions at 32
+measured revisions. The fixed inline-owned-index-25 candidate had a read-only
+median of 0.08956 ms per 20,000-lookups revision versus hashbrown's 0.10272 ms,
+about 12.8% lower. It had lower total medians in four cases and higher medians
+in eleven. Its sparse, burst, full-replacement and slow-reader medians were
+respectively 2.136, 1.885, 1.736 and 3.538 times hashbrown's. This is a specific
+read improvement with substantial remaining regressions, not final acceptance.
+
+The matched shared-builder/span-probing inline candidate versus the older
+probe-25-0 candidate had lower read, burst and replacement medians by about
+10.6%, 14.2% and 11.5% in this same binary's sweep. Both use the same builder
+storage and probing style; the new layout changes the Arc slice and slot
+representation. Indexed probing also improved many but not all matched cells.
+Every fixed candidate and policy contrast remains visible. Whole-process CPU,
+RSS and short-run revision-percentile diagnostics are explicitly separated from
+the measured interval and from service-capacity/tail-latency claims.
+
+The eight-shape serial comparison is still running. No holdout seed or final
+acceptance criterion has changed, and the default backend remains unselected.
