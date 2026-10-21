@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "status": "Compact-family development panel; no comparative admission yet",
+  "source_binary_version": "v27",
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "broad_candidates": [
+    "compact-wide-shared-each-25",
+    "compact-wide-shared-each-50",
+    "compact-wide-shared-each-70",
+    "compact-wide-shared-each-85",
+    "compact-wide-shared-once-25",
+    "compact-wide-shared-once-50",
+    "compact-wide-shared-once-70",
+    "compact-wide-shared-once-85",
+    "compact-wide-owned-each-25",
+    "compact-wide-owned-each-50",
+    "compact-wide-owned-each-70",
+    "compact-wide-owned-each-85",
+    "compact-wide-owned-once-25",
+    "compact-wide-owned-once-50",
+    "compact-wide-owned-once-70",
+    "compact-wide-owned-once-85",
+    "compact-adaptive-shared-each-25",
+    "compact-adaptive-shared-each-50",
+    "compact-adaptive-shared-each-70",
+    "compact-adaptive-shared-each-85",
+    "compact-adaptive-shared-once-25",
+    "compact-adaptive-shared-once-50",
+    "compact-adaptive-shared-once-70",
+    "compact-adaptive-shared-once-85",
+    "compact-adaptive-owned-each-25",
+    "compact-adaptive-owned-each-50",
+    "compact-adaptive-owned-each-70",
+    "compact-adaptive-owned-each-85",
+    "compact-adaptive-owned-once-25",
+    "compact-adaptive-owned-once-50",
+    "compact-adaptive-owned-once-70",
+    "compact-adaptive-owned-once-85"
+  ],
+  "selected_candidates": [
+    "compact-wide-owned-once-25",
+    "compact-wide-owned-once-50",
+    "compact-wide-owned-once-70",
+    "compact-wide-owned-once-85",
+    "compact-adaptive-owned-once-25",
+    "compact-adaptive-owned-once-50",
+    "compact-adaptive-owned-once-70",
+    "compact-adaptive-owned-once-85",
+    "compact-wide-shared-once-70",
+    "compact-wide-owned-each-70",
+    "compact-adaptive-shared-once-70",
+    "compact-adaptive-owned-each-70"
+  ],
+  "scalar_references": [
+    "hashbrown",
+    "std-fast",
+    "indexmap-fast",
+    "imbl-fast",
+    "imhm",
+    "inline-owned-index-25",
+    "shard-owned-group-50-1024",
+    "shard-shared-group-25-16",
+    "packed-owned-once-70",
+    "packed-owned-once-50",
+    "packed-shared-each-25",
+    "array-owned-copy-25-16"
+  ],
+  "generic_references": [
+    "hashbrown",
+    "std-fast",
+    "indexmap-fast",
+    "imbl-fast",
+    "imhm",
+    "inline-owned-index-25",
+    "shard-owned-group-50-1024",
+    "shard-shared-group-25-16",
+    "packed-owned-once-70",
+    "packed-owned-once-50",
+    "packed-shared-each-25",
+    "array-owned-copy-low16"
+  ],
+  "selection_basis": "All 32 compact policies in broad parallel proof/selection. Fixed later panels compare every fill with matched adaptive/wide owned-once policies plus shared-builder and lazy-detach contrasts at fill70. Strong matching-fast controls, original packed policies and earlier fixed layouts remain explicit. No per-case oracle envelope.",
+  "proof": {
+    "small": {
+      "records": 1000,
+      "readers": 1000,
+      "rounds": 8
+    },
+    "full_selected": {
+      "records": 20000,
+      "readers": 20000,
+      "rounds": 12
+    },
+    "thread_selected": {
+      "records": 20000,
+      "readers": 20000,
+      "rounds": 12,
+      "cases": [
+        "sparse",
+        "churn"
+      ]
+    }
+  },
+  "timing": {
+    "scalar_rounds": 32,
+    "generic_rounds": 12,
+    "serial_repetitions": 3,
+    "parallel_claim": "Development selection only; no isolated speed or final acceptance",
+    "serial_claim": "Descriptive development; unchanged holdout and corrected-confidence gate still required"
+  },
+  "initial_phases": [
+    "proof-small",
+    "screen"
+  ],
+  "remaining_required": [
+    "full-size behavior",
+    "four-reader behavior",
+    "serial comparison",
+    "timed width conversion",
+    "retention/reclamation",
+    "complete final holdout gate"
+  ],
+  "word_width_at_20000_rows": {
+    "adaptive-25": 8,
+    "adaptive-50": 4,
+    "adaptive-70": 4,
+    "adaptive-85": 4,
+    "always-wide": 8
+  }
+}

@@ -253,6 +253,14 @@
     {
       "path": "build/state-v26s",
       "reason": "Early frozen completed scalar artifact used for required packed-policy proofs and selection; deduplicate with final v26 scalar binary after hash equality is established."
+    },
+    {
+      "path": "build/state-v27",
+      "reason": "Required adaptive-versus-wide index comparative proof and measurement input; retain exact build/source binding."
+    },
+    {
+      "path": "build/shapes-v27",
+      "reason": "Required adaptive-versus-wide index comparative proof and measurement input; retain exact build/source binding."
     }
   ],
   "safe_to_remove": [
