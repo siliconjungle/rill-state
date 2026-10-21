@@ -127,10 +127,6 @@
       "reason": "Selected fast-hasher persistent competitor breadth proof and performance reproduction executable"
     },
     {
-      "path": "build/state-v15",
-      "reason": "Selected fast-hasher persistent competitor breadth proof and performance reproduction executable"
-    },
-    {
       "path": "build/shapes-v16",
       "reason": "Required shared-record layout full-size proof, threaded and serial development comparison input"
     },
@@ -167,6 +163,10 @@
     {
       "path": "build/pr-body-v15.md",
       "reason": "Completed successful PR update input; published body is retained on GitHub"
+    },
+    {
+      "path": "build/state-v15",
+      "reason": "Completed unmeasured scalar compile intermediate; v16 supersedes it for actual strengthened full-size proofs. Exact source remains in Git and successful build metadata is retained."
     }
   ]
 }
