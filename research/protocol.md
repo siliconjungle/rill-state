@@ -62,6 +62,17 @@ swap primitives are a separate publication-layer comparison, not complete state 
 Missing comparisons, compile failures, unproven contracts or any loss leave the original
 objective incomplete. Publish the public library and research with that status explicit.
 
+## Adaptive index-word experiment
+
+The [compact-index plan](compact-index-plan.md) registers 32 configurations:
+adaptive/always-wide words, four fills, both builder policies and both batch
+policies. Full keys determine identity despite truncated 16/32-bit caches. The
+same implementation supplies the always-wide control. Prove widening past the
+16-bit capacity boundary, interrupted reconstruction, old-root word widths and
+continued operation beyond 100,000 rows. Timed conversion probes are required in
+addition to steady-state 20,000-row comparisons; initial construction can already
+widen a low-fill map. All original final acceptance requirements still apply.
+
 ## Packed dense-row experiment
 
 The separate [registered plan](packed-index-plan.md) compares sixteen fixed

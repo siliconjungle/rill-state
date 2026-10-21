@@ -85,7 +85,7 @@ heap-value publication workloads, but adds pointer reads and allocations; it doe
 not improve every shape. The default Store has not switched to this prototype.
 
 Fixed-size `ArrayRecordMap` pages additionally compare copied/shared canonical
-keys and shared/inline hash-builder storage. Seventy-two contract/oracle tests and
+keys and shared/inline hash-builder storage. Eighty-five contract/oracle tests and
 Clippy pass. Full-size state/feed proofs and retained-reader probes pass for the
 registered array configurations, followed by 11,082 matching-output serial
 development runs. These layouts still lose important workloads to hashbrown.
@@ -120,6 +120,14 @@ Complete keys still determine equality. Hash truncation, explicit 32-bit index
 limits and whole-table copying are documented tradeoffs. Collision, canonical-key,
 swap-removal, retention and panic-recovery checks pass. Comparative performance
 and full-size contracts for this new family remain unproven.
+
+`CompactIndexMap` tests adaptive four/eight-byte controls against an always-wide
+control using the same dense-row implementation. Thirty-two configurations vary
+width policy, fill, builder storage and batching. Widening stages reconstruction
+hashes before changing the installed index; recovery tests retain old roots and
+continue past 100,000 rows. Local validation passes, but this family has no
+comparative performance or full-size/threaded admission yet. Its plan includes
+explicit conversion timing and keeps whole-table payload retention visible.
 
 Default study lists omit the known investigative `scc-copy` native Clone chain,
 whose capacity doubles with each copy in pinned scc 3.8.8. It is not counted as a

@@ -4,9 +4,9 @@
 mod exact;
 use rill_state::{
     experimental::{
-        ArrayRecordMap, CopyKeys, HasherPolicy, InlineSliceMap, KeyPolicy, OwnedHasher,
-        PackedIndexMap, ProbeMap, RecordMap, ShardedInlineMap, SharedHasher, SharedKeys, SharedMap,
-        SplitMap,
+        ArrayRecordMap, CompactIndexMap, CopyKeys, HasherPolicy, InlineSliceMap, KeyPolicy,
+        OwnedHasher, PackedIndexMap, ProbeMap, RecordMap, ShardedInlineMap, SharedHasher,
+        SharedKeys, SharedMap, SplitMap,
     },
     Config, Cursor, Mutation, Snapshot, Store,
 };
@@ -833,6 +833,102 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
         };
     }
     match o.engine.as_str() {
+        "compact-wide-shared-each-25" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,SharedHasher,false,false>)
+        }
+        "compact-wide-shared-each-50" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,SharedHasher,false,false>)
+        }
+        "compact-wide-shared-each-70" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,false,false>)
+        }
+        "compact-wide-shared-each-85" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,SharedHasher,false,false>)
+        }
+        "compact-wide-shared-once-25" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,SharedHasher,true,false>)
+        }
+        "compact-wide-shared-once-50" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,SharedHasher,true,false>)
+        }
+        "compact-wide-shared-once-70" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,true,false>)
+        }
+        "compact-wide-shared-once-85" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,SharedHasher,true,false>)
+        }
+        "compact-wide-owned-each-25" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,false,false>)
+        }
+        "compact-wide-owned-each-50" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,false,false>)
+        }
+        "compact-wide-owned-each-70" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,false,false>)
+        }
+        "compact-wide-owned-each-85" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,false,false>)
+        }
+        "compact-wide-owned-once-25" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,true,false>)
+        }
+        "compact-wide-owned-once-50" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,true,false>)
+        }
+        "compact-wide-owned-once-70" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,true,false>)
+        }
+        "compact-wide-owned-once-85" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,true,false>)
+        }
+        "compact-adaptive-shared-each-25" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,SharedHasher,false,true>)
+        }
+        "compact-adaptive-shared-each-50" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,SharedHasher,false,true>)
+        }
+        "compact-adaptive-shared-each-70" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,false,true>)
+        }
+        "compact-adaptive-shared-each-85" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,SharedHasher,false,true>)
+        }
+        "compact-adaptive-shared-once-25" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,SharedHasher,true,true>)
+        }
+        "compact-adaptive-shared-once-50" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,SharedHasher,true,true>)
+        }
+        "compact-adaptive-shared-once-70" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,true,true>)
+        }
+        "compact-adaptive-shared-once-85" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,SharedHasher,true,true>)
+        }
+        "compact-adaptive-owned-each-25" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,false,true>)
+        }
+        "compact-adaptive-owned-each-50" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,false,true>)
+        }
+        "compact-adaptive-owned-each-70" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,false,true>)
+        }
+        "compact-adaptive-owned-each-85" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,false,true>)
+        }
+        "compact-adaptive-owned-once-25" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,true,true>)
+        }
+        "compact-adaptive-owned-once-50" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,true,true>)
+        }
+        "compact-adaptive-owned-once-70" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,true,true>)
+        }
+        "compact-adaptive-owned-once-85" => {
+            map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,true,true>)
+        }
         "packed-shared-each-25" => {
             map!(PackedIndexMap<K,V,hashbrown::DefaultHashBuilder,25,SharedHasher,false>)
         }
@@ -1293,6 +1389,42 @@ impl<
         HP: HasherPolicy<hashbrown::DefaultHashBuilder>,
         const B: bool,
     > Map<K, V> for PackedIndexMap<K, V, hashbrown::DefaultHashBuilder, L, HP, B>
+where
+    HP::Stored: Send + Sync,
+{
+    fn new() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &K) -> Option<&V> {
+        self.get(k)
+    }
+    fn put(&mut self, k: K, v: V) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &K) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(&K, &V)) {
+        for (k, v) in self.iter() {
+            f(k, v);
+        }
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        self.apply(ops);
+    }
+}
+
+impl<
+        K: Key,
+        V: Value,
+        const L: usize,
+        HP: HasherPolicy<hashbrown::DefaultHashBuilder>,
+        const B: bool,
+        const A: bool,
+    > Map<K, V> for CompactIndexMap<K, V, hashbrown::DefaultHashBuilder, L, HP, B, A>
 where
     HP::Stored: Send + Sync,
 {

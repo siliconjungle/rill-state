@@ -1970,6 +1970,102 @@ fn main() {
         };
     }
     match o.engine.as_str() {
+        "compact-wide-shared-each-25" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,false,false>)
+        }
+        "compact-wide-shared-each-50" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::SharedHasher,false,false>)
+        }
+        "compact-wide-shared-each-70" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,false,false>)
+        }
+        "compact-wide-shared-each-85" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::SharedHasher,false,false>)
+        }
+        "compact-wide-shared-once-25" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,true,false>)
+        }
+        "compact-wide-shared-once-50" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::SharedHasher,true,false>)
+        }
+        "compact-wide-shared-once-70" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,true,false>)
+        }
+        "compact-wide-shared-once-85" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::SharedHasher,true,false>)
+        }
+        "compact-wide-owned-each-25" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,false,false>)
+        }
+        "compact-wide-owned-each-50" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,false,false>)
+        }
+        "compact-wide-owned-each-70" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,false,false>)
+        }
+        "compact-wide-owned-each-85" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,false,false>)
+        }
+        "compact-wide-owned-once-25" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,true,false>)
+        }
+        "compact-wide-owned-once-50" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,true,false>)
+        }
+        "compact-wide-owned-once-70" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,true,false>)
+        }
+        "compact-wide-owned-once-85" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,true,false>)
+        }
+        "compact-adaptive-shared-each-25" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,false,true>)
+        }
+        "compact-adaptive-shared-each-50" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::SharedHasher,false,true>)
+        }
+        "compact-adaptive-shared-each-70" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,false,true>)
+        }
+        "compact-adaptive-shared-each-85" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::SharedHasher,false,true>)
+        }
+        "compact-adaptive-shared-once-25" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,true,true>)
+        }
+        "compact-adaptive-shared-once-50" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::SharedHasher,true,true>)
+        }
+        "compact-adaptive-shared-once-70" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,true,true>)
+        }
+        "compact-adaptive-shared-once-85" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::SharedHasher,true,true>)
+        }
+        "compact-adaptive-owned-each-25" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,false,true>)
+        }
+        "compact-adaptive-owned-each-50" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,false,true>)
+        }
+        "compact-adaptive-owned-each-70" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,false,true>)
+        }
+        "compact-adaptive-owned-each-85" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,false,true>)
+        }
+        "compact-adaptive-owned-once-25" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,true,true>)
+        }
+        "compact-adaptive-owned-once-50" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,true,true>)
+        }
+        "compact-adaptive-owned-once-70" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,true,true>)
+        }
+        "compact-adaptive-owned-once-85" => {
+            dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,true,true>)
+        }
         "packed-shared-each-25" => {
             dispatch!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,false>)
         }
@@ -2749,6 +2845,49 @@ impl<
         L,
         HP,
         B,
+    >
+where
+    HP::Stored: Send + Sync,
+{
+    fn empty() -> Self {
+        Self::default()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in self.iter() {
+            f(*k, *v);
+        }
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        self.apply(ops);
+    }
+}
+
+impl<
+        const L: usize,
+        HP: rill_state::experimental::HasherPolicy<hashbrown::DefaultHashBuilder>,
+        const B: bool,
+        const A: bool,
+    > Map
+    for rill_state::experimental::CompactIndexMap<
+        Key,
+        Value,
+        hashbrown::DefaultHashBuilder,
+        L,
+        HP,
+        B,
+        A,
     >
 where
     HP::Stored: Send + Sync,

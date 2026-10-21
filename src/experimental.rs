@@ -20,6 +20,9 @@ pub use sharded_inline::ShardedInlineMap;
 #[path = "experimental/packed_index.rs"]
 mod packed_index;
 pub use packed_index::PackedIndexMap;
+#[path = "experimental/compact_index.rs"]
+mod compact_index;
+pub use compact_index::CompactIndexMap;
 
 #[derive(Clone)]
 struct Entry<K, V> {
