@@ -61,3 +61,28 @@ tradeoffs separately; an average win cannot hide an individual loss. Native atom
 swap primitives are a separate publication-layer comparison, not complete state engines.
 Missing comparisons, compile failures, unproven contracts or any loss leave the original
 objective incomplete. Publish the public library and research with that status explicit.
+
+## Expanded development data shapes
+
+The next original candidate families are cached-hash linear probing with flat or COW
+physical pages and split hash/value arrays, each generic over key/value/hasher types.
+Five occupancies (25/50/70/85/90%) and five page sizes (flat/16/64/256/1024) provide 30
+additional configurations. Add successful native adapters for contrie and leapfrog, and
+keep SCC pending until its adapter stall is resolved. A deadline/stall is never a win.
+The expanded inline suite adds exact 10%, 50% and 100% guaranteed-missing queries.
+
+A separate `shapes` executable registers six data shapes: scattered u64 or 49-byte
+String keys, each with 32-byte inline, owned 256-byte Vec, or shared Arc<[u8]> payloads.
+It measures actual Rill Store (default and selected fast hash builders) alongside
+hashbrown, imbl, imhm and the original probing candidates under the same atomic-batch,
+retained-view and exact ordered-journal contract. Initial state, traces, batch inputs,
+reader keys and warm-up are outside the interval. Each hit touches fixed-size payload
+prefix/suffix data; complete byte-content/model comparisons and feed replay remain in
+untimed proofs. Empty revisions reuse the state allocation. The initial view is pinned;
+`slow` also pins up to 16 recent revisions, matching the inline protocol.
+
+Register six key/value shapes, eight workload cases and both existing development seeds
+before screening. Use parallel 512-record exact checks first and 20,000-record selection
+runs. Generality selection complements the full primary matrix; it does not replace the
+original registered workloads or authorize a holdout claim. Every final size/shape and
+chosen engine still needs matching full-size proofs and the final serial acceptance gate.

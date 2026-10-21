@@ -11,7 +11,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
         with:
           toolchain: ${{ matrix.rust }}
-      - run: cargo test --locked --no-default-features
+      - run: cargo test --locked --no-default-features --features experimental
       - run: cargo doc --locked --no-default-features --no-deps
   comparisons:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - run: cargo bench --locked --features comparisons --no-run
       - name: Exact comparator behavior (no speed claims from shared CI)
         run: |
-          for engine in rill-4096-64 rillfast-4096-64 imbl-hash imhm rpds-hash hashbrown chunkbatch-16 vart skipdb mvcc-16; do
+          for engine in rill-4096-64 rillfast-4096-64 probe-70-0 probe-70-64 split-70 contrie-copy leapfrog-copy imbl-hash imhm rpds-hash hashbrown chunkbatch-16 vart skipdb mvcc-16; do
             cargo bench --locked --features comparisons --bench state -- --engine "$engine" --case churn --records 2000 --readers 2000 --rounds 12 --verify
           done
       - name: Concurrent publication contracts
@@ -33,3 +33,13 @@ jobs:
       - name: Investigative SwapArc baseline (known arm64 freshness failure retained)
         continue-on-error: true
         run: cargo bench --locked --features comparisons --bench publication -- --engine swap-arc --threads 8 --rounds 32 --verify
+      - name: Generic key and payload shapes
+        run: |
+          for engine in hashbrown imhm probe-flat probe-paged16 split rillfast; do
+            for shape in u64-inline string-inline u64-owned256 string-owned256 u64-shared256 string-shared256; do
+              cargo bench --locked --features comparisons --bench shapes -- --engine "$engine" --shape "$shape" --case churn --records 1000 --readers 1000 --rounds 6 --verify
+            done
+          done
+      - name: Investigative SCC adapter (bounded, not an accepted performance baseline)
+        continue-on-error: true
+        run: RILL_DIAGNOSTIC=1 cargo bench --locked --features comparisons --bench state -- --engine scc-copy --case churn --records 512 --readers 512 --rounds 16 --verify

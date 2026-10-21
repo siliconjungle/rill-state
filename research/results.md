@@ -118,3 +118,26 @@ but did not beat it. Compact sorted pages led scans; acquisition results cluster
 closely. These descriptive outcomes reinforce that the current Rill implementation
 has not passed the original goal. See `evidence/serial-v7-development` for raw timings,
 per-process medians and the registered candidate list. No holdout seeds were consumed.
+
+## Generic probing and missing-key extension
+
+The generic original probing modules are opt-in research APIs (`experimental` feature),
+not the selected default engine. They support arbitrary cloned keys/values, compatible
+borrowed keys, collision-safe lookup, resize, backward-shift deletion and retained COW
+pages. Independent String/heap-value tests include collision wraparound, repeated-key
+batches, deletes, growth, old-view immutability and final allocation release.
+
+The 157 non-stalled configurations passed 4,710 512-record complete-content/revision/
+ordered-feed checks across 15 workloads and both development seeds. This includes
+contrie and leapfrog adapters, plus 30 new original layouts. Leapfrog's reserved value
+sentinels are represented with an explicit tag so the complete 32-byte benchmark value
+space is preserved; the resulting storage cost belongs to that adapter. SCC is pending:
+its native simple API and retention probes completed, but the snapshot adapter stalled
+in the oracle phase. This is unresolved, not a claim that SCC itself is incorrect or
+slower. The executor-reset interrupted v8 runs are explicitly marked incomplete; their
+partial output is not a completed measurement or proof gate.
+
+The public Store now exposes its current cursor without snapshot acquisition and avoids
+an unnecessary root reference-count pair on empty commits. It still advances the empty
+revision and journals it. The generic data-shape performance experiment is separately
+registered and must finish before drawing any conclusion about heap/string performance.

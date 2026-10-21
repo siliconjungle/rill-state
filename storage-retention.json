@@ -83,12 +83,24 @@
       "reason": "Required strengthened snapshot-revision and empty-publication comparison proofs and development timing executable"
     },
     {
-      "path": "build/state-v8",
-      "reason": "Exact interrupted expanded probing and additional-source proof/development executable; interrupted runs are not accepted as complete"
-    },
-    {
       "path": "target",
       "reason": "Active shared required build staging reused across all implementations; retire only after work is complete"
+    },
+    {
+      "path": "build/state-v9",
+      "reason": "Completed expanded exact proofs and selected inline development comparison"
+    },
+    {
+      "path": "build/state-v10",
+      "reason": "Selected bounded adapter diagnostics and follow-up full-size proof executable"
+    },
+    {
+      "path": "build/shapes-v10",
+      "reason": "Required generic key/payload correctness and performance comparison executable"
+    },
+    {
+      "path": "examples",
+      "reason": "Required native API mismatch/reclamation reproduction inputs"
     }
   ],
   "safe_to_remove": [
@@ -99,6 +111,10 @@
     {
       "path": "build/pr-body.md",
       "reason": "Completed PR creation input; exact published PR body is retained on GitHub and the required source and proofs are committed"
+    },
+    {
+      "path": "build/state-v8",
+      "reason": "Interrupted run superseded by full v9 exact proofs on all non-stalled configurations; source and interrupted receipts are retained in Git"
     }
   ]
 }

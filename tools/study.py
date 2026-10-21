@@ -18,9 +18,10 @@ def source_hash():
     for p in sorted([ROOT/'Cargo.toml',ROOT/'Cargo.lock',*ROOT.glob('src/**/*.rs'),*ROOT.glob('benches/**/*.rs')]): h.update(p.relative_to(ROOT).as_posix().encode()+b'\0'+p.read_bytes())
     return h.hexdigest()
 def execute(task):
-    binary,engine,case,seed,records,readers,rounds,proof=task
+    binary,engine,case,seed,records,readers,rounds,proof,*extra=task
     cmd=[str(binary),'--engine',engine,'--case',case,'--seed',str(seed),'--records',str(records),'--readers',str(readers),'--rounds',str(rounds)]
     if proof: cmd+=['--verify']
+    if extra and extra[0]:cmd+=['--shape',extra[0]]
     wrapper=['/usr/bin/time','-l','-p'] if platform.system()=='Darwin' else ['/usr/bin/time','-v']
     start=time.time(); result=subprocess.run(wrapper+cmd,capture_output=True,text=True,timeout=300)
     if result.returncode: raise RuntimeError(json.dumps(dict(command=cmd,code=result.returncode,stderr=result.stderr[-3000:],stdout=result.stdout[-3000:])))
@@ -35,6 +36,7 @@ def execute(task):
         m=re.search(r'Maximum resident set size \(kbytes\): (\d+)',result.stderr)
         if m:row['max_rss_bytes']=int(m[1])*1024
     row['started_at_unix']=start
+    if len(extra)>1:row['repetition']=extra[1]
     return row
 def main():
     p=argparse.ArgumentParser();p.add_argument('mode',choices=['prove','screen','serial']);p.add_argument('--binary',type=pathlib.Path,required=True);p.add_argument('--label',required=True);p.add_argument('--workers',type=int,default=3);p.add_argument('--engines');p.add_argument('--cases');p.add_argument('--records',type=int,default=20000);p.add_argument('--readers',type=int,default=20000);p.add_argument('--rounds',type=int,default=12);p.add_argument('--repetitions',type=int,default=1);p.add_argument('--seeds',default='4815162342,2937471921');a=p.parse_args()
@@ -44,7 +46,7 @@ def main():
     seeds=[int(s)for s in a.seeds.split(',')]
     binary=a.binary.resolve(); binary_hash=hashlib.sha256(binary.read_bytes()).hexdigest()
     folder=ROOT/'evidence'/a.label;folder.mkdir(parents=True,exist_ok=False)
-    tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode=='prove')for _ in range(a.repetitions)for e,c,s in itertools.product(engines,cases,seeds)]
+    tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode=='prove',None,rep)for rep in range(a.repetitions)for e,c,s in itertools.product(engines,cases,seeds)]
     random.Random(0x51A7E).shuffle(tasks)
     workers=1 if a.mode=='serial'else a.workers
     receipt=dict(schema=1,mode=a.mode,claim='correctness'if a.mode=='prove'else'selection only'if a.mode=='screen'else'isolated timing; acceptance not implied',workers=workers,source_sha256=source_hash(),orchestrator_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),binary_sha256=binary_hash,platform=platform.platform(),machine=platform.machine(),rustc=subprocess.check_output(['rustc','-Vv'],text=True),engines=engines,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks))

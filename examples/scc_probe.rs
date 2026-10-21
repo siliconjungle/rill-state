@@ -17,8 +17,8 @@ fn main() {
         }
     });
     let map = scc::HashMap::<u64, [u64; 4]>::new();
-    for i in 0..512 {
-        map.entry_sync(i)
+    for i in 0u64..512 {
+        map.entry_sync(i.wrapping_mul(0x9e3779b97f4a7c15).rotate_left(17))
             .and_modify(|v| *v = [i; 4])
             .or_insert([i; 4]);
     }
@@ -28,8 +28,8 @@ fn main() {
         eprintln!("revision {r}: clone start");
         let next = map.clone();
         eprintln!("revision {r}: cloned");
-        for i in 0..512 {
-            next.entry_sync(i)
+        for i in 0u64..512 {
+            next.entry_sync(i.wrapping_mul(0x9e3779b97f4a7c15).rotate_left(17))
                 .and_modify(|v| *v = [r; 4])
                 .or_insert([r; 4]);
         }
@@ -40,10 +40,19 @@ fn main() {
             true
         });
         assert_eq!(count, 512);
-        for i in 0..512 {
-            assert_eq!(next.read_sync(&i, |_, v| *v), Some([r; 4]));
+        for i in 0u64..512 {
+            assert_eq!(
+                next.read_sync(
+                    &i.wrapping_mul(0x9e3779b97f4a7c15).rotate_left(17),
+                    |_, v| *v
+                ),
+                Some([r; 4])
+            );
         }
         old.push(next);
+        if old.len() > 5 {
+            old.remove(0);
+        }
         eprintln!("revision {r}: checked");
     }
     assert_eq!(map.read_sync(&0, |_, v| *v), Some([0; 4]));

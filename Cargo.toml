@@ -54,6 +54,11 @@ required-features = ["comparisons"]
 name = "scc_probe"
 required-features = ["comparisons"]
 
+[[bench]]
+name = "shapes"
+harness = false
+required-features = ["comparisons"]
+
 [profile.dev]
 debug = 0
 incremental = false

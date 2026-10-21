@@ -1275,7 +1275,9 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
             let snap = engine.snapshot();
             phase("oracle snapshot");
             assert_eq!(snap.revision(), after);
+            phase("oracle length start");
             assert_eq!(snap.len(), truth.len());
+            phase("oracle length complete");
             assert_eq!(snap.contents(), truth);
             phase("oracle contents");
             for k in &reads {
