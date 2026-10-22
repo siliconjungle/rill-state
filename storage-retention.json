@@ -341,6 +341,14 @@
     {
       "path": "build/adaptive-contracts-v2",
       "reason": "Selected required 240-policy collision/canonical/snapshot and Arc-preserving transition failure/clone/reclamation/thread proof executable."
+    },
+    {
+      "path": "build/adaptive-cold-v32t",
+      "reason": "Selected required frozen copying-versus-shared-record-transfer diagnostic and reclamation baseline; exact source, compiler, binary and inputs retained in build receipts."
+    },
+    {
+      "path": "build/retention-profile-v32t",
+      "reason": "Selected required frozen copying-versus-shared-record-transfer diagnostic and reclamation baseline; exact source, compiler, binary and inputs retained in build receipts."
     }
   ],
   "safe_to_remove": [

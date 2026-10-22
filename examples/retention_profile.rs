@@ -5,8 +5,8 @@ mod profile {
     use rill_state::{
         experimental::{
             AdaptiveMap, ArrayRecordMap, CompactIndexMap, CopyKeys, FlatMode, InlineFlat,
-            InlineSliceMap, OwnedHasher, PackedIndexMap, ProbeMap, RecordMap, ShardedInlineMap,
-            SharedFlat, SharedHasher, SharedKeys, SharedMap,
+            InlineSliceMap, OwnedHasher, PackedIndexMap, ProbeMap, RecordMap, ReuseSharedFlat,
+            ShardedInlineMap, SharedFlat, SharedHasher, SharedKeys, SharedMap,
         },
         Config, Mutation, Snapshot, Store,
     };
@@ -583,6 +583,22 @@ mod profile {
                         true,
                     >,
                 >::new(),
+                o,
+            ),
+            "adaptive-reuse-fast-1-3-drop-16-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 16, ReuseSharedFlat<0>, true>>::new(),
+                o,
+            ),
+            "adaptive-reuse-fast-1-3-drop-64-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 64, ReuseSharedFlat<0>, true>>::new(),
+                o,
+            ),
+            "adaptive-reusecache-fast-1-3-drop-16-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 16, ReuseSharedFlat<2>, true>>::new(),
+                o,
+            ),
+            "adaptive-reusecache-fast-1-3-drop-64-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 64, ReuseSharedFlat<2>, true>>::new(),
                 o,
             ),
             "compact-adaptive-owned-once-25" => run(

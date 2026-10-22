@@ -4,7 +4,7 @@
 #[cfg(feature = "comparisons")]
 mod cold {
     use rill_state::{
-        experimental::{AdaptiveMap, FlatMode, InlineFlat, RecordMap, SharedFlat},
+        experimental::{AdaptiveMap, FlatMode, InlineFlat, RecordMap, ReuseSharedFlat, SharedFlat},
         Mutation,
     };
     use std::{
@@ -408,6 +408,8 @@ mod cold {
                 "inline" => policy::<K, V, InlineFlat>(o, &p),
                 "shared" => policy::<K, V, SharedFlat<0>>(o, &p),
                 "cache" => policy::<K, V, SharedFlat<2>>(o, &p),
+                "reuse" => policy::<K, V, ReuseSharedFlat<0>>(o, &p),
+                "reusecache" => policy::<K, V, ReuseSharedFlat<2>>(o, &p),
                 _ => panic!("unknown mode"),
             };
             return;

@@ -21,7 +21,7 @@ def validate_row(row):
         assert row['cached_records_current'] in [0,row['records']]
         if row['scans_per_revision']==0:
             assert row['cached_records_distinct_revisions']==0
-        if row['engine'].startswith('adaptive-cache-') and row['scans_per_revision']>=2:
+        if row['engine'].startswith(('adaptive-cache-', 'adaptive-reusecache-')) and row['scans_per_revision']>=2:
             assert row['cached_records_current']==row['records']
             revisions=max(1,min(row['window'],row['rounds']))+int(row['pin_initial'])
             assert row['cached_records_distinct_revisions']==revisions*row['records']

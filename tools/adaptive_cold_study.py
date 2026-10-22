@@ -28,7 +28,7 @@ def validate_rows(rows, engine, shape, seed, records):
     adaptive = engine.startswith('adaptive-')
     if adaptive:
         _, mode, builder, threshold, delay, gate, page, direction = engine.split('-')
-        assert mode in ['inline', 'shared', 'cache'] and builder == 'fast'
+        assert mode in ['inline', 'shared', 'cache', 'reuse', 'reusecache'] and builder == 'fast'
         assert threshold == '1' and gate == 'drop' and page in ['16', '64']
         assert delay in ['1', '3'] and direction in ['oneway', 'reset']
         delay = int(delay)
@@ -59,7 +59,7 @@ def validate_rows(rows, engine, shape, seed, records):
         assert row['batch_ns'] == 0 if step == 0 else row['batch_ns'] > 0
         for scan in [1, 2, 3]:
             assert row[f'scan{scan}_ns'] > 0
-            expected_cache = records if adaptive and mode == 'cache' and scan >= 2 else 0
+            expected_cache = records if adaptive and mode in ['cache', 'reusecache'] and scan >= 2 else 0
             assert row[f'cache_after_scan{scan}'] == expected_cache
 
 
