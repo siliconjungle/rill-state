@@ -231,7 +231,7 @@ The ordered-cache smoke cohort passes all 840 cold and 400 memory processes,
 including independent full-value/checksum/cache and reclamation audits. The
 5,880-process full-size cold and 600-case memory studies are running. A separate
 85-configuration whole-engine panel includes all forty original fixed policies,
-thirty-two ordering variants and thirteen references; its scalar/generic and
-four-reader proofs and development comparisons remain in progress. Public API
+thirty-two ordering variants and thirteen references; its 13,430 small scalar/generic proofs pass, while full-size/four-reader proofs
+and development comparisons remain in progress. Public API
 promotion still requires the [contract coverage checks](research/contract-coverage.md)
 and unchanged final performance gate.

@@ -1001,3 +1001,8 @@ with the original exact scalar/generic and four-reader harnesses. Small proof
 and screen phases each contain 13,430 fresh processes. Full-size and actual
 four-reader behavior are separate required phases. No ordering default or
 performance acceptance is selected.
+
+The v36o small proof phase now completes all 13,430 exact scalar/generic
+processes with an independent tuple/input/binary/driver audit. Full-size,
+four-reader and development-selection phases remain active; no ordering
+performance acceptance follows from these behavior checks.
