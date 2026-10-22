@@ -157,10 +157,11 @@ against an extra Arc envelope, uniformly for both experimental maps and upstream
 persistent maps. Twenty-five native ownership variants retain their matched Arc
 controls. Actual PVec vector/index and OrderMap adapters are included; branch32
 and branch4 require separate frozen binaries. Native API and collision/model
-checks pass, and the first complete-engine selection panel finishes 10,902 small proofs and
-10,902 parallel timings. Lookup and acquisition losses remain; full-size proofs
-and separate branch4 comparisons are pending. Neither the
-default Store nor the final acceptance gate has changed.
+checks pass. Both branch panels complete 10,902 small proofs and 10,902 parallel
+selection processes, plus their selected 1,650-process full-size scalar proofs.
+Lookup and acquisition losses remain; generic full-size and threaded admission
+are still in progress. Neither the default Store nor the final acceptance gate
+has changed.
 
 A separate safe grouped-byte prototype under `research/group-byte-index-proof`
 passes its raw-map/model/recovery/threading checks and completes a 336-process
@@ -176,6 +177,10 @@ caches retain record handles, preserving the same value instances as lookup and
 cloning no payloads on reads. Shared cache-disabled controls expose the allocation
 and indirection tradeoffs. The local suite passes 97 tests, including ten adaptive
 checks over all 144 raw policies. A dedicated 300-engine development panel (288
-builder/configuration variants plus 12 fixed controls) is building. Its full
-revision/feed, performance, cold-transition and retention admission remain pending.
-The selected Store backend is unchanged.
+builder/configuration variants plus 12 fixed controls) has frozen optimized
+executables and passes 9,000 independently audited small scalar engine proofs.
+Separate cold diagnostics pass 360 processes at 20,000 records across six shapes;
+568 smaller cold/retention processes also pass. Proof-only diagnostic timings are
+excluded from speed rankings. Generic/full-size/threaded engine checks and the
+optimized full diagnostic cohorts are running. Performance admission remains
+open; see `research/results.md`. The selected Store backend is unchanged.

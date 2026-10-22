@@ -21,10 +21,10 @@ dropping the final roots/journal/cache owners releases all tracked payloads.
 The cache counters count shared handles, not total heap bytes.
 
 These are smoke correctness proofs. Their unoptimized example executables reuse
-completed optimized Cargo library artifacts while the independent optimized
-Cargo diagnostic builds remain queued. Receipts bind source, compiler, commands
+completed optimized Cargo library artifacts. The independent optimized Cargo
+diagnostic builds are complete and their full cohorts are running. Receipts bind source, compiler, commands
 and dependency artifact hashes. Smoke timings are excluded from speed rankings.
-The full registered 20,000-record diagnostic cohorts, the adaptive full-engine
+The optimized registered 20,000-record diagnostic cohorts, the adaptive full-engine
 comparison and final isolated holdout acceptance remain pending. See
 `evidence/adaptive-cold-v30smoke-audit.json`,
 `evidence/retention-v30smoke-audit.json` and
