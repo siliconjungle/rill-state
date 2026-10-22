@@ -727,3 +727,13 @@ all-miss 0.757. Its String read ratio is 2.675. Fixed group-fast-70-8 loses all 
 cells; fixed group-sip-50-16 is lower in four but has a u64 read ratio of 1.824.
 All losses remain visible. No prototype is promoted and no per-case winner is
 selected. The default Store and holdout seeds remain unchanged.
+
+The separately compiled v29 branch4 panel also completes 10,902 audited small
+proof processes and 10,902 matching-output parallel selections. The actual Cargo
+compiler-artifact feature audit confirms arc in both builds and small_branch only
+in v29, with identical committed root inputs. Compare each PVec policy to its
+matching controls within the same binary; raw times across builds do not isolate
+branch factor. Complete fixed-policy tables remain in the branch review. The v28
+full-size scalar panel additionally passes all 1,650 selected exact checks and an
+independent audit. Generic/threaded full-size phases for both branches are now
+running. No serial or final performance acceptance follows.
