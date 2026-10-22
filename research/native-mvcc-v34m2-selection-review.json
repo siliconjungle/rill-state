@@ -1,0 +1,196 @@
+{
+  "claim": "Complete parallel scalar development screen; all output signatures independently rechecked. No isolated confidence, generic-payload, native multiwriter-throughput or final admission. Native Rc/RefCell acquisition stays on its owning thread and is not a transferable snapshot score.",
+  "source_commit": "2bcf226402f760787feb4d1f423d9ff5ebd64066",
+  "binary_sha256": "8de41c0a583874b73369f8dfb9c6d078d8a39d1f7462e4f3be74b93b0081f094",
+  "processes": 660,
+  "inputs_sha256": {
+    "evidence/state-v34m2-screen/runs.jsonl": "0924be19a10a44ad1d9ea994129e0d04f666c6fbd78290535d5cde6eefb883bd",
+    "evidence/state-v34m2-screen/selection-medians.json": "914c394d855bc4e82b2cd7fe7d581406f5fcefc7d29794569006b4419fcb1fb0"
+  },
+  "fixed_candidates": [
+    {
+      "engine": "mvcc-native-export-btree-each",
+      "capability_group": "transferable-exported-view",
+      "lower_observed_medians": 3,
+      "higher_observed_medians": 12,
+      "ratios": {
+        "acquire": 0.9889360584805689,
+        "burst": 32.4517975540629,
+        "churn": 17.97206956535003,
+        "feed": 15.679030724714101,
+        "hot": 20.69346910238511,
+        "idle": 0.918966187329965,
+        "miss10": 11.388332006207131,
+        "miss100": 18.330969710182064,
+        "miss50": 14.04921058872298,
+        "read": 11.95580033841042,
+        "replace": 20.95640345242737,
+        "scan": 0.9275484020483266,
+        "single": 19.391231816361937,
+        "slow": 12.18210729219313,
+        "sparse": 20.2512011960623
+      }
+    },
+    {
+      "engine": "mvcc-native-export-btree-last",
+      "capability_group": "transferable-exported-view",
+      "lower_observed_medians": 3,
+      "higher_observed_medians": 12,
+      "ratios": {
+        "acquire": 0.9863548553506375,
+        "burst": 24.085806387266675,
+        "churn": 17.17505673920684,
+        "feed": 14.012738263338797,
+        "hot": 20.426682161162397,
+        "idle": 0.8138359891177614,
+        "miss10": 10.965810459543464,
+        "miss100": 17.87307615651588,
+        "miss50": 14.907900025727653,
+        "read": 12.641454411046663,
+        "replace": 27.248619471500543,
+        "scan": 0.9769647015462968,
+        "single": 19.692580637986133,
+        "slow": 12.129623333204107,
+        "sparse": 19.26388281606875
+      }
+    },
+    {
+      "engine": "mvcc-native-export-hashbrown-each",
+      "capability_group": "transferable-exported-view",
+      "lower_observed_medians": 2,
+      "higher_observed_medians": 13,
+      "ratios": {
+        "acquire": 0.991624811740914,
+        "burst": 19.549732246907503,
+        "churn": 3.898437137534821,
+        "feed": 5.7703714423333405,
+        "hot": 4.70895455626557,
+        "idle": 0.8177225029148854,
+        "miss10": 1.0218034019499724,
+        "miss100": 1.0162903865301527,
+        "miss50": 1.0553817663262102,
+        "read": 1.1196248172480439,
+        "replace": 11.375201083678478,
+        "scan": 1.0064861816130852,
+        "single": 4.100967713234861,
+        "slow": 2.880970429920047,
+        "sparse": 4.413189094348111
+      }
+    },
+    {
+      "engine": "mvcc-native-export-hashbrown-last",
+      "capability_group": "transferable-exported-view",
+      "lower_observed_medians": 2,
+      "higher_observed_medians": 13,
+      "ratios": {
+        "acquire": 1.0759341006973329,
+        "burst": 13.49799382694591,
+        "churn": 4.230607457479755,
+        "feed": 6.016418704915368,
+        "hot": 4.6672706741578684,
+        "idle": 0.720559657986786,
+        "miss10": 1.2183348806437913,
+        "miss100": 0.9914119992333734,
+        "miss50": 1.025515355132856,
+        "read": 1.045598305547033,
+        "replace": 18.50133475524859,
+        "scan": 1.0395257799891664,
+        "single": 4.400052055753829,
+        "slow": 3.41695291596726,
+        "sparse": 4.640381560915779
+      }
+    },
+    {
+      "engine": "mvcc-native-export-stdfast-each",
+      "capability_group": "transferable-exported-view",
+      "lower_observed_medians": 2,
+      "higher_observed_medians": 13,
+      "ratios": {
+        "acquire": 0.9941896969200239,
+        "burst": 21.019236027356417,
+        "churn": 4.0673955639505355,
+        "feed": 5.184347329375403,
+        "hot": 4.271854568265481,
+        "idle": 0.8218033424018656,
+        "miss10": 1.0185027023316997,
+        "miss100": 1.1277176672968812,
+        "miss50": 1.0468633333102684,
+        "read": 1.162640237786223,
+        "replace": 11.328555783733902,
+        "scan": 1.021347439312459,
+        "single": 4.032885890630538,
+        "slow": 2.88899222599704,
+        "sparse": 4.698674580812434
+      }
+    },
+    {
+      "engine": "mvcc-native-export-stdfast-last",
+      "capability_group": "transferable-exported-view",
+      "lower_observed_medians": 1,
+      "higher_observed_medians": 14,
+      "ratios": {
+        "acquire": 1.1882902384905598,
+        "burst": 13.757016233309438,
+        "churn": 4.351243813662788,
+        "feed": 5.746351617811025,
+        "hot": 4.8159971746317565,
+        "idle": 0.8298678585308977,
+        "miss10": 1.006171265851331,
+        "miss100": 1.007348394737815,
+        "miss50": 1.0251615212404124,
+        "read": 1.1270462845065146,
+        "replace": 18.488909195713987,
+        "scan": 1.0100922528801104,
+        "single": 4.5065358492298895,
+        "slow": 3.1337570649633997,
+        "sparse": 5.027953171688442
+      }
+    },
+    {
+      "engine": "mvcc-native-scoped-each",
+      "capability_group": "owner-thread-native-session",
+      "lower_observed_medians": 2,
+      "higher_observed_medians": 13,
+      "ratios": {
+        "acquire": 1.0647774435482347,
+        "burst": 17.629833166747424,
+        "churn": 3.320386328695262,
+        "feed": 0.9674033042303348,
+        "hot": 3.8904501547413655,
+        "idle": 0.7570928876797514,
+        "miss10": 5.112854666521483,
+        "miss100": 5.661926246628479,
+        "miss50": 5.2746021491713355,
+        "read": 5.340484098311549,
+        "replace": 9.80800061507644,
+        "scan": 10.742505849569728,
+        "single": 3.655607240593012,
+        "slow": 2.182082593859488,
+        "sparse": 3.691028065974808
+      }
+    },
+    {
+      "engine": "mvcc-native-scoped-last",
+      "capability_group": "owner-thread-native-session",
+      "lower_observed_medians": 0,
+      "higher_observed_medians": 15,
+      "ratios": {
+        "acquire": 1.0737552834001565,
+        "burst": 10.454014008385718,
+        "churn": 3.296910501726486,
+        "feed": 1.0192339609331587,
+        "hot": 3.710444126043615,
+        "idle": 1.0648076175670425,
+        "miss10": 5.051906030175908,
+        "miss100": 5.806111508447977,
+        "miss50": 5.518681485963959,
+        "read": 5.624144447257862,
+        "replace": 18.45964146307371,
+        "scan": 10.956454909450335,
+        "single": 3.4671697168253095,
+        "slow": 2.2337482687126067,
+        "sparse": 3.6870118558522815
+      }
+    }
+  ]
+}

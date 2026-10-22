@@ -417,7 +417,7 @@
       "license": "MIT OR Apache-2.0",
       "source": "https://docs.rs/crate/mvcc-core/0.1.0/source/",
       "published_checksum": "39fdb1d983e5dcb88197085e3aeb3cee2cbe983ea1e576e058a1d3a8d1e7b6dc",
-      "in_lock": false,
+      "in_lock": true,
       "audited_files_sha256": {
         "Cargo.toml": "c4974443f929327eccc192c071c9f5ebd0c64b40606c097fb0a36a34b53a38f7",
         "Cargo.toml.orig": "fe496121ae77ab810cac1a1cb7c14c73bc5416d41053d94610fec0e7f7e635f8",
