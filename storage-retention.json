@@ -337,6 +337,10 @@
     {
       "path": "build/state-v31admit",
       "reason": "Required actual CHashMap/Crossbeam scalar snapshot/feed admission and selected comparison executable; exact source/compiler/dependency/flags retained."
+    },
+    {
+      "path": "build/adaptive-contracts-v2",
+      "reason": "Selected required 240-policy collision/canonical/snapshot and Arc-preserving transition failure/clone/reclamation/thread proof executable."
     }
   ],
   "safe_to_remove": [
@@ -611,6 +615,14 @@
     {
       "path": "evidence/admission-clippy-v1.log",
       "reason": "Completed initial lint pass superseded by selected v2 check of the formatted adapter source; no unique required failure or proof."
+    },
+    {
+      "path": "evidence/shared-transition-tests-v1.log",
+      "reason": "Completed intermediate test passes superseded by selected final 100-test core run and exact frozen 240-policy proof; no unique failure."
+    },
+    {
+      "path": "evidence/shared-transition-tests-v2.log",
+      "reason": "Completed intermediate test passes superseded by selected final 100-test core run and exact frozen 240-policy proof; no unique failure."
     }
   ]
 }

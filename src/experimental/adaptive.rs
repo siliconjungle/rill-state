@@ -1,5 +1,5 @@
 //! Data-driven flat/paged COW research. Raw batches are not transactions.
-use super::{RecordMap, SharedRecord};
+use super::{RecordHandle, RecordMap, SharedRecord};
 use crate::Mutation;
 use std::{
     borrow::Borrow,
@@ -52,10 +52,24 @@ pub trait FlatMode<K: Clone + Hash + Eq, V: Clone, S: BuildHasher + Clone> {
     type Data: Clone;
     /// Complete traversal requests before caching shared records; zero disables it.
     const SCAN_AFTER: usize;
+    /// Whether layout transitions can transfer immutable shared records.
+    const SHARED_TRANSITIONS: bool = false;
     /// Construct empty flat storage with the supplied builder.
     fn new(hasher: S) -> Self::Data;
     /// Build flat storage from owned canonical rows without cloning their values.
     fn from_entries(hasher: S, entries: impl Iterator<Item = (K, V)>) -> Self::Data;
+    /// Build from unique canonical records. Default policies clone their K/V.
+    fn from_shared_records(
+        hasher: S,
+        records: impl Iterator<Item = Arc<SharedRecord<K, V>>>,
+    ) -> Self::Data {
+        Self::from_entries(hasher, records.map(|r| (r.key.clone(), r.value.clone())))
+    }
+    /// Visit all unique primary shared records when SHARED_TRANSITIONS is true.
+    /// Policies enabling that flag must override this method.
+    fn visit_shared_records(_data: &Self::Data, _f: impl FnMut(&Arc<SharedRecord<K, V>>)) {
+        panic!("flat policy does not expose shared records")
+    }
     /// Borrow the builder for a staged flat-to-paged conversion.
     fn hasher(data: &Self::Data) -> &S;
     /// Number of live bindings.
@@ -146,6 +160,10 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher + Clone> FlatMode<K, V, S> f
 /// Lookup keys are duplicated. This changes allocation/indirection costs and
 /// must not be presented as the same representation as `InlineFlat`.
 pub struct SharedFlat<const AFTER: usize>;
+/// Shared-flat control with Arc-preserving layout transitions. Unchanged payloads
+/// are not cloned during conversion; allocating lookup keys can still be cloned.
+/// This opt-in research policy is not the selected Store backend.
+pub struct ReuseSharedFlat<const AFTER: usize>;
 /// Implementation data for the unstable shared-record flat policy.
 pub struct SharedFlatData<K, V, S> {
     map: HashMap<K, Arc<SharedRecord<K, V>>, S>,
@@ -255,6 +273,73 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher + Clone, const A: usize> Fla
     }
     fn cache_len(data: &Self::Data) -> usize {
         data.cache.len()
+    }
+}
+impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher + Clone, const A: usize> FlatMode<K, V, S>
+    for ReuseSharedFlat<A>
+{
+    type Data = SharedFlatData<K, V, S>;
+    const SCAN_AFTER: usize = A;
+    const SHARED_TRANSITIONS: bool = true;
+    fn new(hasher: S) -> Self::Data {
+        SharedFlat::<A>::new(hasher)
+    }
+    fn from_entries(hasher: S, entries: impl Iterator<Item = (K, V)>) -> Self::Data {
+        SharedFlat::<A>::from_entries(hasher, entries)
+    }
+    fn from_shared_records(
+        hasher: S,
+        records: impl Iterator<Item = Arc<SharedRecord<K, V>>>,
+    ) -> Self::Data {
+        use std::collections::hash_map::Entry;
+        let mut data = Self::new(hasher);
+        data.map.reserve(records.size_hint().0);
+        for record in records {
+            match data.map.entry(record.key.clone()) {
+                Entry::Vacant(slot) => {
+                    slot.insert(record);
+                }
+                Entry::Occupied(_) => panic!("shared transition requires unique canonical keys"),
+            }
+        }
+        data
+    }
+    fn visit_shared_records(data: &Self::Data, mut f: impl FnMut(&Arc<SharedRecord<K, V>>)) {
+        for record in data.map.values() {
+            f(record);
+        }
+    }
+    fn hasher(data: &Self::Data) -> &S {
+        SharedFlat::<A>::hasher(data)
+    }
+    fn len(data: &Self::Data) -> usize {
+        SharedFlat::<A>::len(data)
+    }
+    fn get<'a, Q: Hash + Eq + ?Sized>(data: &'a Self::Data, key: &Q) -> Option<&'a V>
+    where
+        K: Borrow<Q>,
+    {
+        SharedFlat::<A>::get(data, key)
+    }
+    fn apply(data: &mut Self::Data, ops: &[Mutation<K, V>]) {
+        SharedFlat::<A>::apply(data, ops);
+    }
+    fn visit_primary<'a>(data: &'a Self::Data, f: impl FnMut(&'a K, &'a V))
+    where
+        K: 'a,
+        V: 'a,
+    {
+        SharedFlat::<A>::visit_primary(data, f);
+    }
+    fn visit<'a>(data: &'a Self::Data, f: impl FnMut(&'a K, &'a V))
+    where
+        K: 'a,
+        V: 'a,
+    {
+        SharedFlat::<A>::visit(data, f);
+    }
+    fn cache_len(data: &Self::Data) -> usize {
+        SharedFlat::<A>::cache_len(data)
     }
 }
 struct PagedData<K, V, S, const P: usize> {
@@ -445,10 +530,12 @@ impl<
         if large {
             self.qualifying = 0;
             if let Root::Paged(data) = &self.root {
-                let flat = F::from_entries(
-                    data.map.inner.hasher.as_ref().clone(),
-                    data.map.iter().map(|(k, v)| (k.clone(), v.clone())),
-                );
+                let hasher = data.map.inner.hasher.as_ref().clone();
+                let flat = if F::SHARED_TRANSITIONS {
+                    F::from_shared_records(hasher, data.map.inner.iter().map(|(r, ())| r.0.clone()))
+                } else {
+                    F::from_entries(hasher, data.map.iter().map(|(k, v)| (k.clone(), v.clone())))
+                };
                 self.root = Root::Flat(Arc::new(flat));
             }
         }
@@ -466,9 +553,15 @@ impl<
             };
             if self.qualifying >= D {
                 let mut map = RecordMap::with_hasher(F::hasher(data).clone());
-                F::visit_primary(data, |k, v| {
-                    map.insert(k.clone(), v.clone());
-                });
+                if F::SHARED_TRANSITIONS {
+                    F::visit_shared_records(data, |record| {
+                        map.inner.insert(RecordHandle(record.clone()), ());
+                    });
+                } else {
+                    F::visit_primary(data, |k, v| {
+                        map.insert(k.clone(), v.clone());
+                    });
+                }
                 self.root = Root::Paged(Arc::new(PagedData {
                     map,
                     cache: ScanCache::new(),

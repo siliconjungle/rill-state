@@ -1,6 +1,6 @@
 #![cfg(feature = "experimental")]
 use rill_state::{
-    experimental::{AdaptiveMap, FlatMode, InlineFlat, SharedFlat},
+    experimental::{AdaptiveMap, FlatMode, InlineFlat, ReuseSharedFlat, SharedFlat},
     Mutation,
 };
 use std::{
@@ -162,7 +162,7 @@ fn policy<
     assert_eq!(contents(&map), model);
 }
 #[test]
-fn all_one_hundred_forty_four_policies_match_collisions_canonical_keys_and_retained_values() {
+fn all_two_hundred_forty_policies_match_collisions_canonical_keys_and_retained_values() {
     macro_rules! mode {
         ($t:literal,$d:literal,$b:literal,$p:literal) => {
             policy::<$t, $d, $b, $p, InlineFlat, false>();
@@ -171,6 +171,10 @@ fn all_one_hundred_forty_four_policies_match_collisions_canonical_keys_and_retai
             policy::<$t, $d, $b, $p, SharedFlat<0>, true>();
             policy::<$t, $d, $b, $p, SharedFlat<2>, false>();
             policy::<$t, $d, $b, $p, SharedFlat<2>, true>();
+            policy::<$t, $d, $b, $p, ReuseSharedFlat<0>, false>();
+            policy::<$t, $d, $b, $p, ReuseSharedFlat<0>, true>();
+            policy::<$t, $d, $b, $p, ReuseSharedFlat<2>, false>();
+            policy::<$t, $d, $b, $p, ReuseSharedFlat<2>, true>();
         };
     }
     macro_rules! pages {
@@ -463,6 +467,106 @@ fn flat_and_paged_caches_preserve_value_identity_without_cloning_payloads() {
     caches::<InlineFlat>();
     caches::<SharedFlat<0>>();
     caches::<SharedFlat<2>>();
+    caches::<ReuseSharedFlat<0>>();
+    caches::<ReuseSharedFlat<2>>();
+}
+
+fn transfers<F: FlatMode<u64, Value, Builder>>() {
+    let live = Arc::new(AtomicUsize::new(0));
+    let clones = Arc::new(AtomicUsize::new(0));
+    let fail = Arc::new(AtomicBool::new(false));
+    {
+        let mut map = AdaptiveMap::<u64, Value, Builder, 100, 1, false, 16, F>::default();
+        map.apply(
+            &(0..128)
+                .map(|id| Mutation::Put(id, Value::new(id, &live, &clones, &fail)))
+                .collect::<Vec<_>>(),
+        );
+        let initial = map.clone();
+        fail.store(true, Ordering::SeqCst); // Unchanged payload 17 must never be cloned.
+        let before = clones.load(Ordering::SeqCst);
+        map.apply(&[Mutation::Put(0, Value::new(999, &live, &clones, &fail))]);
+        assert!(map.is_paged());
+        assert_eq!(clones.load(Ordering::SeqCst) - before, 1);
+        assert!(std::ptr::eq(
+            initial.get(&17).unwrap(),
+            map.get(&17).unwrap()
+        ));
+        map.visit(|_, _| {});
+        map.visit(|_, _| {});
+        let paged = map.clone();
+        let large: Vec<_> = (64..128)
+            .map(|id| Mutation::Put(id, Value::new(id + 1000, &live, &clones, &fail)))
+            .collect();
+        let before = clones.load(Ordering::SeqCst);
+        map.apply(&large);
+        assert!(!map.is_paged());
+        assert_eq!(clones.load(Ordering::SeqCst) - before, 64);
+        assert!(std::ptr::eq(
+            initial.get(&17).unwrap(),
+            map.get(&17).unwrap()
+        ));
+        assert_eq!(map.cached_records(), 0);
+        map.visit(|_, _| {});
+        map.visit(|_, _| {});
+        for id in 0..128 {
+            assert_eq!(initial.get(&id).unwrap().id, id);
+            assert_eq!(paged.get(&id).unwrap().id, if id == 0 { 999 } else { id });
+            assert_eq!(
+                map.get(&id).unwrap().id,
+                if id == 0 {
+                    999
+                } else if id >= 64 {
+                    id + 1000
+                } else {
+                    id
+                }
+            );
+        }
+    }
+    assert_eq!(live.load(Ordering::SeqCst), 0);
+}
+#[test]
+fn shared_transitions_clone_only_delta_payloads_preserve_instances_and_reclaim_every_owner() {
+    transfers::<ReuseSharedFlat<0>>();
+    transfers::<ReuseSharedFlat<2>>();
+}
+
+fn transfer_delta_failure<F: FlatMode<u64, Value, Builder>>() {
+    let live = Arc::new(AtomicUsize::new(0));
+    let clones = Arc::new(AtomicUsize::new(0));
+    let fail = Arc::new(AtomicBool::new(false));
+    {
+        let mut current = AdaptiveMap::<u64, Value, Builder, 100, 1, false, 16, F>::default();
+        current.apply(
+            &(0..128)
+                .map(|id| Mutation::Put(id, Value::new(id, &live, &clones, &fail)))
+                .collect::<Vec<_>>(),
+        );
+        let old = current.clone();
+        fail.store(true, Ordering::SeqCst);
+        assert!(catch_unwind(AssertUnwindSafe(|| {
+            let mut staged = current.clone();
+            staged.apply(&[
+                Mutation::Put(0, Value::new(999, &live, &clones, &fail)),
+                Mutation::Put(1, Value::new(17, &live, &clones, &fail)),
+            ]);
+            current = staged;
+        }))
+        .is_err());
+        assert!(!current.is_paged());
+        assert_eq!(live.load(Ordering::SeqCst), 128);
+        for id in 0..128 {
+            assert_eq!(current.get(&id).unwrap().id, id);
+            assert_eq!(old.get(&id).unwrap().id, id);
+        }
+    }
+    assert_eq!(live.load(Ordering::SeqCst), 0);
+}
+#[test]
+fn failed_delta_after_shared_transfer_never_installs_partial_publication() {
+    transfer_delta_failure::<ReuseSharedFlat<0>>();
+    transfer_delta_failure::<ReuseSharedFlat<2>>();
 }
 #[test]
 fn failed_conversion_reclaims_partial_values_and_preserves_published_roots() {
@@ -539,6 +643,8 @@ fn four_actual_readers_keep_twenty_thousand_records_during_conversion() {
     threaded::<InlineFlat>();
     threaded::<SharedFlat<0>>();
     threaded::<SharedFlat<2>>();
+    threaded::<ReuseSharedFlat<0>>();
+    threaded::<ReuseSharedFlat<2>>();
 }
 
 #[derive(Default)]
@@ -758,4 +864,52 @@ fn reverse_key_clone_and_hash_failures_leave_published_paged_roots_usable() {
     reverse_key_failures::<InlineFlat>();
     reverse_key_failures::<SharedFlat<0>>();
     reverse_key_failures::<SharedFlat<2>>();
+    reverse_key_failures::<ReuseSharedFlat<0>>();
+    reverse_key_failures::<ReuseSharedFlat<2>>();
+}
+
+fn transfer_hash_failure<F: FlatMode<FaultKey, Vec<u8>, Builder>>() {
+    let faults = Arc::new(KeyFaults::default());
+    let key = |id| FaultKey {
+        id,
+        faults: faults.clone(),
+    };
+    let mut current = AdaptiveMap::<FaultKey, Vec<u8>, Builder, 100, 1, false, 16, F>::default();
+    current.apply(
+        &(0..128)
+            .map(|id| Mutation::Put(key(id), vec![id as u8; 257]))
+            .collect::<Vec<_>>(),
+    );
+    let old = current.clone();
+    faults.hash.store(true, Ordering::SeqCst);
+    assert!(catch_unwind(AssertUnwindSafe(|| {
+        let mut staged = current.clone();
+        staged.apply(&[Mutation::Put(key(0), vec![99; 257])]);
+        current = staged;
+    }))
+    .is_err());
+    faults.hash.store(false, Ordering::SeqCst);
+    assert!(!current.is_paged());
+    assert_eq!(current.len(), 128);
+    for id in 0..128 {
+        assert_eq!(current.get(&id), Some(&vec![id as u8; 257]));
+        assert_eq!(old.get(&id), Some(&vec![id as u8; 257]));
+    }
+    faults.clone.store(true, Ordering::SeqCst);
+    let mut staged = current.clone();
+    staged.apply(&[Mutation::Put(key(0), vec![99; 257])]);
+    current = staged;
+    assert!(current.is_paged());
+    assert!(std::ptr::eq(
+        current.get(&17).unwrap(),
+        old.get(&17).unwrap()
+    ));
+    assert_eq!(old.get(&0), Some(&vec![0; 257]));
+    assert_eq!(current.get(&0), Some(&vec![99; 257]));
+    faults.clone.store(false, Ordering::SeqCst);
+}
+#[test]
+fn failed_shared_rehash_preserves_roots_and_forward_transfer_avoids_unchanged_key_clones() {
+    transfer_hash_failure::<ReuseSharedFlat<0>>();
+    transfer_hash_failure::<ReuseSharedFlat<2>>();
 }
