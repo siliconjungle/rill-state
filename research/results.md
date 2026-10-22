@@ -4,6 +4,37 @@ The original objective (generic public Rust library outperforming every applicab
 competitor across the registered workloads) is **not achieved**. This document records
 progress, not acceptance. The public implementation is experimental.
 
+## Additional native backends and shared-record transfers
+
+The 22-engine scalar admission panel now completes 660 small and 660 full-size
+state/revision/ordered-feed proofs, 88 actual four-reader probes and 660 parallel
+development selections with matching outputs. It uses actual chashmap and
+crossbeam-skiplist packages, with ten copying/scanning/batching configurations
+and twelve fixed controls. The native-map selection review preserves every
+fixed candidate and loss. Generic scoped-read admission and isolated/final
+timings remain pending; native concurrent-writer throughput is not ranked.
+
+The branch32 v28 panel now completes all 10,670 selected full-size and threaded
+proof processes, independently audited. Branch4 generic/threaded work remains
+in progress. The adaptive v30 panel completes all 47,400 small scalar/generic
+proofs and 1,080 selected full-size scalar proofs. Its optimized raw cold panel
+completes 2,520 processes and 40,320 independently audited rows. Those parallel
+raw timings include substantial conversion costs and do not establish final
+engine admission or service latency.
+
+The audited uncached 20,000-record memory fixture identifies 20,000 extra payload
+clones during shared-flat conversion. The opt-in ReuseSharedFlat policy now
+transfers existing immutable record handles in both directions, keeping the
+copying policies as controls. All 100 core/experimental tests and all-target
+admission Clippy pass. Thirteen source-bound frozen tests cover 240 raw policies,
+unchanged-value clone bombs and pointer identity, changed-value clone counts,
+partial deltas, rehash/reverse key failures and final tracked-value release.
+Four actual readers cover five representative modes at 20,000 records; this
+does not prove every policy's full engine/threaded contract. The registered
+paired transfer performance panel has not yet run. See
+`research/shared-record-transition-plan.md` and
+`evidence/adaptive-contracts-v2-receipt.json`.
+
 ## Adaptive cold-transition and cache smoke proofs
 
 The registered v30 diagnostic smoke cohorts now pass 568 fresh processes at
@@ -22,10 +53,11 @@ The cache counters count shared handles, not total heap bytes.
 
 These are smoke correctness proofs. Their unoptimized example executables reuse
 completed optimized Cargo library artifacts. The independent optimized Cargo
-diagnostic builds are complete and their full cohorts are running. Receipts bind source, compiler, commands
+diagnostic builds are complete. Their current proof/measurement status is recorded
+above. Receipts bind source, compiler, commands
 and dependency artifact hashes. Smoke timings are excluded from speed rankings.
-The optimized registered 20,000-record diagnostic cohorts, the adaptive full-engine
-comparison and final isolated holdout acceptance remain pending. See
+Remaining optimized retention, full-engine comparison and final isolated holdout
+acceptance remain pending. See
 `evidence/adaptive-cold-v30smoke-audit.json`,
 `evidence/retention-v30smoke-audit.json` and
 `research/v30-diagnostics-plan.json`.
@@ -37,11 +69,9 @@ The corresponding full-size streaming retention cohorts are running. See
 `evidence/adaptive-cold-v30proof20k-audit.json` and the additional immutable
 `research/v30-full-proof-diagnostics-plan.json` registration.
 
-The optimized 300-engine scalar comparison now passes 9,000 independently audited
-small state/revision/ordered-feed proofs. Generic small proofs and development
-screens are running, alongside selected full-size and actual-reader-thread
-proofs. Both comparison binaries and the optimized diagnostic examples have
-completed their frozen builds; no adaptive performance admission follows yet.
+Both comparison binaries and the optimized diagnostic examples have completed
+their frozen builds. The completed proof totals and remaining stages are recorded
+above; no adaptive performance admission follows yet.
 
 ## First development comparison
 

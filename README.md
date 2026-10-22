@@ -159,8 +159,9 @@ controls. Actual PVec vector/index and OrderMap adapters are included; branch32
 and branch4 require separate frozen binaries. Native API and collision/model
 checks pass. Both branch panels complete 10,902 small proofs and 10,902 parallel
 selection processes, plus their selected 1,650-process full-size scalar proofs.
-Lookup and acquisition losses remain; generic full-size and threaded admission
-are still in progress. Neither the default Store nor the final acceptance gate
+Lookup and acquisition losses remain. Branch32 completes all selected full-size
+and threaded proofs; branch4 generic/threaded admission is still in progress.
+Neither the default Store nor the final acceptance gate
 has changed.
 
 A separate safe grouped-byte prototype under `research/group-byte-index-proof`
@@ -175,12 +176,16 @@ density, a consecutive-batch threshold and an optional needs_drop heuristic.
 Both one-way and large-batch-reset policies are registered. Shared traversal
 caches retain record handles, preserving the same value instances as lookup and
 cloning no payloads on reads. Shared cache-disabled controls expose the allocation
-and indirection tradeoffs. The local suite passes 97 tests, including ten adaptive
-checks over all 144 raw policies. A dedicated 300-engine development panel (288
+and indirection tradeoffs. `ReuseSharedFlat` additionally transfers immutable
+records between layouts without cloning unchanged payloads, while retaining the
+copying controls. The local suite passes 100 tests, including thirteen adaptive
+checks over all 240 raw policies. This new transfer mode has no comparative speed
+admission yet. A dedicated 300-engine development panel (288
 builder/configuration variants plus 12 fixed controls) has frozen optimized
-executables and passes 9,000 independently audited small scalar engine proofs.
+executables and passes 47,400 independently audited small scalar/generic proofs
+and 1,080 selected full-size scalar proofs.
 Separate cold diagnostics pass 360 processes at 20,000 records across six shapes;
 568 smaller cold/retention processes also pass. Proof-only diagnostic timings are
 excluded from speed rankings. Generic/full-size/threaded engine checks and the
-optimized full diagnostic cohorts are running. Performance admission remains
+optimized full diagnostic cohorts are tracked in the results. Performance admission remains
 open; see `research/results.md`. The selected Store backend is unchanged.
