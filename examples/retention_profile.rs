@@ -4,8 +4,8 @@
 mod profile {
     use rill_state::{
         experimental::{
-            ArrayRecordMap, CopyKeys, InlineSliceMap, OwnedHasher, PackedIndexMap, ProbeMap,
-            RecordMap, ShardedInlineMap, SharedHasher, SharedKeys, SharedMap,
+            ArrayRecordMap, CompactIndexMap, CopyKeys, InlineSliceMap, OwnedHasher, PackedIndexMap,
+            ProbeMap, RecordMap, ShardedInlineMap, SharedHasher, SharedKeys, SharedMap,
         },
         Config, Mutation, Snapshot, Store,
     };
@@ -159,6 +159,12 @@ mod profile {
     paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,64,OwnedHasher,true>);
     paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,256,OwnedHasher,false>);
     paged!(ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,70,1024,SharedHasher,true>);
+    paged!(CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,OwnedHasher,true,true>);
+    paged!(CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,OwnedHasher,true,true>);
+    paged!(CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,OwnedHasher,true,true>);
+    paged!(CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,OwnedHasher,true,true>);
+    paged!(CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,OwnedHasher,true,false>);
+    paged!(CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,SharedHasher,false,true>);
     trait Read: Clone {
         fn revision(&self) -> u64;
         fn len(&self) -> usize;
@@ -377,6 +383,90 @@ mod profile {
             mixed: get("--mixed", "false").parse().unwrap(),
         };
         match o.engine.as_str() {
+            "compact-adaptive-owned-once-25" => run(
+                Compared::<
+                    CompactIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        25,
+                        OwnedHasher,
+                        true,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "compact-adaptive-owned-once-50" => run(
+                Compared::<
+                    CompactIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        50,
+                        OwnedHasher,
+                        true,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "compact-adaptive-owned-once-70" => run(
+                Compared::<
+                    CompactIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        70,
+                        OwnedHasher,
+                        true,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "compact-adaptive-owned-once-85" => run(
+                Compared::<
+                    CompactIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        85,
+                        OwnedHasher,
+                        true,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "compact-wide-owned-once-70" => run(
+                Compared::<
+                    CompactIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        70,
+                        OwnedHasher,
+                        true,
+                        false,
+                    >,
+                >::new(),
+                o,
+            ),
+            "compact-adaptive-shared-each-25" => run(
+                Compared::<
+                    CompactIndexMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        25,
+                        SharedHasher,
+                        false,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
             "packed-shared-each-25" => run(
                 Compared::<
                     PackedIndexMap<

@@ -285,6 +285,14 @@
     {
       "path": "build/shapes-v29",
       "reason": "Required native-root/upstream-adapter exact comparisons; branch32 and branch4 identities remain separate"
+    },
+    {
+      "path": "build/compact-conversion-v28c",
+      "reason": "Required timed index-width conversion or instrumented retained-payload proof; source and exact build receipts retained"
+    },
+    {
+      "path": "build/retention-profile-v28c",
+      "reason": "Required timed index-width conversion or instrumented retained-payload proof; source and exact build receipts retained"
     }
   ],
   "safe_to_remove": [

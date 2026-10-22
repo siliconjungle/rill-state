@@ -630,3 +630,40 @@ scalar and 35/64 generic cells, reinforcing the need for multiple controls.
 Complete fixed-candidate tables retain every loss. These development counts do
 not select a per-case engine or establish an overall winner. The original
 objective remains unmet, and the holdout seeds remain unused.
+
+## Compact metadata selection and native ownership panel
+
+The frozen v27 panel completed 1,320 scalar and 5,632 generic small exact
+state/revision/feed proofs. An independent tuple/source/binary audit verifies all
+6,952 processes. Its parallel selection panel completed the same number of
+matching-output timing processes. Full-size and four-reader probes are running
+separately; no full-size admission follows from these small checks.
+
+Compact adaptive four-byte metadata does not solve the lookup losses. The fixed
+compact-adaptive-owned-once-70 candidate has lower medians than hashbrown in
+3/15 scalar and 25/64 generic cells. All eight generic reads and all eight
+all-miss cells remain higher. Its scalar scan ratio is 0.271, read ratio 1.949
+and all-miss ratio 4.559. These overlapping-work selection observations are not
+isolated speed results. The fixed-width contrasts and every loss remain in
+compact-v27-selection-review.json; no per-workload winner is selected.
+
+The v28/v29 panels register 25 native-backend snapshot ownership variants with
+all matched Arc-wrapped controls. Identical backend, staging, revision and journal
+logic compare direct backend cloning against an extra Arc envelope. Native roots
+can reduce indirection but also increase snapshot acquisition cost. This is a
+benchmark prototype, not a changed default Store. Two frozen builds separately
+exercise PVec branch32 and branch4; neither branch configuration may be silently
+unified with the other. Ten actual vector adapters include a common indexed COW
+Vec control; four OrderMap adapters name shift/swap removal and builder policies.
+OrderMap wraps IndexMap and is not counted as an independent indexing algorithm.
+
+Before engine timing, the exact upstream PVec and OrderMap API proofs passed at
+20,000 records, with full retained-payload checks, four reader threads, injected
+Clone failures and complete tracked-value reclamation. PVec pop failures and both
+branch sizes are exercised. These are API capability checks, not engine/feed
+proofs or performance rankings. The vector adapter additionally passes a
+collision-heavy randomized canonical-key/deletion/old-view model with both
+branch sizes. The source/lock and selected API proof receipts are retained in
+research/native-vector-map-proof. All-target comparison Clippy passes for both
+branch builds. The 87 core/experimental/root tests pass. The original holdout
+acceptance gate remains unused and unmet.

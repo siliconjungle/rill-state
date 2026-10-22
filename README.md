@@ -125,8 +125,8 @@ and full-size contracts for this new family remain unproven.
 control using the same dense-row implementation. Thirty-two configurations vary
 width policy, fill, builder storage and batching. Widening stages reconstruction
 hashes before changing the installed index; recovery tests retain old roots and
-continue past 100,000 rows. Local validation passes, but this family has no
-comparative performance or full-size/threaded admission yet. Its plan includes
+continue past 100,000 rows. Local validation and 6,952 small exact proof processes pass. Parallel selection
+still shows substantial lookup losses; full-size/threaded admission is pending. Its plan includes
 explicit conversion timing and keeps whole-table payload retention visible.
 
 Default study lists omit the known investigative `scc-copy` native Clone chain,
@@ -150,3 +150,11 @@ counters cover owned payload lengths and Value instances, not total heap usage
 or speed; `tools/retention_study.py` records 0/16/64-view windows and verifies exact
 journal holdings. Run with `--features comparisons`; source/binary receipts and
 all full-size cells are retained under `evidence/retention-v19-20k`.
+
+The current comparison prototype also tests direct backend snapshot ownership
+against an extra Arc envelope, uniformly for both experimental maps and upstream
+persistent maps. Twenty-five native ownership variants retain their matched Arc
+controls. Actual PVec vector/index and OrderMap adapters are included; branch32
+and branch4 require separate frozen binaries. Native API and collision/model
+checks pass, but complete-engine comparative results remain pending. Neither the
+default Store nor the final acceptance gate has changed.
