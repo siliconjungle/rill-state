@@ -58,7 +58,7 @@ for layer in ['state','shapes']:
  body+=' macro_rules! control {($m:ty)=>{'+(f'run::<K,V,_>(Compared::<K,V,$m>::new(),o)'if generic else'run(Compared::<$m>::new(),o)')+'};}\nmatch o.engine.as_str(){\n'
  for label,ty in control.items():body+=f' "{label}"=>control!({ty}),\n'
  body+=' _=>panic!("unregistered reference"),}\n}\n'
- body+='pub(super) fn entry() {let mut o=options();if !std::env::args().any(|a|a=="--engine"){o.engine="adaptive-inline-fast-1-3-drop-16-reset".into();}\n' 
+ body+='pub(super) fn entry() {let mut o=options();if !std::env::args().any(|a|a=="--engine"){o.engine="adaptive-inline-fast-1-3-drop-16-reset".into();}\n'
  if generic:
   body+='match o.shape.as_str(){\n'
   for shape,k,v in [('u64-inline','u64','[u64;4]'),('string-inline','String','[u64;4]'),('u64-owned256','u64','Vec<u8>'),('string-owned256','String','Vec<u8>'),('u64-shared256','u64','Arc<[u8]>'),('string-shared256','String','Arc<[u8]>'),('mixed-owned','VariableKey','MixedOwned'),('mixed-shared','VariableKey','MixedShared')]:body+=f' "{shape}"=>dispatch::<{k},{v}>(&o),\n'

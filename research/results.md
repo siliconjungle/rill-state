@@ -737,3 +737,30 @@ branch factor. Complete fixed-policy tables remain in the branch review. The v28
 full-size scalar panel additionally passes all 1,650 selected exact checks and an
 independent audit. Generic/threaded full-size phases for both branches are now
 running. No serial or final performance acceptance follows.
+
+## Adaptive flat/paged implementation
+
+The new opt-in AdaptiveMap starts with std flat storage and can stage paged
+immutable records after qualifying nonempty batches. A needs_drop gate is only a
+generic heuristic about clone cost. One-way and half-density-reset controls keep
+transition behavior explicit. The backend sees actual operations and type
+properties, with no case names, warmup flag or lookahead. Shared-flat and paged
+caches clone Arc handles rather than keys/values; get/traversal value-instance
+identity is checked. A shared cache-disabled control isolates the caching effect.
+Conversion still copies complete keys/values and its cost must remain visible.
+
+The source passes 97 local core/experimental tests and all-target comparisons
+Clippy. Ten selected frozen adaptive tests cover 144 raw policies against the
+independent collision/canonical-key/retained-value model. They also check
+conversion in both directions, payload/key/hasher failure recovery, failed partial
+deltas, final tracked-value release, clone-free reads and three representative
+flat modes with four actual readers over 20,000 records. Complete per-policy
+engine/revision/feed/threaded proofs are separate and remain pending.
+
+The registered v30 panel contains all 288 standard/fast builder configurations
+and 12 fixed controls. Dedicated entry points reuse the original scalar and
+generic traces, warmup, staging, revisions, ordered feed and borrowed-value oracle
+harnesses. The source and registry are frozen before comparative execution.
+Cold conversion, repeated transitions, interleaved updates/scans and derived-cache
+retention diagnostics remain required. No adaptive timing or selected default
+improvement has been established; original holdout seeds remain untouched.

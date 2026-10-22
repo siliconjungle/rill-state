@@ -167,3 +167,15 @@ passes its raw-map/model/recovery/threading checks and completes a 336-process
 getter baseline against actual std/hashbrown controls. It still loses important
 String cases and has no complete revision/feed admission. It remains research,
 with selected source, binaries and reproducibility evidence retained.
+
+`AdaptiveMap` is a further opt-in experiment combining direct flat or shared-record
+flat storage with paged immutable records. Fixed policies use submitted batch
+density, a consecutive-batch threshold and an optional needs_drop heuristic.
+Both one-way and large-batch-reset policies are registered. Shared traversal
+caches retain record handles, preserving the same value instances as lookup and
+cloning no payloads on reads. Shared cache-disabled controls expose the allocation
+and indirection tradeoffs. The local suite passes 97 tests, including ten adaptive
+checks over all 144 raw policies. A dedicated 300-engine development panel (288
+builder/configuration variants plus 12 fixed controls) is building. Its full
+revision/feed, performance, cold-transition and retention admission remain pending.
+The selected Store backend is unchanged.
