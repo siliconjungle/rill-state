@@ -30,6 +30,19 @@ comparison and final isolated holdout acceptance remain pending. See
 `evidence/retention-v30smoke-audit.json` and
 `research/v30-diagnostics-plan.json`.
 
+The separate 20,000-record cold correctness cohort also passes all 360 processes
+and 5,760 independently audited rows across the same 30 implementations and six
+shapes. Its proof-only executable and timings remain excluded from speed rankings.
+The corresponding full-size streaming retention cohorts are running. See
+`evidence/adaptive-cold-v30proof20k-audit.json` and the additional immutable
+`research/v30-full-proof-diagnostics-plan.json` registration.
+
+The optimized 300-engine scalar comparison now passes 9,000 independently audited
+small state/revision/ordered-feed proofs. Generic small proofs and development
+screens are running, alongside selected full-size and actual-reader-thread
+proofs. Both comparison binaries and the optimized diagnostic examples have
+completed their frozen builds; no adaptive performance admission follows yet.
+
 ## First development comparison
 
 79 configurations: 28 existing-library/baseline adapters, 18 independent alternative
