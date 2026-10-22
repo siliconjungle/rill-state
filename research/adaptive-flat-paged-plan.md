@@ -58,3 +58,25 @@ require cold/repeated-transition diagnostics. The final registered panel has
 144 layout/transition configurations, each with standard/fast builders (288),
 plus 12 fixed controls. It supersedes the provisional one-way-only matrix before
 any adaptive timing. See v30-development-plan.json for the exact names.
+
+Before any cold diagnostic timing, register v30-diagnostics-plan.json. Its raw
+mixed-density panel compares 24 adaptive policies (three flat modes, delay 1/3,
+page 16/64, one-way/reset; fixed fast builder, 1-percent threshold and drop gate)
+with six controls, including std BTreeMap. Each process begins with an initial
+root and runs three cycles of four 1-percent batches and one unique half-map
+batch. It retains the initial and previous roots, validates all their complete
+values outside timing, and times three complete traversals after every batch.
+This exposes first-use cache construction and repeated conversion. It does not
+flush CPU caches or include releasing the previous reader in the batch timer.
+The registered full panel is 2,520 fresh processes, seven repetitions per tuple,
+at 20,000 records across six key/value shapes and two development seeds. A
+separate Python oracle rebuilds the random trace and checksums. Parallel raw
+timings do not replace complete-engine or isolated performance admission.
+
+The same registration selects six adaptive memory policies and seven controls
+for 312 streaming retention processes, with scans disabled or two traversals per
+revision. It counts live payload instances, owned payload lengths and cached
+shared-record handles by distinct retained revision. Every traversal must clone
+no payload values; dropping all roots, journal batches and caches must reclaim
+every tracked payload. Cache handle counts are not total heap bytes. The 1,000-
+record smoke cohorts run first; their exact matrices are part of the plan.

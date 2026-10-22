@@ -4,8 +4,9 @@
 mod profile {
     use rill_state::{
         experimental::{
-            ArrayRecordMap, CompactIndexMap, CopyKeys, InlineSliceMap, OwnedHasher, PackedIndexMap,
-            ProbeMap, RecordMap, ShardedInlineMap, SharedHasher, SharedKeys, SharedMap,
+            AdaptiveMap, ArrayRecordMap, CompactIndexMap, CopyKeys, FlatMode, InlineFlat,
+            InlineSliceMap, OwnedHasher, PackedIndexMap, ProbeMap, RecordMap, ShardedInlineMap,
+            SharedFlat, SharedHasher, SharedKeys, SharedMap,
         },
         Config, Mutation, Snapshot, Store,
     };
@@ -81,6 +82,42 @@ mod profile {
         fn get(&self, k: &Key) -> Option<&Value>;
         fn len(&self) -> usize;
         fn batch(&mut self, ops: &[Op]);
+        // This is a memory fixture, never a speed comparison. Controls sweep
+        // the fixture's complete known key domain; adaptive maps traverse their
+        // actual storage to exercise optional derived caches.
+        fn scan(&self) {
+            for id in 0..self.len() {
+                let value = self.get(&key(id as u64)).unwrap();
+                std::hint::black_box((value.epoch, value.bytes.len()));
+            }
+        }
+        fn cached_records(&self) -> usize {
+            0
+        }
+    }
+    impl<const P: usize, F: FlatMode<Key, Value, hashbrown::DefaultHashBuilder>> Map
+        for AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, P, F, true>
+    {
+        fn new() -> Self {
+            Self::default()
+        }
+        fn get(&self, k: &Key) -> Option<&Value> {
+            self.get(k)
+        }
+        fn len(&self) -> usize {
+            self.len()
+        }
+        fn batch(&mut self, ops: &[Op]) {
+            self.apply(ops);
+        }
+        fn scan(&self) {
+            self.visit(|_, v| {
+                std::hint::black_box((v.epoch, v.bytes.len()));
+            });
+        }
+        fn cached_records(&self) -> usize {
+            self.cached_records()
+        }
     }
     macro_rules! maps {
         ($ty:ty,$new:expr) => {
@@ -110,6 +147,8 @@ mod profile {
         };
     }
     maps!(hashbrown::HashMap<Key,Value>,hashbrown::HashMap::new());
+    maps!(std::collections::HashMap<Key,Value,hashbrown::DefaultHashBuilder>,std::collections::HashMap::with_hasher(Default::default()));
+    maps!(std::collections::BTreeMap<Key,Value>,std::collections::BTreeMap::new());
     type Imbl = imbl::GenericHashMap<
         Key,
         Value,
@@ -141,6 +180,7 @@ mod profile {
     paged!(ProbeMap<Key,Value,hashbrown::DefaultHashBuilder,70,16>);
     paged!(SharedMap<Key,Value,hashbrown::DefaultHashBuilder,70,16>);
     paged!(RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,16>);
+    paged!(RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,64>);
     paged!(RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,0>);
     paged!(ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,16,CopyKeys>);
     paged!(ArrayRecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,256,CopyKeys>);
@@ -169,6 +209,15 @@ mod profile {
         fn revision(&self) -> u64;
         fn len(&self) -> usize;
         fn get(&self, k: &Key) -> Option<&Value>;
+        fn scan(&self) {
+            for id in 0..self.len() {
+                let value = self.get(&key(id as u64)).unwrap();
+                std::hint::black_box((value.epoch, value.bytes.len()));
+            }
+        }
+        fn cached_records(&self) -> usize {
+            0
+        }
     }
     struct View<M>(Arc<M>, u64);
     impl<M> Clone for View<M> {
@@ -185,6 +234,12 @@ mod profile {
         }
         fn get(&self, k: &Key) -> Option<&Value> {
             self.0.get(k)
+        }
+        fn scan(&self) {
+            self.0.scan();
+        }
+        fn cached_records(&self) -> usize {
+            self.0.cached_records()
         }
     }
     impl<S: BuildHasher> Read for Snapshot<Key, Value, S> {
@@ -272,7 +327,7 @@ mod profile {
     fn key(id: u64) -> Key {
         id.wrapping_mul(0x9e3779b97f4a7c15).rotate_left(17)
     }
-    fn check(view: &impl Read, records: usize, changed: usize, rounds: usize) {
+    fn check(view: &impl Read, records: usize, changed: usize, rounds: usize, mixed: bool) {
         assert_eq!(view.revision(), rounds as u64 + 1);
         assert_eq!(view.len(), records);
         let total = rounds * changed;
@@ -284,6 +339,18 @@ mod profile {
             };
             let value = view.get(&key(id as u64)).unwrap();
             assert_eq!(value.epoch, epoch as u64);
+            let lengths = [
+                0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 32, 32, 32, 32, 128, 128, 128, 128, 128, 128,
+                128, 128, 512, 512, 512, 512, 2048, 2048, 2048, 4096,
+            ];
+            assert_eq!(
+                value.bytes.len(),
+                if mixed {
+                    lengths[(id + epoch) % 32]
+                } else {
+                    256
+                }
+            );
             assert!(value.bytes.iter().all(|b| *b == epoch as u8));
         }
     }
@@ -295,6 +362,25 @@ mod profile {
         window: usize,
         pin: bool,
         mixed: bool,
+        scans: usize,
+    }
+    fn scan_read(view: &impl Read, scans: usize, stats: &Stats) {
+        let before = (
+            stats.live.load(Ordering::Relaxed),
+            stats.bytes.load(Ordering::Relaxed),
+            stats.clones.load(Ordering::Relaxed),
+        );
+        for _ in 0..scans {
+            view.scan();
+        }
+        assert_eq!(
+            before,
+            (
+                stats.live.load(Ordering::Relaxed),
+                stats.bytes.load(Ordering::Relaxed),
+                stats.clones.load(Ordering::Relaxed)
+            )
+        );
     }
     fn run(mut engine: impl Engine, o: Options) {
         assert!(
@@ -309,6 +395,7 @@ mod profile {
                 .map(|id| Mutation::Put(key(id as u64), Value::new(id as u64, 0, o.mixed, &stats)))
                 .collect(),
         );
+        scan_read(&engine.view(), o.scans, &stats);
         let pinned = o.pin.then(|| engine.view());
         let mut held = VecDeque::new();
         for round in 0..o.rounds {
@@ -325,6 +412,7 @@ mod profile {
                     })
                     .collect(),
             );
+            scan_read(&engine.view(), o.scans, &stats);
             if o.window > 0 {
                 held.push_back((engine.view(), round + 1));
                 while held.len() > o.window {
@@ -332,13 +420,27 @@ mod profile {
                 }
             }
         }
-        check(&engine.view(), o.records, o.changed, o.rounds);
+        check(&engine.view(), o.records, o.changed, o.rounds, o.mixed);
         for (view, rounds) in &held {
-            check(view, o.records, o.changed, *rounds);
+            check(view, o.records, o.changed, *rounds, o.mixed);
         }
         if let Some(view) = &pinned {
-            check(view, o.records, o.changed, 0);
+            check(view, o.records, o.changed, 0, o.mixed);
         }
+        let mut cached = std::collections::BTreeMap::new();
+        let cached_current = {
+            let view = engine.view();
+            let count = view.cached_records();
+            cached.insert(view.revision(), count);
+            count
+        };
+        for (view, _) in &held {
+            cached.insert(view.revision(), view.cached_records());
+        }
+        if let Some(view) = &pinned {
+            cached.insert(view.revision(), view.cached_records());
+        }
+        let cached_distinct: usize = cached.values().sum();
         let history = engine.history();
         assert!(history.0 <= 64 && history.1 <= 1_000_000);
         let end_live = stats.live.load(Ordering::Relaxed);
@@ -356,7 +458,7 @@ mod profile {
         drop(engine);
         assert_eq!(stats.live.load(Ordering::Relaxed), 0);
         assert_eq!(stats.bytes.load(Ordering::Relaxed), 0);
-        println!("{{\"engine\":\"{}\",\"records\":{},\"changed\":{},\"rounds\":{},\"window\":{},\"pin_initial\":{},\"mixed\":{},\"live_values_end\":{},\"owned_payload_bytes_end\":{},\"live_values_after_unpin\":{},\"owned_payload_bytes_after_unpin\":{},\"live_values_after_window_drop\":{},\"peak_live_values\":{},\"peak_owned_payload_bytes\":{},\"value_clones\":{},\"history_batches\":{},\"history_operations\":{},\"after_all_drop\":0,\"verified\":true,\"instrumented\":true}}",o.engine,o.records,o.changed,o.rounds,o.window,o.pin,o.mixed,end_live,end_bytes,unpinned_live,unpinned_bytes,after_window,stats.peak_live.load(Ordering::Relaxed),stats.peak_bytes.load(Ordering::Relaxed),stats.clones.load(Ordering::Relaxed),history.0,history.1);
+        println!("{{\"engine\":\"{}\",\"records\":{},\"changed\":{},\"rounds\":{},\"window\":{},\"pin_initial\":{},\"mixed\":{},\"live_values_end\":{},\"owned_payload_bytes_end\":{},\"live_values_after_unpin\":{},\"owned_payload_bytes_after_unpin\":{},\"live_values_after_window_drop\":{},\"peak_live_values\":{},\"peak_owned_payload_bytes\":{},\"value_clones\":{},\"history_batches\":{},\"history_operations\":{},\"after_all_drop\":0,\"verified\":true,\"instrumented\":true,\"scans_per_revision\":{},\"scan_value_clones\":0,\"cached_records_current\":{},\"cached_records_distinct_revisions\":{}}}",o.engine,o.records,o.changed,o.rounds,o.window,o.pin,o.mixed,end_live,end_bytes,unpinned_live,unpinned_bytes,after_window,stats.peak_live.load(Ordering::Relaxed),stats.peak_bytes.load(Ordering::Relaxed),stats.clones.load(Ordering::Relaxed),history.0,history.1,o.scans,cached_current,cached_distinct);
     }
     pub fn main() {
         let args: Vec<_> = std::env::args().collect();
@@ -381,8 +483,108 @@ mod profile {
             window: get("--window", "16").parse().unwrap(),
             pin: get("--pin-initial", "true").parse().unwrap(),
             mixed: get("--mixed", "false").parse().unwrap(),
+            scans: get("--scans", "0").parse().unwrap(),
         };
         match o.engine.as_str() {
+            "record-paged64" => run(Compared::<RecordMap<Key,Value,hashbrown::DefaultHashBuilder,70,64>>::new(),o),
+            "std-fast"=>run(Compared::<std::collections::HashMap<Key,Value,hashbrown::DefaultHashBuilder>>::new(),o),
+            "std-btree"=>run(Compared::<std::collections::BTreeMap<Key,Value>>::new(),o),
+            "adaptive-inline-fast-1-3-drop-16-reset" => run(
+                Compared::<
+                    AdaptiveMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        1,
+                        3,
+                        true,
+                        16,
+                        InlineFlat,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "adaptive-inline-fast-1-3-drop-64-reset" => run(
+                Compared::<
+                    AdaptiveMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        1,
+                        3,
+                        true,
+                        64,
+                        InlineFlat,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "adaptive-shared-fast-1-3-drop-16-reset" => run(
+                Compared::<
+                    AdaptiveMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        1,
+                        3,
+                        true,
+                        16,
+                        SharedFlat<0>,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "adaptive-shared-fast-1-3-drop-64-reset" => run(
+                Compared::<
+                    AdaptiveMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        1,
+                        3,
+                        true,
+                        64,
+                        SharedFlat<0>,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "adaptive-cache-fast-1-3-drop-16-reset" => run(
+                Compared::<
+                    AdaptiveMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        1,
+                        3,
+                        true,
+                        16,
+                        SharedFlat<2>,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
+            "adaptive-cache-fast-1-3-drop-64-reset" => run(
+                Compared::<
+                    AdaptiveMap<
+                        Key,
+                        Value,
+                        hashbrown::DefaultHashBuilder,
+                        1,
+                        3,
+                        true,
+                        64,
+                        SharedFlat<2>,
+                        true,
+                    >,
+                >::new(),
+                o,
+            ),
             "compact-adaptive-owned-once-25" => run(
                 Compared::<
                     CompactIndexMap<

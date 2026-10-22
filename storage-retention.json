@@ -317,6 +317,14 @@
     {
       "path": "build/adaptive-contracts-v1",
       "reason": "Selected 144-policy model, identity, conversion-failure and actual-reader proof executable"
+    },
+    {
+      "path": "build/adaptive-cold-v30d",
+      "reason": "Selected required cold/first-use and repeated transition diagnostic, with all trace inputs and source receipts retained"
+    },
+    {
+      "path": "build/retention-profile-v30d",
+      "reason": "Selected required adaptive traversal-cache ownership/reclamation probe; streaming inputs and clone counters retained"
     }
   ],
   "safe_to_remove": [

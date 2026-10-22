@@ -32,6 +32,7 @@ def audit(folder, binary, build_path):
     for row in rows:
         for field in ['records', 'changed', 'rounds']:
             assert row[field] == receipt[field]
+        assert row.get('scans_per_revision',0)==receipt.get('scans_per_revision',0)
         validate_row(row)
     return dict(folder=str(folder), rows=len(rows), exact_tuple_coverage=True,
                 executable_ownership_and_reclamation_markers_passed=True,
