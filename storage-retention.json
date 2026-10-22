@@ -349,6 +349,10 @@
     {
       "path": "build/retention-profile-v32t",
       "reason": "Selected required frozen copying-versus-shared-record-transfer diagnostic and reclamation baseline; exact source, compiler, binary and inputs retained in build receipts."
+    },
+    {
+      "path": "build/native-mvcc-contracts-v1",
+      "reason": "Selected exact frozen actual MVCC competitor capability proof; source/lock/compiler/binary/log bindings retained."
     }
   ],
   "safe_to_remove": [
@@ -631,6 +635,10 @@
     {
       "path": "evidence/shared-transition-tests-v2.log",
       "reason": "Completed intermediate test passes superseded by selected final 100-test core run and exact frozen 240-policy proof; no unique failure."
+    },
+    {
+      "path": "evidence/native-mvcc-capability-v1.log",
+      "reason": "Completed initial native three-test validation superseded by the exact selected frozen executable receipt and proof log; no unique behavioral failure."
     }
   ]
 }

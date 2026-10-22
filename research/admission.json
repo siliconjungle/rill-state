@@ -272,10 +272,13 @@
       "name": "mvcc-core",
       "version": "0.1.0",
       "source": "https://docs.rs/crate/mvcc-core/0.1.0/source/",
-      "status": "source-reviewed-in-memory-transaction-adapter-pending",
-      "reason": "Pinned source has Config::in_memory, Database::begin/begin_with, versioned typed tables and snapshot transactions, plus stronger transaction/durable capabilities. An actual in-memory retained-transaction adapter is applicable and remains pending. Transaction get/scan use mutable transaction handles and scoped Ref values, so ownership, thread sharing, journal/revision semantics and memory must be proved. Not excluded for having optional durability and not counted as beaten.",
+      "status": "native-20k-model-and-reader-owned-transactions-proved-adapter-and-timing-pending",
+      "reason": "Actual pinned in-memory mvcc-core 0.1.0 passes the selected frozen three-test proof: retained complete-value transactions across 32 update/delete/reinsert revisions at 20,000 records, rollback and empty commit, and four real reader-owned transactions while a writer publishes. Compiler checks reject Send and Sync for Transaction because it contains an epoch Guard and non-Send/Sync trait objects; Arc<Mutex<Transaction>> cannot supply the existing transferable-view contract. Native scoped-reader and explicit exported-view adapters remain applicable and pending, with their different costs reported separately. This crate is in-memory only; the prior optional-durability statement was incorrect. No complete revision/feed, generic-payload, reclamation or performance admission and not counted as beaten.",
       "evidence": [
-        "research/additional-admission-source-inputs.json"
+        "research/additional-admission-source-inputs.json",
+        "research/mvcc-core-admission-proof",
+        "evidence/native-mvcc-contracts-v1-receipt.json",
+        "research/native-mvcc-admission-plan.md"
       ]
     },
     {

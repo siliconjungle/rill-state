@@ -410,6 +410,22 @@
       }
     },
     {
+      "name": "mvcc-core",
+      "version": "0.1.0",
+      "repository": "https://github.com/danylokravchenko/mvcc",
+      "description": "Multi-version concurrency control for ordinary Rust structs. Add #[derive(Mvcc)] and get snapshot-isolated transactions with pluggable isolation levels.",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/mvcc-core/0.1.0/source/",
+      "published_checksum": "39fdb1d983e5dcb88197085e3aeb3cee2cbe983ea1e576e058a1d3a8d1e7b6dc",
+      "in_lock": false,
+      "audited_files_sha256": {
+        "Cargo.toml": "c4974443f929327eccc192c071c9f5ebd0c64b40606c097fb0a36a34b53a38f7",
+        "Cargo.toml.orig": "fe496121ae77ab810cac1a1cb7c14c73bc5416d41053d94610fec0e7f7e635f8",
+        "README.md": "1a529ad8976b2f6e5b910019a417559a3e0717996b531f167ab2d42c0ed916c5",
+        "src/lib.rs": "23007df0c4929f7bcf0a137a020bb9a26fd3722092b26cf16bf165499a9e66d0"
+      }
+    },
+    {
       "name": "boxcar",
       "version": "0.2.14",
       "repository": "https://github.com/ibraheemdev/boxcar",

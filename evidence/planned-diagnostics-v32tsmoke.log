@@ -1,0 +1,51 @@
+{"starting": 0, "command": ["/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", "tools/adaptive_cold_study.py", "--binary", "build/adaptive-cold-v32t", "--build-receipt", "evidence/adaptive-cold-v32t-build-receipt.json", "--plan", "research/v32t-diagnostics-plan.json", "--label", "adaptive-cold-v32tsmoke", "--cohort", "smoke", "--workers", "2"]}
+30 completed, 0 failures / 456
+60 completed, 0 failures / 456
+90 completed, 0 failures / 456
+120 completed, 0 failures / 456
+150 completed, 0 failures / 456
+180 completed, 0 failures / 456
+210 completed, 0 failures / 456
+240 completed, 0 failures / 456
+270 completed, 0 failures / 456
+300 completed, 0 failures / 456
+330 completed, 0 failures / 456
+360 completed, 0 failures / 456
+390 completed, 0 failures / 456
+420 completed, 0 failures / 456
+450 completed, 0 failures / 456
+{"label": "adaptive-cold-v32tsmoke", "processes": 456, "failures": 0}
+{"starting": 1, "command": ["/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", "tools/audit_adaptive_cold.py", "evidence/adaptive-cold-v32tsmoke", "--build-receipt", "evidence/adaptive-cold-v32t-build-receipt.json", "--output", "evidence/adaptive-cold-v32tsmoke-audit.json"]}
+{"claim": "Correctness-only diagnostic cohort. All timings excluded from speed rankings.", "timing_eligible": false, "processes": 456, "rows": 7296, "exact_tuple_coverage": true, "independently_rebuilt_trace_checksums": true, "representation_and_cache_states": true, "frozen_inputs_and_driver_verified": true, "runs_sha256": "62dcfe83ea7b5bd0ec173c67d92049785c27d4e4ef87780cdd11d774fbd80856", "auditor_sha256": "498ff981be14cde629230e27958efc41bb15e61478933ea416273f1f6dcca116", "source_commit": "f756c1fb4cab9114aed518a0a26e4b0ff2deb929", "binary_sha256": "ea8a33e9a25fbffb25041914a7c2c88a76f7b014317eb69bdb7716a88f73ae6d"}
+{"starting": 2, "command": ["/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", "tools/retention_study.py", "--binary", "build/retention-profile-v32t", "--build-receipt", "evidence/retention-profile-v32t-build-receipt.json", "--label", "retention-v32tsmoke-scans0", "--engines", "adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-fast-1-3-drop-64-reset,adaptive-shared-fast-1-3-drop-16-reset,adaptive-shared-fast-1-3-drop-64-reset,adaptive-cache-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-64-reset,hashbrown,std-fast,std-btree,imbl-fast,record-paged16,record-paged64,packed-owned-once-50,adaptive-reuse-fast-1-3-drop-16-reset,adaptive-reuse-fast-1-3-drop-64-reset,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-64-reset", "--records", "1000", "--changed", "10", "--rounds", "100", "--windows", "0,16", "--scans", "0", "--workers", "1"]}
+10 completed, 0 failures / 136
+20 completed, 0 failures / 136
+30 completed, 0 failures / 136
+40 completed, 0 failures / 136
+50 completed, 0 failures / 136
+60 completed, 0 failures / 136
+70 completed, 0 failures / 136
+80 completed, 0 failures / 136
+90 completed, 0 failures / 136
+100 completed, 0 failures / 136
+110 completed, 0 failures / 136
+120 completed, 0 failures / 136
+130 completed, 0 failures / 136
+{"label": "retention-v32tsmoke-scans0", "completed": 136, "errors": 0}
+{"starting": 3, "command": ["/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", "tools/retention_study.py", "--binary", "build/retention-profile-v32t", "--build-receipt", "evidence/retention-profile-v32t-build-receipt.json", "--label", "retention-v32tsmoke-scans2", "--engines", "adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-fast-1-3-drop-64-reset,adaptive-shared-fast-1-3-drop-16-reset,adaptive-shared-fast-1-3-drop-64-reset,adaptive-cache-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-64-reset,hashbrown,std-fast,std-btree,imbl-fast,record-paged16,record-paged64,packed-owned-once-50,adaptive-reuse-fast-1-3-drop-16-reset,adaptive-reuse-fast-1-3-drop-64-reset,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-64-reset", "--records", "1000", "--changed", "10", "--rounds", "100", "--windows", "0,16", "--scans", "2", "--workers", "1"]}
+10 completed, 0 failures / 136
+20 completed, 0 failures / 136
+30 completed, 0 failures / 136
+40 completed, 0 failures / 136
+50 completed, 0 failures / 136
+60 completed, 0 failures / 136
+70 completed, 0 failures / 136
+80 completed, 0 failures / 136
+90 completed, 0 failures / 136
+100 completed, 0 failures / 136
+110 completed, 0 failures / 136
+120 completed, 0 failures / 136
+130 completed, 0 failures / 136
+{"label": "retention-v32tsmoke-scans2", "completed": 136, "errors": 0}
+{"starting": 4, "command": ["/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", "tools/audit_retention.py", "evidence/retention-v32tsmoke-scans0", "evidence/retention-v32tsmoke-scans2", "--binary", "build/retention-profile-v32t", "--build-receipt", "evidence/retention-profile-v32t-build-receipt.json", "--output", "evidence/retention-v32tsmoke-audit.json"]}
+{"matrices": 2, "processes": 272, "exact_coverage_and_binding": true}

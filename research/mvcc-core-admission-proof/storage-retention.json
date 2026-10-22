@@ -1,12 +1,32 @@
 {
   "schema": 1,
-  "state": "required native competitor capability proof; no performance ranking",
+  "state": "completed selected native model/thread and negative transfer-trait proofs; full adapter/timing pending",
   "keep": [
-    {"path":"Cargo.toml","reason":"Exact pinned native dependency and minimal proof build configuration"},
-    {"path":"Cargo.lock","reason":"Exact dependency closure for required reproducibility"},
-    {"path":"src","reason":"Full retained native model/thread and transaction transfer capability proof inputs"},
-    {"path":"storage-retention.json","reason":"Required explicit storage lifecycle policy"},
-    {"path":"target","reason":"Active required compiler validation; retire generated artifacts after selecting useful evidence"}
+    {
+      "path": "Cargo.toml",
+      "reason": "Exact pinned native dependency and minimal proof build configuration"
+    },
+    {
+      "path": "Cargo.lock",
+      "reason": "Exact dependency closure for required reproducibility"
+    },
+    {
+      "path": "src",
+      "reason": "Full retained native model/thread and transaction transfer capability proof inputs"
+    },
+    {
+      "path": "storage-retention.json",
+      "reason": "Required explicit storage lifecycle policy"
+    },
+    {
+      "path": ".gitignore",
+      "reason": "Keep completed generated local Cargo markers out of source publication."
+    }
   ],
-  "safe_to_remove": []
+  "safe_to_remove": [
+    {
+      "path": "target",
+      "reason": "Completed local Cargo reuse markers; selected frozen executable and bound build/proof logs are retained at the repository root. Shared reuse cache is outside this path and is not authorized for deletion."
+    }
+  ]
 }
