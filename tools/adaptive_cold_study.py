@@ -82,7 +82,7 @@ def main():
     p.add_argument('--build-receipt', type=pathlib.Path, required=True)
     p.add_argument('--plan', type=pathlib.Path, required=True)
     p.add_argument('--label', required=True)
-    p.add_argument('--cohort', choices=['smoke', 'full'], default='full')
+    p.add_argument('--cohort', choices=['smoke', 'proof-20k', 'full'], default='full')
     p.add_argument('--workers', type=int, default=2)
     a = p.parse_args()
     assert re.fullmatch(r'[a-zA-Z0-9_.-]+', a.label) and 1 <= a.workers <= 2
@@ -93,7 +93,7 @@ def main():
     binary = a.binary.resolve()
     binding = json.loads(a.build_receipt.read_text())
     if 'completed_cargo_dependencies' in binding:
-        assert a.cohort == 'smoke', 'Smoke-only artifacts cannot supply measured full diagnostics'
+        assert a.cohort != 'full', 'Proof-only artifacts cannot supply measured full diagnostics'
     assert digest(binary) == binding['binary_sha256']
     assert study.source_hash_at(binding['source_commit']) == binding['source_sha256']
     assert git_hash(binding['source_commit'], 'examples/adaptive_cold.rs') == binding['example_sha256']

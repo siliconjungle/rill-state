@@ -16,13 +16,17 @@ import study
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--version', required=True)
-    p.add_argument('--cohort', choices=['smoke', 'full'], required=True)
+    p.add_argument('--cohort', choices=['smoke', 'proof-20k', 'full'], required=True)
+    p.add_argument('--plan', type=pathlib.Path, default=pathlib.Path('research/v30-diagnostics-plan.json'))
+    p.add_argument('--label-version', help='Distinct evidence label when reusing the same proof executable')
     p.add_argument('--list', action='store_true')
     a = p.parse_args()
     assert re.fullmatch(r'v[0-9a-z]+', a.version)
-    plan_path = pathlib.Path('research/v30-diagnostics-plan.json')
+    label_version = a.label_version or a.version
+    assert re.fullmatch(r'v[0-9a-z]+', label_version)
+    plan_path = a.plan
     plan = json.loads((study.ROOT / plan_path).read_text())
-    cold_label = f'adaptive-cold-{a.version}'
+    cold_label = f'adaptive-cold-{label_version}'
     cold_build = f'evidence/adaptive-cold-{a.version}-build-receipt.json'
     memory_build = f'evidence/retention-profile-{a.version}-build-receipt.json'
     stages = [[sys.executable, 'tools/adaptive_cold_study.py',
@@ -33,7 +37,7 @@ def main():
     memory_folders = []
     memory = plan['retention'][a.cohort]
     for scans in plan['retention']['scans_per_revision']:
-        label = f'retention-{a.version}-scans{scans}'
+        label = f'retention-{label_version}-scans{scans}'
         memory_folders.append(f'evidence/{label}')
         stages.append([sys.executable, 'tools/retention_study.py',
                        '--binary', f'build/retention-profile-{a.version}', '--build-receipt', memory_build,
@@ -43,7 +47,7 @@ def main():
                        '--scans', str(scans), '--workers', '1'])
     stages.append([sys.executable, 'tools/audit_retention.py', *memory_folders,
                    '--binary', f'build/retention-profile-{a.version}', '--build-receipt', memory_build,
-                   '--output', f'evidence/retention-{a.version}-audit.json'])
+                   '--output', f'evidence/retention-{label_version}-audit.json'])
     if a.list:
         print(json.dumps(stages, indent=2))
         return
@@ -54,7 +58,7 @@ def main():
         binding = json.loads((study.ROOT / path).read_text())
         if a.cohort == 'full':
             assert 'completed_cargo_dependencies' not in binding
-    output = study.ROOT / 'evidence' / f'planned-diagnostics-{a.version}-receipt.json'
+    output = study.ROOT / 'evidence' / f'planned-diagnostics-{label_version}-receipt.json'
     receipt = dict(plan=str(plan_path), plan_sha256=hashlib.sha256((study.ROOT / plan_path).read_bytes()).hexdigest(),
                    runner_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),
                    driver_source_commit=commit, cohort=a.cohort,

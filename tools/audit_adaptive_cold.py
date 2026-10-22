@@ -104,12 +104,15 @@ def main():
     medians = [dict(engine=e, shape=s, step=step,
                     **{field: statistics.median(row[field] for row in values) for field in fields})
                for (e, s, step), values in sorted(cells.items())]
-    result = dict(claim=receipt['claim'], processes=len(processes), rows=len(rows),
+    result = dict(claim=receipt['claim'] if receipt['timing_eligible'] else
+                  'Correctness-only diagnostic cohort. All timings excluded from speed rankings.',
+                  timing_eligible=receipt['timing_eligible'],
+                  processes=len(processes), rows=len(rows),
                   exact_tuple_coverage=True, independently_rebuilt_trace_checksums=True,
                   representation_and_cache_states=True, frozen_inputs_and_driver_verified=True,
                   runs_sha256=digest(a.folder / 'runs.jsonl'), auditor_sha256=digest(pathlib.Path(__file__)),
                   source_commit=binding['source_commit'], binary_sha256=binding['binary_sha256'],
-                  descriptive_medians=medians)
+                  descriptive_medians=medians if receipt['timing_eligible'] else [])
     with a.output.open('x') as out:
         json.dump(result, out, indent=2)
         out.write('\n')
