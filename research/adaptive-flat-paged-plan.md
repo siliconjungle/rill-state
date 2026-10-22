@@ -36,3 +36,25 @@ Use both native and matching-fast builders and keep all stronger controls. Freez
 one fixed policy before any final holdout; never select a backend using case names
 or choose an oracle winner per workload. This proposal does not change the default
 Store, establish admission, or replace any pending registered comparison.
+
+Before timings, refine the cache design to preserve borrowed value identity and
+perform no K/V clones on reads. Cache only Arc<SharedRecord> handles, in both
+shared-flat and paged roots. Shared-flat storage duplicates lookup keys and adds
+record allocation/indirection costs; it must not be confused with direct flat
+values. Add 24 matching shared-flat cache-disabled policies. The initial 48 plus
+these 24 controls make 72 fixed policies, exercised with both standard and fast
+builders. Conversion traverses primary storage and never triggers a scan cache.
+A cached root is invalidated before mutation; cloning for staging starts with an
+empty derived cache. Conversion is one-way. All conversion, cache construction,
+cache invalidation and ownership costs remain visible.
+
+Retain the irreversible policy as an explicit control and add an optional reset
+for submitted batches at least ceil(current_len/2). This is a fixed density rule
+for all inputs, including duplicate-heavy batches where it may predict poorly.
+The unchanged harness has small-update warmup followed by a bulk restore; a
+one-way policy remains paged afterwards. Reset behavior responds to those actual
+operations, with no warmup flag or case-name access. Include both policies and
+require cold/repeated-transition diagnostics. The final registered panel has
+144 layout/transition configurations, each with standard/fast builders (288),
+plus 12 fixed controls. It supersedes the provisional one-way-only matrix before
+any adaptive timing. See v30-development-plan.json for the exact names.

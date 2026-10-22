@@ -21,8 +21,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('version')
     parser.add_argument('--features', default='comparisons')
+    parser.add_argument('--bench-prefix', default='', help='Dedicated targets, e.g. adaptive_; frozen filenames stay state/shapes')
     args = parser.parse_args()
     assert re.fullmatch(r'v[0-9a-z]+', args.version)
+    assert re.fullmatch(r'[a-z0-9_]*', args.bench_prefix)
     root = study.ROOT
     prefix = root / 'evidence' / f'build-{args.version}'
     output = pathlib.Path(str(prefix) + '-receipt.json')
@@ -40,7 +42,8 @@ def main():
         ['ink-cache', 'prepare-sources', str(root), '--offline'],
         cwd=root, env=environment, text=True))
     command = ['cargo', 'bench', '--locked', '--features', args.features,
-               '--bench', 'state', '--bench', 'shapes', '--no-run', '--message-format=json']
+               '--bench', args.bench_prefix + 'state', '--bench', args.bench_prefix + 'shapes',
+               '--no-run', '--message-format=json']
     receipt = dict(source_commit=commit, source_sha256=source_hash,
                    rustc=subprocess.check_output(['rustc', '-Vv'], env=environment, text=True),
                    command=command, environment={k: environment[k] for k in
@@ -68,7 +71,7 @@ def main():
             artifacts[event['target']['name']] = pathlib.Path(event['executable'])
     receipt['binaries'] = {}
     for name, frozen in binary_paths.items():
-        with artifacts[name].open('rb') as source, frozen.open('xb') as destination:
+        with artifacts[args.bench_prefix + name].open('rb') as source, frozen.open('xb') as destination:
             shutil.copyfileobj(source, destination)
         frozen.chmod(0o755)
         receipt['binaries'][str(frozen.relative_to(root))] = hashlib.sha256(frozen.read_bytes()).hexdigest()

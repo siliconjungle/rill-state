@@ -73,3 +73,13 @@ incremental = false
 [profile.bench]
 debug = 0
 incremental = false
+
+[[bench]]
+name = "adaptive_state"
+harness = false
+required-features = ["comparisons"]
+
+[[bench]]
+name = "adaptive_shapes"
+harness = false
+required-features = ["comparisons"]

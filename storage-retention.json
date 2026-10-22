@@ -305,6 +305,18 @@
     {
       "path": "build/group-byte-point-v1",
       "reason": "Selected raw getter comparison reproducibility baseline across all 28 fixed policies/controls; not complete engine admission"
+    },
+    {
+      "path": "build/state-v30",
+      "reason": "Selected adaptive scalar comparison executable; exact source/compiler/flags and full traces retained"
+    },
+    {
+      "path": "build/shapes-v30",
+      "reason": "Selected adaptive generic comparison executable over original shared harness"
+    },
+    {
+      "path": "build/adaptive-contracts-v1",
+      "reason": "Selected 144-policy model, identity, conversion-failure and actual-reader proof executable"
     }
   ],
   "safe_to_remove": [
@@ -519,6 +531,50 @@
     {
       "path": "build/validation-retention_profile-v28b.rmeta",
       "reason": "Completed direct metadata-check staging. Exact corrected package identities and successful source/command receipt are retained; normal Cargo builds resolve the pinned lock directly."
+    },
+    {
+      "path": "evidence/adaptive-tests-initial.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-tests-v2.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-tests-v3.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-tests-v4.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-tests-v5.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-clippy-v1.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-clippy-v2.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-clippy-v3.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-bench-clippy-v1.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-core-tests-final.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-clippy-final.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
     }
   ]
 }

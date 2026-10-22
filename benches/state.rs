@@ -3099,3 +3099,11 @@ impl<S: std::hash::BuildHasher + Default + Clone + Send + Sync, Kind: vector_map
         self.apply(ops)
     }
 }
+
+// A dedicated binary invokes only these policies; the original harness stays shared.
+#[path = "support/adaptive_state.rs"]
+mod adaptive_dispatch;
+/// Entry point used by the dedicated adaptive comparison binary.
+pub fn run_adaptive() {
+    adaptive_dispatch::entry();
+}

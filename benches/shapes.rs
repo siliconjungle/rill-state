@@ -1655,3 +1655,11 @@ impl<
         self.apply(ops)
     }
 }
+
+// A dedicated binary invokes only these policies; the original harness stays shared.
+#[path = "support/adaptive_shapes.rs"]
+mod adaptive_dispatch;
+/// Entry point used by the dedicated adaptive comparison binary.
+pub fn run_adaptive() {
+    adaptive_dispatch::entry();
+}
