@@ -1663,3 +1663,10 @@ mod adaptive_dispatch;
 pub fn run_adaptive() {
     adaptive_dispatch::entry();
 }
+
+#[path = "support/transfer_shapes.rs"]
+mod transfer_dispatch;
+/// Matched shared-record transfer policies over the original contract.
+pub fn run_transfer() {
+    transfer_dispatch::entry();
+}

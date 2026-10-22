@@ -3116,3 +3116,10 @@ mod admission_dispatch;
 pub fn run_admission() {
     admission_dispatch::entry();
 }
+
+#[path = "support/transfer_state.rs"]
+mod transfer_dispatch;
+/// Matched shared-record transfer policies over the original contract.
+pub fn run_transfer() {
+    transfer_dispatch::entry();
+}

@@ -141,6 +141,9 @@ fn dispatch(o: &Options) {
         }
         return;
     }
+    reference(o);
+}
+pub(super) fn reference(o: &Options) {
     macro_rules! control {
         ($m:ty) => {
             run(Compared::<$m>::new(), o)
@@ -153,6 +156,7 @@ fn dispatch(o: &Options) {
         }
         "std-fast" => control!(std::collections::HashMap<Key,Value,hashbrown::DefaultHashBuilder>),
         "std-hash" => control!(std::collections::HashMap<Key,Value>),
+        "std-btree" => control!(std::collections::BTreeMap<Key,Value>),
         "indexmap-fast" => control!(indexmap::IndexMap<Key,Value,hashbrown::DefaultHashBuilder>),
         "imbl-fast" => {
             control!(imbl::GenericHashMap<Key,Value,hashbrown::DefaultHashBuilder,imbl::shared_ptr::DefaultSharedPtr>)

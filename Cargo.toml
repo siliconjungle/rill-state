@@ -91,3 +91,13 @@ required-features = ["comparisons"]
 name = "admission_state"
 harness = false
 required-features = ["admission-comparisons"]
+
+[[bench]]
+name = "transfer_state"
+harness = false
+required-features = ["comparisons"]
+
+[[bench]]
+name = "transfer_shapes"
+harness = false
+required-features = ["comparisons"]

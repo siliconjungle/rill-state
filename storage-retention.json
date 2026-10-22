@@ -353,6 +353,14 @@
     {
       "path": "build/native-mvcc-contracts-v1",
       "reason": "Selected exact frozen actual MVCC competitor capability proof; source/lock/compiler/binary/log bindings retained."
+    },
+    {
+      "path": "build/state-v33t",
+      "reason": "Selected required matched whole-engine immutable-record transfer and copying-control baseline with exact original scalar/generic/full-value/revision/feed/threaded proofs."
+    },
+    {
+      "path": "build/shapes-v33t",
+      "reason": "Selected required matched whole-engine immutable-record transfer and copying-control baseline with exact original scalar/generic/full-value/revision/feed/threaded proofs."
     }
   ],
   "safe_to_remove": [
