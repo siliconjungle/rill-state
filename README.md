@@ -179,14 +179,16 @@ cloning no payloads on reads. Shared cache-disabled controls expose the allocati
 and indirection tradeoffs. `ReuseSharedFlat` additionally transfers immutable
 records between layouts without cloning unchanged payloads, while retaining the
 copying controls. The local suite passes 100 tests, including thirteen adaptive
-checks over all 240 raw policies. This new transfer mode has no comparative speed
-admission yet. A dedicated 300-engine development panel (288
+checks over all 240 raw policies. Matched development measurements show faster
+conversions and slower subsequent scans in some cells; no final speed admission
+has passed. A dedicated 300-engine development panel (288
 builder/configuration variants plus 12 fixed controls) has frozen optimized
 executables and passes 47,400 independently audited small scalar/generic proofs
 and 1,080 selected full-size scalar proofs.
-The 9,000-process scalar development screen is complete; no fixed adaptive
-configuration has a lower median than hashbrown in all fifteen cases. Parallel
-selection does not establish an isolated performance result.
+The complete original scalar/generic development screen passes all 47,400
+matching-output processes. Across both layers, no fixed adaptive configuration
+has a lower median than hashbrown in all 79 cells. Parallel selection does not
+establish an isolated performance result.
 Separate correctness-only diagnostics pass 360 cold and 312 retention processes
 at 20,000 records; 568 smaller cold/retention processes also pass. Their timings
 are excluded from rankings. The optimized original diagnostic panel completes
@@ -197,12 +199,14 @@ Performance admission remains open and the selected Store backend is unchanged.
 
 The shared-record transfer diagnostics pass 456 cold and 272 memory smoke
 processes with independent tuple, checksum, cache and reclamation audits. The
-matched 3,192-process full-size cold cohort and 408-case memory panel are
-registered; their completed results are still pending. A further 53-engine
+matched 3,192-process full-size cold cohort and all 408 memory cases pass exact
+audits. The selected fixed-payload cell removes 20,000 conversion clones and
+lowers peak tracked payload bytes, while scan regressions remain visible. A further 53-engine
 whole-contract panel registers forty fixed copying/transfer/inline variants
 and thirteen references over the original scalar and eight generic shapes.
-Its frozen benchmark targets pass all-target admission Clippy; small/full-size
-proofs and development comparisons are running. Speed admission remains pending.
+Its frozen targets pass 8,374 small proofs and 8,374 matching-output parallel
+comparisons, plus 1,590 full-size scalar proofs. Generic/full-size/threaded
+proofs and speed admission remain pending.
 
 Actual `mvcc-core` capability probes pass retained full-value model checks and
 20,000 simultaneously retained reader sessions across four owning threads,
@@ -210,4 +214,7 @@ with sampled per-session old values and full first/last session checks.
 Compiler checks prove its
 transactions cannot move or be shared across threads on the pinned version.
 Native scoped reads and explicit transferable exports therefore need distinct
-adapters. This competitor has no timing or complete feed admission yet.
+adapters. Its actual 22-engine scalar panel passes 1,408 small/full-size/threaded
+proofs, eight edge probes and 660 matching-output development selections. Native
+transaction and transferable-export costs stay explicit. Generic payload, native
+reclamation and isolated/final performance admission remain pending.

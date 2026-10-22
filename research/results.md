@@ -918,3 +918,54 @@ then development screens (two workers), and full-size then four-reader proofs
 (one worker). These stages overlap other proof/diagnostic work and supply no
 isolated speed acceptance. The new copying/transfer candidates use the same
 fixed complete-engine traces and controls within the frozen pair of executables.
+
+
+## Completed transfer diagnostics and native scalar admission
+
+All 3,192 matched v32t cold processes and 408 full-size instrumented retention
+processes pass independent exact-coverage, frozen-input and behavior audits.
+The complete matched review contains 1,536 cells, sixteen fixed policy pairs,
+six shapes and fourteen logical seed/repetitions per cell. It preserves all
+conversion and subsequent scan measurements instead of choosing a per-cell
+winner. Timings overlap other proof/selection work and are descriptive only.
+
+For fixed delay3/page16/reset with u64-owned256, forward conversion medians are
+8.6661 ms copying versus 5.1890 ms reusing records. The same cell's third uncached
+scan is 0.2270 versus 0.3345 ms. Cache-enabled controls similarly improve forward
+conversion (9.2801 to 4.9408 ms) but regress their third scan (0.1308 to 0.2313 ms).
+These are useful tradeoffs to investigate, not full-engine speed acceptance.
+The address-ordering follow-up records a hypothesis and required controls; no
+ordering prototype or measurements exist yet.
+
+In the fixed256, initial-pinned, window64, 256-revision/200-update memory cell,
+copying controls make 91,200 Value clones and reuse controls 71,200, for both
+pages and cache settings. Peak tracked owned payload is 21,862,400 versus
+16,844,800 bytes (20.850 versus 16.064 MiB). End payload is 16,742,400 bytes for
+both; all tracked payloads release after final owners drop. These counters are
+not total structural heap or process RSS. Cache reads clone no payloads.
+
+The v33t complete-engine subpanel completes all 8,374 small proofs and all
+8,374 matching-output development selections, plus 1,590 selected full-size
+scalar proofs. Every one of forty fixed policies is retained across 79 scalar/
+generic cells; the largest count of lower medians than hashbrown is 49, and no
+policy is lower in every cell. The original v30 panel separately completes its
+47,400-process scalar/generic screen; its best fixed count is 53 of 79, also
+with no across-the-board lower median. Neither is final confidence.
+
+Actual mvcc-core scalar admission now completes 660 small and 660 full-size
+state/revision/ordered-feed proofs, 88 four-reader probes, eight edge probes and
+660 matching-output parallel selections. Two native owner-thread session
+policies and six charged exported-map policies are variants of one upstream
+crate. Native transactions begin on their reader threads; Rc acquisition is not
+a transferable snapshot score. Export capture scans native own-writes before
+commit, so capture failure rolls back, and its scan/allocation/map costs stay
+in publication. Empty logical revisions advance only metadata/journal without
+an avoidable native transaction. Native active transactions release after use.
+
+The fixed native session policies have scalar read ratios about 5.340/5.624 and
+scan ratios 10.743/10.956 to hashbrown in this screen. Exported hashbrown read
+ratios are 1.120/1.046, with substantial publication losses. All eight fixed
+profiles and losses are retained in the native selection review; these parallel
+results do not establish isolated or native multiwriter throughput. Generic
+payload callbacks/exports, instrumented native reclamation and final admission
+remain open. The default Store and holdout seeds are unchanged.
