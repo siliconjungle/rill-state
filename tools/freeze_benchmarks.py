@@ -22,15 +22,18 @@ def main():
     parser.add_argument('version')
     parser.add_argument('--features', default='comparisons')
     parser.add_argument('--bench-prefix', default='', help='Dedicated targets, e.g. adaptive_; frozen filenames stay state/shapes')
+    parser.add_argument('--layers', default='state,shapes', help='Comma-separated state/shapes targets to freeze')
     args = parser.parse_args()
     assert re.fullmatch(r'v[0-9a-z]+', args.version)
     assert re.fullmatch(r'[a-z0-9_]*', args.bench_prefix)
+    layers = args.layers.split(',')
+    assert layers and len(layers) == len(set(layers)) and set(layers) <= {'state', 'shapes'}
     root = study.ROOT
     prefix = root / 'evidence' / f'build-{args.version}'
     output = pathlib.Path(str(prefix) + '-receipt.json')
     progress = pathlib.Path(str(prefix) + '-progress.json')
     binary_paths = {name: root / 'build' / f'{name}-{args.version}'
-                    for name in ['state', 'shapes']}
+                    for name in layers}
     assert not any(p.exists() for p in [output, progress, *binary_paths.values()])
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
     source_hash = study.source_hash()
@@ -41,9 +44,10 @@ def main():
     prepared = json.loads(subprocess.check_output(
         ['ink-cache', 'prepare-sources', str(root), '--offline'],
         cwd=root, env=environment, text=True))
-    command = ['cargo', 'bench', '--locked', '--features', args.features,
-               '--bench', args.bench_prefix + 'state', '--bench', args.bench_prefix + 'shapes',
-               '--no-run', '--message-format=json']
+    command = ['cargo', 'bench', '--locked', '--features', args.features]
+    for layer in layers:
+        command += ['--bench', args.bench_prefix + layer]
+    command += ['--no-run', '--message-format=json']
     receipt = dict(source_commit=commit, source_sha256=source_hash,
                    rustc=subprocess.check_output(['rustc', '-Vv'], env=environment, text=True),
                    command=command, environment={k: environment[k] for k in

@@ -23,6 +23,8 @@ def stages(plan, version, workers):
         ('state', 'tools/study.py', plan['scalar_references']),
         ('shapes', 'tools/shapes_study.py', plan['generic_references']),
     ]:
+        if layer not in plan.get('layers', ['state', 'shapes']):
+            continue
         broad = list(dict.fromkeys(plan.get('broad_candidates', plan.get('all_small_proof_shards', [])) + references))
         selected = list(dict.fromkeys(plan.get('selected_candidates', plan.get('selected_fixed_shards', [])) + references))
         assert broad and selected
@@ -74,7 +76,7 @@ def main():
     for stage in commands:
         assert not (study.ROOT / 'evidence' / stage['label']).exists(), stage['label']
     bindings = {layer: study.build_binding(study.ROOT / f'build/{layer}-{version}')
-                for layer in ['state', 'shapes']}
+                for layer in dict.fromkeys(stage['layer'] for stage in commands)}
     receipt = dict(plan=str(args.plan), plan_sha256=hashlib.sha256(plan_bytes).hexdigest(),
                    runner_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),
                    driver_source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),

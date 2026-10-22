@@ -333,6 +333,10 @@
     {
       "path": "build/retention-profile-v30smoke",
       "reason": "Useful exact smoke correctness proof, built from committed examples with completed source-bound library artifacts. No speed evidence."
+    },
+    {
+      "path": "build/state-v31admit",
+      "reason": "Required actual CHashMap/Crossbeam scalar snapshot/feed admission and selected comparison executable; exact source/compiler/dependency/flags retained."
     }
   ],
   "safe_to_remove": [
@@ -603,6 +607,10 @@
     {
       "path": "evidence/adaptive-retention-clippy.log",
       "reason": "Completed intermediate diagnostic compile/lint attempt, superseded by committed v3 diagnostic Clippy log and exact passing executable-bound smoke cohorts. No unique required behavioral proof."
+    },
+    {
+      "path": "evidence/admission-clippy-v1.log",
+      "reason": "Completed initial lint pass superseded by selected v2 check of the formatted adapter source; no unique required failure or proof."
     }
   ]
 }

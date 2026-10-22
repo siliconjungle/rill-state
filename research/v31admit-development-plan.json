@@ -1,0 +1,83 @@
+{
+  "source_binary_version": "v31admit",
+  "layers": [
+    "state"
+  ],
+  "claim": "Actual new upstream scalar adapters; no generic borrowed-view or native concurrent-write throughput claim. No final performance acceptance.",
+  "scalar_references": [
+    "std-hash",
+    "std-fast",
+    "std-btree",
+    "hashbrown",
+    "hashbrown-sip",
+    "imbl-fast",
+    "rpds-fast",
+    "record-paged16",
+    "adaptive-inline-fast-1-3-drop-16-reset",
+    "adaptive-cache-fast-1-3-drop-16-reset",
+    "adaptive-inline-sip-1-3-drop-16-reset",
+    "adaptive-cache-sip-1-3-drop-16-reset"
+  ],
+  "generic_references": [],
+  "broad_candidates": [
+    "chashmap-native-retain-each",
+    "chashmap-native-retain-last",
+    "chashmap-native-copy-each",
+    "chashmap-native-copy-last",
+    "chashmap-reinsert-retain-each",
+    "chashmap-reinsert-retain-last",
+    "chashmap-reinsert-copy-each",
+    "chashmap-reinsert-copy-last",
+    "crossbeam-skiplist-each",
+    "crossbeam-skiplist-last"
+  ],
+  "selected_candidates": [
+    "chashmap-native-retain-each",
+    "chashmap-native-retain-last",
+    "chashmap-native-copy-each",
+    "chashmap-native-copy-last",
+    "chashmap-reinsert-retain-each",
+    "chashmap-reinsert-retain-last",
+    "chashmap-reinsert-copy-each",
+    "chashmap-reinsert-copy-last",
+    "crossbeam-skiplist-each",
+    "crossbeam-skiplist-last"
+  ],
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "proof": {
+    "small": {
+      "records": 1000,
+      "readers": 1000,
+      "rounds": 8
+    },
+    "full_selected": {
+      "records": 20000,
+      "readers": 20000,
+      "rounds": 12
+    },
+    "thread_selected": {
+      "records": 20000,
+      "readers": 20000,
+      "rounds": 12,
+      "cases": [
+        "sparse",
+        "churn"
+      ]
+    }
+  },
+  "timing": {
+    "scalar_rounds": 32,
+    "generic_rounds": 12,
+    "serial_repetitions": 3
+  },
+  "expected_processes": {
+    "proof_small": 660,
+    "proof_20k": 660,
+    "threaded_20k": 88,
+    "screen": 660,
+    "serial": 1980
+  }
+}

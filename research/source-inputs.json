@@ -327,6 +327,22 @@
       }
     },
     {
+      "name": "chashmap",
+      "version": "2.2.2",
+      "repository": "https://gitlab.redox-os.org/redox-os/chashmap",
+      "description": "Fast, concurrent hash maps with extensive API.",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/chashmap/2.2.2/source/",
+      "published_checksum": "ff41a3c2c1e39921b9003de14bf0439c7b63a9039637c291e1a64925d8ddfa45",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "1b9c6efbcc3dddb27234bae51f37cd1bb7f144f71ffbd63e0efa1ceff913af8c",
+        "Cargo.toml.orig": "77bb82ba7420aedce76b2ec1728728cb77fa09745c0847ca0cd261ff2f97b103",
+        "README.md": "507190292b348685e23b6cd7a18164e59f8b95e1e5b94b50c432bf4e63e46a80",
+        "src/lib.rs": "9fdbc61194bb3c0e1341a5b06fa510e78342735fc3213fbe1858e76a8946f151"
+      }
+    },
+    {
       "name": "contrie",
       "version": "0.1.4",
       "repository": "https://github.com/vorner/contrie",

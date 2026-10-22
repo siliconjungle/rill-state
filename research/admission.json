@@ -104,8 +104,11 @@
       "name": "imstr",
       "version": "0.2.0",
       "source": "https://docs.rs/crate/imstr/0.2.0/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "source-reviewed-supporting-payload-primitive",
+      "reason": "Pinned source exposes immutable/COW strings backed by shared String data and ranges (src/lib.rs, src/string.rs, src/data.rs). It is a key/value representation usable inside generic engines, not a standalone key/value snapshot/feed engine. Its payload performance is not measured or counted as beaten; optional shape coverage remains separate.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json"
+      ]
     },
     {
       "name": "arc-swap",
@@ -125,8 +128,11 @@
       "name": "aarc",
       "version": "0.4.0",
       "source": "https://docs.rs/crate/aarc/0.4.0/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "source-reviewed-publication-adapter-pending",
+      "reason": "Pinned source provides Arc, guarded loads and AtomicArc store/swap with conditional Send+Sync. Deferred reference counting/reclamation is a publication-layer capability, not a complete map/journal engine. Actual publication, retention and reclamation probes remain pending; not counted as beaten.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json"
+      ]
     },
     {
       "name": "triomphe",
@@ -160,8 +166,11 @@
       "name": "rcu-clean",
       "version": "0.1.8",
       "source": "https://docs.rs/crate/rcu-clean/0.1.8/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "source-reviewed-publication-retention-probe-pending",
+      "reason": "Pinned source includes ArcRcu as well as BoxRcu/RcRcu and a graceful module, despite outdated top-level planned wording. Updates and cleaning require explicit source/behavior review to determine old-handle freshness, reclamation and retained-view progress. Native probes and fair publication comparison remain pending; no unsupported exclusion or speed claim.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json"
+      ]
     },
     {
       "name": "rcu_cell",
@@ -209,8 +218,14 @@
       "name": "chashmap",
       "version": "2.2.2",
       "source": "https://docs.rs/crate/chashmap/2.2.2/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "scalar-native-adapter-implemented-proof-and-measurement-pending",
+      "reason": "Pinned actual crate is adapted directly in the existing scalar retained-snapshot/revision/exact-feed harness. Guarded native lookups copy the unchanged 32-byte value. Independent immutable native backends are staged for each nonempty revision; no shadow map or padded values. Chashmap has native/reinsert copying, retain/consuming-copy scans and individual/coalesced batches (eight configurations); Crossbeam SkipMap has individual/coalesced batches (two). Clippy passes; contract proofs, selection and generic scoped-borrowed-read admission remain pending. No native concurrent-writer throughput or superiority claim.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json",
+        "research/native-guarded-admission-plan.md",
+        "research/v31admit-development-plan.json",
+        "benches/support/admission_state.rs"
+      ]
     },
     {
       "name": "contrie",
@@ -223,8 +238,14 @@
       "name": "crossbeam-skiplist",
       "version": "0.1.3",
       "source": "https://docs.rs/crate/crossbeam-skiplist/0.1.3/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "scalar-native-adapter-implemented-proof-and-measurement-pending",
+      "reason": "Pinned actual crate is adapted directly in the existing scalar retained-snapshot/revision/exact-feed harness. Guarded native lookups copy the unchanged 32-byte value. Independent immutable native backends are staged for each nonempty revision; no shadow map or padded values. Chashmap has native/reinsert copying, retain/consuming-copy scans and individual/coalesced batches (eight configurations); Crossbeam SkipMap has individual/coalesced batches (two). Clippy passes; contract proofs, selection and generic scoped-borrowed-read admission remain pending. No native concurrent-writer throughput or superiority claim.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json",
+        "research/native-guarded-admission-plan.md",
+        "research/v31admit-development-plan.json",
+        "benches/support/admission_state.rs"
+      ]
     },
     {
       "name": "skipdb",
@@ -244,8 +265,11 @@
       "name": "mvcc-core",
       "version": "0.1.0",
       "source": "https://docs.rs/crate/mvcc-core/0.1.0/source/",
-      "status": "pending-capability-and-implementation-review",
-      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+      "status": "source-reviewed-in-memory-transaction-adapter-pending",
+      "reason": "Pinned source has Config::in_memory, Database::begin/begin_with, versioned typed tables and snapshot transactions, plus stronger transaction/durable capabilities. An actual in-memory retained-transaction adapter is applicable and remains pending. Transaction get/scan use mutable transaction handles and scoped Ref values, so ownership, thread sharing, journal/revision semantics and memory must be proved. Not excluded for having optional durability and not counted as beaten.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json"
+      ]
     },
     {
       "name": "boxcar",

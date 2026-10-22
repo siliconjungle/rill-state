@@ -3107,3 +3107,12 @@ mod adaptive_dispatch;
 pub fn run_adaptive() {
     adaptive_dispatch::entry();
 }
+
+#[cfg(feature = "admission-comparisons")]
+#[path = "support/admission_state.rs"]
+mod admission_dispatch;
+/// Actual additional upstream backends over the unchanged scalar contract.
+#[cfg(feature = "admission-comparisons")]
+pub fn run_admission() {
+    admission_dispatch::entry();
+}
