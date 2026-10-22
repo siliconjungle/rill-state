@@ -92,6 +92,8 @@ def main():
     assert git_hash(commit, plan_path) == digest(a.plan)
     binary = a.binary.resolve()
     binding = json.loads(a.build_receipt.read_text())
+    if 'completed_cargo_dependencies' in binding:
+        assert a.cohort == 'smoke', 'Smoke-only artifacts cannot supply measured full diagnostics'
     assert digest(binary) == binding['binary_sha256']
     assert study.source_hash_at(binding['source_commit']) == binding['source_sha256']
     assert git_hash(binding['source_commit'], 'examples/adaptive_cold.rs') == binding['example_sha256']
@@ -108,6 +110,7 @@ def main():
     folder.mkdir(exist_ok=False)
     receipt = dict(kind='raw-adaptive-cold-diagnostic', build=binding,
         claim=plan['cold']['claim'], plan=plan_path, plan_sha256=digest(a.plan),
+        timing_eligible=a.cohort == 'full',
         cohort=a.cohort, engines=engines, shapes=shapes, seeds=seeds,
         records=cohort['records'], repetitions=cohort['repetitions'], workers=a.workers,
         tasks=len(tasks), rows_per_process=16, driver_source_commit=commit,

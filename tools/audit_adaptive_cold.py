@@ -60,12 +60,17 @@ def main():
     receipt = json.loads((a.folder / 'receipt.json').read_text())
     assert receipt['kind'] == 'raw-adaptive-cold-diagnostic'
     assert receipt['complete'] and receipt['failures'] == 0
+    assert receipt['timing_eligible'] is (receipt['cohort'] == 'full')
     binding = json.loads(a.build_receipt.read_text())
     assert receipt['build'] == binding
     assert digest(a.build_receipt) == receipt['build_receipt_sha256']
     assert digest(study.ROOT / binding['binary']) == binding['binary_sha256']
     assert study.source_hash_at(binding['source_commit']) == binding['source_sha256']
     assert git_hash(binding['source_commit'], 'examples/adaptive_cold.rs') == binding['example_sha256']
+    if 'completed_cargo_dependencies' in binding:
+        assert not receipt['timing_eligible']
+        assert git_hash(binding['source_commit'], 'tools/freeze_smoke_examples.py') == binding['builder_sha256']
+        assert study.source_hash_at(binding['library_source_commit']) == binding['source_sha256']
     commit = receipt['driver_source_commit']
     for field, path in [('driver_sha256', 'tools/adaptive_cold_study.py'),
                         ('executor_sha256', 'tools/study.py'), ('plan_sha256', receipt['plan'])]:
