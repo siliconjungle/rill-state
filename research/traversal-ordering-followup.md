@@ -17,7 +17,8 @@ do not establish locality as the cause: allocator placement, code generation and
 concurrent load can also affect the observations. Test the hypothesis explicitly,
 keeping both copying and transfer controls and recording construction costs.
 
-Before implementing or timing, register this focused family:
+The fixed family is registered before implementation in
+`research/v35o-diagnostics-plan.json`:
 
 - Keep ordinary after-two-scans handle caches as the baseline.
 - Compare record-address order and coarse address-bucket order, using generic
@@ -37,7 +38,26 @@ Before implementing or timing, register this focused family:
   revision/feed admission, broader source admission, isolated serial comparisons
   and the untouched final holdout gate remain required.
 
-No new ordering implementation or timing result exists yet. Do not label this a
-proven fix, infer general heap locality from Arc pointer values, or select an
-ordering per benchmark case. A fixed policy must pay its own sorting overhead
-and survive cells where it loses.
+`AddressOrderedFlat<REUSE, SHIFT>` now implements four fixed variants: copying
+and reuse with exact addresses (shift0) or 4096-byte address buckets (shift12).
+Only cache construction permutes Arc handles; primary traversal, key hashing and
+equality, and conversion semantics remain unchanged. The second scan pays for
+collection and sorting. The ordinary unsorted modes remain controls.
+
+All 102 local core/experimental tests and final all-target Clippy pass. The
+selected exact frozen binary passes fifteen tests covering all 432 raw policies
+with the forced-collision builder. Cache order, lookup/visit value identity,
+key/hash/value clone bombs, visitor panic recovery, stale-cache invalidation,
+reverse/partial conversion failures and final tracked-value release pass. Nine
+representative modes use four actual readers at 20,000 records with RandomState;
+both flat and paged caches initialize during writes to another staged root.
+These are raw contract proofs, not complete per-policy engine/feed admission.
+
+The matched raw panel contains seventy configurations, six shapes and two
+development seeds: 840 smoke processes followed by 5,880 full-size processes.
+The memory panel contains twenty-five configurations: 400 smoke and 600 full
+cases with scans0/2, initial pin off/on and fixed/mixed payloads. The frozen proof
+receipt is `evidence/adaptive-contracts-v3-receipt.json`. Comparative results
+remain pending. Do not label this a proven speed fix, infer general heap locality
+from Arc pointer values, or select an ordering per benchmark case. A fixed policy
+must pay its own sorting overhead and survive cells where it loses.

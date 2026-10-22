@@ -1,0 +1,20 @@
+
+running 15 tests
+test address_cache_order_survives_visitor_panics_without_key_hash_or_payload_clones ... ok
+test address_order_rejects_shift_at_pointer_width ... ok
+test all_four_hundred_thirty_two_policies_match_collisions_canonical_keys_and_retained_values ... ok
+test builder_clone_failure_preserves_flat_cow_and_conversion_sources ... ok
+test failed_conversion_reclaims_partial_values_and_preserves_published_roots ... ok
+test failed_delta_after_shared_transfer_never_installs_partial_publication ... ok
+test failed_shared_rehash_preserves_roots_and_forward_transfer_avoids_unchanged_key_clones ... ok
+test flat_and_paged_caches_preserve_value_identity_without_cloning_payloads ... ok
+test four_actual_readers_keep_twenty_thousand_records_during_conversion ... ok
+test key_clone_hash_and_drop_failures_preserve_published_roots_and_release_staging ... ok
+test large_batches_reset_reversible_storage_but_keep_oneway_control_paged ... ok
+test partial_delta_and_reverse_conversion_failures_preserve_all_published_states ... ok
+test reverse_key_clone_and_hash_failures_leave_published_paged_roots_usable ... ok
+test shared_transitions_clone_only_delta_payloads_preserve_instances_and_reclaim_every_owner ... ok
+test submitted_batch_density_type_gate_and_empty_batches_are_case_blind ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 24.69s
+

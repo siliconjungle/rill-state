@@ -1,0 +1,68 @@
+{
+  "claim": "Raw generic ordering/model/value/failure/thread/reclamation proofs only; complete-engine and speed admission remain separate.",
+  "source_commit": "a3c2f592447f2fc646533214e15a1dc66a64e626",
+  "source_sha256": "a452fb4ba2e1c5c354decb7665922bf3e700a59003bbbc2ed581bc6aae11640d",
+  "test_source_sha256": "ac70a208db64f82a65d6c7885f6fb51769fb1ae5c10fb646a6aa9d7e50d76764",
+  "plan": "research/v35o-diagnostics-plan.json",
+  "plan_sha256": "254cef3b245dfa04f1d05db8e699101ddb6f30fbd58f7d23f93a10ce4e6e2edb",
+  "driver_sha256": "ef92dcbba7e0828a0f17ef1fe996b06bbcd84d61bb1d56f2571d0298ec5827fb",
+  "source_preflight": {
+    "root": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state",
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "build_command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--no-default-features",
+    "--features",
+    "experimental",
+    "--test",
+    "adaptive",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "build_exit_code": 0,
+  "binary": "build/adaptive-contracts-v3",
+  "binary_sha256": "e180b69dc058cb8c5a73ef09fe4e6f3620bed32177f4b8b41ac677e90f433c6d",
+  "executed_command": [
+    "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/adaptive-contracts-v3",
+    "--test-threads=1"
+  ],
+  "exit_code": 0,
+  "policy_count": 432,
+  "passed_adaptive_tests": 15,
+  "all_core_experimental_tests": 102,
+  "reader_modes": [
+    "inline",
+    "shared",
+    "cache",
+    "reuse",
+    "reusecache",
+    "copyaddr",
+    "reuseaddr",
+    "copybucket",
+    "reusebucket"
+  ],
+  "reader_records": 20000,
+  "reader_threads": 4,
+  "threaded_cache_roots": [
+    "flat",
+    "paged"
+  ],
+  "scope": "All raw policy model cases use the forced-collision builder. Four-reader probes cover nine representative modes with RandomState, not every policy/configuration.",
+  "logs_sha256": {
+    "evidence/address-order-core-final.log": "64ee8c6ca77455adb3efb75828cf34c076aaf9a5bfe1b96196aaa9858f22f7bf",
+    "evidence/address-order-clippy-final.log": "0b5cb9ad299a794a6a2b04df9f6cc551cf47301e36430aeaae6b75b5454dcb0f",
+    "evidence/adaptive-contracts-v3.log": "852de80b33322f2a1357079abb6bc0054f8f34371e7160d86122c119745451c8"
+  },
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "started_at_unix": 1792638469.670285,
+  "finished_at_unix": 1792638519.2055712
+}

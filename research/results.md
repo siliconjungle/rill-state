@@ -969,3 +969,24 @@ profiles and losses are retained in the native selection review; these parallel
 results do not establish isolated or native multiwriter throughput. Generic
 payload callbacks/exports, instrumented native reclamation and final admission
 remain open. The default Store and holdout seeds are unchanged.
+
+
+## Fixed traversal-address ordering
+
+The v35o plan registers exact-address and 4096-byte address-bucket ordering with
+both copying and shared-record reuse. All 102 local core/experimental tests pass,
+and the selected frozen adaptive binary passes all fifteen raw tests over 432
+policies. The full model uses forced collisions, canonical-key metadata, borrowed
+lookup values, repeated density changes and retained roots. New checks assert
+actual flat and paged cache order, preserve value instances across lookup/visit,
+reject an invalid pointer shift and recover after a visitor panics. Reads fill
+caches while key/hash/value clone bombs are armed and clone no payloads.
+
+Nine representative modes additionally use four actual readers over 20,000
+records while another staged root changes. Flat and paged caches initialize
+concurrently; all retained values remain correct and tracked values reclaim.
+This scope is explicit: it does not claim threading for every policy, a native
+GPU path, total heap bounds, complete engine/feed admission or a speed win.
+The registered seventy-configuration cold panel and twenty-five-configuration
+memory panel keep the copying, transfer, unsorted and upstream/paged controls.
+Sorting is charged to the scan that builds the cache. Comparisons remain pending.

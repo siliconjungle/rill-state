@@ -178,8 +178,8 @@ caches retain record handles, preserving the same value instances as lookup and
 cloning no payloads on reads. Shared cache-disabled controls expose the allocation
 and indirection tradeoffs. `ReuseSharedFlat` additionally transfers immutable
 records between layouts without cloning unchanged payloads, while retaining the
-copying controls. The local suite passes 100 tests, including thirteen adaptive
-checks over all 240 raw policies. Matched development measurements show faster
+copying controls. The local suite passes 102 tests, including fifteen adaptive
+checks over all 432 raw policies. Matched development measurements show faster
 conversions and slower subsequent scans in some cells; no final speed admission
 has passed. A dedicated 300-engine development panel (288
 builder/configuration variants plus 12 fixed controls) has frozen optimized
@@ -218,3 +218,11 @@ adapters. Its actual 22-engine scalar panel passes 1,408 small/full-size/threade
 proofs, eight edge probes and 660 matching-output development selections. Native
 transaction and transferable-export costs stay explicit. Generic payload, native
 reclamation and isolated/final performance admission remain pending.
+
+`AddressOrderedFlat` is a further opt-in traversal experiment. Four fixed modes
+compare exact record addresses and 4096-byte address buckets, each with copying
+and record reuse. Sorting runs while the second-scan cache is built and retains
+the canonical key/value instances; lookup still uses complete key equality.
+The selected frozen raw proof covers all 432 policies and nine representative
+flat/paged cache modes with four real readers over 20,000 records. Comparative
+speed and complete-engine admission for these new modes remain pending.
