@@ -301,6 +301,10 @@
     {
       "path": "build/group-byte-index-contracts-v1",
       "reason": "Selected generic grouped-control raw-map mask, model, failure/reclamation and 20k threaded proof executable"
+    },
+    {
+      "path": "build/group-byte-point-v1",
+      "reason": "Selected raw getter comparison reproducibility baseline across all 28 fixed policies/controls; not complete engine admission"
     }
   ],
   "safe_to_remove": [

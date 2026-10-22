@@ -33,6 +33,18 @@
     {
       "path": "storage-retention.json",
       "reason": "Owner retention declaration"
+    },
+    {
+      "path": "RAW-POINT-PLAN.json",
+      "reason": "Explicitly selected reproducibility baseline: all 28 raw getter policies/controls, no engine admission"
+    },
+    {
+      "path": "benches",
+      "reason": "Raw getter source, complete initial-value checks and independent checksum model"
+    },
+    {
+      "path": "run_point.py",
+      "reason": "Fresh-process randomized comparison orchestration and exact result bindings"
     }
   ],
   "safe_to_remove": [

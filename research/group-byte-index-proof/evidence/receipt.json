@@ -1,0 +1,109 @@
+{
+  "claim": "Raw generic-map mask/model/recovery/reclamation and actual-reader proofs. Not complete engine revision/feed proof, timing admission or a default backend change.",
+  "source_commit": "bd6b0a94fc7b0c08ea5db51aad4cc63d145e8abb",
+  "input_sha256": {
+    "Cargo.toml": "9c204e8b4844242c6d4d6e97fea6109b19dcd776efa51dcb6ece0b1e12792cfc",
+    "Cargo.lock": "2e472fc513009da3cddc9325a62e35307c66fa4ff50eef984d77f8ca1d1e8b4d",
+    "src/lib.rs": "a9cd62513dd6954ad742a334d10b9e2a125b15ab35e417c1683d95a6abeac530",
+    "tests/contracts.rs": "e635348ef0371ce5e453ad8204d2cee4685e104f8ec3c09b1bc4a1c152fdbce2"
+  },
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "build_command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--manifest-path",
+    "research/group-byte-index-proof/Cargo.toml",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "1"
+  },
+  "source_preflight": {
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "policies": [
+    {
+      "load": 25,
+      "group": 8
+    },
+    {
+      "load": 25,
+      "group": 16
+    },
+    {
+      "load": 25,
+      "group": 32
+    },
+    {
+      "load": 50,
+      "group": 8
+    },
+    {
+      "load": 50,
+      "group": 16
+    },
+    {
+      "load": 50,
+      "group": 32
+    },
+    {
+      "load": 70,
+      "group": 8
+    },
+    {
+      "load": 70,
+      "group": 16
+    },
+    {
+      "load": 70,
+      "group": 32
+    },
+    {
+      "load": 85,
+      "group": 8
+    },
+    {
+      "load": 85,
+      "group": 16
+    },
+    {
+      "load": 85,
+      "group": 32
+    }
+  ],
+  "full_collision_randomized_model_steps_per_policy": 3000,
+  "retained_reader_records": 20000,
+  "reader_threads_per_policy": 4,
+  "tests": [
+    {
+      "binary": "build/group-byte-index-contracts-v1",
+      "binary_sha256": "b8cfbf55c0b66fb6c0a085f571706d73830f08370e2370e701ff5f67ea9f4904",
+      "command": [
+        "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/group-byte-index-contracts-v1",
+        "--test-threads=1"
+      ],
+      "passed_tests": 8,
+      "exit_code": 0,
+      "log_sha256": "58fe2151ec31a9e1f49de33fb8b82b4ba1e4fccc2e6fadd9d44e01b83c5c3de3"
+    },
+    {
+      "binary": "build/group-byte-index-unit-v1",
+      "binary_sha256": "608e6651ddaefc808a0bb1bc65e6156a71e30fa86099d55213b258a6f6345a7e",
+      "command": [
+        "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/group-byte-index-unit-v1",
+        "--test-threads=1"
+      ],
+      "passed_tests": 1,
+      "exit_code": 0,
+      "log_sha256": "22947290ea14d722f65e18c9c528e976638d364392d3d927f3da00f114398f63"
+    }
+  ],
+  "passed_tests": 9,
+  "clippy_exit_code": 0,
+  "clippy_log_sha256": "bedad71b6562374e1382a66c931c081918fae95d73099e956455b6e4860b4514"
+}

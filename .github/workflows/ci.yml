@@ -24,6 +24,13 @@ jobs:
         run: |
           cargo test --locked --features comparisons --test vector_adapter
           cargo test --locked --features pvec-small-branch --test vector_adapter
+      - name: Grouped-byte prototype contracts and raw-getter smoke (no speed claims)
+        run: |
+          cargo test --locked --manifest-path research/group-byte-index-proof/Cargo.toml
+          cargo clippy --locked --all-targets --manifest-path research/group-byte-index-proof/Cargo.toml -- -D warnings
+          for engine in group-fast-70-8 group-sip-50-16 std-fast hashbrown; do
+            cargo bench --locked --manifest-path research/group-byte-index-proof/Cargo.toml --bench point -- --engine "$engine" --shape string-inline --case miss50 --records 1000 --readers 1000 --rounds 2
+          done
       - run: cargo bench --locked --features comparisons --no-run
       - name: Exact comparator behavior (no speed claims from shared CI)
         run: |
