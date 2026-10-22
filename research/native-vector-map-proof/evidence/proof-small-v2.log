@@ -1,0 +1,71 @@
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 17
+ right: 17
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 19995
+ right: 19995
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 17
+ right: 17
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 19995
+ right: 19995
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 17
+ right: 17
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 19995
+ right: 19995
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 17
+ right: 17
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 19995
+ right: 19995
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 17
+ right: 17
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 19995
+ right: 19995
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 17
+ right: 17
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 17
+ right: 17
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 17
+ right: 17
+
+thread 'main' (1276368) panicked at src/main.rs:46:9:
+assertion `left != right` failed: injected value clone failure
+  left: 17
+ right: 17

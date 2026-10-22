@@ -807,6 +807,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
 
 [[package]]
+name = "ordermap"
+version = "1.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "16a756ddcdeb6c0efc8927bdf0ed112885815a35ba350472a467be5104f01ca1"
+dependencies = [
+ "indexmap",
+]
+
+[[package]]
 name = "papaya"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -900,6 +909,12 @@ dependencies = [
  "quote",
  "syn 3.0.9",
 ]
+
+[[package]]
+name = "pvec"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9c8a33f1001bd132cb71613d6c4160d90ae93e324c2ee1d863e462ea36033ca3"
 
 [[package]]
 name = "quote"
@@ -1019,7 +1034,9 @@ dependencies = [
  "leapfrog",
  "left-right",
  "mvcc_cell",
+ "ordermap",
  "papaya",
+ "pvec",
  "rcu_cell",
  "rpds",
  "scc",

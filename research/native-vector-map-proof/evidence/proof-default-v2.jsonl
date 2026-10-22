@@ -1,0 +1,9 @@
+{"kind":"native-vector-api-proof","engine":"std-vec","records":20000,"retained_views":16,"reader_threads":4,"clone_panic_exercised":true,"pop_clone_panic_exercised":true,"after_all_drop":0,"value_clones":699984,"small_branch":false,"verified":true}
+{"kind":"native-vector-api-proof","engine":"pvec-flat","records":20000,"retained_views":16,"reader_threads":4,"clone_panic_exercised":true,"pop_clone_panic_exercised":true,"after_all_drop":0,"value_clones":43504,"small_branch":false,"verified":true}
+{"kind":"native-vector-api-proof","engine":"pvec-tree","records":20000,"retained_views":16,"reader_threads":4,"clone_panic_exercised":true,"pop_clone_panic_exercised":true,"after_all_drop":0,"value_clones":3728,"small_branch":false,"verified":true}
+{"kind":"native-vector-api-proof","engine":"pvec-rrb","records":20000,"retained_views":16,"reader_threads":4,"clone_panic_exercised":true,"pop_clone_panic_exercised":true,"after_all_drop":0,"value_clones":3728,"small_branch":false,"verified":true}
+{"kind":"native-vector-api-proof","engine":"pvec-rb","records":20000,"retained_views":16,"reader_threads":4,"clone_panic_exercised":true,"pop_clone_panic_exercised":true,"after_all_drop":0,"value_clones":3728,"small_branch":false,"verified":true}
+{"kind":"native-map-api-proof","engine":"ordermap-shift","records":20000,"reader_threads":4,"clone_panic_exercised":true,"after_all_drop":0,"verified":true}
+{"kind":"native-map-api-proof","engine":"ordermap-shift-fast","records":20000,"reader_threads":4,"clone_panic_exercised":true,"after_all_drop":0,"verified":true}
+{"kind":"native-map-api-proof","engine":"ordermap-swap","records":20000,"reader_threads":4,"clone_panic_exercised":true,"after_all_drop":0,"verified":true}
+{"kind":"native-map-api-proof","engine":"ordermap-swap-fast","records":20000,"reader_threads":4,"clone_panic_exercised":true,"after_all_drop":0,"verified":true}

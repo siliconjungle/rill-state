@@ -1,0 +1,30 @@
+{
+  "kind": "Native upstream API proof; not a performance or complete-engine admission",
+  "features": [
+    "--features",
+    "small-branch"
+  ],
+  "records": 20000,
+  "command": [
+    "cargo",
+    "build",
+    "--locked",
+    "--features",
+    "small-branch",
+    "--message-format=json"
+  ],
+  "source_preflight": {
+    "prepared_outside_measurement": true,
+    "source_config": null,
+    "direct_cargo_arguments": []
+  },
+  "input_sha256": {
+    "Cargo.toml": "afda2098c69539f5736f4362029a577d734860df589b2251bcbbc761b635aa9b",
+    "Cargo.lock": "0b8960dd96d5b50245e9aa18e64101a8ec326456a8225943aab837faf8626be0",
+    "src/main.rs": "9dfde92ff11c8c3db3445bdcf77304a08fbd8878e1c7484bad3cf814c7a2de6f"
+  },
+  "binary": "build/native-vector-map-proof-small-v2",
+  "binary_sha256": "7cba9995c1f1c7228daa862fddd1dc26487fb59a5ee2547e68714d633c447b37",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "exit_code": 0
+}

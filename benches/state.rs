@@ -1,5 +1,10 @@
 //! Shared-contract comparison driver. Every measured engine retains immutable snapshots
 //! and records ordered batch operations. Concurrent maps require explicit copy adapters.
+#[path = "support/root.rs"]
+mod root;
+use root::{MapRoot, NativeRoot};
+#[path = "support/vector_map.rs"]
+mod vector_map;
 use rill_state::{Config, Cursor, Mutation, Snapshot, Store};
 use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::hash::BuildHasher;
@@ -114,61 +119,63 @@ trait Map: Clone + Send + Sync {
         }
     }
 }
-struct View<M>(Arc<M>, u64);
-impl<M> Clone for View<M> {
+struct View<M, R = Arc<M>>(R, u64, std::marker::PhantomData<fn() -> M>);
+impl<M, R: Clone> Clone for View<M, R> {
     fn clone(&self) -> Self {
-        Self(self.0.clone(), self.1)
+        Self(self.0.clone(), self.1, std::marker::PhantomData)
     }
 }
-impl<M: Map> ReadView for View<M> {
+impl<M: Map, R: MapRoot<M>> ReadView for View<M, R> {
     fn revision(&self) -> u64 {
         self.1
     }
     fn get(&self, k: &Key) -> Option<Value> {
-        self.0.get(k)
+        self.0.as_map().get(k)
     }
     fn len(&self) -> usize {
-        self.0.len()
+        self.0.as_map().len()
     }
     fn checksum(&self) -> u64 {
         let mut sum = 0u64;
-        self.0.visit(|k, v| sum = sum.wrapping_add(digest(k, v)));
+        self.0
+            .as_map()
+            .visit(|k, v| sum = sum.wrapping_add(digest(k, v)));
         sum
     }
     fn contents(&self) -> BTreeMap<Key, Value> {
         let mut m = BTreeMap::new();
-        self.0.visit(|k, v| {
+        self.0.as_map().visit(|k, v| {
             assert!(m.insert(k, v).is_none());
         });
         m
     }
 }
-struct Compared<M> {
-    current: View<M>,
+struct Compared<M, R = Arc<M>> {
+    current: View<M, R>,
     history: VecDeque<(u64, Arc<[Op]>)>,
     revision: u64,
     count: usize,
 }
-impl<M: Map> Compared<M> {
+impl<M: Map, R: MapRoot<M>> Compared<M, R> {
     fn new() -> Self {
         Self {
-            current: View(Arc::new(M::empty()), 0),
+            current: View(R::from_map(M::empty()), 0, std::marker::PhantomData),
             history: VecDeque::new(),
             revision: 0,
             count: 0,
         }
     }
 }
-impl<M: Map> Engine for Compared<M> {
-    type View = View<M>;
+impl<M: Map, R: MapRoot<M>> Engine for Compared<M, R> {
+    type View = View<M, R>;
     fn publish(&mut self, ops: Vec<Op>) {
         let ops: Arc<[Op]> = ops.into();
         // Empty revisions change the cursor/journal, not the state. In particular,
         // a mutable HashMap baseline must not pay for an unnecessary full copy.
         if !ops.is_empty() {
-            let mut map = (*self.current.0).clone();
+            let mut map = self.current.0.as_map().clone();
             map.batch(&ops);
-            self.current.0 = Arc::new(map);
+            self.current.0 = R::from_map(map);
         }
         self.revision += 1;
         self.current.1 = self.revision;
@@ -1969,7 +1976,129 @@ fn main() {
             run(Compared::<$ty>::new(), &o)
         };
     }
+    macro_rules! native_map {
+        ($m:ty) => {
+            run(Compared::<$m, NativeRoot<$m>>::new(), &o)
+        };
+    }
     match o.engine.as_str() {
+        "native-packed-owned-once-25" => {
+            native_map!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,true>)
+        }
+        "native-packed-owned-once-50" => {
+            native_map!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,true>)
+        }
+        "native-packed-owned-once-70" => {
+            native_map!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,true>)
+        }
+        "native-packed-owned-once-85" => {
+            native_map!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,true>)
+        }
+        "native-compact-wide-owned-once-25" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,true,false>)
+        }
+        "native-compact-wide-owned-once-50" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,true,false>)
+        }
+        "native-compact-wide-owned-once-70" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,true,false>)
+        }
+        "native-compact-wide-owned-once-85" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,true,false>)
+        }
+        "native-compact-adaptive-owned-once-25" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,true,true>)
+        }
+        "native-compact-adaptive-owned-once-50" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,true,true>)
+        }
+        "native-compact-adaptive-owned-once-70" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,true,true>)
+        }
+        "native-compact-adaptive-owned-once-85" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,true,true>)
+        }
+        "native-inline-owned-index-25" => {
+            native_map!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::OwnedHasher,false>)
+        }
+        "native-inline-owned-index-50" => {
+            native_map!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,50,rill_state::experimental::OwnedHasher,false>)
+        }
+        "native-inline-owned-index-70" => {
+            native_map!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::OwnedHasher,false>)
+        }
+        "native-inline-owned-index-85" => {
+            native_map!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,85,rill_state::experimental::OwnedHasher,false>)
+        }
+        "native-packed-shared-once-70" => {
+            native_map!(rill_state::experimental::PackedIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,true>)
+        }
+        "native-compact-adaptive-shared-once-70" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,true,true>)
+        }
+        "native-compact-wide-shared-once-70" => {
+            native_map!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,true,false>)
+        }
+        "native-inline-shared-index-70" => {
+            native_map!(rill_state::experimental::InlineSliceMap<Key,Value,hashbrown::DefaultHashBuilder,70,rill_state::experimental::SharedHasher,false>)
+        }
+        "native-imbl-fast" => {
+            native_map!(ImblFast<Key,Value>)
+        }
+        "native-imhm" => {
+            native_map!(imhm::Map<Key,Value>)
+        }
+        "native-rpds-fast" => {
+            native_map!(rpds::HashTrieMapSync<Key,Value,hashbrown::DefaultHashBuilder>)
+        }
+        "native-shard-shared-group-25-16" => {
+            native_map!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,25,16,rill_state::experimental::SharedHasher,true>)
+        }
+        "native-shard-owned-group-50-1024" => {
+            native_map!(rill_state::experimental::ShardedInlineMap<Key,Value,hashbrown::DefaultHashBuilder,50,1024,rill_state::experimental::OwnedHasher,true>)
+        }
+        "ordermap-swap" => {
+            dispatch!(ordermap::OrderMap<Key,Value>)
+        }
+        "ordermap-shift" => {
+            dispatch!(ShiftOrder<Key,Value,std::collections::hash_map::RandomState>)
+        }
+        "ordermap-swap-fast" => {
+            dispatch!(ordermap::OrderMap<Key,Value,hashbrown::DefaultHashBuilder>)
+        }
+        "ordermap-shift-fast" => {
+            dispatch!(ShiftOrder<Key,Value,hashbrown::DefaultHashBuilder>)
+        }
+        "vector-flat-sip" => {
+            dispatch!(vector_map::VectorMap<Key,Value,std::collections::hash_map::RandomState,vector_map::Flat>)
+        }
+        "vector-flat-fast" => {
+            dispatch!(vector_map::VectorMap<Key,Value,hashbrown::DefaultHashBuilder,vector_map::Flat>)
+        }
+        "vector-tree-sip" => {
+            dispatch!(vector_map::VectorMap<Key,Value,std::collections::hash_map::RandomState,vector_map::Tree>)
+        }
+        "vector-tree-fast" => {
+            dispatch!(vector_map::VectorMap<Key,Value,hashbrown::DefaultHashBuilder,vector_map::Tree>)
+        }
+        "vector-rrb-sip" => {
+            dispatch!(vector_map::VectorMap<Key,Value,std::collections::hash_map::RandomState,vector_map::Rrb>)
+        }
+        "vector-rrb-fast" => {
+            dispatch!(vector_map::VectorMap<Key,Value,hashbrown::DefaultHashBuilder,vector_map::Rrb>)
+        }
+        "vector-rb-sip" => {
+            dispatch!(vector_map::VectorMap<Key,Value,std::collections::hash_map::RandomState,vector_map::Rb>)
+        }
+        "vector-rb-fast" => {
+            dispatch!(vector_map::VectorMap<Key,Value,hashbrown::DefaultHashBuilder,vector_map::Rb>)
+        }
+        "vector-cowvec-sip" => {
+            dispatch!(vector_map::VectorMap<Key,Value,std::collections::hash_map::RandomState,vector_map::CowVec>)
+        }
+        "vector-cowvec-fast" => {
+            dispatch!(vector_map::VectorMap<Key,Value,hashbrown::DefaultHashBuilder,vector_map::CowVec>)
+        }
         "compact-wide-shared-each-25" => {
             dispatch!(rill_state::experimental::CompactIndexMap<Key,Value,hashbrown::DefaultHashBuilder,25,rill_state::experimental::SharedHasher,false,false>)
         }
@@ -2914,5 +3043,59 @@ where
     }
     fn batch(&mut self, ops: &[Op]) {
         self.apply(ops);
+    }
+}
+
+map_impl!(ordermap::OrderMap<Key,Value>,ordermap::OrderMap::new(),swap_remove);
+
+map_impl!(ordermap::OrderMap<Key,Value,hashbrown::DefaultHashBuilder>,ordermap::OrderMap::with_hasher(Default::default()),swap_remove);
+
+#[derive(Clone)]
+struct ShiftOrder<K, V, S>(ordermap::OrderMap<K, V, S>);
+impl<S: std::hash::BuildHasher + Default + Clone + Send + Sync> Map for ShiftOrder<Key, Value, S> {
+    fn empty() -> Self {
+        Self(ordermap::OrderMap::with_hasher(S::default()))
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.0.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.0.insert(k, v);
+    }
+    fn del(&mut self, k: &Key) {
+        self.0.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.0.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        for (k, v) in &self.0 {
+            f(*k, *v);
+        }
+    }
+}
+impl<S: std::hash::BuildHasher + Default + Clone + Send + Sync, Kind: vector_map::VectorKind> Map
+    for vector_map::VectorMap<Key, Value, S, Kind>
+{
+    fn empty() -> Self {
+        Self::new()
+    }
+    fn get(&self, k: &Key) -> Option<Value> {
+        self.get(k).copied()
+    }
+    fn put(&mut self, k: Key, v: Value) {
+        self.put(k, v)
+    }
+    fn del(&mut self, k: &Key) {
+        self.del(k)
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, mut f: impl FnMut(Key, Value)) {
+        self.visit(|k, v| f(*k, *v));
+    }
+    fn batch(&mut self, ops: &[Op]) {
+        self.apply(ops)
     }
 }

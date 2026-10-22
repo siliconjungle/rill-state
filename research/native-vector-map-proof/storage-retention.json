@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "state": "Completed selected v2 upstream API/capability proofs; not a performance ranking",
+  "keep": [
+    {
+      "path": "Cargo.toml",
+      "reason": "Pinned dependency/features and untimed validation profiles"
+    },
+    {
+      "path": "Cargo.lock",
+      "reason": "Exact transitive reproduction inputs"
+    },
+    {
+      "path": "src",
+      "reason": "Full-payload, retained-view, threading and clone-panic proof input"
+    },
+    {
+      "path": "evidence",
+      "reason": "Selected useful API proofs and exact build/input receipts"
+    },
+    {
+      "path": "storage-retention.json",
+      "reason": "Owner retention declaration"
+    },
+    {
+      "path": ".gitignore",
+      "reason": "Exclude completed generated build staging from source publication"
+    }
+  ],
+  "safe_to_remove": [
+    {
+      "path": "evidence/build.jsonl",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/build.log",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/lock.log",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/build-default.jsonl",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/build-default.log",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/proof-default.jsonl",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/proof-default.log",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/receipt-default.json",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/build-small.jsonl",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/build-small.log",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/proof-small.jsonl",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/proof-small.log",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "evidence/receipt-small.json",
+      "reason": "Superseded staging; selected v2 proof checks full cloned payload and pop failures with retained reproduction inputs"
+    },
+    {
+      "path": "target",
+      "reason": "Completed owned generated build staging; selected v2 executables, exact lock and proof source are retained"
+    }
+  ]
+}

@@ -116,6 +116,22 @@
       }
     },
     {
+      "name": "pvec",
+      "version": "0.2.1",
+      "repository": "https://github.com/ArazAbishov/pvec-rs",
+      "description": "RRB-Tree based persistent vector implementation.",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/pvec/0.2.1/source/",
+      "published_checksum": "9c8a33f1001bd132cb71613d6c4160d90ae93e324c2ee1d863e462ea36033ca3",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "7824313cbc0be5fb6a8a1e60741c1a8cbf65eff62bbcf43c240304500ce85f19",
+        "Cargo.toml.orig": "61e1cfd99408efd52f6524c9c0a907c5f8847f1bccb0f0546464958c022c94c2",
+        "README.md": "f0d8455f7585a3b242f704c3904d2140415a33717bd6b28be89093a00e483903",
+        "src/lib.rs": "053a7c3880b2cb188c34591294482562168f57955b168ff214e3a55ebc8fd4db"
+      }
+    },
+    {
       "name": "arc-swap",
       "version": "1.9.3",
       "repository": "https://github.com/vorner/arc-swap",
@@ -425,6 +441,23 @@
         "README.md": "f002494bf69e5b7dde911cfdb99330dfdbc4780d79a8e51847dfb7d883d9ab0f",
         "src/lib.rs": "c8e2f1c0e488ab63d832392a83e34fa82293854bfb5ff3def8eeca9545ab2bdd",
         "src/map.rs": "3c02a5a60bf0caa5910a0b41165a84d85a91c6ba0e83426a090bb109a9e785fb"
+      }
+    },
+    {
+      "name": "ordermap",
+      "version": "1.2.2",
+      "repository": "https://github.com/indexmap-rs/ordermap",
+      "description": "A hash table with consistent order and fast iteration.",
+      "license": "Apache-2.0 OR MIT",
+      "source": "https://docs.rs/crate/ordermap/1.2.2/source/",
+      "published_checksum": "16a756ddcdeb6c0efc8927bdf0ed112885815a35ba350472a467be5104f01ca1",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "bb41b14486e3112ba1ad7e0532f80596ee712df99ac9e55f955097fd3115a844",
+        "Cargo.toml.orig": "1784f51b97acffca264651c466f7fb3ae758079dde0d36d888f7a575aa724371",
+        "README.md": "eca3606eddd2b13d3b38ec97f672effae9e4f905504a049bdf6d9407a64c56ff",
+        "src/lib.rs": "9c3b3620c0ff9339e67f8d80ddc92bfe38105992de6c635def168952ec3f5009",
+        "src/map.rs": "03a9e9ed1e289c1616700330096fa36002284cd8469c9d769534ac5dfa9b503f"
       }
     },
     {

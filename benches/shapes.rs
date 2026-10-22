@@ -2,6 +2,11 @@
 //! rather than replaces, the registered inline-u64 comparison and final holdout gate.
 #[path = "support/exact.rs"]
 mod exact;
+#[path = "support/root.rs"]
+mod root;
+use root::{MapRoot, NativeRoot};
+#[path = "support/vector_map.rs"]
+mod vector_map;
 use rill_state::{
     experimental::{
         ArrayRecordMap, CompactIndexMap, CopyKeys, HasherPolicy, InlineSliceMap, KeyPolicy,
@@ -525,24 +530,24 @@ impl<K: Key, V: Value, S: BuildHasher + Send + Sync> Read<K, V> for Snapshot<K, 
         }
     }
 }
-struct View<M>(Arc<M>, u64);
-impl<M> Clone for View<M> {
+struct View<M, R = Arc<M>>(R, u64, std::marker::PhantomData<fn() -> M>);
+impl<M, R: Clone> Clone for View<M, R> {
     fn clone(&self) -> Self {
-        Self(self.0.clone(), self.1)
+        Self(self.0.clone(), self.1, std::marker::PhantomData)
     }
 }
-impl<K: Key, V: Value, M: Map<K, V>> Read<K, V> for View<M> {
+impl<K: Key, V: Value, M: Map<K, V>, R: MapRoot<M>> Read<K, V> for View<M, R> {
     fn revision(&self) -> u64 {
         self.1
     }
     fn get(&self, k: &K) -> Option<&V> {
-        self.0.get(k)
+        self.0.as_map().get(k)
     }
     fn len(&self) -> usize {
-        self.0.len()
+        self.0.as_map().len()
     }
     fn visit(&self, f: impl FnMut(&K, &V)) {
-        self.0.visit(f)
+        self.0.as_map().visit(f)
     }
 }
 trait Engine<K: Key, V: Value> {
@@ -553,28 +558,28 @@ trait Engine<K: Key, V: Value> {
     fn feed(&self, after: u64) -> Vec<Vec<Mutation<K, V>>>;
 }
 type History<K, V> = VecDeque<(u64, Arc<[Mutation<K, V>]>)>;
-struct Compared<K: Key, V: Value, M: Map<K, V>> {
-    view: View<M>,
+struct Compared<K: Key, V: Value, M: Map<K, V>, R = Arc<M>> {
+    view: View<M, R>,
     history: History<K, V>,
     operations: usize,
 }
-impl<K: Key, V: Value, M: Map<K, V>> Compared<K, V, M> {
+impl<K: Key, V: Value, M: Map<K, V>, R: MapRoot<M>> Compared<K, V, M, R> {
     fn new() -> Self {
         Self {
-            view: View(Arc::new(M::new()), 0),
+            view: View(R::from_map(M::new()), 0, std::marker::PhantomData),
             history: VecDeque::new(),
             operations: 0,
         }
     }
 }
-impl<K: Key, V: Value, M: Map<K, V>> Engine<K, V> for Compared<K, V, M> {
-    type View = View<M>;
+impl<K: Key, V: Value, M: Map<K, V>, R: MapRoot<M>> Engine<K, V> for Compared<K, V, M, R> {
+    type View = View<M, R>;
     fn publish(&mut self, ops: Vec<Mutation<K, V>>) {
         let ops: Arc<[Mutation<K, V>]> = ops.into();
         if !ops.is_empty() {
-            let mut map = (*self.view.0).clone();
+            let mut map = self.view.0.as_map().clone();
             map.batch(&ops);
-            self.view.0 = Arc::new(map);
+            self.view.0 = R::from_map(map);
         }
         self.view.1 += 1;
         self.operations += ops.len();
@@ -832,7 +837,129 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
             run::<K, V, _>(Compared::<K, V, $m>::new(), o)
         };
     }
+    macro_rules! native_map {
+        ($m:ty) => {
+            run::<K, V, _>(Compared::<K, V, $m, NativeRoot<$m>>::new(), o)
+        };
+    }
     match o.engine.as_str() {
+        "native-packed-owned-once-25" => {
+            native_map!(PackedIndexMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,true>)
+        }
+        "native-packed-owned-once-50" => {
+            native_map!(PackedIndexMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,true>)
+        }
+        "native-packed-owned-once-70" => {
+            native_map!(PackedIndexMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,true>)
+        }
+        "native-packed-owned-once-85" => {
+            native_map!(PackedIndexMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,true>)
+        }
+        "native-compact-wide-owned-once-25" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,true,false>)
+        }
+        "native-compact-wide-owned-once-50" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,true,false>)
+        }
+        "native-compact-wide-owned-once-70" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,true,false>)
+        }
+        "native-compact-wide-owned-once-85" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,true,false>)
+        }
+        "native-compact-adaptive-owned-once-25" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,true,true>)
+        }
+        "native-compact-adaptive-owned-once-50" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,true,true>)
+        }
+        "native-compact-adaptive-owned-once-70" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,true,true>)
+        }
+        "native-compact-adaptive-owned-once-85" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,true,true>)
+        }
+        "native-inline-owned-index-25" => {
+            native_map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,25,OwnedHasher,false>)
+        }
+        "native-inline-owned-index-50" => {
+            native_map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,50,OwnedHasher,false>)
+        }
+        "native-inline-owned-index-70" => {
+            native_map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,70,OwnedHasher,false>)
+        }
+        "native-inline-owned-index-85" => {
+            native_map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,85,OwnedHasher,false>)
+        }
+        "native-packed-shared-once-70" => {
+            native_map!(PackedIndexMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,true>)
+        }
+        "native-compact-adaptive-shared-once-70" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,true,true>)
+        }
+        "native-compact-wide-shared-once-70" => {
+            native_map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,true,false>)
+        }
+        "native-inline-shared-index-70" => {
+            native_map!(InlineSliceMap<K,V,hashbrown::DefaultHashBuilder,70,SharedHasher,false>)
+        }
+        "native-imbl-fast" => {
+            native_map!(ImblFast<K,V>)
+        }
+        "native-imhm" => {
+            native_map!(imhm::Map<K,V>)
+        }
+        "native-rpds-fast" => {
+            native_map!(rpds::HashTrieMapSync<K,V,hashbrown::DefaultHashBuilder>)
+        }
+        "native-shard-shared-group-25-16" => {
+            native_map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,25,16,SharedHasher,true>)
+        }
+        "native-shard-owned-group-50-1024" => {
+            native_map!(ShardedInlineMap<K,V,hashbrown::DefaultHashBuilder,50,1024,OwnedHasher,true>)
+        }
+        "ordermap-swap" => {
+            map!(ordermap::OrderMap<K,V>)
+        }
+        "ordermap-shift" => {
+            map!(ShiftOrder<K,V,std::collections::hash_map::RandomState>)
+        }
+        "ordermap-swap-fast" => {
+            map!(ordermap::OrderMap<K,V,hashbrown::DefaultHashBuilder>)
+        }
+        "ordermap-shift-fast" => {
+            map!(ShiftOrder<K,V,hashbrown::DefaultHashBuilder>)
+        }
+        "vector-flat-sip" => {
+            map!(vector_map::VectorMap<K,V,std::collections::hash_map::RandomState,vector_map::Flat>)
+        }
+        "vector-flat-fast" => {
+            map!(vector_map::VectorMap<K,V,hashbrown::DefaultHashBuilder,vector_map::Flat>)
+        }
+        "vector-tree-sip" => {
+            map!(vector_map::VectorMap<K,V,std::collections::hash_map::RandomState,vector_map::Tree>)
+        }
+        "vector-tree-fast" => {
+            map!(vector_map::VectorMap<K,V,hashbrown::DefaultHashBuilder,vector_map::Tree>)
+        }
+        "vector-rrb-sip" => {
+            map!(vector_map::VectorMap<K,V,std::collections::hash_map::RandomState,vector_map::Rrb>)
+        }
+        "vector-rrb-fast" => {
+            map!(vector_map::VectorMap<K,V,hashbrown::DefaultHashBuilder,vector_map::Rrb>)
+        }
+        "vector-rb-sip" => {
+            map!(vector_map::VectorMap<K,V,std::collections::hash_map::RandomState,vector_map::Rb>)
+        }
+        "vector-rb-fast" => {
+            map!(vector_map::VectorMap<K,V,hashbrown::DefaultHashBuilder,vector_map::Rb>)
+        }
+        "vector-cowvec-sip" => {
+            map!(vector_map::VectorMap<K,V,std::collections::hash_map::RandomState,vector_map::CowVec>)
+        }
+        "vector-cowvec-fast" => {
+            map!(vector_map::VectorMap<K,V,hashbrown::DefaultHashBuilder,vector_map::CowVec>)
+        }
         "compact-wide-shared-each-25" => {
             map!(CompactIndexMap<K,V,hashbrown::DefaultHashBuilder,25,SharedHasher,false,false>)
         }
@@ -1450,5 +1577,81 @@ where
     }
     fn batch(&mut self, ops: &[Mutation<K, V>]) {
         self.apply(ops);
+    }
+}
+
+map!(ordermap::OrderMap<K,V>,ordermap::OrderMap::new(),swap_remove);
+
+map!(ordermap::OrderMap<K,V,hashbrown::DefaultHashBuilder>,ordermap::OrderMap::with_hasher(Default::default()),swap_remove);
+
+#[derive(Clone)]
+struct ShiftOrder<K, V, S>(ordermap::OrderMap<K, V, S>);
+impl<K: Key, V: Value, S: BuildHasher + Default + Clone + Send + Sync> Map<K, V>
+    for ShiftOrder<K, V, S>
+{
+    fn new() -> Self {
+        Self(ordermap::OrderMap::with_hasher(S::default()))
+    }
+    fn get(&self, k: &K) -> Option<&V> {
+        self.0.get(k)
+    }
+    fn put(&mut self, k: K, v: V) {
+        self.0.insert(k, v);
+    }
+    fn del(&mut self, k: &K) {
+        self.0.remove(k);
+    }
+    fn len(&self) -> usize {
+        self.0.len()
+    }
+    fn visit(&self, mut f: impl FnMut(&K, &V)) {
+        for (k, v) in &self.0 {
+            f(k, v);
+        }
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        for op in ops {
+            match op {
+                Mutation::Put(k, v) => {
+                    if let Some(old) = self.0.get_mut(k) {
+                        *old = v.clone();
+                    } else {
+                        self.0.insert(k.clone(), v.clone());
+                    }
+                }
+                Mutation::Delete(k) => {
+                    self.0.remove(k);
+                }
+            }
+        }
+    }
+}
+impl<
+        K: Key,
+        V: Value,
+        S: BuildHasher + Default + Clone + Send + Sync,
+        Kind: vector_map::VectorKind,
+    > Map<K, V> for vector_map::VectorMap<K, V, S, Kind>
+{
+    fn new() -> Self {
+        Self::new()
+    }
+    fn get(&self, k: &K) -> Option<&V> {
+        self.get(k)
+    }
+    fn put(&mut self, k: K, v: V) {
+        self.put(k, v)
+    }
+    fn del(&mut self, k: &K) {
+        self.del(k)
+    }
+    fn len(&self) -> usize {
+        self.len()
+    }
+    fn visit(&self, f: impl FnMut(&K, &V)) {
+        self.visit(f)
+    }
+    fn batch(&mut self, ops: &[Mutation<K, V>]) {
+        self.apply(ops)
     }
 }

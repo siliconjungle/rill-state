@@ -1,0 +1,23 @@
+[package]
+name = "rill-native-vector-map-proof"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[features]
+small-branch = ["pvec/small_branch"]
+
+[dependencies]
+pvec = { version = "=0.2.1", features = ["arc"] }
+ordermap = "=1.2.2"
+hashbrown = "=0.17.1"
+
+[profile.dev]
+debug = 0
+incremental = false
+
+[profile.release]
+debug = 0
+incremental = false

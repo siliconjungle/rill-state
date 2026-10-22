@@ -83,8 +83,8 @@
       "name": "pvec",
       "version": "0.2.1",
       "source": "https://docs.rs/crate/pvec/0.2.1/source/",
-      "status": "source-reviewed-vector-adapter-pending",
-      "reason": "Persistent vector, not a complete key/value snapshot engine. Candidate backing for dense rows, with an explicit key index. Its arc feature is required for cross-thread retained views. First cloning a flat representation constructs a tree; account for conversion and compare tree-start mode as well. small_branch is a separate compile-time variation, requiring its own pinned binary and matched controls. Additional Debug bound must not narrow the generic row API without an explicit wrapper. See vector-and-ordered-map-review.json."
+      "status": "native-api-proved-complete-engine-adapter-awaiting-measurement",
+      "reason": "Persistent vector, not a complete key/value snapshot engine. Candidate backing for dense rows, with an explicit key index. Its arc feature is required for cross-thread retained views. First cloning a flat representation constructs a tree; account for conversion and compare tree-start mode as well. small_branch is a separate compile-time variation, requiring its own pinned binary and matched controls. Additional Debug bound must not narrow the generic row API without an explicit wrapper. See vector-and-ordered-map-review.json. Actual pinned API proofs now pass at 20,000 records with retained full-payload views, four reader threads, clone-panic injection and complete tracked-value release. PVec also passes pop failures and both branch sizes. Actual complete-engine adapters exist; full engine/feed proof and comparative timings remain pending. See native-vector-map-proof/evidence/receipt-default-v2.json and receipt-small-v2.json. API clone counters are not runtime performance evidence."
     },
     {
       "name": "immer",
@@ -314,8 +314,8 @@
       "name": "ordermap",
       "version": "1.2.2",
       "source": "https://docs.rs/crate/ordermap/1.2.2/source/",
-      "status": "source-reviewed-wrapper-adapter-pending",
-      "reason": "Wrapper over IndexMap providing order-sensitive collection semantics. Clone delegates to the underlying IndexMap. Default remove uses shift removal, while explicit swap_remove delegates to IndexMap swap removal. Adapt actual OrderMap with native/fast builders and explicit removal policy; do not count it as an independent indexing algorithm or infer its measured speed from another crate. See vector-and-ordered-map-review.json."
+      "status": "native-api-proved-complete-engine-adapter-awaiting-measurement",
+      "reason": "Wrapper over IndexMap providing order-sensitive collection semantics. Clone delegates to the underlying IndexMap. Default remove uses shift removal, while explicit swap_remove delegates to IndexMap swap removal. Adapt actual OrderMap with native/fast builders and explicit removal policy; do not count it as an independent indexing algorithm or infer its measured speed from another crate. See vector-and-ordered-map-review.json. Actual pinned API proofs now pass at 20,000 records with retained full-payload views, four reader threads, clone-panic injection and complete tracked-value release. PVec also passes pop failures and both branch sizes. Actual complete-engine adapters exist; full engine/feed proof and comparative timings remain pending. See native-vector-map-proof/evidence/receipt-default-v2.json and receipt-small-v2.json. API clone counters are not runtime performance evidence."
     },
     {
       "name": "btree-slab",

@@ -261,6 +261,30 @@
     {
       "path": "build/shapes-v27",
       "reason": "Required adaptive-versus-wide index comparative proof and measurement input; retain exact build/source binding."
+    },
+    {
+      "path": "build/native-vector-map-proof-default-v2",
+      "reason": "Selected published-upstream native vector/map 20000-record retained-view, clone/pop-panic and reclamation proof; exact source/lock/build receipt retained."
+    },
+    {
+      "path": "build/native-vector-map-proof-small-v2",
+      "reason": "Selected published-upstream native vector/map 20000-record retained-view, clone/pop-panic and reclamation proof; exact source/lock/build receipt retained."
+    },
+    {
+      "path": "build/state-v28",
+      "reason": "Required native-root/upstream-adapter exact comparisons; branch32 and branch4 identities remain separate"
+    },
+    {
+      "path": "build/state-v29",
+      "reason": "Required native-root/upstream-adapter exact comparisons; branch32 and branch4 identities remain separate"
+    },
+    {
+      "path": "build/shapes-v28",
+      "reason": "Required native-root/upstream-adapter exact comparisons; branch32 and branch4 identities remain separate"
+    },
+    {
+      "path": "build/shapes-v29",
+      "reason": "Required native-root/upstream-adapter exact comparisons; branch32 and branch4 identities remain separate"
     }
   ],
   "safe_to_remove": [
@@ -451,6 +475,14 @@
     {
       "path": "build/pr-body-v27.md",
       "reason": "Completed and confirmed public research PR update; exact published text retained on GitHub."
+    },
+    {
+      "path": "build/native-vector-map-proof-default",
+      "reason": "Superseded by stronger selected v2 native API proof; exact v2 source, lock, executable and receipts retained"
+    },
+    {
+      "path": "build/native-vector-map-proof-small",
+      "reason": "Superseded by stronger selected v2 native API proof; exact v2 source, lock, executable and receipts retained"
     }
   ]
 }
