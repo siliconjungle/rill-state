@@ -159,8 +159,8 @@ controls. Actual PVec vector/index and OrderMap adapters are included; branch32
 and branch4 require separate frozen binaries. Native API and collision/model
 checks pass. Both branch panels complete 10,902 small proofs and 10,902 parallel
 selection processes, plus their selected 1,650-process full-size scalar proofs.
-Lookup and acquisition losses remain. Branch32 completes all selected full-size
-and threaded proofs; branch4 generic/threaded admission is still in progress.
+Lookup and acquisition losses remain. Both branches complete all 10,670 selected full-size
+and threaded proof processes each.
 Neither the default Store nor the final acceptance gate
 has changed.
 
@@ -194,3 +194,17 @@ are excluded from rankings. The optimized original diagnostic panel completes
 are registered separately; their comparative results remain pending. Remaining
 generic/full-size/threaded engine checks are tracked in `research/results.md`.
 Performance admission remains open and the selected Store backend is unchanged.
+
+The shared-record transfer diagnostics pass 456 cold and 272 memory smoke
+processes with independent tuple, checksum, cache and reclamation audits. The
+matched 3,192-process full-size cold cohort and 408-case memory panel are
+registered; their completed results are still pending. A further 53-engine
+whole-contract panel registers forty fixed copying/transfer/inline variants
+and thirteen references over the original scalar and eight generic shapes.
+Its benchmark targets pass Clippy; execution and speed admission remain pending.
+
+Actual `mvcc-core` capability probes pass retained full-value model checks and
+four reader-owned transactions at 20,000 records. Compiler checks prove its
+transactions cannot move or be shared across threads on the pinned version.
+Native scoped reads and explicit transferable exports therefore need distinct
+adapters. This competitor has no timing or complete feed admission yet.

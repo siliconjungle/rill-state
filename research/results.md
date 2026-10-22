@@ -863,3 +863,42 @@ processes. Copying and Arc-preserving policies are compiled together. The
 including cache creation, pinned roots, fixed/mixed payloads and retained windows.
 The new modes pass diagnostic Clippy; comparative results remain pending. Clone
 reduction alone does not establish a speed win or complete-engine admission.
+
+
+## Shared-record transfer smoke and additional native admission
+
+The new matched v32t examples complete all 456 cold and 272 retention smoke
+processes. Independent audits verify all trace/checksum/representation/cache
+states, exact grids, journal holdings and final payload release. In the fixed
+1,000-record, 100-revision, ten-update, initial-pinned, window16 case, shared
+copying controls make 3,000 Value clones; reuse controls make 2,000, with or
+without two scans per revision. Page16 copying peaks at 972,800 tracked owned
+payload bytes versus 839,680 for reuse. These are exact instrumented payload
+observations, not total heap or performance acceptance. All policies remain
+visible in the raw smoke evidence. The registered full-size v32t cohort is now
+running, with no final confidence or engine result inferred.
+
+The v33t complete-engine plan separately registers forty fixed policies across
+five flat modes, two builders, two page sizes and two transition directions,
+plus thirteen references. It keeps the original traces, staging, borrowed-value
+oracles, revision/feed and four-reader checks. Small proof and screen phases
+each comprise 8,374 processes across scalar and eight generic shapes. New
+benchmark targets pass Clippy; their runtime proof and timing admission remain
+pending. Original v30 binaries and plans are retained unchanged.
+
+Both v28 branch32 and v29 branch4 now complete their selected full-size and
+threaded matrices: 10,670 independently audited processes each. These are
+behavioral proofs, not additional isolated performance comparisons.
+
+The actual mvcc-core 0.1.0 source builds and passes three selected frozen native
+capability tests, including 20,000-record retained full-value models, transaction
+rollback/empty commit and four reader-owned native transactions during writes.
+Compiler failures prove the native Transaction is neither Send nor Sync. The
+previously proposed direct Arc/Mutex retained transaction adapter cannot satisfy
+the transferable-view contract. Native scoped-reader and explicit exported-view
+adapters remain pending, with distinct costs; the source is not counted as
+beaten or excluded. The older optional-durability note was incorrect: this pinned
+crate is in-memory only. Exact evidence and remaining requirements are linked in
+`research/native-mvcc-admission-plan.md`. Thirty-four catalog package sources are
+now locally verified against their published archives; that is not a count of
+independent completed benchmark admissions.

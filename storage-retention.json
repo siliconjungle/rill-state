@@ -361,6 +361,10 @@
     {
       "path": "build/shapes-v33t",
       "reason": "Selected required matched whole-engine immutable-record transfer and copying-control baseline with exact original scalar/generic/full-value/revision/feed/threaded proofs."
+    },
+    {
+      "path": "build/native-mvcc-contracts-v2",
+      "reason": "Selected required 20,000 native reader-session capacity/retained-value proof; four real reader threads, distinct native transactions, no sockets or speed claim."
     }
   ],
   "safe_to_remove": [

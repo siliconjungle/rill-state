@@ -149,6 +149,65 @@ mod tests {
     }
 
     #[test]
+    fn twenty_thousand_native_reader_sessions_across_four_threads() {
+        let db = open(20_000);
+        let start = Barrier::new(5);
+        std::thread::scope(|scope| {
+            let (ready_tx, ready_rx) = mpsc::channel();
+            let mut done = Vec::new();
+            let mut handles = Vec::new();
+            for worker in 0..4u64 {
+                let (done_tx, done_rx) = mpsc::channel();
+                done.push(done_tx);
+                let db = &db;
+                let start = &start;
+                let ready_tx = ready_tx.clone();
+                handles.push(scope.spawn(move || {
+                    let mut sessions: Vec<_> = (0..5_000).map(|_| db.begin()).collect();
+                    ready_tx.send(()).unwrap();
+                    start.wait();
+                    for (i, tx) in sessions.iter_mut().enumerate() {
+                        for key in [0, (worker * 5_000 + i as u64) % 20_000, 19_999] {
+                            assert_eq!(tx.get::<Row>(&key).unwrap().unwrap().value, value(key, 0));
+                        }
+                    }
+                    // All sessions remain live until every writer commit finishes.
+                    done_rx.recv_timeout(Duration::from_secs(60)).unwrap();
+                    for (i, tx) in sessions.iter_mut().enumerate() {
+                        let key = (worker * 5_000 + i as u64) % 20_000;
+                        assert_eq!(tx.get::<Row>(&key).unwrap().unwrap().value, value(key, 0));
+                        assert_eq!(tx.get::<Row>(&0).unwrap().unwrap().value, value(0, 0));
+                    }
+                    assert_initial(&mut sessions[0], 20_000);
+                    assert_initial(&mut sessions[4_999], 20_000);
+                }));
+            }
+            for _ in 0..4 {
+                ready_rx.recv_timeout(Duration::from_secs(60)).unwrap();
+            }
+            assert_eq!(db.stats().active_transactions, 20_000);
+            start.wait();
+            for revision in 1..=16 {
+                let mut tx = db.begin();
+                for n in 0..200 {
+                    put(&mut tx, (revision * 193 + n) % 20_000, revision);
+                }
+                tx.delete::<Row>(&0).unwrap();
+                tx.commit().unwrap();
+            }
+            assert_eq!(db.stats().active_transactions, 20_000);
+            for sender in done {
+                sender.send(()).unwrap();
+            }
+            for handle in handles {
+                handle.join().unwrap();
+            }
+        });
+        assert_eq!(db.stats().active_transactions, 0);
+        assert!(db.begin().get::<Row>(&0).unwrap().is_none());
+    }
+
+    #[test]
     fn dropped_partial_transaction_and_empty_commit_preserve_native_snapshot() {
         let db = open(1000);
         let mut old = db.begin();
