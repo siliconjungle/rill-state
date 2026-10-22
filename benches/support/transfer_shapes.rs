@@ -1,6 +1,8 @@
 //! Matched fixed copying/transfer policies; original staging, traces and proofs.
 use super::*;
-use rill_state::experimental::{AdaptiveMap, FlatMode, InlineFlat, ReuseSharedFlat, SharedFlat};
+use rill_state::experimental::{
+    AdaptiveMap, AddressOrderedFlat, FlatMode, InlineFlat, ReuseSharedFlat, SharedFlat,
+};
 fn policy<
     K: Key,
     V: Value,
@@ -66,6 +68,38 @@ fn dispatch<K: Key, V: Value>(o: &Options) {
         }
         ("reusecache", "fast") => {
             policy::<K, V, hashbrown::DefaultHashBuilder, ReuseSharedFlat<2>>(o, &p)
+        }
+        ("copyaddr", "sip") => {
+            policy::<K, V, std::collections::hash_map::RandomState, AddressOrderedFlat<false, 0>>(
+                o, &p,
+            )
+        }
+        ("copyaddr", "fast") => {
+            policy::<K, V, hashbrown::DefaultHashBuilder, AddressOrderedFlat<false, 0>>(o, &p)
+        }
+        ("reuseaddr", "sip") => {
+            policy::<K, V, std::collections::hash_map::RandomState, AddressOrderedFlat<true, 0>>(
+                o, &p,
+            )
+        }
+        ("reuseaddr", "fast") => {
+            policy::<K, V, hashbrown::DefaultHashBuilder, AddressOrderedFlat<true, 0>>(o, &p)
+        }
+        ("copybucket", "sip") => {
+            policy::<K, V, std::collections::hash_map::RandomState, AddressOrderedFlat<false, 12>>(
+                o, &p,
+            )
+        }
+        ("copybucket", "fast") => {
+            policy::<K, V, hashbrown::DefaultHashBuilder, AddressOrderedFlat<false, 12>>(o, &p)
+        }
+        ("reusebucket", "sip") => {
+            policy::<K, V, std::collections::hash_map::RandomState, AddressOrderedFlat<true, 12>>(
+                o, &p,
+            )
+        }
+        ("reusebucket", "fast") => {
+            policy::<K, V, hashbrown::DefaultHashBuilder, AddressOrderedFlat<true, 12>>(o, &p)
         }
         _ => panic!("unregistered transfer mode/builder"),
     }

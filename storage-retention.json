@@ -381,6 +381,14 @@
     {
       "path": "build/retention-profile-v35o",
       "reason": "Selected required fixed traversal-ordering proof/diagnostic baseline; preserves copying, transfer, unsorted and external controls with committed input/compiler/binary bindings."
+    },
+    {
+      "path": "build/state-v36o",
+      "reason": "Selected required whole-engine fixed traversal-order panel, preserving original forty policies and thirteen matched references plus thirty-two ordering configurations, exact scalar/generic/revision/feed/threaded proofs."
+    },
+    {
+      "path": "build/shapes-v36o",
+      "reason": "Selected required whole-engine fixed traversal-order panel, preserving original forty policies and thirteen matched references plus thirty-two ordering configurations, exact scalar/generic/revision/feed/threaded proofs."
     }
   ],
   "safe_to_remove": [
