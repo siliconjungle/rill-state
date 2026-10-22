@@ -1,0 +1,31 @@
+[package]
+name = "rill-mvcc-core-admission-proof"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.96"
+publish = false
+
+[dependencies]
+mvcc = { package = "mvcc-core", version = "=0.1.0" }
+
+[features]
+transfer-send = []
+transfer-sync = []
+
+[[bin]]
+name = "transfer_send"
+path = "src/bin/transfer_send.rs"
+required-features = ["transfer-send"]
+
+[[bin]]
+name = "transfer_sync"
+path = "src/bin/transfer_sync.rs"
+required-features = ["transfer-sync"]
+
+[profile.dev]
+debug = 0
+incremental = false
+
+[profile.release]
+debug = 0
+incremental = false

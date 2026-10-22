@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "state": "required native competitor capability proof; no performance ranking",
+  "keep": [
+    {"path":"Cargo.toml","reason":"Exact pinned native dependency and minimal proof build configuration"},
+    {"path":"Cargo.lock","reason":"Exact dependency closure for required reproducibility"},
+    {"path":"src","reason":"Full retained native model/thread and transaction transfer capability proof inputs"},
+    {"path":"storage-retention.json","reason":"Required explicit storage lifecycle policy"},
+    {"path":"target","reason":"Active required compiler validation; retire generated artifacts after selecting useful evidence"}
+  ],
+  "safe_to_remove": []
+}
