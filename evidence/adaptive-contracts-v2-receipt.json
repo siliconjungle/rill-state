@@ -1,0 +1,53 @@
+{
+  "claim": "Raw generic Arc-preserving transition/model/retention/failure proofs, no complete-engine or runtime speed admission.",
+  "source_commit": "94ea5d8a890882fab889e635da922a6db988254b",
+  "source_sha256": "259abbc81023c8610db5e66c9c029898204e25b4d872c3569cdb495196956aa4",
+  "binary": "build/adaptive-contracts-v2",
+  "binary_sha256": "71033ab9ddd9008b0ba011cd553eefdbe403b4c466f147cf971a7de40d1c348a",
+  "build_command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--no-default-features",
+    "--features",
+    "experimental",
+    "--test",
+    "adaptive",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "executed_command": [
+    "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/adaptive-contracts-v2",
+    "--test-threads=1"
+  ],
+  "build_exit_code": 0,
+  "exit_code": 0,
+  "policy_count": 240,
+  "passed_adaptive_tests": 13,
+  "all_core_experimental_tests": 100,
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "started_at_unix": 1792634871.286232,
+  "finished_at_unix": 1792634909.79137,
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "reader_records": 20000,
+  "reader_threads": 4,
+  "reader_modes": [
+    "inline",
+    "shared",
+    "cache",
+    "reuse",
+    "reusecache"
+  ],
+  "clones": "Only changed payloads clone during reuse transitions; unchanged value clone bombs and pointer identity are checked. Reverse transitions can still clone lookup keys.",
+  "logs_sha256": {
+    "adaptive-contracts-v2.log": "36d4d4627192515b36c97dc93b42466aa21a887970eb36d513ce95de80bdcb51",
+    "shared-transition-core-tests-v3.log": "a1f8f4d4eaac65f6bd6569329eb91ff51c7d30abc293eac99d36920912c171d6",
+    "shared-transition-clippy-v1.log": "5ec30ae3ec9f2c933c777c5b12b86f8fa78ab774d2914ff3f3afb571f8629caa",
+    "shared-transition-all-target-clippy.log": "f4dd9899ed6c915f948abc63503d2179730b574d3b02de358562131d396820f4"
+  },
+  "scope": "Full raw model for 240 policies; actual four-reader probes cover five representative flat modes, not every policy. Complete new-mode engine/threaded admission and comparative timings remain pending.",
+  "test_source_sha256": "7f549d2da03031d9345c7ba8bd003018d44d1b3f5de5d095c5fb710e1cdd2a13"
+}

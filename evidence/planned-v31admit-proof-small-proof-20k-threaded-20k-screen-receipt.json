@@ -1,0 +1,135 @@
+{
+  "plan": "research/v31admit-development-plan.json",
+  "plan_sha256": "e992d07d168a2e8e0b0b899a0e4a8d3b568b81c785f6e385716763c39dd99904",
+  "runner_sha256": "a68ced534c61b41a6f10b2ce3b04e9911a91855f273e529d50c69a9e48f882c9",
+  "driver_source_commit": "08cd7076eabf1f0d6892fe9a7e7585521335ec13",
+  "claim": "Development stages only; holdout acceptance not implied",
+  "bindings": {
+    "state": {
+      "source_sha256": "42eba178c6d69ab701ec2cc519b021b98a21a85a7976d7b9e687507e8ccb0f53",
+      "source_commit": "08cd7076eabf1f0d6892fe9a7e7585521335ec13",
+      "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+      "binary_sha256": "4e0c8dac541a02abbce61692f2edd51183f487035042b6aa55e7b0d6dae25e80",
+      "build_binding": "evidence/build-v31admit-receipt.json",
+      "build_binding_sha256": "99bc88a3132effc4a92d8caba3c28e83c07db52805374fa2a4e1b88896eace96"
+    }
+  },
+  "stages": [
+    {
+      "layer": "state",
+      "phase": "proof-small",
+      "label": "state-v31admit-proof-small",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "prove",
+        "--binary",
+        "build/state-v31admit",
+        "--label",
+        "state-v31admit-proof-small",
+        "--engines",
+        "chashmap-native-retain-each,chashmap-native-retain-last,chashmap-native-copy-each,chashmap-native-copy-last,chashmap-reinsert-retain-each,chashmap-reinsert-retain-last,chashmap-reinsert-copy-each,chashmap-reinsert-copy-last,crossbeam-skiplist-each,crossbeam-skiplist-last,std-hash,std-fast,std-btree,hashbrown,hashbrown-sip,imbl-fast,rpds-fast,record-paged16,adaptive-inline-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-16-reset,adaptive-cache-sip-1-3-drop-16-reset",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "1000",
+        "--readers",
+        "1000",
+        "--rounds",
+        "8"
+      ]
+    },
+    {
+      "layer": "state",
+      "phase": "proof-20k",
+      "label": "state-v31admit-proof-20k",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "prove",
+        "--binary",
+        "build/state-v31admit",
+        "--label",
+        "state-v31admit-proof-20k",
+        "--engines",
+        "chashmap-native-retain-each,chashmap-native-retain-last,chashmap-native-copy-each,chashmap-native-copy-last,chashmap-reinsert-retain-each,chashmap-reinsert-retain-last,chashmap-reinsert-copy-each,chashmap-reinsert-copy-last,crossbeam-skiplist-each,crossbeam-skiplist-last,std-hash,std-fast,std-btree,hashbrown,hashbrown-sip,imbl-fast,rpds-fast,record-paged16,adaptive-inline-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-16-reset,adaptive-cache-sip-1-3-drop-16-reset",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12"
+      ]
+    },
+    {
+      "layer": "state",
+      "phase": "threaded-20k",
+      "label": "state-v31admit-threaded-20k",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "thread",
+        "--binary",
+        "build/state-v31admit",
+        "--label",
+        "state-v31admit-threaded-20k",
+        "--engines",
+        "chashmap-native-retain-each,chashmap-native-retain-last,chashmap-native-copy-each,chashmap-native-copy-last,chashmap-reinsert-retain-each,chashmap-reinsert-retain-last,chashmap-reinsert-copy-each,chashmap-reinsert-copy-last,crossbeam-skiplist-each,crossbeam-skiplist-last,std-hash,std-fast,std-btree,hashbrown,hashbrown-sip,imbl-fast,rpds-fast,record-paged16,adaptive-inline-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-16-reset,adaptive-cache-sip-1-3-drop-16-reset",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12",
+        "--cases",
+        "sparse,churn"
+      ]
+    },
+    {
+      "layer": "state",
+      "phase": "screen",
+      "label": "state-v31admit-screen",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "screen",
+        "--binary",
+        "build/state-v31admit",
+        "--label",
+        "state-v31admit-screen",
+        "--engines",
+        "chashmap-native-retain-each,chashmap-native-retain-last,chashmap-native-copy-each,chashmap-native-copy-last,chashmap-reinsert-retain-each,chashmap-reinsert-retain-last,chashmap-reinsert-copy-each,chashmap-reinsert-copy-last,crossbeam-skiplist-each,crossbeam-skiplist-last,std-hash,std-fast,std-btree,hashbrown,hashbrown-sip,imbl-fast,rpds-fast,record-paged16,adaptive-inline-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-16-reset,adaptive-cache-sip-1-3-drop-16-reset",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12"
+      ]
+    }
+  ],
+  "completed": [
+    "state-v31admit-proof-small",
+    "state-v31admit-proof-20k",
+    "state-v31admit-threaded-20k",
+    "state-v31admit-screen"
+  ],
+  "started_at_unix": 1792634286.132373,
+  "last_exit_code": 0,
+  "updated_at_unix": 1792634530.7417228,
+  "finished_at_unix": 1792634530.743165
+}

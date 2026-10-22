@@ -1,0 +1,145 @@
+{
+  "plan": "research/v28-development-plan.json",
+  "plan_sha256": "5626d7062c5f9f8f8971ae0c5caf6203b30e592563ffc31a9cb9df7e847f0abe",
+  "runner_sha256": "09bf46c23f47825331e730e1fae637d8443c6b49f27a84769b59d29b2039b3d3",
+  "driver_source_commit": "51a932d651ba86695e6c9b1d40abb893e9e77031",
+  "claim": "Development stages only; holdout acceptance not implied",
+  "bindings": {
+    "state": {
+      "source_sha256": "ec4df2a9fc3283a37c99b06447e095b938fca679d26c4a4815651bd8d3b8e2e8",
+      "source_commit": "32628f640748ea95a77cc3c18ba73c71b8eb5846",
+      "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+      "binary_sha256": "c411c980e333f8177352dfc31f3eeaae8498a07020e95bc379003f873518f2cc",
+      "build_binding": "evidence/build-v28-receipt.json",
+      "build_binding_sha256": "ed4681cd763acc5e4fe80e8a69cb17fb84bac29d90637d01d9d30e738cf3029c"
+    },
+    "shapes": {
+      "source_sha256": "ec4df2a9fc3283a37c99b06447e095b938fca679d26c4a4815651bd8d3b8e2e8",
+      "source_commit": "32628f640748ea95a77cc3c18ba73c71b8eb5846",
+      "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+      "binary_sha256": "90ce1b11386a7a05fd78099dd61dabda0c2d6422f360566405b5768fefa8ed2d",
+      "build_binding": "evidence/build-v28-receipt.json",
+      "build_binding_sha256": "ed4681cd763acc5e4fe80e8a69cb17fb84bac29d90637d01d9d30e738cf3029c"
+    }
+  },
+  "stages": [
+    {
+      "layer": "state",
+      "phase": "proof-20k",
+      "label": "state-v28-proof-20k",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "prove",
+        "--binary",
+        "build/state-v28",
+        "--label",
+        "state-v28-proof-20k",
+        "--engines",
+        "native-packed-owned-once-50,native-packed-owned-once-70,native-compact-wide-owned-once-70,native-compact-adaptive-owned-once-70,native-inline-owned-index-25,native-inline-shared-index-70,native-imbl-fast,native-imhm,native-rpds-fast,native-shard-shared-group-25-16,native-shard-owned-group-50-1024,vector-flat-sip,vector-flat-fast,vector-tree-sip,vector-tree-fast,vector-rrb-sip,vector-rrb-fast,vector-rb-sip,vector-rb-fast,vector-cowvec-sip,vector-cowvec-fast,ordermap-swap,ordermap-swap-fast,ordermap-shift,ordermap-shift-fast,packed-owned-once-25,packed-owned-once-50,packed-owned-once-70,packed-owned-once-85,compact-wide-owned-once-25,compact-wide-owned-once-50,compact-wide-owned-once-70,compact-wide-owned-once-85,compact-adaptive-owned-once-25,compact-adaptive-owned-once-50,compact-adaptive-owned-once-70,compact-adaptive-owned-once-85,inline-owned-index-25,inline-owned-index-50,inline-owned-index-70,inline-owned-index-85,packed-shared-once-70,compact-adaptive-shared-once-70,compact-wide-shared-once-70,inline-shared-index-70,imbl-fast,imhm,rpds-fast,shard-shared-group-25-16,shard-owned-group-50-1024,hashbrown,std-fast,indexmap-fast,hashbrown-sip,im-fast",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12"
+      ]
+    },
+    {
+      "layer": "shapes",
+      "phase": "proof-20k",
+      "label": "shapes-v28-proof-20k",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/shapes_study.py",
+        "prove",
+        "--binary",
+        "build/shapes-v28",
+        "--label",
+        "shapes-v28-proof-20k",
+        "--engines",
+        "native-packed-owned-once-50,native-packed-owned-once-70,native-compact-wide-owned-once-70,native-compact-adaptive-owned-once-70,native-inline-owned-index-25,native-inline-shared-index-70,native-imbl-fast,native-imhm,native-rpds-fast,native-shard-shared-group-25-16,native-shard-owned-group-50-1024,vector-flat-sip,vector-flat-fast,vector-tree-sip,vector-tree-fast,vector-rrb-sip,vector-rrb-fast,vector-rb-sip,vector-rb-fast,vector-cowvec-sip,vector-cowvec-fast,ordermap-swap,ordermap-swap-fast,ordermap-shift,ordermap-shift-fast,packed-owned-once-25,packed-owned-once-50,packed-owned-once-70,packed-owned-once-85,compact-wide-owned-once-25,compact-wide-owned-once-50,compact-wide-owned-once-70,compact-wide-owned-once-85,compact-adaptive-owned-once-25,compact-adaptive-owned-once-50,compact-adaptive-owned-once-70,compact-adaptive-owned-once-85,inline-owned-index-25,inline-owned-index-50,inline-owned-index-70,inline-owned-index-85,packed-shared-once-70,compact-adaptive-shared-once-70,compact-wide-shared-once-70,inline-shared-index-70,imbl-fast,imhm,rpds-fast,shard-shared-group-25-16,shard-owned-group-50-1024,hashbrown,std-fast,indexmap-fast,hashbrown-sip,im-fast",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12"
+      ]
+    },
+    {
+      "layer": "state",
+      "phase": "threaded-20k",
+      "label": "state-v28-threaded-20k",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "thread",
+        "--binary",
+        "build/state-v28",
+        "--label",
+        "state-v28-threaded-20k",
+        "--engines",
+        "native-packed-owned-once-50,native-packed-owned-once-70,native-compact-wide-owned-once-70,native-compact-adaptive-owned-once-70,native-inline-owned-index-25,native-inline-shared-index-70,native-imbl-fast,native-imhm,native-rpds-fast,native-shard-shared-group-25-16,native-shard-owned-group-50-1024,vector-flat-sip,vector-flat-fast,vector-tree-sip,vector-tree-fast,vector-rrb-sip,vector-rrb-fast,vector-rb-sip,vector-rb-fast,vector-cowvec-sip,vector-cowvec-fast,ordermap-swap,ordermap-swap-fast,ordermap-shift,ordermap-shift-fast,packed-owned-once-25,packed-owned-once-50,packed-owned-once-70,packed-owned-once-85,compact-wide-owned-once-25,compact-wide-owned-once-50,compact-wide-owned-once-70,compact-wide-owned-once-85,compact-adaptive-owned-once-25,compact-adaptive-owned-once-50,compact-adaptive-owned-once-70,compact-adaptive-owned-once-85,inline-owned-index-25,inline-owned-index-50,inline-owned-index-70,inline-owned-index-85,packed-shared-once-70,compact-adaptive-shared-once-70,compact-wide-shared-once-70,inline-shared-index-70,imbl-fast,imhm,rpds-fast,shard-shared-group-25-16,shard-owned-group-50-1024,hashbrown,std-fast,indexmap-fast,hashbrown-sip,im-fast",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12",
+        "--cases",
+        "sparse,churn"
+      ]
+    },
+    {
+      "layer": "shapes",
+      "phase": "threaded-20k",
+      "label": "shapes-v28-threaded-20k",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/shapes_study.py",
+        "thread",
+        "--binary",
+        "build/shapes-v28",
+        "--label",
+        "shapes-v28-threaded-20k",
+        "--engines",
+        "native-packed-owned-once-50,native-packed-owned-once-70,native-compact-wide-owned-once-70,native-compact-adaptive-owned-once-70,native-inline-owned-index-25,native-inline-shared-index-70,native-imbl-fast,native-imhm,native-rpds-fast,native-shard-shared-group-25-16,native-shard-owned-group-50-1024,vector-flat-sip,vector-flat-fast,vector-tree-sip,vector-tree-fast,vector-rrb-sip,vector-rrb-fast,vector-rb-sip,vector-rb-fast,vector-cowvec-sip,vector-cowvec-fast,ordermap-swap,ordermap-swap-fast,ordermap-shift,ordermap-shift-fast,packed-owned-once-25,packed-owned-once-50,packed-owned-once-70,packed-owned-once-85,compact-wide-owned-once-25,compact-wide-owned-once-50,compact-wide-owned-once-70,compact-wide-owned-once-85,compact-adaptive-owned-once-25,compact-adaptive-owned-once-50,compact-adaptive-owned-once-70,compact-adaptive-owned-once-85,inline-owned-index-25,inline-owned-index-50,inline-owned-index-70,inline-owned-index-85,packed-shared-once-70,compact-adaptive-shared-once-70,compact-wide-shared-once-70,inline-shared-index-70,imbl-fast,imhm,rpds-fast,shard-shared-group-25-16,shard-owned-group-50-1024,hashbrown,std-fast,indexmap-fast,hashbrown-sip,im-fast",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12",
+        "--cases",
+        "sparse,churn"
+      ]
+    }
+  ],
+  "completed": [
+    "state-v28-proof-20k",
+    "shapes-v28-proof-20k",
+    "state-v28-threaded-20k",
+    "shapes-v28-threaded-20k"
+  ],
+  "started_at_unix": 1792629909.267071,
+  "last_exit_code": 0,
+  "updated_at_unix": 1792634816.1722398,
+  "finished_at_unix": 1792634816.1757271
+}
