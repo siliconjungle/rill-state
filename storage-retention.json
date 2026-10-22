@@ -293,6 +293,14 @@
     {
       "path": "build/retention-profile-v28c",
       "reason": "Required timed index-width conversion or instrumented retained-payload proof; source and exact build receipts retained"
+    },
+    {
+      "path": "build/group-byte-index-unit-v1",
+      "reason": "Selected generic grouped-control raw-map mask, model, failure/reclamation and 20k threaded proof executable"
+    },
+    {
+      "path": "build/group-byte-index-contracts-v1",
+      "reason": "Selected generic grouped-control raw-map mask, model, failure/reclamation and 20k threaded proof executable"
     }
   ],
   "safe_to_remove": [

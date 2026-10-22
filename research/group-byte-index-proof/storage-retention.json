@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "state": "Required grouped-control raw-map proof, not comparative admission",
+  "keep": [
+    {
+      "path": "Cargo.toml",
+      "reason": "Minimal dependency-free experiment and validation profiles"
+    },
+    {
+      "path": "Cargo.lock",
+      "reason": "Exact reproducibility input"
+    },
+    {
+      "path": ".gitignore",
+      "reason": "Exclude generated build output"
+    },
+    {
+      "path": "PLAN.md",
+      "reason": "Registered policies, primary references, requirements and limits"
+    },
+    {
+      "path": "src",
+      "reason": "Generic safe implementation and useful proof inputs"
+    },
+    {
+      "path": "tests",
+      "reason": "Independent contract/model, recovery and retained-reader proof inputs"
+    },
+    {
+      "path": "evidence",
+      "reason": "Selected useful proof results and exact source/build receipts"
+    },
+    {
+      "path": "storage-retention.json",
+      "reason": "Owner retention declaration"
+    }
+  ],
+  "safe_to_remove": [
+    {
+      "path": "evidence-tests-initial.log",
+      "reason": "Completed intermediate validation superseded by selected frozen proof/source and final Clippy; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/tests.log",
+      "reason": "Completed intermediate validation superseded by selected frozen proof/source and final Clippy; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/clippy.log",
+      "reason": "Completed intermediate validation superseded by selected frozen proof/source and final Clippy; no unique behavioral failure"
+    }
+  ]
+}

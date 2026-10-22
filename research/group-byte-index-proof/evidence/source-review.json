@@ -1,0 +1,15 @@
+{
+  "claim": "Published primary source identity and design reference, not a new performance result",
+  "archive_url": "https://static.crates.io/crates/hashbrown/hashbrown-0.17.1.crate",
+  "archive_sha256": "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a",
+  "files_sha256": {
+    "src/control/group/mod.rs": "32150c3ac5bd4197ce122fea5b45ec1047c1e5227a4ba940aef6ceab2c00f54b",
+    "src/control/group/generic.rs": "5d244fc9f9cd05ab8b92954452b43d8c321452d0dfa8816c2b1ce539fbb3270b",
+    "src/control/group/neon.rs": "bd8366684d86f456b9880940bbc72d7aabfb642d88a7bdd90de66ef7f643fae5"
+  },
+  "references": [
+    "https://abseil.io/about/design/swisstables",
+    "https://graphics.stanford.edu/~seander/bithacks.html#ValueInWord"
+  ],
+  "note": "Pinned aarch64 little-endian NEON source uses an eight-byte group. Prototype uses safe integer operations with aligned groups and its own original table/staging implementation. No unsafe upstream table code is copied."
+}
