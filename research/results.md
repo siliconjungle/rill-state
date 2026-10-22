@@ -20,7 +20,8 @@ in progress. The adaptive v30 panel completes all 47,400 small scalar/generic
 proofs and 1,080 selected full-size scalar proofs. Its optimized raw cold panel
 completes 2,520 processes and 40,320 independently audited rows. Those parallel
 raw timings include substantial conversion costs and do not establish final
-engine admission or service latency.
+engine admission or service latency. All 312 optimized full-size streaming
+retention/reclamation processes also pass, including populated traversal caches.
 
 The audited uncached 20,000-record memory fixture identifies 20,000 extra payload
 clones during shared-flat conversion. The opt-in ReuseSharedFlat policy now
@@ -56,7 +57,7 @@ completed optimized Cargo library artifacts. The independent optimized Cargo
 diagnostic builds are complete. Their current proof/measurement status is recorded
 above. Receipts bind source, compiler, commands
 and dependency artifact hashes. Smoke timings are excluded from speed rankings.
-Remaining optimized retention, full-engine comparison and final isolated holdout
+Transfer-policy diagnostics, full-engine comparison and final isolated holdout
 acceptance remain pending. See
 `evidence/adaptive-cold-v30smoke-audit.json`,
 `evidence/retention-v30smoke-audit.json` and
