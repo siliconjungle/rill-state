@@ -910,3 +910,11 @@ before/after writes; first/last sessions per worker check full old contents.
 Native active-transaction counters are exactly 20,000 before and after writing
 and zero after all readers join. This is a native capacity/retention behavior
 proof, not a timing, socket capacity or full payload-reclamation measurement.
+
+The v33t scalar and generic targets are now frozen with compiler, committed
+source and executable bindings in `evidence/build-v33t-receipt.json`. All-target
+admission Clippy passes on this source. Separate controllers run small proofs
+then development screens (two workers), and full-size then four-reader proofs
+(one worker). These stages overlap other proof/diagnostic work and supply no
+isolated speed acceptance. The new copying/transfer candidates use the same
+fixed complete-engine traces and controls within the frozen pair of executables.

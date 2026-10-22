@@ -201,7 +201,8 @@ matched 3,192-process full-size cold cohort and 408-case memory panel are
 registered; their completed results are still pending. A further 53-engine
 whole-contract panel registers forty fixed copying/transfer/inline variants
 and thirteen references over the original scalar and eight generic shapes.
-Its benchmark targets pass Clippy; execution and speed admission remain pending.
+Its frozen benchmark targets pass all-target admission Clippy; small/full-size
+proofs and development comparisons are running. Speed admission remains pending.
 
 Actual `mvcc-core` capability probes pass retained full-value model checks and
 20,000 simultaneously retained reader sessions across four owning threads,
