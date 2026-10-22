@@ -691,6 +691,18 @@
     {
       "path": "evidence/build-v34mvcc.log",
       "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/address-order-core-tests.log",
+      "reason": "Completed initial compile-only attempt with ambiguous trait S inference. No runtime test or timing occurred; superseded by explicit trait qualification and selected final proof inputs."
+    },
+    {
+      "path": "evidence/address-order-core-tests-v2.log",
+      "reason": "Completed intermediate validation superseded by final 102-test run, final all-target lint and selected source-bound 432-policy frozen proof; no unique runtime failure."
+    },
+    {
+      "path": "evidence/address-order-all-target-clippy.log",
+      "reason": "Completed intermediate validation superseded by final 102-test run, final all-target lint and selected source-bound 432-policy frozen proof; no unique runtime failure."
     }
   ]
 }

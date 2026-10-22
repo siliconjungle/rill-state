@@ -1,6 +1,8 @@
 #![cfg(feature = "experimental")]
 use rill_state::{
-    experimental::{AdaptiveMap, FlatMode, InlineFlat, ReuseSharedFlat, SharedFlat},
+    experimental::{
+        AdaptiveMap, AddressOrderedFlat, FlatMode, InlineFlat, ReuseSharedFlat, SharedFlat,
+    },
     Mutation,
 };
 use std::{
@@ -162,7 +164,7 @@ fn policy<
     assert_eq!(contents(&map), model);
 }
 #[test]
-fn all_two_hundred_forty_policies_match_collisions_canonical_keys_and_retained_values() {
+fn all_four_hundred_thirty_two_policies_match_collisions_canonical_keys_and_retained_values() {
     macro_rules! mode {
         ($t:literal,$d:literal,$b:literal,$p:literal) => {
             policy::<$t, $d, $b, $p, InlineFlat, false>();
@@ -175,6 +177,14 @@ fn all_two_hundred_forty_policies_match_collisions_canonical_keys_and_retained_v
             policy::<$t, $d, $b, $p, ReuseSharedFlat<0>, true>();
             policy::<$t, $d, $b, $p, ReuseSharedFlat<2>, false>();
             policy::<$t, $d, $b, $p, ReuseSharedFlat<2>, true>();
+            policy::<$t, $d, $b, $p, AddressOrderedFlat<false, 0>, false>();
+            policy::<$t, $d, $b, $p, AddressOrderedFlat<false, 0>, true>();
+            policy::<$t, $d, $b, $p, AddressOrderedFlat<false, 12>, false>();
+            policy::<$t, $d, $b, $p, AddressOrderedFlat<false, 12>, true>();
+            policy::<$t, $d, $b, $p, AddressOrderedFlat<true, 0>, false>();
+            policy::<$t, $d, $b, $p, AddressOrderedFlat<true, 0>, true>();
+            policy::<$t, $d, $b, $p, AddressOrderedFlat<true, 12>, false>();
+            policy::<$t, $d, $b, $p, AddressOrderedFlat<true, 12>, true>();
         };
     }
     macro_rules! pages {
@@ -469,6 +479,10 @@ fn flat_and_paged_caches_preserve_value_identity_without_cloning_payloads() {
     caches::<SharedFlat<2>>();
     caches::<ReuseSharedFlat<0>>();
     caches::<ReuseSharedFlat<2>>();
+    caches::<AddressOrderedFlat<false, 0>>();
+    caches::<AddressOrderedFlat<false, 12>>();
+    caches::<AddressOrderedFlat<true, 0>>();
+    caches::<AddressOrderedFlat<true, 12>>();
 }
 
 fn transfers<F: FlatMode<u64, Value, Builder>>() {
@@ -530,6 +544,8 @@ fn transfers<F: FlatMode<u64, Value, Builder>>() {
 fn shared_transitions_clone_only_delta_payloads_preserve_instances_and_reclaim_every_owner() {
     transfers::<ReuseSharedFlat<0>>();
     transfers::<ReuseSharedFlat<2>>();
+    transfers::<AddressOrderedFlat<true, 0>>();
+    transfers::<AddressOrderedFlat<true, 12>>();
 }
 
 fn transfer_delta_failure<F: FlatMode<u64, Value, Builder>>() {
@@ -567,6 +583,8 @@ fn transfer_delta_failure<F: FlatMode<u64, Value, Builder>>() {
 fn failed_delta_after_shared_transfer_never_installs_partial_publication() {
     transfer_delta_failure::<ReuseSharedFlat<0>>();
     transfer_delta_failure::<ReuseSharedFlat<2>>();
+    transfer_delta_failure::<AddressOrderedFlat<true, 0>>();
+    transfer_delta_failure::<AddressOrderedFlat<true, 12>>();
 }
 #[test]
 fn failed_conversion_reclaims_partial_values_and_preserves_published_roots() {
@@ -637,6 +655,32 @@ where
     });
     assert_eq!(old.get(&17), Some(&vec![17; 257]));
     assert_eq!(map.get(&17), Some(&vec![99; 257]));
+    let paged = map.clone();
+    let barrier = std::sync::Barrier::new(5);
+    std::thread::scope(|scope| {
+        for _ in 0..4 {
+            let old = &paged;
+            let barrier = &barrier;
+            scope.spawn(move || {
+                barrier.wait();
+                for _ in 0..3 {
+                    old.visit(|k, v| {
+                        let expected = if *k == 17 { 99 } else { *k as u8 };
+                        assert_eq!(v, &vec![expected; 257]);
+                        assert!(std::ptr::eq(v, old.get(k).unwrap()));
+                    });
+                }
+            });
+        }
+        barrier.wait();
+        map.apply(&[Mutation::Put(18, vec![88; 257])]);
+    });
+    assert_eq!(paged.get(&18), Some(&vec![18; 257]));
+    assert_eq!(map.get(&18), Some(&vec![88; 257]));
+    assert_eq!(
+        paged.cached_records(),
+        if F::SCAN_AFTER == 0 { 0 } else { 20_000 }
+    );
 }
 #[test]
 fn four_actual_readers_keep_twenty_thousand_records_during_conversion() {
@@ -645,6 +689,10 @@ fn four_actual_readers_keep_twenty_thousand_records_during_conversion() {
     threaded::<SharedFlat<2>>();
     threaded::<ReuseSharedFlat<0>>();
     threaded::<ReuseSharedFlat<2>>();
+    threaded::<AddressOrderedFlat<false, 0>>();
+    threaded::<AddressOrderedFlat<false, 12>>();
+    threaded::<AddressOrderedFlat<true, 0>>();
+    threaded::<AddressOrderedFlat<true, 12>>();
 }
 
 #[derive(Default)]
@@ -768,6 +816,8 @@ fn key_clone_hash_and_drop_failures_preserve_published_roots_and_release_staging
     key_failures::<InlineFlat>();
     key_failures::<SharedFlat<0>>();
     key_failures::<SharedFlat<2>>();
+    key_failures::<AddressOrderedFlat<false, 0>>();
+    key_failures::<AddressOrderedFlat<false, 12>>();
 }
 #[derive(Default)]
 struct FaultBuilder(Arc<AtomicBool>);
@@ -866,6 +916,10 @@ fn reverse_key_clone_and_hash_failures_leave_published_paged_roots_usable() {
     reverse_key_failures::<SharedFlat<2>>();
     reverse_key_failures::<ReuseSharedFlat<0>>();
     reverse_key_failures::<ReuseSharedFlat<2>>();
+    reverse_key_failures::<AddressOrderedFlat<false, 0>>();
+    reverse_key_failures::<AddressOrderedFlat<false, 12>>();
+    reverse_key_failures::<AddressOrderedFlat<true, 0>>();
+    reverse_key_failures::<AddressOrderedFlat<true, 12>>();
 }
 
 fn transfer_hash_failure<F: FlatMode<FaultKey, Vec<u8>, Builder>>() {
@@ -912,4 +966,163 @@ fn transfer_hash_failure<F: FlatMode<FaultKey, Vec<u8>, Builder>>() {
 fn failed_shared_rehash_preserves_roots_and_forward_transfer_avoids_unchanged_key_clones() {
     transfer_hash_failure::<ReuseSharedFlat<0>>();
     transfer_hash_failure::<ReuseSharedFlat<2>>();
+    transfer_hash_failure::<AddressOrderedFlat<true, 0>>();
+    transfer_hash_failure::<AddressOrderedFlat<true, 12>>();
+}
+
+fn address_order_and_visitor_failure<const R: bool, const SHIFT: u32>() {
+    type Ordered<const R: bool, const SHIFT: u32> = AddressOrderedFlat<R, SHIFT>;
+    let live = Arc::new(AtomicUsize::new(0));
+    let clones = Arc::new(AtomicUsize::new(0));
+    let fail = Arc::new(AtomicBool::new(false));
+    let faults = Arc::new(KeyFaults::default());
+    let mut value_offset = None;
+    {
+        let data = <Ordered<R, SHIFT> as FlatMode<FaultKey, Value, Builder>>::from_entries(
+            Builder::default(),
+            (0..128).map(|id| {
+                (
+                    FaultKey {
+                        id,
+                        faults: faults.clone(),
+                    },
+                    Value::new(id, &live, &clones, &fail),
+                )
+            }),
+        );
+        let mut addresses = BTreeMap::new();
+        let mut reverse = Vec::new();
+        Ordered::<R, SHIFT>::visit_shared_records(&data, |record| {
+            let address = Arc::as_ptr(record) as usize;
+            addresses.insert(record.key().id, address);
+            let offset = (record.value() as *const Value as usize) - address;
+            assert_eq!(*value_offset.get_or_insert(offset), offset);
+            reverse.push(record.clone());
+        });
+        reverse.sort_unstable_by_key(|r| std::cmp::Reverse((Arc::as_ptr(r) as usize) >> SHIFT));
+        <Ordered<R, SHIFT> as FlatMode<FaultKey, Value, Builder>>::order_scan_records(&mut reverse);
+        assert!(reverse
+            .windows(2)
+            .all(|pair| ((Arc::as_ptr(&pair[0]) as usize) >> SHIFT)
+                <= ((Arc::as_ptr(&pair[1]) as usize) >> SHIFT)));
+
+        assert_eq!(addresses.len(), 128);
+        let before = clones.load(Ordering::SeqCst);
+        faults.clone.store(true, Ordering::SeqCst);
+        faults.hash.store(true, Ordering::SeqCst);
+        fail.store(true, Ordering::SeqCst);
+        Ordered::<R, SHIFT>::visit(&data, |k, v| assert_eq!(k.id, v.id));
+        assert_eq!(Ordered::<R, SHIFT>::cache_len(&data), 0);
+        let mut visited = 0;
+        assert!(catch_unwind(AssertUnwindSafe(|| {
+            Ordered::<R, SHIFT>::visit(&data, |_, _| {
+                visited += 1;
+                if visited == 7 {
+                    panic!("injected cache visitor failure");
+                }
+            });
+        }))
+        .is_err());
+        assert_eq!(Ordered::<R, SHIFT>::cache_len(&data), 128);
+        let mut ordered = Vec::new();
+        Ordered::<R, SHIFT>::visit(&data, |k, v| {
+            assert_eq!(k.id, v.id);
+            assert!(std::ptr::eq(
+                v,
+                Ordered::<R, SHIFT>::get(&data, &k.id).unwrap()
+            ));
+            ordered.push(addresses[&k.id] >> SHIFT);
+        });
+        assert_eq!(ordered.len(), 128);
+        assert!(ordered.windows(2).all(|pair| pair[0] <= pair[1]));
+        assert_eq!(clones.load(Ordering::SeqCst), before);
+    }
+    assert_eq!(live.load(Ordering::SeqCst), 0);
+    faults.clone.store(false, Ordering::SeqCst);
+    faults.hash.store(false, Ordering::SeqCst);
+    fail.store(false, Ordering::SeqCst);
+    {
+        let mut map = AdaptiveMap::<
+            FaultKey,
+            Value,
+            std::collections::hash_map::RandomState,
+            100,
+            1,
+            false,
+            16,
+            Ordered<R, SHIFT>,
+            false,
+        >::default();
+        map.apply(
+            &(0..128)
+                .map(|id| {
+                    Mutation::Put(
+                        FaultKey {
+                            id,
+                            faults: faults.clone(),
+                        },
+                        Value::new(id, &live, &clones, &fail),
+                    )
+                })
+                .collect::<Vec<_>>(),
+        );
+        map.apply(&[Mutation::Put(
+            FaultKey {
+                id: 0,
+                faults: faults.clone(),
+            },
+            Value::new(0, &live, &clones, &fail),
+        )]);
+        assert!(map.is_paged());
+        let old = map.clone();
+        // Scatter changed record allocations across the existing logical slots.
+        for n in 0..200 {
+            let id = (n * 37) % 128;
+            map.apply(&[Mutation::Put(
+                FaultKey {
+                    id,
+                    faults: faults.clone(),
+                },
+                Value::new(id, &live, &clones, &fail),
+            )]);
+        }
+        let before = clones.load(Ordering::SeqCst);
+        faults.clone.store(true, Ordering::SeqCst);
+        faults.hash.store(true, Ordering::SeqCst);
+        fail.store(true, Ordering::SeqCst);
+        for pass in 0..3 {
+            let mut addresses = Vec::new();
+            map.visit(|key, value| {
+                assert_eq!(key.id, value.id);
+                assert!(std::ptr::eq(value, map.get(&key.id).unwrap()));
+                // SharedRecord has the same field layout in both root types.
+                let row_address = (value as *const Value as usize) - value_offset.unwrap();
+                addresses.push(row_address >> SHIFT);
+            });
+            assert_eq!(addresses.len(), 128);
+            if pass > 0 {
+                assert!(addresses.windows(2).all(|pair| pair[0] <= pair[1]));
+                assert_eq!(map.cached_records(), 128);
+            } else {
+                assert_eq!(map.cached_records(), 0);
+            }
+        }
+        assert_eq!(clones.load(Ordering::SeqCst), before);
+        assert_eq!(old.get(&17).unwrap().id, 17);
+    }
+    assert_eq!(live.load(Ordering::SeqCst), 0);
+}
+#[test]
+fn address_cache_order_survives_visitor_panics_without_key_hash_or_payload_clones() {
+    address_order_and_visitor_failure::<false, 0>();
+    address_order_and_visitor_failure::<true, 0>();
+    address_order_and_visitor_failure::<false, 12>();
+    address_order_and_visitor_failure::<true, 12>();
+}
+#[test]
+fn address_order_rejects_shift_at_pointer_width() {
+    type Bad = AddressOrderedFlat<true, { usize::BITS }>;
+    assert!(
+        catch_unwind(|| <Bad as FlatMode<u64, u64, Builder>>::new(Builder::default())).is_err()
+    );
 }

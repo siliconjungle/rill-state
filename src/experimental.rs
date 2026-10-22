@@ -25,7 +25,9 @@ mod compact_index;
 pub use compact_index::CompactIndexMap;
 #[path = "experimental/adaptive.rs"]
 mod adaptive;
-pub use adaptive::{AdaptiveMap, FlatMode, InlineFlat, ReuseSharedFlat, SharedFlat};
+pub use adaptive::{
+    AdaptiveMap, AddressOrderedFlat, FlatMode, InlineFlat, ReuseSharedFlat, SharedFlat,
+};
 
 #[derive(Clone)]
 struct Entry<K, V> {

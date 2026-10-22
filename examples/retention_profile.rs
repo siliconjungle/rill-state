@@ -4,9 +4,9 @@
 mod profile {
     use rill_state::{
         experimental::{
-            AdaptiveMap, ArrayRecordMap, CompactIndexMap, CopyKeys, FlatMode, InlineFlat,
-            InlineSliceMap, OwnedHasher, PackedIndexMap, ProbeMap, RecordMap, ReuseSharedFlat,
-            ShardedInlineMap, SharedFlat, SharedHasher, SharedKeys, SharedMap,
+            AdaptiveMap, AddressOrderedFlat, ArrayRecordMap, CompactIndexMap, CopyKeys, FlatMode,
+            InlineFlat, InlineSliceMap, OwnedHasher, PackedIndexMap, ProbeMap, RecordMap,
+            ReuseSharedFlat, ShardedInlineMap, SharedFlat, SharedHasher, SharedKeys, SharedMap,
         },
         Config, Mutation, Snapshot, Store,
     };
@@ -601,6 +601,22 @@ mod profile {
                 Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 64, ReuseSharedFlat<2>, true>>::new(),
                 o,
             ),
+            "adaptive-copyaddr-fast-1-3-drop-16-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 16, AddressOrderedFlat<false, 0>, true>>::new(), o),
+            "adaptive-copyaddr-fast-1-3-drop-64-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 64, AddressOrderedFlat<false, 0>, true>>::new(), o),
+            "adaptive-reuseaddr-fast-1-3-drop-16-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 16, AddressOrderedFlat<true, 0>, true>>::new(), o),
+            "adaptive-reuseaddr-fast-1-3-drop-64-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 64, AddressOrderedFlat<true, 0>, true>>::new(), o),
+            "adaptive-copybucket-fast-1-3-drop-16-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 16, AddressOrderedFlat<false, 12>, true>>::new(), o),
+            "adaptive-copybucket-fast-1-3-drop-64-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 64, AddressOrderedFlat<false, 12>, true>>::new(), o),
+            "adaptive-reusebucket-fast-1-3-drop-16-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 16, AddressOrderedFlat<true, 12>, true>>::new(), o),
+            "adaptive-reusebucket-fast-1-3-drop-64-reset" => run(
+                Compared::<AdaptiveMap<Key, Value, hashbrown::DefaultHashBuilder, 1, 3, true, 64, AddressOrderedFlat<true, 12>, true>>::new(), o),
             "compact-adaptive-owned-once-25" => run(
                 Compared::<
                     CompactIndexMap<

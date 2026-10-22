@@ -4,7 +4,10 @@
 #[cfg(feature = "comparisons")]
 mod cold {
     use rill_state::{
-        experimental::{AdaptiveMap, FlatMode, InlineFlat, RecordMap, ReuseSharedFlat, SharedFlat},
+        experimental::{
+            AdaptiveMap, AddressOrderedFlat, FlatMode, InlineFlat, RecordMap, ReuseSharedFlat,
+            SharedFlat,
+        },
         Mutation,
     };
     use std::{
@@ -410,6 +413,10 @@ mod cold {
                 "cache" => policy::<K, V, SharedFlat<2>>(o, &p),
                 "reuse" => policy::<K, V, ReuseSharedFlat<0>>(o, &p),
                 "reusecache" => policy::<K, V, ReuseSharedFlat<2>>(o, &p),
+                "copyaddr" => policy::<K, V, AddressOrderedFlat<false, 0>>(o, &p),
+                "reuseaddr" => policy::<K, V, AddressOrderedFlat<true, 0>>(o, &p),
+                "copybucket" => policy::<K, V, AddressOrderedFlat<false, 12>>(o, &p),
+                "reusebucket" => policy::<K, V, AddressOrderedFlat<true, 12>>(o, &p),
                 _ => panic!("unknown mode"),
             };
             return;

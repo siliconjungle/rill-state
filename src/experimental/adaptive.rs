@@ -54,6 +54,10 @@ pub trait FlatMode<K: Clone + Hash + Eq, V: Clone, S: BuildHasher + Clone> {
     const SCAN_AFTER: usize;
     /// Whether layout transitions can transfer immutable shared records.
     const SHARED_TRANSITIONS: bool = false;
+    /// Optionally permute derived scan handles without replacing or duplicating
+    /// any record. Lookup and primary storage are unaffected; construction cost
+    /// belongs to the scan that fills the cache.
+    fn order_scan_records(_records: &mut [Arc<SharedRecord<K, V>>]) {}
     /// Construct empty flat storage with the supplied builder.
     fn new(hasher: S) -> Self::Data;
     /// Build flat storage from owned canonical rows without cloning their values.
@@ -164,6 +168,13 @@ pub struct SharedFlat<const AFTER: usize>;
 /// are not cloned during conversion; allocating lookup keys can still be cloned.
 /// This opt-in research policy is not the selected Store backend.
 pub struct ReuseSharedFlat<const AFTER: usize>;
+/// After-two-scans cache ordered by immutable record address shifted by SHIFT.
+/// REUSE selects Arc-preserving transitions; false retains copying controls.
+/// SHIFT=0 orders exact addresses; SHIFT=12 groups 4096-byte address buckets.
+/// This is a traversal-locality experiment, not a hardware layout guarantee.
+/// Key equality, lookup, canonical values and unspecified iteration order remain
+/// unchanged. Sorting is charged to cache construction and clones no K or V.
+pub struct AddressOrderedFlat<const REUSE: bool, const SHIFT: u32>;
 /// Implementation data for the unstable shared-record flat policy.
 pub struct SharedFlatData<K, V, S> {
     map: HashMap<K, Arc<SharedRecord<K, V>>, S>,
@@ -342,6 +353,95 @@ impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher + Clone, const A: usize> Fla
         SharedFlat::<A>::cache_len(data)
     }
 }
+impl<K: Clone + Hash + Eq, V: Clone, S: BuildHasher + Clone, const R: bool, const SHIFT: u32>
+    FlatMode<K, V, S> for AddressOrderedFlat<R, SHIFT>
+{
+    type Data = SharedFlatData<K, V, S>;
+    const SCAN_AFTER: usize = 2;
+    const SHARED_TRANSITIONS: bool = R;
+    fn order_scan_records(records: &mut [Arc<SharedRecord<K, V>>]) {
+        assert!(
+            SHIFT < usize::BITS,
+            "record address shift exceeds pointer width"
+        );
+        records.sort_unstable_by_key(|record| (Arc::as_ptr(record) as usize) >> SHIFT);
+    }
+    fn new(hasher: S) -> Self::Data {
+        assert!(
+            SHIFT < usize::BITS,
+            "record address shift exceeds pointer width"
+        );
+        SharedFlat::<2>::new(hasher)
+    }
+    fn from_entries(hasher: S, entries: impl Iterator<Item = (K, V)>) -> Self::Data {
+        assert!(
+            SHIFT < usize::BITS,
+            "record address shift exceeds pointer width"
+        );
+        SharedFlat::<2>::from_entries(hasher, entries)
+    }
+    fn from_shared_records(
+        hasher: S,
+        records: impl Iterator<Item = Arc<SharedRecord<K, V>>>,
+    ) -> Self::Data {
+        assert!(
+            SHIFT < usize::BITS,
+            "record address shift exceeds pointer width"
+        );
+        if R {
+            ReuseSharedFlat::<2>::from_shared_records(hasher, records)
+        } else {
+            SharedFlat::<2>::from_shared_records(hasher, records)
+        }
+    }
+    fn visit_shared_records(data: &Self::Data, mut f: impl FnMut(&Arc<SharedRecord<K, V>>)) {
+        for record in data.map.values() {
+            f(record);
+        }
+    }
+    fn hasher(data: &Self::Data) -> &S {
+        SharedFlat::<2>::hasher(data)
+    }
+    fn len(data: &Self::Data) -> usize {
+        SharedFlat::<2>::len(data)
+    }
+    fn get<'a, Q: Hash + Eq + ?Sized>(data: &'a Self::Data, key: &Q) -> Option<&'a V>
+    where
+        K: Borrow<Q>,
+    {
+        SharedFlat::<2>::get(data, key)
+    }
+    fn apply(data: &mut Self::Data, ops: &[Mutation<K, V>]) {
+        SharedFlat::<2>::apply(data, ops);
+    }
+    fn visit_primary<'a>(data: &'a Self::Data, f: impl FnMut(&'a K, &'a V))
+    where
+        K: 'a,
+        V: 'a,
+    {
+        SharedFlat::<2>::visit_primary(data, f);
+    }
+    fn visit<'a>(data: &'a Self::Data, mut f: impl FnMut(&'a K, &'a V))
+    where
+        K: 'a,
+        V: 'a,
+    {
+        if let Some(rows) = data.cache.entries(2, || {
+            let mut rows: RecordList<K, V> = data.map.values().cloned().collect();
+            <Self as FlatMode<K, V, S>>::order_scan_records(&mut rows);
+            rows
+        }) {
+            for record in rows {
+                f(record.key(), record.value());
+            }
+        } else {
+            Self::visit_primary(data, f);
+        }
+    }
+    fn cache_len(data: &Self::Data) -> usize {
+        SharedFlat::<2>::cache_len(data)
+    }
+}
 struct PagedData<K, V, S, const P: usize> {
     map: RecordMap<K, V, S, 70, P>,
     cache: ScanCache<K, V>,
@@ -507,7 +607,10 @@ impl<
             Root::Paged(d) => {
                 // Parent-private handles provide the same records as get/iter.
                 if let Some(rows) = d.cache.entries(F::SCAN_AFTER, || {
-                    d.map.inner.iter().map(|(r, ())| r.0.clone()).collect()
+                    let mut rows: RecordList<K, V> =
+                        d.map.inner.iter().map(|(r, ())| r.0.clone()).collect();
+                    F::order_scan_records(&mut rows);
+                    rows
                 }) {
                     for r in rows {
                         f(r.key(), r.value());
