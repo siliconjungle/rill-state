@@ -1,0 +1,13 @@
+{
+  "claim": "Exact artifact coverage, input binding and median audit. Executable assertions check complete values/old views; parallel raw-growth timings do not establish engine throughput, service latency or final acceptance.",
+  "processes": 1344,
+  "cells": 192,
+  "exact_tuple_coverage": true,
+  "all_executable_proof_markers_passed": true,
+  "frozen_inputs_and_driver_verified": true,
+  "medians_independently_recomputed": true,
+  "runs_sha256": "6521b3eaa6ff59682e5bebfea15d097c23fada36012cab12fe3ed211f5e777eb",
+  "source_commit": "8a7abff5cdac240300a5a9829d8ac3c32aebcf36",
+  "binary_sha256": "e7490d7b1d90d2fc3761ad369ead3e39713570e664e9e0a5d4d6c37690dd2478",
+  "auditor_sha256": "e5f20434b517436fda583257f9ec284380c9ba90e9eec013be0c8e6b46ac5cfd"
+}

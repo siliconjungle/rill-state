@@ -1,0 +1,13 @@
+{
+  "claim": "Complete raw-getter tuple/source/binary audit and independent unsigned checksum/median recomputation. Parallel timing is selection only; no engine/feed or final performance acceptance.",
+  "processes": 336,
+  "cells": 168,
+  "exact_tuple_coverage": true,
+  "all_executable_markers_passed": true,
+  "all_independent_model_checksums_match": true,
+  "frozen_inputs_and_driver_verified": true,
+  "rows_sha256": "07eb2618ff7b4d9fd56a9ebdba46f961251a325427ba262ae2f15d43471ce5fc",
+  "auditor_sha256": "19cd543f86fdb9313f051d9baac3157a3600885effc5691a07e874ce4417c255",
+  "source_commit": "51a932d651ba86695e6c9b1d40abb893e9e77031",
+  "binary_sha256": "e7f3cecd709d0b213cbe139b9bda9ffb0699d76584f64c1052b0df3b245ea9b1"
+}

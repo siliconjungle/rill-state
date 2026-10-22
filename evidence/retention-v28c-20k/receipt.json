@@ -1,0 +1,72 @@
+{
+  "kind": "instrumented-payload-retention",
+  "claim": "Owned Vec payload bytes and live Value instances only, not total library heap; RSS includes instrumentation, metadata and fixture. No timing acceptance.",
+  "build": {
+    "source_commit": "8a7abff5cdac240300a5a9829d8ac3c32aebcf36",
+    "source_sha256": "ec4df2a9fc3283a37c99b06447e095b938fca679d26c4a4815651bd8d3b8e2e8",
+    "example": "retention_profile",
+    "example_sha256": "c30f3aad58933ea6206facc6d48ac99ee655e0913fa12a0d470cb11a875381ea",
+    "binary": "build/retention-profile-v28c",
+    "binary_sha256": "971808cf640946940c0366ba061a97c8d0925b826562289128d36a1bdee60b16",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--release",
+      "--features",
+      "comparisons",
+      "--example",
+      "compact_conversion",
+      "--example",
+      "retention_profile",
+      "--message-format=json"
+    ],
+    "source_preflight": {
+      "root": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state",
+      "source_config": null,
+      "direct_cargo_arguments": [],
+      "prepared_outside_measurement": true
+    },
+    "environment": {
+      "RUSTUP_TOOLCHAIN": "stable",
+      "CARGO_BUILD_JOBS": "2"
+    },
+    "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+    "started_at_unix": 1792628603.361165,
+    "finished_at_unix": 1792629081.5255308,
+    "build_exit_code": 0,
+    "timing": "Untimed required build; diagnostic runtime and instrumented retention are separate"
+  },
+  "build_receipt_sha256": "ad67efa76e11524076ec693e79d52a3a2cf87b4b59e9c85554c591cf9b28b286",
+  "driver_sha256": "90eb9af466aa07c0df53a45a6283c80a5266a2ef91ae470e8a382024a9e43ea7",
+  "executor_sha256": "bc85f9df2fa32b1b038d8375baef6d4ceacff356f1f32a60a35cf762ff5782d1",
+  "driver_source_commit": "aac7de3c97d42e58a7be92bd7df63c2d322e3192",
+  "layout": {
+    "instrumented_value_bytes": 40
+  },
+  "engines": [
+    "compact-adaptive-owned-once-25",
+    "compact-adaptive-owned-once-50",
+    "compact-adaptive-owned-once-70",
+    "compact-adaptive-owned-once-85",
+    "compact-wide-owned-once-70",
+    "compact-adaptive-shared-each-25",
+    "packed-owned-once-50",
+    "hashbrown",
+    "record-paged16",
+    "imbl-fast"
+  ],
+  "records": 20000,
+  "changed": 200,
+  "rounds": 256,
+  "windows": [
+    0,
+    16,
+    64
+  ],
+  "workers": 1,
+  "tasks": 120,
+  "completed": 120,
+  "errors": 0,
+  "complete": true
+}

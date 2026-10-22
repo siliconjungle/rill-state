@@ -1,0 +1,1349 @@
+{
+  "claim": "Raw already-held map getters only. No snapshot acquisition, mutation feed, publication, memory bound or complete-engine performance admission. Parallel selection, not isolated speed or final acceptance.",
+  "cells": [
+    {
+      "engine": "group-fast-25-16",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 641216.796875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.4266651615914063
+    },
+    {
+      "engine": "group-fast-25-16",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1502198.8984375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.649214978306445
+    },
+    {
+      "engine": "group-fast-25-16",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1881307.9453125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.656042276978735
+    },
+    {
+      "engine": "group-fast-25-16",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 155974.6015625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.4152620259618958
+    },
+    {
+      "engine": "group-fast-25-16",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 234895.8359375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.3623731627956315
+    },
+    {
+      "engine": "group-fast-25-16",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 320464.8359375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.1573194067342367
+    },
+    {
+      "engine": "group-fast-25-32",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 680824.8671875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.5147905106279542
+    },
+    {
+      "engine": "group-fast-25-32",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1038239.9140625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.8309963709006196
+    },
+    {
+      "engine": "group-fast-25-32",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1391520.5078125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.9645573215388688
+    },
+    {
+      "engine": "group-fast-25-32",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 372808.2734375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.382739158010232
+    },
+    {
+      "engine": "group-fast-25-32",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 422492.8359375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.4504176451549307
+    },
+    {
+      "engine": "group-fast-25-32",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 251054.6875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 0.9066531781727684
+    },
+    {
+      "engine": "group-fast-25-8",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 454764.0,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.0118199627768514
+    },
+    {
+      "engine": "group-fast-25-8",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1082770.8359375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.909529237188667
+    },
+    {
+      "engine": "group-fast-25-8",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1894697.59375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.674945866054884
+    },
+    {
+      "engine": "group-fast-25-8",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 83472.0078125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 0.7573974333281986
+    },
+    {
+      "engine": "group-fast-25-8",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 198416.984375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.1507993467677524
+    },
+    {
+      "engine": "group-fast-25-8",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 204990.5625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 0.7402982467158615
+    },
+    {
+      "engine": "group-fast-50-16",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 510602.5390625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.1360570363265001
+    },
+    {
+      "engine": "group-fast-50-16",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1763821.9375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.110602398091764
+    },
+    {
+      "engine": "group-fast-50-16",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2014400.0703125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.8439425681637696
+    },
+    {
+      "engine": "group-fast-50-16",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 323508.140625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.9354060336075967
+    },
+    {
+      "engine": "group-fast-50-16",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 222772.4609375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.292058758640327
+    },
+    {
+      "engine": "group-fast-50-16",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 506249.671875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.8282585301435168
+    },
+    {
+      "engine": "group-fast-50-32",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 923416.3359375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.054540558742156
+    },
+    {
+      "engine": "group-fast-50-32",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1050499.3515625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.852616600741284
+    },
+    {
+      "engine": "group-fast-50-32",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1401909.5078125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.979224576458131
+    },
+    {
+      "engine": "group-fast-50-32",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 395563.4765625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.589212356551838
+    },
+    {
+      "engine": "group-fast-50-32",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 576367.8359375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.342877784299145
+    },
+    {
+      "engine": "group-fast-50-32",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 533031.25,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.9249769111676254
+    },
+    {
+      "engine": "group-fast-50-8",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 447225.5859375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 0.9950474877433939
+    },
+    {
+      "engine": "group-fast-50-8",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1132517.578125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.9972605054395984
+    },
+    {
+      "engine": "group-fast-50-8",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1771278.0,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.500701314744551
+    },
+    {
+      "engine": "group-fast-50-8",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 118900.390625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.078862879198761
+    },
+    {
+      "engine": "group-fast-50-8",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 192713.2109375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.1177180116861711
+    },
+    {
+      "engine": "group-fast-50-8",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 175527.9921875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 0.633897791592048
+    },
+    {
+      "engine": "group-fast-70-16",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1540053.7109375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.426518124730922
+    },
+    {
+      "engine": "group-fast-70-16",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1640585.9296875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.8932685429656892
+    },
+    {
+      "engine": "group-fast-70-16",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2029980.796875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.8659395349863233
+    },
+    {
+      "engine": "group-fast-70-16",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 223772.1328125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.030434435257275
+    },
+    {
+      "engine": "group-fast-70-16",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 392330.078125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.275476562884796
+    },
+    {
+      "engine": "group-fast-70-16",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 503391.6015625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.8179369601379005
+    },
+    {
+      "engine": "group-fast-70-32",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 942996.75,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.098105691047866
+    },
+    {
+      "engine": "group-fast-70-32",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1640020.5,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.892271374881714
+    },
+    {
+      "engine": "group-fast-70-32",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1791020.8359375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.5285743735109856
+    },
+    {
+      "engine": "group-fast-70-32",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 469978.515625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 4.264429846390569
+    },
+    {
+      "engine": "group-fast-70-32",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 533118.1640625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.0920338643673553
+    },
+    {
+      "engine": "group-fast-70-32",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 758490.5625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.739195535254349
+    },
+    {
+      "engine": "group-fast-70-8",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 558094.40625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.2417233144176847
+    },
+    {
+      "engine": "group-fast-70-8",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1006979.171875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.775866236986767
+    },
+    {
+      "engine": "group-fast-70-8",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2200696.609375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.106957182564193
+    },
+    {
+      "engine": "group-fast-70-8",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 210799.8046875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.9127278137963872
+    },
+    {
+      "engine": "group-fast-70-8",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 219079.4296875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.2706395340538836
+    },
+    {
+      "engine": "group-fast-70-8",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 328928.3828125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.1878844670772464
+    },
+    {
+      "engine": "group-fast-85-16",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 542154.296875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.2062576203995314
+    },
+    {
+      "engine": "group-fast-85-16",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1218355.46875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.148640609490075
+    },
+    {
+      "engine": "group-fast-85-16",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2119131.5078125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.991803064060708
+    },
+    {
+      "engine": "group-fast-85-16",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 235026.375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.1325517122971833
+    },
+    {
+      "engine": "group-fast-85-16",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 343221.03125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.9906488338365278
+    },
+    {
+      "engine": "group-fast-85-16",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 382410.1484375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.381027296876819
+    },
+    {
+      "engine": "group-fast-85-32",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 729708.0078125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.6235522805297122
+    },
+    {
+      "engine": "group-fast-85-32",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1840508.7890625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.245844113426433
+    },
+    {
+      "engine": "group-fast-85-32",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1932922.5234375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.728912059913527
+    },
+    {
+      "engine": "group-fast-85-32",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 345562.5,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.135520007406383
+    },
+    {
+      "engine": "group-fast-85-32",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 442611.9765625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.5671067177245455
+    },
+    {
+      "engine": "group-fast-85-32",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 844941.734375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 3.051403327579394
+    },
+    {
+      "engine": "group-fast-85-8",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 530910.8046875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.1812415904441302
+    },
+    {
+      "engine": "group-fast-85-8",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1071739.578125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.8900749735376734
+    },
+    {
+      "engine": "group-fast-85-8",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1713671.2265625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.419371713138622
+    },
+    {
+      "engine": "group-fast-85-8",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 243810.2265625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 2.2122534806207326
+    },
+    {
+      "engine": "group-fast-85-8",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 203904.2890625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.1826251840053346
+    },
+    {
+      "engine": "group-fast-85-8",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 194444.984375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 0.7022141861555484
+    },
+    {
+      "engine": "group-sip-25-16",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1241920.5703125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0779805109821237
+    },
+    {
+      "engine": "group-sip-25-16",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2295244.46875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1947727897535656
+    },
+    {
+      "engine": "group-sip-25-16",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2722451.4921875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.9129454555933904
+    },
+    {
+      "engine": "group-sip-25-16",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 686508.140625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1580114141419413
+    },
+    {
+      "engine": "group-sip-25-16",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 870535.484375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.9099206460094856
+    },
+    {
+      "engine": "group-sip-25-16",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 885533.8515625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.2050881622401042
+    },
+    {
+      "engine": "group-sip-25-32",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1528123.046875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.3264027525523403
+    },
+    {
+      "engine": "group-sip-25-32",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2014771.8125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0487747914924468
+    },
+    {
+      "engine": "group-sip-25-32",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2253722.3359375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.7557620661627406
+    },
+    {
+      "engine": "group-sip-25-32",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 718990.5625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.212803212030862
+    },
+    {
+      "engine": "group-sip-25-32",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1481519.53125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.5485471105391095
+    },
+    {
+      "engine": "group-sip-25-32",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 1125158.1953125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.5311834995647637
+    },
+    {
+      "engine": "group-sip-25-8",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1376313.15625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.194632567421338
+    },
+    {
+      "engine": "group-sip-25-8",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2698133.453125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.4044937159452975
+    },
+    {
+      "engine": "group-sip-25-8",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2990916.0234375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0029722107058439
+    },
+    {
+      "engine": "group-sip-25-8",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 449822.59375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.7587669644051185
+    },
+    {
+      "engine": "group-sip-25-8",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 724810.875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.7576030976936023
+    },
+    {
+      "engine": "group-sip-25-8",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 760428.3828125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0348370542151462
+    },
+    {
+      "engine": "group-sip-50-16",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1035317.3828125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.8986500328858112
+    },
+    {
+      "engine": "group-sip-50-16",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1706861.328125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.8884942316567264
+    },
+    {
+      "engine": "group-sip-50-16",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2320768.546875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.7782453073759621
+    },
+    {
+      "engine": "group-sip-50-16",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 541058.9140625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.9126656497287894
+    },
+    {
+      "engine": "group-sip-50-16",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1068461.5859375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1168014101235293
+    },
+    {
+      "engine": "group-sip-50-16",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 1340326.171875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.8239971294345916
+    },
+    {
+      "engine": "group-sip-50-32",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1573637.0546875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.3659086715067363
+    },
+    {
+      "engine": "group-sip-50-32",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2245561.5234375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.168910694459413
+    },
+    {
+      "engine": "group-sip-50-32",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 3060655.921875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0263587516726038
+    },
+    {
+      "engine": "group-sip-50-32",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 741570.3203125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.2508910593965623
+    },
+    {
+      "engine": "group-sip-50-32",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1077331.0546875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1260721554057336
+    },
+    {
+      "engine": "group-sip-50-32",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 1457517.578125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.9834783013163404
+    },
+    {
+      "engine": "group-sip-50-8",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1304742.1875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1325093436750746
+    },
+    {
+      "engine": "group-sip-50-8",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2923031.578125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.5215627967665366
+    },
+    {
+      "engine": "group-sip-50-8",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1847729.4921875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.6196166388636184
+    },
+    {
+      "engine": "group-sip-50-8",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 470829.75,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.7942021257333094
+    },
+    {
+      "engine": "group-sip-50-8",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 703826.5,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.7356693380722884
+    },
+    {
+      "engine": "group-sip-50-8",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 873763.34375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.189070141468374
+    },
+    {
+      "engine": "group-sip-70-16",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1301611.65625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1297920590457755
+    },
+    {
+      "engine": "group-sip-70-16",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2087001.296875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0863733234676392
+    },
+    {
+      "engine": "group-sip-70-16",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2170938.4765625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.7280013701761384
+    },
+    {
+      "engine": "group-sip-70-16",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 812999.671875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.3713790762448805
+    },
+    {
+      "engine": "group-sip-70-16",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1005268.5625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0507493792280567
+    },
+    {
+      "engine": "group-sip-70-16",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 992879.5546875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.3511707042852492
+    },
+    {
+      "engine": "group-sip-70-32",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1791512.6875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.5550235727364292
+    },
+    {
+      "engine": "group-sip-70-32",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 3072352.2109375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.5992905645325204
+    },
+    {
+      "engine": "group-sip-70-32",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 3342101.890625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1207386952281586
+    },
+    {
+      "engine": "group-sip-70-32",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 820885.734375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.38468139539775
+    },
+    {
+      "engine": "group-sip-70-32",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1390869.46875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.4537958167535152
+    },
+    {
+      "engine": "group-sip-70-32",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 1357959.9609375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.8479942588691833
+    },
+    {
+      "engine": "group-sip-70-8",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1301029.3046875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1292865809581092
+    },
+    {
+      "engine": "group-sip-70-8",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2262846.0234375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1779080150349166
+    },
+    {
+      "engine": "group-sip-70-8",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2751174.8046875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.9225775161431244
+    },
+    {
+      "engine": "group-sip-70-8",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 685864.265625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1569253168982847
+    },
+    {
+      "engine": "group-sip-70-8",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 903779.6171875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.9446688249725669
+    },
+    {
+      "engine": "group-sip-70-8",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 826127.2734375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.124244088429362
+    },
+    {
+      "engine": "group-sip-85-16",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1361050.1328125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1813843435030014
+    },
+    {
+      "engine": "group-sip-85-16",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2311319.015625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.203140278043093
+    },
+    {
+      "engine": "group-sip-85-16",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2974944.0078125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.9976161633627214
+    },
+    {
+      "engine": "group-sip-85-16",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 673940.75,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.1368125660460089
+    },
+    {
+      "engine": "group-sip-85-16",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1088663.734375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.137917553333047
+    },
+    {
+      "engine": "group-sip-85-16",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 1225225.90625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.6673617085180041
+    },
+    {
+      "engine": "group-sip-85-32",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1609507.484375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.397044015463516
+    },
+    {
+      "engine": "group-sip-85-32",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2692291.015625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.4014524776607162
+    },
+    {
+      "engine": "group-sip-85-32",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 3936494.796875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.320062100679128
+    },
+    {
+      "engine": "group-sip-85-32",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 730130.2109375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.2315937248839353
+    },
+    {
+      "engine": "group-sip-85-32",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1343144.8515625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.4039120207667464
+    },
+    {
+      "engine": "group-sip-85-32",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 1639501.625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 2.2311332274590843
+    },
+    {
+      "engine": "group-sip-85-8",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1573362.625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.3656704679840381
+    },
+    {
+      "engine": "group-sip-85-8",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 2317432.6171875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.2063226688052622
+    },
+    {
+      "engine": "group-sip-85-8",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2670212.234375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.8954275702755613
+    },
+    {
+      "engine": "group-sip-85-8",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 716526.6953125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.208647126826312
+    },
+    {
+      "engine": "group-sip-85-8",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1174630.203125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.2277733560937056
+    },
+    {
+      "engine": "group-sip-85-8",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 1108284.5078125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.5082207624274884
+    },
+    {
+      "engine": "hashbrown",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 449451.5,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 567035.484375,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 708312.5,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 110208.9921875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 172416.6640625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 276902.671875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown-sip",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1152080.7265625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown-sip",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1921071.9296875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown-sip",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2982052.734375,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown-sip",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 592833.65625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown-sip",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 956715.828125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "hashbrown-sip",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 734829.1015625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0
+    },
+    {
+      "engine": "std-fast",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 382223.3046875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 0.8504216910779028
+    },
+    {
+      "engine": "std-fast",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 829453.453125,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.4627893244445598
+    },
+    {
+      "engine": "std-fast",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 1013678.0625,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.4311170034412777
+    },
+    {
+      "engine": "std-fast",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 140016.9296875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.2704673811850793
+    },
+    {
+      "engine": "std-fast",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 194679.6875,
+      "reference": "hashbrown",
+      "ratio_to_reference": 1.1291233858313705
+    },
+    {
+      "engine": "std-fast",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 226045.25,
+      "reference": "hashbrown",
+      "ratio_to_reference": 0.8163346654236757
+    },
+    {
+      "engine": "std-hash",
+      "shape": "string-inline",
+      "case": "miss100",
+      "ns_per_round_median": 1194154.3046875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.0365196441142943
+    },
+    {
+      "engine": "std-hash",
+      "shape": "string-inline",
+      "case": "miss50",
+      "ns_per_round_median": 1948237.9453125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.014141071557596
+    },
+    {
+      "engine": "std-hash",
+      "shape": "string-inline",
+      "case": "read",
+      "ns_per_round_median": 2228262.3671875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.7472243335946623
+    },
+    {
+      "engine": "std-hash",
+      "shape": "u64-inline",
+      "case": "miss100",
+      "ns_per_round_median": 561944.0078125,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.9478949143459666
+    },
+    {
+      "engine": "std-hash",
+      "shape": "u64-inline",
+      "case": "miss50",
+      "ns_per_round_median": 647534.1796875,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 0.6768302150457327
+    },
+    {
+      "engine": "std-hash",
+      "shape": "u64-inline",
+      "case": "read",
+      "ns_per_round_median": 931728.515625,
+      "reference": "hashbrown-sip",
+      "ratio_to_reference": 1.2679526622500714
+    }
+  ]
+}

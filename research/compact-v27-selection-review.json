@@ -1,7 +1,7 @@
 {
   "claim": "Completed parallel selection, not isolated timing or final acceptance",
   "small_exact_proof_processes": 6952,
-  "full_size_proofs": "running; do not infer completion from small proofs",
+  "full_size_proofs": "Complete: 720 scalar, 3072 generic and 864 threaded processes; see evidence/proof-coverage-audit-v27-complete.json. No serial/final admission.",
   "timing_processes": 6952,
   "observations": [
     "Fixed compact-adaptive-owned-once-70 is lower in 3/15 scalar cells and 25/64 generic cells against hashbrown.",
@@ -1650,5 +1650,6 @@
         }
       }
     }
-  }
+  },
+  "complete_exact_proof_processes": 11608
 }

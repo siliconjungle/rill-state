@@ -126,7 +126,8 @@ control using the same dense-row implementation. Thirty-two configurations vary
 width policy, fill, builder storage and batching. Widening stages reconstruction
 hashes before changing the installed index; recovery tests retain old roots and
 continue past 100,000 rows. Local validation and 6,952 small exact proof processes pass. Parallel selection
-still shows substantial lookup losses; full-size/threaded admission is pending. Its plan includes
+still shows substantial lookup losses; full-size and four-reader contracts pass (11,608 exact processes total).
+Serial and final performance admission remain pending. Its plan includes
 explicit conversion timing and keeps whole-table payload retention visible.
 
 Default study lists omit the known investigative `scc-copy` native Clone chain,
@@ -156,5 +157,13 @@ against an extra Arc envelope, uniformly for both experimental maps and upstream
 persistent maps. Twenty-five native ownership variants retain their matched Arc
 controls. Actual PVec vector/index and OrderMap adapters are included; branch32
 and branch4 require separate frozen binaries. Native API and collision/model
-checks pass, but complete-engine comparative results remain pending. Neither the
+checks pass, and the first complete-engine selection panel finishes 10,902 small proofs and
+10,902 parallel timings. Lookup and acquisition losses remain; full-size proofs
+and separate branch4 comparisons are pending. Neither the
 default Store nor the final acceptance gate has changed.
+
+A separate safe grouped-byte prototype under `research/group-byte-index-proof`
+passes its raw-map/model/recovery/threading checks and completes a 336-process
+getter baseline against actual std/hashbrown controls. It still loses important
+String cases and has no complete revision/feed admission. It remains research,
+with selected source, binaries and reproducibility evidence retained.

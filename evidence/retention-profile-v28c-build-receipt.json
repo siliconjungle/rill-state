@@ -1,0 +1,36 @@
+{
+  "source_commit": "8a7abff5cdac240300a5a9829d8ac3c32aebcf36",
+  "source_sha256": "ec4df2a9fc3283a37c99b06447e095b938fca679d26c4a4815651bd8d3b8e2e8",
+  "example": "retention_profile",
+  "example_sha256": "c30f3aad58933ea6206facc6d48ac99ee655e0913fa12a0d470cb11a875381ea",
+  "binary": "build/retention-profile-v28c",
+  "binary_sha256": "971808cf640946940c0366ba061a97c8d0925b826562289128d36a1bdee60b16",
+  "command": [
+    "cargo",
+    "build",
+    "--locked",
+    "--release",
+    "--features",
+    "comparisons",
+    "--example",
+    "compact_conversion",
+    "--example",
+    "retention_profile",
+    "--message-format=json"
+  ],
+  "source_preflight": {
+    "root": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state",
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "started_at_unix": 1792628603.361165,
+  "finished_at_unix": 1792629081.5255308,
+  "build_exit_code": 0,
+  "timing": "Untimed required build; diagnostic runtime and instrumented retention are separate"
+}

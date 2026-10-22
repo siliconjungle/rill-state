@@ -673,3 +673,57 @@ processes with no failures. A fresh independent audit verifies these alongside
 the 6,952 small checks (7,672 processes total), including exact tuple coverage and
 frozen source/binary bindings. This does not cover the still-running generic
 20,000-record phase or the queued concurrent-reader phases.
+
+## Completed Compact contracts and ownership/upstream selection
+
+The v27 small, full-size and actual-reader panels finish 11,608 exact proof
+processes: 6,952 small, 720 full scalar, 3,072 full generic and 864 threaded.
+The complete independent audit verifies all tuple sets and frozen bindings.
+Registered serial development and the unchanged final holdout remain pending;
+passing these contracts does not erase its lookup regressions.
+
+The v28 ownership/upstream panel completes 10,902 small exact proof processes,
+independently audited, and 10,902 matching-output parallel selection processes.
+All 69 fixed engines remain visible. For scalar compact-adaptive-owned-once-70,
+native/Arc read medians have ratio 0.703, but the native all-miss median is still
+3.159 times hashbrown. Direct cloning of the embedded 1,024-entry directory
+regresses scalar acquisition by about 2,086 times its Arc-envelope control.
+The generic review preserves all 64 cells for each fixed policy. These noisy
+selection medians overlap owned proof/compilation work and cannot establish
+isolated superiority. Native ownership has not changed the default library.
+Full-size and threaded v28 proofs are now running; branch4 v29 is a separate build.
+
+The separate raw-growth diagnostic finishes 1,344 processes in 192 cases with
+seven fresh repetitions; its independent audit recomputes exact tuples, bindings
+and medians. At fill70, unpinned 65,536-to-131,072 widening has adaptive/wide raw
+insert medians about 1.518 for u64-inline and 3.006 for string-owned256. All
+contrasts, including those favoring adaptive controls, remain in the full review.
+These are raw insertion costs, not complete-engine or service latency.
+
+All 120 Compact/control instrumented retention cases pass exact journal/value
+and final reclamation checks and an independent coverage audit. In the pinned
+64-view fixed256 cell, each of six Compact policies retains 320.51 MiB of owned
+payload and makes 5,191,200 value clones, matching the hashbrown copy adapter.
+The paged reference retains 15.97 MiB and makes 71,200 clones; imbl-fast retains
+67.51 MiB with 981,297 clones. RSS includes all fixture/instrumentation overhead.
+Narrower controls do not resolve whole-table payload copying.
+
+## Safe grouped-byte raw-map prototype
+
+A separate minimal generic Rust prototype tests eight-byte integer filters with
+8/16/32-slot groups and four fills. It retains full key equality, including the
+word mask's possible false candidates, and stages reconstruction before moving
+values. Nine selected frozen tests pass: all 12 policies receive randomized
+collision/canonical-key/old-view checks and four actual readers over 20,000 rows.
+Clone/hash/drop recovery, same-capacity tombstone cleanup and tracked-value
+release also pass. The actual complete-engine/feed contract remains pending.
+
+Its selected raw held-getter baseline runs all 336 fresh processes across 24
+builder/group/fill policies and four actual std/hashbrown controls. The independent
+unsigned model reproduces every checksum and median. This is parallel diagnostic
+selection over two development seeds, not final confidence or engine performance.
+Fixed group-fast-25-8 is lower in two of six cells: u64 read ratio 0.740 and u64
+all-miss 0.757. Its String read ratio is 2.675. Fixed group-fast-70-8 loses all six
+cells; fixed group-sip-50-16 is lower in four but has a u64 read ratio of 1.824.
+All losses remain visible. No prototype is promoted and no per-case winner is
+selected. The default Store and holdout seeds remain unchanged.

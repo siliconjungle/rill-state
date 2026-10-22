@@ -29,3 +29,11 @@ Use original safe Rust implementation; do not copy unsafe table machinery.
 The core comparison binaries are building from frozen committed inputs.
 Keep this experiment separate until those builds finish. No copied dependency
 tree or alternate root build target is needed.
+
+The selected v1 proof executables pass nine tests: all 12 policies receive the
+collision/model and 20,000-record four-reader checks. Clone/hash failure recovery
+and final tracked-value release pass. The raw getter baseline completes 336 fresh
+processes across 24 policies and four actual controls, with independently
+recomputed unsigned checksums. It is not an engine/feed comparison. Fixed
+fast-25-group8 is lower in two of six getter cells, but its String read median is
+about 2.675 times hashbrown. No universal winner or production promotion follows.

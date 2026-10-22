@@ -1,0 +1,224 @@
+{
+  "claim": "Raw already-held map getters only. No snapshot acquisition, mutation feed, publication, memory bound or complete-engine performance admission. Parallel selection, not isolated speed or final acceptance.",
+  "registered_plan_matches_frozen_git_input": true,
+  "processes": 336,
+  "fixed_candidates": {
+    "group-fast-25-8": {
+      "lower_than_matched_reference": 2,
+      "at_or_above_reference": 4,
+      "cells": [
+        {
+          "engine": "group-fast-25-8",
+          "shape": "string-inline",
+          "case": "miss100",
+          "ns_per_round_median": 454764.0,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.0118199627768514
+        },
+        {
+          "engine": "group-fast-25-8",
+          "shape": "string-inline",
+          "case": "miss50",
+          "ns_per_round_median": 1082770.8359375,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.909529237188667
+        },
+        {
+          "engine": "group-fast-25-8",
+          "shape": "string-inline",
+          "case": "read",
+          "ns_per_round_median": 1894697.59375,
+          "reference": "hashbrown",
+          "ratio_to_reference": 2.674945866054884
+        },
+        {
+          "engine": "group-fast-25-8",
+          "shape": "u64-inline",
+          "case": "miss100",
+          "ns_per_round_median": 83472.0078125,
+          "reference": "hashbrown",
+          "ratio_to_reference": 0.7573974333281986
+        },
+        {
+          "engine": "group-fast-25-8",
+          "shape": "u64-inline",
+          "case": "miss50",
+          "ns_per_round_median": 198416.984375,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.1507993467677524
+        },
+        {
+          "engine": "group-fast-25-8",
+          "shape": "u64-inline",
+          "case": "read",
+          "ns_per_round_median": 204990.5625,
+          "reference": "hashbrown",
+          "ratio_to_reference": 0.7402982467158615
+        }
+      ]
+    },
+    "group-fast-50-8": {
+      "lower_than_matched_reference": 2,
+      "at_or_above_reference": 4,
+      "cells": [
+        {
+          "engine": "group-fast-50-8",
+          "shape": "string-inline",
+          "case": "miss100",
+          "ns_per_round_median": 447225.5859375,
+          "reference": "hashbrown",
+          "ratio_to_reference": 0.9950474877433939
+        },
+        {
+          "engine": "group-fast-50-8",
+          "shape": "string-inline",
+          "case": "miss50",
+          "ns_per_round_median": 1132517.578125,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.9972605054395984
+        },
+        {
+          "engine": "group-fast-50-8",
+          "shape": "string-inline",
+          "case": "read",
+          "ns_per_round_median": 1771278.0,
+          "reference": "hashbrown",
+          "ratio_to_reference": 2.500701314744551
+        },
+        {
+          "engine": "group-fast-50-8",
+          "shape": "u64-inline",
+          "case": "miss100",
+          "ns_per_round_median": 118900.390625,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.078862879198761
+        },
+        {
+          "engine": "group-fast-50-8",
+          "shape": "u64-inline",
+          "case": "miss50",
+          "ns_per_round_median": 192713.2109375,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.1177180116861711
+        },
+        {
+          "engine": "group-fast-50-8",
+          "shape": "u64-inline",
+          "case": "read",
+          "ns_per_round_median": 175527.9921875,
+          "reference": "hashbrown",
+          "ratio_to_reference": 0.633897791592048
+        }
+      ]
+    },
+    "group-fast-70-8": {
+      "lower_than_matched_reference": 0,
+      "at_or_above_reference": 6,
+      "cells": [
+        {
+          "engine": "group-fast-70-8",
+          "shape": "string-inline",
+          "case": "miss100",
+          "ns_per_round_median": 558094.40625,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.2417233144176847
+        },
+        {
+          "engine": "group-fast-70-8",
+          "shape": "string-inline",
+          "case": "miss50",
+          "ns_per_round_median": 1006979.171875,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.775866236986767
+        },
+        {
+          "engine": "group-fast-70-8",
+          "shape": "string-inline",
+          "case": "read",
+          "ns_per_round_median": 2200696.609375,
+          "reference": "hashbrown",
+          "ratio_to_reference": 3.106957182564193
+        },
+        {
+          "engine": "group-fast-70-8",
+          "shape": "u64-inline",
+          "case": "miss100",
+          "ns_per_round_median": 210799.8046875,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.9127278137963872
+        },
+        {
+          "engine": "group-fast-70-8",
+          "shape": "u64-inline",
+          "case": "miss50",
+          "ns_per_round_median": 219079.4296875,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.2706395340538836
+        },
+        {
+          "engine": "group-fast-70-8",
+          "shape": "u64-inline",
+          "case": "read",
+          "ns_per_round_median": 328928.3828125,
+          "reference": "hashbrown",
+          "ratio_to_reference": 1.1878844670772464
+        }
+      ]
+    },
+    "group-sip-50-16": {
+      "lower_than_matched_reference": 4,
+      "at_or_above_reference": 2,
+      "cells": [
+        {
+          "engine": "group-sip-50-16",
+          "shape": "string-inline",
+          "case": "miss100",
+          "ns_per_round_median": 1035317.3828125,
+          "reference": "hashbrown-sip",
+          "ratio_to_reference": 0.8986500328858112
+        },
+        {
+          "engine": "group-sip-50-16",
+          "shape": "string-inline",
+          "case": "miss50",
+          "ns_per_round_median": 1706861.328125,
+          "reference": "hashbrown-sip",
+          "ratio_to_reference": 0.8884942316567264
+        },
+        {
+          "engine": "group-sip-50-16",
+          "shape": "string-inline",
+          "case": "read",
+          "ns_per_round_median": 2320768.546875,
+          "reference": "hashbrown-sip",
+          "ratio_to_reference": 0.7782453073759621
+        },
+        {
+          "engine": "group-sip-50-16",
+          "shape": "u64-inline",
+          "case": "miss100",
+          "ns_per_round_median": 541058.9140625,
+          "reference": "hashbrown-sip",
+          "ratio_to_reference": 0.9126656497287894
+        },
+        {
+          "engine": "group-sip-50-16",
+          "shape": "u64-inline",
+          "case": "miss50",
+          "ns_per_round_median": 1068461.5859375,
+          "reference": "hashbrown-sip",
+          "ratio_to_reference": 1.1168014101235293
+        },
+        {
+          "engine": "group-sip-50-16",
+          "shape": "u64-inline",
+          "case": "read",
+          "ns_per_round_median": 1340326.171875,
+          "reference": "hashbrown-sip",
+          "ratio_to_reference": 1.8239971294345916
+        }
+      ]
+    }
+  },
+  "decision": "No universal getter winner and no promotion to default/engine on this evidence. Whole-table COW and memory tradeoffs remain. Next prototype variations should compare global versus inline group controls and explicit invariant/cold-failure lookup paths with all controls retained."
+}
