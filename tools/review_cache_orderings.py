@@ -66,7 +66,7 @@ def main():
         cells.append(dict(factor=factor, baseline=left, candidate=right, shape=shape, step=step,
                           phase=matched[0][0]['phase'], logical_seed_repetitions=len(matched), fields=fields))
     assert len(cells) == 6144
-    result = dict(claim='Every predeclared fixed contrast from a complete parallel component study. Logical seed/repetition matching does not establish isolated paired confidence. No per-case policy, universal winner, total heap, allocator-locality, connection-capacity or default-switch claim.',
+    result = dict(claim='Every fixed factorial contrast over the registered policies from a complete parallel component study. Logical seed/repetition matching does not establish isolated paired confidence. No per-case policy, universal winner, total heap, allocator-locality, connection-capacity or default-switch claim.',
         source_commit=receipt['build']['source_commit'], binary_sha256=receipt['build']['binary_sha256'],
         plan=receipt['plan'], plan_sha256=receipt['plan_sha256'],
         audit=str(a.audit), audit_sha256=digest(a.audit), runs_sha256=audit['runs_sha256'],
