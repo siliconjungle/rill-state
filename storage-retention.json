@@ -591,6 +591,18 @@
     {
       "path": "evidence/adaptive-clippy-final.log",
       "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-diagnostics-clippy-v1.log",
+      "reason": "Completed intermediate diagnostic compile/lint attempt, superseded by committed v3 diagnostic Clippy log and exact passing executable-bound smoke cohorts. No unique required behavioral proof."
+    },
+    {
+      "path": "evidence/adaptive-diagnostics-clippy-v2.log",
+      "reason": "Completed intermediate diagnostic compile/lint attempt, superseded by committed v3 diagnostic Clippy log and exact passing executable-bound smoke cohorts. No unique required behavioral proof."
+    },
+    {
+      "path": "evidence/adaptive-retention-clippy.log",
+      "reason": "Completed intermediate diagnostic compile/lint attempt, superseded by committed v3 diagnostic Clippy log and exact passing executable-bound smoke cohorts. No unique required behavioral proof."
     }
   ]
 }

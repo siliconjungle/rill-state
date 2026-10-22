@@ -4,6 +4,32 @@ The original objective (generic public Rust library outperforming every applicab
 competitor across the registered workloads) is **not achieved**. This document records
 progress, not acceptance. The public implementation is experimental.
 
+## Adaptive cold-transition and cache smoke proofs
+
+The registered v30 diagnostic smoke cohorts now pass 568 fresh processes at
+1,000 records: 360 mixed-density raw-map processes and 208 streaming retention
+processes. The cold audit independently reconstructs the Rust random trace and
+checks every checksum, representation transition and traversal-cache count over
+5,760 rows. It covers 24 fixed adaptive policies plus six controls, including
+std BTreeMap, across six key/value shapes and two development seeds.
+
+Retention checks cover six adaptive policies and seven controls, two retained
+view windows, initial-root retention on/off and fixed/mixed payload lengths,
+with zero or two complete read traversals after each revision. Traversals clone
+no tracked payload values, old roots retain their complete expected values and
+dropping the final roots/journal/cache owners releases all tracked payloads.
+The cache counters count shared handles, not total heap bytes.
+
+These are smoke correctness proofs. Their unoptimized example executables reuse
+completed optimized Cargo library artifacts while the independent optimized
+Cargo diagnostic builds remain queued. Receipts bind source, compiler, commands
+and dependency artifact hashes. Smoke timings are excluded from speed rankings.
+The full registered 20,000-record diagnostic cohorts, the adaptive full-engine
+comparison and final isolated holdout acceptance remain pending. See
+`evidence/adaptive-cold-v30smoke-audit.json`,
+`evidence/retention-v30smoke-audit.json` and
+`research/v30-diagnostics-plan.json`.
+
 ## First development comparison
 
 79 configurations: 28 existing-library/baseline adapters, 18 independent alternative
