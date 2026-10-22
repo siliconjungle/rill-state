@@ -369,6 +369,18 @@
     {
       "path": "build/state-v34m2",
       "reason": "Selected required native/scoped/export scalar baseline with metadata-only empty revisions and exact matched controls; eight fixed configurations of one actual upstream crate."
+    },
+    {
+      "path": "build/adaptive-contracts-v3",
+      "reason": "Selected required fixed traversal-ordering proof/diagnostic baseline; preserves copying, transfer, unsorted and external controls with committed input/compiler/binary bindings."
+    },
+    {
+      "path": "build/adaptive-cold-v35o",
+      "reason": "Selected required fixed traversal-ordering proof/diagnostic baseline; preserves copying, transfer, unsorted and external controls with committed input/compiler/binary bindings."
+    },
+    {
+      "path": "build/retention-profile-v35o",
+      "reason": "Selected required fixed traversal-ordering proof/diagnostic baseline; preserves copying, transfer, unsorted and external controls with committed input/compiler/binary bindings."
     }
   ],
   "safe_to_remove": [
