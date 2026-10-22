@@ -990,3 +990,14 @@ GPU path, total heap bounds, complete engine/feed admission or a speed win.
 The registered seventy-configuration cold panel and twenty-five-configuration
 memory panel keep the copying, transfer, unsorted and upstream/paged controls.
 Sorting is charged to the scan that builds the cache. Comparisons remain pending.
+
+The new ordering smoke cohort completes 840 cold and 400 memory processes with
+independent exact tuple/input/checksum/cache/journal/reclamation audits. Its
+full-size matched studies are running; smoke timings are excluded from speed
+rankings. The separately frozen v36o panel registers eighty-five configurations:
+all forty original fixed controls/policies, thirty-two ordering configurations
+and thirteen references. It preserves both builders, page sizes and directions
+with the original exact scalar/generic and four-reader harnesses. Small proof
+and screen phases each contain 13,430 fresh processes. Full-size and actual
+four-reader behavior are separate required phases. No ordering default or
+performance acceptance is selected.
