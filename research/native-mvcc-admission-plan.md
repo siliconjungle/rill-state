@@ -1,13 +1,19 @@
 # Native mvcc-core admission
 
-The exact 0.1.0 published source and selected binary prove useful native
-capabilities. Three tests cover 20,000-record complete retained snapshots across
+The exact 0.1.0 published source and selected binaries prove useful native
+capabilities. Four tests cover 20,000-record complete retained snapshots across
 32 revision traces with duplicate writes, deletes/reinserts and missing deletes;
 partial transaction rollback and empty commits; and four actual reader-owned
 transactions while a writer commits. Each reader begins on its own thread before
 the writer proceeds and checks complete old values again after writing finishes.
 The source/lock/compiler/frozen-binary/log receipt is
-`evidence/native-mvcc-contracts-v1-receipt.json`.
+`evidence/native-mvcc-contracts-v2-receipt.json`, which links the original
+negative trait checks. An additional capacity proof holds 20,000 distinct native
+transactions simultaneously across four owning threads during sixteen writer
+commits. Every session checks sampled old values before and after writes; first
+and last sessions on each worker additionally check full contents. Native active
+transaction counts are exactly 20,000 before/after writing and zero after all
+readers join. These are logical native sessions, not 20,000 sockets or threads.
 
 Separate expected compiler failures prove `Transaction<Snapshot>` implements
 neither Send nor Sync on this pinned build. Its epoch Guard and boxed internal
@@ -38,7 +44,7 @@ reclamation accounting before comparative timing admission. Native transaction
 retention affects epoch collection and watermark advancement; track stalled
 readers and eventual release. Actual durability, schema indexes and multiple
 writers are outside the current shared single-writer contract. Passing these
-three capability tests is not passing those remaining requirements. No timing,
+four capability tests is not passing those remaining requirements. No timing,
 universal winner, source exclusion or 20,000-socket claim follows.
 
 To reproduce the native proofs, enter `research/mvcc-core-admission-proof`, run

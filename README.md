@@ -204,7 +204,9 @@ and thirteen references over the original scalar and eight generic shapes.
 Its benchmark targets pass Clippy; execution and speed admission remain pending.
 
 Actual `mvcc-core` capability probes pass retained full-value model checks and
-four reader-owned transactions at 20,000 records. Compiler checks prove its
+20,000 simultaneously retained reader sessions across four owning threads,
+with sampled per-session old values and full first/last session checks.
+Compiler checks prove its
 transactions cannot move or be shared across threads on the pinned version.
 Native scoped reads and explicit transferable exports therefore need distinct
 adapters. This competitor has no timing or complete feed admission yet.

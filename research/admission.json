@@ -272,13 +272,14 @@
       "name": "mvcc-core",
       "version": "0.1.0",
       "source": "https://docs.rs/crate/mvcc-core/0.1.0/source/",
-      "status": "native-20k-model-and-reader-owned-transactions-proved-adapter-and-timing-pending",
-      "reason": "Actual pinned in-memory mvcc-core 0.1.0 passes the selected frozen three-test proof: retained complete-value transactions across 32 update/delete/reinsert revisions at 20,000 records, rollback and empty commit, and four real reader-owned transactions while a writer publishes. Compiler checks reject Send and Sync for Transaction because it contains an epoch Guard and non-Send/Sync trait objects; Arc<Mutex<Transaction>> cannot supply the existing transferable-view contract. Native scoped-reader and explicit exported-view adapters remain applicable and pending, with their different costs reported separately. This crate is in-memory only; the prior optional-durability statement was incorrect. No complete revision/feed, generic-payload, reclamation or performance admission and not counted as beaten.",
+      "status": "native-20k-session-capabilities-proved-adapter-and-timing-pending",
+      "reason": "Actual pinned in-memory mvcc-core 0.1.0 passes the selected frozen four-test proof: retained complete-value transactions across 32 update/delete/reinsert revisions at 20,000 records, rollback and empty commit, and 20,000 simultaneously live native transactions on four real reader threads while a writer publishes. Every session checks sampled old values; first/last sessions per worker check full old contents, and the earlier four-reader test checks complete old contents repeatedly. Active-session counts return to zero. Compiler checks reject Send and Sync for Transaction because it contains an epoch Guard and non-Send/Sync trait objects; Arc<Mutex<Transaction>> cannot supply the existing transferable-view contract. Native scoped-reader and explicit exported-view adapters remain applicable and pending, with their different costs reported separately. This crate is in-memory only; the prior optional-durability statement was incorrect. No complete revision/feed, generic-payload, reclamation or performance admission and not counted as beaten.",
       "evidence": [
         "research/additional-admission-source-inputs.json",
         "research/mvcc-core-admission-proof",
         "evidence/native-mvcc-contracts-v1-receipt.json",
-        "research/native-mvcc-admission-plan.md"
+        "research/native-mvcc-admission-plan.md",
+        "evidence/native-mvcc-contracts-v2-receipt.json"
       ]
     },
     {

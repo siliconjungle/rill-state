@@ -1,0 +1,9 @@
+
+running 4 tests
+test tests::dropped_partial_transaction_and_empty_commit_preserve_native_snapshot ... ok
+test tests::native_transactions_created_on_four_reader_threads_hold_old_values ... ok
+test tests::retained_native_transactions_match_full_model_at_20k ... ok
+test tests::twenty_thousand_native_reader_sessions_across_four_threads ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.59s
+

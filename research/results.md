@@ -902,3 +902,11 @@ crate is in-memory only. Exact evidence and remaining requirements are linked in
 `research/native-mvcc-admission-plan.md`. Thirty-four catalog package sources are
 now locally verified against their published archives; that is not a count of
 independent completed benchmark admissions.
+
+The further selected frozen v2 native proof passes all four tests, including
+20,000 distinct simultaneously live native transactions across four real reader
+threads during sixteen writer commits. Every session checks sampled old values
+before/after writes; first/last sessions per worker check full old contents.
+Native active-transaction counters are exactly 20,000 before and after writing
+and zero after all readers join. This is a native capacity/retention behavior
+proof, not a timing, socket capacity or full payload-reclamation measurement.
