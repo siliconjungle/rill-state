@@ -190,6 +190,13 @@ impl<'db, const L: bool> Engine for Native<'db, L> {
     type View = NativeView<'db>;
     fn publish(&mut self, ops: Vec<Op>) {
         let ops: Arc<[Op]> = ops.into();
+        // An empty external revision changes only metadata and the journal.
+        // No native transaction or capture is needed to preserve its state.
+        if ops.is_empty() {
+            self.core.record(ops, self.core.len);
+            self.current.revision = self.core.revision;
+            return;
+        }
         let (tx, len) = self.core.stage(&ops);
         tx.commit().unwrap();
         self.core.record(ops, len);
@@ -238,24 +245,25 @@ impl<M: Capture, const L: bool> Engine for Export<'_, M, L> {
     type View = View<M>;
     fn publish(&mut self, ops: Vec<Op>) {
         let ops: Arc<[Op]> = ops.into();
+        // An empty external revision changes only metadata and the journal.
+        // No native transaction or capture is needed to preserve its state.
+        if ops.is_empty() {
+            self.core.record(ops, self.core.len);
+            self.current.1 = self.core.revision;
+            return;
+        }
         let (mut tx, len) = self.core.stage(&ops);
         // Materialize the transaction's own writes BEFORE commit. A capture
         // failure drops this transaction and rolls back its staged mutations.
-        let next = if ops.is_empty() {
-            None
-        } else {
-            let rows = tx.scan::<Row>().unwrap();
-            let mut map = M::with_capacity(rows.len());
-            for row in rows {
-                map.put(row.key, row.value);
-            }
-            Some(Arc::new(map))
-        };
+        let rows = tx.scan::<Row>().unwrap();
+        let mut map = M::with_capacity(rows.len());
+        for row in rows {
+            map.put(row.key, row.value);
+        }
+        let next = Arc::new(map);
         tx.commit().unwrap();
         self.core.record(ops, len);
-        if let Some(map) = next {
-            self.current.0 = map;
-        }
+        self.current.0 = next;
         self.current.1 = self.core.revision;
     }
     fn snapshot(&self) -> Self::View {

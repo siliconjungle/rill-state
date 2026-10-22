@@ -367,8 +367,8 @@
       "reason": "Selected required 20,000 native reader-session capacity/retained-value proof; four real reader threads, distinct native transactions, no sockets or speed claim."
     },
     {
-      "path": "build/state-v34mvcc",
-      "reason": "Selected required actual mvcc-core native-session and explicitly materialized transferable-export scalar state/feed baseline, with matched controls and exact source/compiler/binary bindings."
+      "path": "build/state-v34m2",
+      "reason": "Selected required native/scoped/export scalar baseline with metadata-only empty revisions and exact matched controls; eight fixed configurations of one actual upstream crate."
     }
   ],
   "safe_to_remove": [
@@ -659,6 +659,26 @@
     {
       "path": "evidence/native-mvcc-adapter-clippy-v1.log",
       "reason": "Completed intermediate adapter lint superseded by final all-target native/admission Clippy and exact committed source; no unique behavioral failure."
+    },
+    {
+      "path": "build/state-v34mvcc",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/build-v34mvcc-progress.json",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/build-v34mvcc-receipt.json",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/build-v34mvcc.jsonl",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/build-v34mvcc.log",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
     }
   ]
 }

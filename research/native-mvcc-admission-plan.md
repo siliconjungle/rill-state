@@ -24,7 +24,7 @@ on separate threads pass. There is no public begin-at-arbitrary-timestamp API
 in this source. The crate is in-memory only, so the older admission note about
 optional durability was incorrect.
 
-The registered v34mvcc scalar panel implements two explicit adapter paths:
+The registered v34m2 scalar panel implements two explicit adapter paths:
 
 1. A native scoped-reader panel, with transactions remaining on their owning
    threads. Run the same scalar traces, exact revisions, ordered external feed,
@@ -78,8 +78,14 @@ The original timing loop, warmup/input preparation and exact oracle are byte-
 identical to the earlier harness. `run` retains an explicit Send/Sync view bound;
 only the private common loop accepts the native reader-owned thread hook. See
 `research/native-mvcc-harness-change-review.json` for section hashes. New timings
-must compare controls in this new binary. The v34mvcc plan registers eight fixed
+must compare controls in this new binary. The v34m2 plan registers eight fixed
 configurations of one upstream crate plus fourteen references. Its extra
 contract probes cover duplicate/absent-delete feeds, retained roots, empty
 revisions, gap/future boundaries and precommit capture failure. Generic payload
 and reclamation probes remain pending, as does any performance admission.
+
+The unmeasured initial v34mvcc build is superseded before any runtime study.
+The selected v34m2 source handles empty logical revisions as journal/revision
+metadata only, matching the existing COW controls, without opening an avoidable
+native transaction or rebuilding a snapshot. Its exact prior source remains in
+Git; unselected generated build outputs are retired explicitly.
