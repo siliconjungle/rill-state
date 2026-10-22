@@ -491,6 +491,22 @@
     {
       "path": "build/native-vector-map-proof-small",
       "reason": "Superseded by stronger selected v2 native API proof; exact v2 source, lock, executable and receipts retained"
+    },
+    {
+      "path": "evidence/diagnostic-metadata-check-v28.json",
+      "reason": "Completed direct metadata-check staging. Exact corrected package identities and successful source/command receipt are retained; normal Cargo builds resolve the pinned lock directly."
+    },
+    {
+      "path": "evidence/check-compact_conversion-v28.log",
+      "reason": "Completed direct metadata-check staging. Exact corrected package identities and successful source/command receipt are retained; normal Cargo builds resolve the pinned lock directly."
+    },
+    {
+      "path": "build/validation-compact_conversion-v28b.rmeta",
+      "reason": "Completed direct metadata-check staging. Exact corrected package identities and successful source/command receipt are retained; normal Cargo builds resolve the pinned lock directly."
+    },
+    {
+      "path": "build/validation-retention_profile-v28b.rmeta",
+      "reason": "Completed direct metadata-check staging. Exact corrected package identities and successful source/command receipt are retained; normal Cargo builds resolve the pinned lock directly."
     }
   ]
 }

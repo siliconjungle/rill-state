@@ -44,5 +44,6 @@
       "reason": "Wrapper over IndexMap providing order-sensitive collection semantics. Clone delegates to the underlying IndexMap. Default remove uses shift removal, while explicit swap_remove delegates to IndexMap swap removal. Adapt actual OrderMap with native/fast builders and explicit removal policy; do not count it as an independent indexing algorithm or infer its measured speed from another crate."
     }
   ],
-  "retention": "Archives were inspected in memory and discarded; exact checksum, source paths and required reproduction URLs are retained."
+  "retention": "Archives were inspected in memory and discarded; exact checksum, source paths and required reproduction URLs are retained.",
+  "current_admission": "admission.json is the current work queue. This earlier source review is preserved as the rationale; selected native API proofs and actual adapters now exist, but complete-engine performance is still pending."
 }

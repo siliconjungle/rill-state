@@ -667,3 +667,9 @@ branch sizes. The source/lock and selected API proof receipts are retained in
 research/native-vector-map-proof. All-target comparison Clippy passes for both
 branch builds. The 87 core/experimental/root tests pass. The original holdout
 acceptance gate remains unused and unmet.
+
+The v27 20,000-record scalar phase subsequently completed all 720 registered
+processes with no failures. A fresh independent audit verifies these alongside
+the 6,952 small checks (7,672 processes total), including exact tuple coverage and
+frozen source/binary bindings. This does not cover the still-running generic
+20,000-record phase or the queued concurrent-reader phases.
