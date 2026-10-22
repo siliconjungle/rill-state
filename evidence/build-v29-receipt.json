@@ -1,0 +1,46 @@
+{
+  "source_commit": "62c2b4421fe1f3e1196b4151c59029f61ab260e0",
+  "source_sha256": "ec4df2a9fc3283a37c99b06447e095b938fca679d26c4a4815651bd8d3b8e2e8",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "command": [
+    "cargo",
+    "bench",
+    "--locked",
+    "--features",
+    "pvec-small-branch",
+    "--bench",
+    "state",
+    "--bench",
+    "shapes",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "compiler_environment": {
+    "RUSTFLAGS": null,
+    "CARGO_ENCODED_RUSTFLAGS": null,
+    "RUSTC_WRAPPER": null,
+    "CARGO_TARGET_DIR": null,
+    "CARGO_PROFILE_BENCH_OPT_LEVEL": null,
+    "CARGO_PROFILE_BENCH_LTO": null,
+    "CARGO_PROFILE_BENCH_CODEGEN_UNITS": null
+  },
+  "source_preflight": {
+    "root": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state",
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "timing": "Untimed required build; no runtime speed claim",
+  "freezer_sha256": "f01dc46d0c9e0a8610f6d63d155c7b69595766e6c7fb066aa1c67063bb91de83",
+  "started_at_unix": 1792628667.735735,
+  "build_exit_code": 0,
+  "binaries": {
+    "build/state-v29": "19802c1b6939fe24e49857dd402626ca29e71abb75ccd7656fa09c11b74a5e9f",
+    "build/shapes-v29": "e6dd0435a589ee8ed136430f6907a7bb0c49c022909ec49a4898ad386184c583"
+  },
+  "finished_at_unix": 1792629955.2806451
+}

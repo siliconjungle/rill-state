@@ -1,0 +1,426 @@
+{
+  "schema": 1,
+  "notes": "This is a transparent work queue. Missing or pending implementations leave the original broad objective incomplete.",
+  "sources": [
+    {
+      "name": "im",
+      "version": "15.1.0",
+      "source": "https://docs.rs/crate/im/15.1.0/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "im-rc",
+      "version": "15.1.0",
+      "source": "https://docs.rs/crate/im-rc/15.1.0/source/",
+      "status": "different-concurrency-contract",
+      "reason": "Rc-based persistent collections cannot supply cross-thread retained snapshots without changing ownership; no direct Send/Sync score claimed."
+    },
+    {
+      "name": "imbl",
+      "version": "7.0.2",
+      "source": "https://docs.rs/crate/imbl/7.0.2/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "imbl-rc",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "rpds",
+      "version": "1.2.1",
+      "source": "https://docs.rs/crate/rpds/1.2.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "archery",
+      "version": "1.2.3",
+      "source": "https://docs.rs/crate/archery/1.2.3/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    },
+    {
+      "name": "immutable-chunkmap",
+      "version": "2.1.4",
+      "source": "https://docs.rs/crate/immutable-chunkmap/2.1.4/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "imhm",
+      "version": "0.1.0",
+      "source": "https://docs.rs/crate/imhm/0.1.0/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "persistent_hashmap",
+      "version": "0.4.0",
+      "source": "https://docs.rs/crate/persistent_hashmap/0.4.0/source/",
+      "status": "source-reviewed-exact-key-and-storage-adapter-pending",
+      "reason": "Pinned source stores no keys and compares only a 63-bit fingerprint, with Q: Hash rather than Eq. It also uses filesystem-backed PersistentArray. A direct adapter cannot establish exact arbitrary-key collision semantics or independent snapshots; explicit canonical-key handling and storage configuration remain pending. Not counted as beaten. See hash-identity-review.json and source-inputs.json."
+    },
+    {
+      "name": "persistent-vec",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": ""
+    },
+    {
+      "name": "rpds-patched",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "pvec",
+      "version": "0.2.1",
+      "source": "https://docs.rs/crate/pvec/0.2.1/source/",
+      "status": "complete-engine-small-proofs-and-development-selection-complete",
+      "reason": "Actual pinned PVec is adapted as dense rows with an explicit exact key index and arc ownership for cross-thread retained views. Flat/tree/Rrb/Rb modes and a common COW Vec control are measured with standard/fast builders; branch factors 32 and 4 use separately verified compiler artifacts. Conversion, index copying and indexed borrowed traversal costs are included. Native API proofs at 20,000 records cover old views, four readers, clone/pop failures and final tracked-value release. Each v28/v29 complete-engine panel passes 10,902 small proofs, 10,902 matching-output parallel selections and the selected 1,650 full-size scalar proofs. Full-size generic and per-configuration threaded phases are running. Isolated/final holdout acceptance remains pending; observed losses are retained. These are configurations of one actual vector library, not independent library counts. The branch32 v28 panel now also completes all 7,040 selected generic full-size and 1,980 scalar/generic threaded proofs. Its full-size/threaded aggregate is independently audited at 10,670 processes. Branch4 generic/threaded admission remains in progress.",
+      "evidence": [
+        "evidence/proof-coverage-audit-v28-small.json",
+        "evidence/proof-coverage-audit-v29-small.json",
+        "evidence/proof-coverage-audit-v28-full-scalar.json",
+        "evidence/proof-coverage-audit-v29-full-scalar.json",
+        "research/pvec-branches-selection-review.json",
+        "evidence/proof-coverage-audit-v28-full-thread-complete.json"
+      ]
+    },
+    {
+      "name": "immer",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "imstr",
+      "version": "0.2.0",
+      "source": "https://docs.rs/crate/imstr/0.2.0/source/",
+      "status": "source-reviewed-supporting-payload-primitive",
+      "reason": "Pinned source exposes immutable/COW strings backed by shared String data and ranges (src/lib.rs, src/string.rs, src/data.rs). It is a key/value representation usable inside generic engines, not a standalone key/value snapshot/feed engine. Its payload performance is not measured or counted as beaten; optional shape coverage remains separate.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json"
+      ]
+    },
+    {
+      "name": "arc-swap",
+      "version": "1.9.3",
+      "source": "https://docs.rs/crate/arc-swap/1.9.3/source/",
+      "status": "publication-probed",
+      "reason": "Reference publication primitive, separately measured; not a complete state engine. SwapArc has an observed arm64 freshness failure and is not admitted as correct."
+    },
+    {
+      "name": "swap-arc",
+      "version": "0.1.1",
+      "source": "https://docs.rs/crate/swap-arc/0.1.1/source/",
+      "status": "publication-probed",
+      "reason": "Reference publication primitive, separately measured; not a complete state engine. SwapArc has an observed arm64 freshness failure and is not admitted as correct."
+    },
+    {
+      "name": "aarc",
+      "version": "0.4.0",
+      "source": "https://docs.rs/crate/aarc/0.4.0/source/",
+      "status": "source-reviewed-publication-adapter-pending",
+      "reason": "Pinned source provides Arc, guarded loads and AtomicArc store/swap with conditional Send+Sync. Deferred reference counting/reclamation is a publication-layer capability, not a complete map/journal engine. Actual publication, retention and reclamation probes remain pending; not counted as beaten.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json"
+      ]
+    },
+    {
+      "name": "triomphe",
+      "version": "0.1.17",
+      "source": "https://docs.rs/crate/triomphe/0.1.17/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    },
+    {
+      "name": "evmap",
+      "version": "11.0.0",
+      "source": "https://docs.rs/crate/evmap/11.0.0/source/",
+      "status": "independent-backend-adapted-proved-and-development-measured",
+      "reason": "Native guard progress limit is proved by frozen traces. Independent-backend adapters passed complete state/revision/feed and concurrent old-view probes, then parallel selection and serial development measurements. Copying, native guard and read-handle Mutex costs remain explicit; this is not native short-reader throughput or a universal win."
+    },
+    {
+      "name": "left-right",
+      "version": "0.11.8",
+      "source": "https://docs.rs/crate/left-right/0.11.8/source/",
+      "status": "independent-backend-adapted-proved-and-development-measured",
+      "reason": "Native guard progress limit is proved by frozen traces. Independent-backend adapters passed complete state/revision/feed and concurrent old-view probes, then parallel selection and serial development measurements. Copying, native guard and read-handle Mutex costs remain explicit; this is not native short-reader throughput or a universal win."
+    },
+    {
+      "name": "flashmap",
+      "version": "0.2.0",
+      "source": "https://docs.rs/crate/flashmap/0.2.0/source/",
+      "status": "independent-backend-adapted-proved-and-development-measured",
+      "reason": "Native guard progress limit is proved by frozen traces. Independent-backend adapters passed complete state/revision/feed and concurrent old-view probes, then parallel selection and serial development measurements. Copying, native guard and read-handle Mutex costs remain explicit; this is not native short-reader throughput or a universal win."
+    },
+    {
+      "name": "rcu-clean",
+      "version": "0.1.8",
+      "source": "https://docs.rs/crate/rcu-clean/0.1.8/source/",
+      "status": "source-reviewed-publication-retention-probe-pending",
+      "reason": "Pinned source includes ArcRcu as well as BoxRcu/RcRcu and a graceful module, despite outdated top-level planned wording. Updates and cleaning require explicit source/behavior review to determine old-handle freshness, reclamation and retained-view progress. Native probes and fair publication comparison remain pending; no unsupported exclusion or speed claim.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json"
+      ]
+    },
+    {
+      "name": "rcu_cell",
+      "version": "1.2.4",
+      "source": "https://docs.rs/crate/rcu_cell/1.2.4/source/",
+      "status": "publication-probed",
+      "reason": "Reference publication primitive, separately measured; not a complete state engine. SwapArc has an observed arm64 freshness failure and is not admitted as correct."
+    },
+    {
+      "name": "scc",
+      "version": "3.8.8",
+      "source": "https://docs.rs/crate/scc/3.8.8/source/",
+      "status": "corrected-capture-full-size-proof-passed",
+      "reason": "Pinned native Clone feeds slot capacity into an entry-count constructor and doubles capacity in chains. Frozen bounded trace confirms 1,024 to 262,144 slots in eight copies at 512 live entries; length-based copying stays 1,024 through 128 copies. Corrected capture adapter passed all 30 full-size checks and four threaded probes; native-copy remains investigative and is not a benchmark win."
+    },
+    {
+      "name": "papaya",
+      "version": "0.2.5",
+      "source": "https://docs.rs/crate/papaya/0.2.5/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "dashmap",
+      "version": "6.2.1",
+      "source": "https://docs.rs/crate/dashmap/6.2.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "flurry",
+      "version": "0.5.2",
+      "source": "https://docs.rs/crate/flurry/0.5.2/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "leapfrog",
+      "version": "0.3.3",
+      "source": "https://docs.rs/crate/leapfrog/0.3.3/source/",
+      "status": "adapted-with-explicit-caveats",
+      "reason": "Native single-owner HashMap requires Mutex for shared reads and external exact cardinality; separate native concurrent LeapMap reconstructs retained views. Corrected padding-free tagged values pass selected large proofs. Earlier failures retained."
+    },
+    {
+      "name": "chashmap",
+      "version": "2.2.2",
+      "source": "https://docs.rs/crate/chashmap/2.2.2/source/",
+      "status": "scalar-contracts-and-parallel-selection-passed-generic-and-final-open",
+      "reason": "Actual native guarded-map adapters pass 660 small and 660 full-size scalar state/revision/ordered-feed processes plus 88 actual four-reader probes in the 22-engine panel. All 660 parallel selection processes have matching outputs. Chashmap copying/scanning/batching policies (eight) and SkipMap batching policies (two) remain explicit configurations of two crates. Native guarded reads copy only the unchanged 32-byte scalar value, with independent immutable backends per revision. The results include substantial lookup/scan losses. Generic scoped-borrowed-read admission, isolated comparisons and final holdouts remain pending; native concurrent-writer throughput is not ranked.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json",
+        "research/native-guarded-admission-plan.md",
+        "research/v31admit-development-plan.json",
+        "benches/support/admission_state.rs",
+        "evidence/proof-coverage-audit-v30-generic-v31admit-initial.json",
+        "evidence/proof-coverage-audit-v31admit-threaded.json",
+        "research/native-guarded-v31admit-selection-review.json"
+      ]
+    },
+    {
+      "name": "contrie",
+      "version": "0.1.4",
+      "source": "https://docs.rs/crate/contrie/0.1.4/source/",
+      "status": "adapted-and-small-proof",
+      "reason": "Actual published crate behind copied immutable-view adapter; broad small proofs completed, not a native concurrent throughput ranking."
+    },
+    {
+      "name": "crossbeam-skiplist",
+      "version": "0.1.3",
+      "source": "https://docs.rs/crate/crossbeam-skiplist/0.1.3/source/",
+      "status": "scalar-contracts-and-parallel-selection-passed-generic-and-final-open",
+      "reason": "Actual native guarded-map adapters pass 660 small and 660 full-size scalar state/revision/ordered-feed processes plus 88 actual four-reader probes in the 22-engine panel. All 660 parallel selection processes have matching outputs. Chashmap copying/scanning/batching policies (eight) and SkipMap batching policies (two) remain explicit configurations of two crates. Native guarded reads copy only the unchanged 32-byte scalar value, with independent immutable backends per revision. The results include substantial lookup/scan losses. Generic scoped-borrowed-read admission, isolated comparisons and final holdouts remain pending; native concurrent-writer throughput is not ranked.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json",
+        "research/native-guarded-admission-plan.md",
+        "research/v31admit-development-plan.json",
+        "benches/support/admission_state.rs",
+        "evidence/proof-coverage-audit-v30-generic-v31admit-initial.json",
+        "evidence/proof-coverage-audit-v31admit-threaded.json",
+        "research/native-guarded-v31admit-selection-review.json"
+      ]
+    },
+    {
+      "name": "skipdb",
+      "version": "0.2.1",
+      "source": "https://docs.rs/crate/skipdb/0.2.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "mvcc_cell",
+      "version": "0.1.2",
+      "source": "https://docs.rs/crate/mvcc_cell/0.1.2/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "mvcc-core",
+      "version": "0.1.0",
+      "source": "https://docs.rs/crate/mvcc-core/0.1.0/source/",
+      "status": "scalar-native-and-export-contracts-and-development-selection-passed-generic-and-final-open",
+      "reason": "Actual mvcc-core 0.1.0 is adapted through two owner-thread native transaction policies and six explicitly charged transferable-export policies, not eight independent libraries. The 22-engine scalar panel passes 660 small and 660 full-size state/revision/ordered-feed checks, 88 actual four-reader probes and 660 matching-output parallel selections. Eight edge probes check precommit capture rollback, duplicate/absent-delete feeds, gap/future boundaries, old values, empty revisions and active transaction release. Native sessions use Rc/RefCell handles on the owning thread, with new transactions created on reader threads for threading probes; their handle acquisition is not a Send/Sync snapshot score. Exports scan own staged writes into a map before commit, charging native scan/capture/allocation costs and avoiding an authoritative shadow map. Generic scoped/exported payloads, instrumented native reclamation, isolated comparisons and final admission remain pending. No superiority or sockets claim.",
+      "evidence": [
+        "research/additional-admission-source-inputs.json",
+        "research/mvcc-core-admission-proof",
+        "evidence/native-mvcc-contracts-v1-receipt.json",
+        "research/native-mvcc-admission-plan.md",
+        "evidence/native-mvcc-contracts-v2-receipt.json",
+        "research/v34m2-development-plan.json",
+        "research/native-mvcc-harness-change-review.json",
+        "benches/support/native_mvcc_state.rs",
+        "evidence/native-mvcc-v34m2-extra-contracts",
+        "evidence/proof-coverage-audit-v34m2-initial.json",
+        "research/native-mvcc-v34m2-selection-review.json"
+      ]
+    },
+    {
+      "name": "boxcar",
+      "version": "0.2.14",
+      "source": "https://docs.rs/crate/boxcar/0.2.14/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "elsa",
+      "version": "1.11.2",
+      "source": "https://docs.rs/crate/elsa/1.11.2/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "redb",
+      "version": "4.4.0",
+      "source": "https://docs.rs/crate/redb/4.4.0/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "sled",
+      "version": "0.34.7",
+      "source": "https://docs.rs/crate/sled/0.34.7/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "rusqlite",
+      "version": "0.40.2",
+      "source": "https://docs.rs/crate/rusqlite/0.40.2/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "heed",
+      "version": "0.22.1",
+      "source": "https://docs.rs/crate/heed/0.22.1/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "sanakirja",
+      "version": "1.4.3",
+      "source": "https://docs.rs/crate/sanakirja/1.4.3/source/",
+      "status": "different-durability-contract-pending",
+      "reason": "Durable database/storage semantics are outside the current in-memory contract; any comparison must separately report durability/storage configuration. Not counted as beaten."
+    },
+    {
+      "name": "orx-concurrent-vec",
+      "version": "4.1.0",
+      "source": "https://docs.rs/crate/orx-concurrent-vec/4.1.0/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "hashbrown",
+      "version": "0.17.1",
+      "source": "https://docs.rs/crate/hashbrown/0.17.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "indexmap",
+      "version": "2.14.2",
+      "source": "https://docs.rs/crate/indexmap/2.14.2/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "ordermap",
+      "version": "1.2.2",
+      "source": "https://docs.rs/crate/ordermap/1.2.2/source/",
+      "status": "complete-engine-small-proofs-and-development-selection-complete",
+      "reason": "Actual pinned OrderMap wraps IndexMap; its clone delegates to that backend. Complete-engine adapters explicitly compare standard/fast builders and shift/swap removal. Both v28/v29 panels include these adapters and pass 10,902 small proofs, 10,902 matching-output parallel selections and the selected 1,650 full-size scalar proofs. Full-size generic and per-configuration threaded phases are running. Native API proofs include retained values, clone failure and final tracked-value release. The wrapper is not counted as an independent indexing algorithm, and isolated/final holdout acceptance remains pending. Measured losses remain visible. The branch32 v28 panel now also completes all 7,040 selected generic full-size and 1,980 scalar/generic threaded proofs. Its full-size/threaded aggregate is independently audited at 10,670 processes. Branch4 generic/threaded admission remains in progress.",
+      "evidence": [
+        "evidence/proof-coverage-audit-v28-small.json",
+        "evidence/proof-coverage-audit-v29-small.json",
+        "evidence/proof-coverage-audit-v28-full-scalar.json",
+        "evidence/proof-coverage-audit-v29-full-scalar.json",
+        "research/pvec-branches-selection-review.json",
+        "evidence/proof-coverage-audit-v28-full-thread-complete.json"
+      ]
+    },
+    {
+      "name": "btree-slab",
+      "version": "0.6.1",
+      "source": "https://docs.rs/crate/btree-slab/0.6.1/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "vart",
+      "version": "0.11.0",
+      "source": "https://docs.rs/crate/vart/0.11.0/source/",
+      "status": "adapted-and-measured",
+      "reason": "Actual source crate used in the versioned snapshot/journal comparison; native and adapted capabilities remain distinct."
+    },
+    {
+      "name": "rart",
+      "version": "0.11.0",
+      "source": "https://docs.rs/crate/rart/0.11.0/source/",
+      "status": "pending-capability-and-implementation-review",
+      "reason": "Discovered only; not source-review completion, benchmarked, excluded as slower, or counted as beaten."
+    },
+    {
+      "name": "crossbeam-epoch",
+      "version": "0.9.21",
+      "source": "https://docs.rs/crate/crossbeam-epoch/0.9.21/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    },
+    {
+      "name": "seize",
+      "version": "0.5.1",
+      "source": "https://docs.rs/crate/seize/0.5.1/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    },
+    {
+      "name": "left-right-copy",
+      "version": null,
+      "source": null,
+      "status": "metadata-unavailable",
+      "reason": "HTTP Error 404: Not Found"
+    },
+    {
+      "name": "multiversion",
+      "version": "0.9.1",
+      "source": "https://docs.rs/crate/multiversion/0.9.1/source/",
+      "status": "supporting-primitive",
+      "reason": "Pointer reclamation, reference counting or code-generation building block, not a standalone snapshot+change-feed engine; native support costs must be evaluated separately."
+    }
+  ]
+}

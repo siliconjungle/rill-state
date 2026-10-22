@@ -1,0 +1,15 @@
+{
+  "binary_sha256": "96470aba4439b5506d20e79c26d0137abe05e6f6d3b58aa2975c99b6a77902e0",
+  "source_binding": "evidence/scc-native-modes-v16/receipt.json",
+  "sample_command": [
+    "sample",
+    "<own native diagnostic pid>",
+    "1",
+    "5",
+    "-file",
+    "sample.txt"
+  ],
+  "sample_returncode": 0,
+  "diagnostic_returncode": 124,
+  "claim": "Read-only native stall stack observation; no timed performance result"
+}

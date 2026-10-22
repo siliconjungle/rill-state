@@ -1,0 +1,62 @@
+{
+  "source_commit": "97ebb071ef7318bb726c51d961460c388f7b973a",
+  "source_sha256": "9930d563bdfde86858b0cb0b22b52d5f5630953076ddad5c7c3ada6c1df0a92f",
+  "binary_sha256": "ded990bf4c406af62c2b57d02706280c7ada71161e7a6f2f74f5a0e21a3fb587",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "claim": "Bounded native capacity-growth/correction proof, not a speed comparison",
+  "runs": [
+    {
+      "arguments": [
+        "--capacity-only"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.49974584579467773,
+      "log": "capacity-only.log"
+    },
+    {
+      "arguments": [
+        "--by-len"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.020679235458374023,
+      "log": "by-len.log"
+    },
+    {
+      "arguments": [
+        "--by-len",
+        "--keep-all"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.03938579559326172,
+      "log": "by-len-keep-all.log"
+    }
+  ],
+  "completed": true,
+  "capacity_checks": [
+    {
+      "mode": [
+        "--capacity-only"
+      ],
+      "copies": 8,
+      "first_capacity": 2048,
+      "last_capacity": 262144
+    },
+    {
+      "mode": [
+        "--by-len"
+      ],
+      "copies": 128,
+      "first_capacity": 1024,
+      "last_capacity": 1024
+    },
+    {
+      "mode": [
+        "--by-len",
+        "--keep-all"
+      ],
+      "copies": 128,
+      "first_capacity": 1024,
+      "last_capacity": 1024
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "mode": "serial",
+  "claim": "isolated timing; acceptance not implied",
+  "workers": 1,
+  "source_sha256": "9630f9bd51e8c99b3374da4d1cecb3be92b4f90219f5320ad952eba2b746fea0",
+  "orchestrator_sha256": "bbef451272aec7d92d25f00d1c2a1ed3456855792a2a3d5bafa05e27e16667d1",
+  "binary_sha256": "445c93e526bbe26946afe758dcd4bdf73718815c67935e6b0a6662a489be1845",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "engines": [
+    "rill-4096-64",
+    "rillfast-4096-64",
+    "rillfast-65536-256",
+    "hashbrown",
+    "imhm",
+    "imbl-hash",
+    "rpds-hash",
+    "chunkbatch-16",
+    "sortedpages-16",
+    "sortedpages-1024",
+    "slots-64",
+    "slots-256"
+  ],
+  "cases": [
+    "idle",
+    "single",
+    "sparse",
+    "hot",
+    "churn",
+    "burst",
+    "replace",
+    "slow",
+    "read",
+    "scan",
+    "acquire",
+    "feed"
+  ],
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "records": 20000,
+  "readers": 20000,
+  "rounds": 32,
+  "repetitions": 3,
+  "tasks": 864,
+  "completed": 864,
+  "failures": 0,
+  "finished_at_unix": 1792610105.493721,
+  "output_agreement": true
+}

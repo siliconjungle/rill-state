@@ -1,0 +1,117 @@
+{
+  "claim": "Pinned published source identities for additional admission reviews; no speed result, no completed implementation implied.",
+  "packages": [
+    {
+      "name": "aarc",
+      "version": "0.4.0",
+      "source": "https://static.crates.io/crates/aarc/aarc-0.4.0.crate",
+      "published_checksum": "2983a0444d84c8c444870d9ec8df75d540d042fb4ca7160829c83721f214264f",
+      "archive_bytes": 9123,
+      "audited_files_sha256": {
+        "Cargo.toml.orig": "4c3866c6fe36b31f8ddcea695d422f1c69dfdd9b0e1c91e62b27ec13e8a8cf68",
+        "src/atomics.rs": "16d16a2d4a0f13b1051487c4969b48e24d86057fb7685c0a1ecf68ab633cbfa0",
+        "src/lib.rs": "d5834599fe043c16f3bfc2baef50969df761cb4dde2f43a9b9699475df35f2e8",
+        "src/smart_ptrs.rs": "e6295dcfc2047d86a21e0be35ba08a7b49fba9ee0ff2e29aeeacc201e56f2c05"
+      }
+    },
+    {
+      "name": "rcu-clean",
+      "version": "0.1.8",
+      "source": "https://static.crates.io/crates/rcu-clean/rcu-clean-0.1.8.crate",
+      "published_checksum": "c31d41ffa7e36ad4fcf6cf9dcd825511e953d7698d27bfdd94b1f759c9895598",
+      "archive_bytes": 10431,
+      "audited_files_sha256": {
+        "Cargo.toml.orig": "e954c04884507f3b66b9cf9eedc7811b1eb21ac2d88170ad657d7f47f6022ffb",
+        "src/arcrcu.rs": "2bc120a52410973c70fc9fa8139818a3f934480c99b6d1120201d10656f2b8fe",
+        "src/boxrcu.rs": "cd8b861d893cb6832b10d4f112f0d3af99f09c3c9b02c2438bcfec7103f19828",
+        "src/graceful.rs": "66b6f6add730bf593514f2f312b1049b0e5f90de1ebbf61e0e32ca4d4eeff351",
+        "src/lib.rs": "8e03b5bfa8af6961166c85b09b7bb2d70a226240ec3d3e049826b2359bcb3541",
+        "src/rcrcu.rs": "a65fde66d8718c7e5b821f3c5136cb8c0149e19a407fda3d6c89f8943c0be2d5"
+      }
+    },
+    {
+      "name": "imstr",
+      "version": "0.2.0",
+      "source": "https://static.crates.io/crates/imstr/imstr-0.2.0.crate",
+      "published_checksum": "7d3441deb04ea9c6b472f313be54d585428cd6a68cdb8dcf40cf43744bec78fe",
+      "archive_bytes": 133045,
+      "audited_files_sha256": {
+        "Cargo.toml.orig": "9d28026b1bdd70db4f589deacc6360f5468bcaeec2ee72e7e4fe576f90549430",
+        "src/data.rs": "83cc1bc5a624b1e0cff19f270d2e3f825c5153e134f6e00d415b5d416111329b",
+        "src/error.rs": "4cb813129e4b501638509c486d8c548c196a4fc84004bc14100e2f184a8d2ae6",
+        "src/lib.rs": "9dcde4fc7745be3446d44aadaf79f75fede757b5aa631bcd1fdaebcd15bb55c2",
+        "src/nom.rs": "a9683d3cb5b3cc061bc25e75b0e0f34ea28f3ea377eb095869d7de399d1c973c",
+        "src/os_string.rs": "576d2cbdec0c143db3b681817e238e69643109c9f04f16a31622bc0e79b5f26e",
+        "src/peg.rs": "dcd45cdba4f01bb60c55091cef29ebc5f43afb1d31eda46894114372530e726e",
+        "src/string.rs": "d274ba923489caac69c9577b092900a0b09977aa08639e3b4503679bc947c339"
+      }
+    },
+    {
+      "name": "chashmap",
+      "version": "2.2.2",
+      "source": "https://static.crates.io/crates/chashmap/chashmap-2.2.2.crate",
+      "published_checksum": "ff41a3c2c1e39921b9003de14bf0439c7b63a9039637c291e1a64925d8ddfa45",
+      "archive_bytes": 14824,
+      "audited_files_sha256": {
+        "Cargo.toml.orig": "77bb82ba7420aedce76b2ec1728728cb77fa09745c0847ca0cd261ff2f97b103",
+        "src/lib.rs": "9fdbc61194bb3c0e1341a5b06fa510e78342735fc3213fbe1858e76a8946f151",
+        "src/tests.rs": "f6e56bed5c4331d5df8ac5e2e5cfa586f4fd33388ae3e113579082a167c9cb3d"
+      }
+    },
+    {
+      "name": "crossbeam-skiplist",
+      "version": "0.1.3",
+      "source": "https://static.crates.io/crates/crossbeam-skiplist/crossbeam-skiplist-0.1.3.crate",
+      "published_checksum": "df29de440c58ca2cc6e587ec3d22347551a32435fbde9d2bff64e78a9ffa151b",
+      "archive_bytes": 34930,
+      "audited_files_sha256": {
+        "Cargo.toml.orig": "4bf58dbb04bc4c28b6c42094dbf3edeab041934362d721957110ded362591665",
+        "src/base.rs": "54cd0c8404de3717776c1afd02f3fdb11d387bcc9aefe070fbed4ae12c55cfa9",
+        "src/lib.rs": "128fd0c566d25ac57e1a7552fb58421a75e9062a91bb23d5f2c1340ddf101bc1",
+        "src/map.rs": "3855e0b4e81da637f59607e124c8003552ed259d56445011d6b1916bb9a38148",
+        "src/set.rs": "a4a9bbca2c34079711e2adbe9a3e506bd0b0383837163bcbd25bc26887e41015"
+      }
+    },
+    {
+      "name": "mvcc_cell",
+      "version": "0.1.2",
+      "source": "https://static.crates.io/crates/mvcc_cell/mvcc_cell-0.1.2.crate",
+      "published_checksum": "cb761277b6c68c669e34c682ebb2b3405a757be1591a79c93ef005a1b16aff04",
+      "archive_bytes": 11241,
+      "audited_files_sha256": {
+        "Cargo.toml.orig": "db101c12201646cc99ab219b46abaa66faa09b3f2ec524b93f61fb339808022d",
+        "src/cell.rs": "9b06e9a7ac9db235a9147d8309be055bdd29fc97f5885d3826b48525ef309cc3",
+        "src/histogram.rs": "2a354f21afa5a6abae14a1ae494a266f5086ac7b1d878a2c80c18e4c79109f30",
+        "src/history.rs": "3174141868f96f22ec8d1a1be6e399be11ecfb043f6ac7b87fec72e041e8e770",
+        "src/lib.rs": "4f0ccbbffc62b3e16a9f555119a9fbbbc5d098499f008850d679d6323bc3755f",
+        "src/tests.rs": "74ce4b50127a2e139a6041c966a277f0f5acae765c8c66c68e738254753570cc",
+        "src/vacuum.rs": "9f8f812bc2021a45c5810a70cc72cf737e2f32b9fb690e009001d469d7bafc13"
+      }
+    },
+    {
+      "name": "mvcc-core",
+      "version": "0.1.0",
+      "source": "https://static.crates.io/crates/mvcc-core/mvcc-core-0.1.0.crate",
+      "published_checksum": "39fdb1d983e5dcb88197085e3aeb3cee2cbe983ea1e576e058a1d3a8d1e7b6dc",
+      "archive_bytes": 117811,
+      "audited_files_sha256": {
+        "Cargo.toml.orig": "fe496121ae77ab810cac1a1cb7c14c73bc5416d41053d94610fec0e7f7e635f8",
+        "src/core/error.rs": "a9712371cde7216f33eb6f1eb1d69cedd505f85b5cdc298518c4319ff2bb368b",
+        "src/core/isolation.rs": "1c690b65d526321bbfa04ce6b2a5674082ffcab01786c5955cbb307999731cfa",
+        "src/core/mod.rs": "beff85df188d73ee5551d31cb76e2c7cf5295a8b58c88f21e10676f8c60ff402",
+        "src/core/schema.rs": "a0d5d44ccdb6dc7dc440b30566b4d1fea2dd1ef37a580fd45e9cd89988327f0a",
+        "src/core/time.rs": "f0512d7fb46bff9753926fa5843e3c71e963d97a05c110268db5ef40e5a42f1f",
+        "src/core/versioned.rs": "4c3d899d3e15027fa6035b5711f8ced77341022c7fa84112d0021abc361f142d",
+        "src/engine/gc.rs": "5ff4dd5624dec13873f16a28b6e76ae93b5f27dc282ef1165db79fa6a98cb8ae",
+        "src/engine/hash.rs": "30e876b47f0bc8d2f47c54c5474186a490f4fd9ebd42f16934d29dea58475f90",
+        "src/engine/mod.rs": "0b28b27f5b2d4b911a4bc7283d2745d683e29fc3bf359ee62f55b8c4d95041ff",
+        "src/engine/oracle.rs": "f9e855c7c3e71376eefcedca44f28294675413b8cd043cb158f9bf0211612cae",
+        "src/engine/slotmap.rs": "7216ef850625cd67bd8a164ba1fcfa6a7d9ccdbd7fa05056a082bb81b53eb433",
+        "src/engine/ssi.rs": "5da1e0b769ceb1582ac3d1c12a5e90bc6ddb81b0da4a74ea5b59df8ba86aa914",
+        "src/engine/store.rs": "acb2e67431f57b40e354cf924756185cf44850e7410ebb0211a9dc58251c18a6",
+        "src/engine/txn.rs": "9874b1ed89311da529e116221c80bd8ef110bc07e2be61901c844497c375c8cb",
+        "src/lib.rs": "23007df0c4929f7bcf0a137a020bb9a26fd3722092b26cf16bf165499a9e66d0"
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "claim": "Completed tests for committed map/root adapters. Clippy ran before the separate Compact diagnostic examples were added; those examples still await compilation and checks.",
+  "source_commit": "32628f6",
+  "source_commit_full": "32628f640748ea95a77cc3c18ba73c71b8eb5846",
+  "logs": {
+    "tests-v28.log": {
+      "sha256": "26dee409ee0b68049199e39f1604100543b263c4515fe4731efa1f893e119a92",
+      "passed_tests": 87
+    },
+    "vector-adapter-default-v28.log": {
+      "sha256": "fa7a50849d8ad9be8d70540da73cc75512f4bfeccec1de6da9697d28fecdc091",
+      "passed_tests": 1
+    },
+    "vector-adapter-small-v28.log": {
+      "sha256": "050f736ea50c00d131a5e577f1f38f52ce1d951e9add7d4ae81a0a6596fb0190",
+      "passed_tests": 1
+    },
+    "clippy-v28-final-default.log": {
+      "sha256": "59779828a3047bca7f481c087182dd76f01cc3524646c333338d4171166d6da1",
+      "passed_tests": 0
+    },
+    "clippy-v28-final-small.log": {
+      "sha256": "c5fcbc3e18cea281ef9a73ca589aca6e84368caf99b0417e1cea92c7c2cd4b11",
+      "passed_tests": 0
+    }
+  },
+  "core_experimental_root_tests": 87,
+  "comparison_vector_model_tests_per_branch": 1
+}

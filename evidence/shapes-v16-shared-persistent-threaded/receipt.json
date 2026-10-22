@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "layer": "generic-shapes",
+  "mode": "thread",
+  "claim": "exact behavior",
+  "workers": 2,
+  "source_sha256": "656a320fb0ac256f9dffb0cdd59e7e709a6c881408411c3fb02705d49f3f0c55",
+  "source_commit": "4ef71ea3d487d6536d704152a443229a690110eb",
+  "binary_sha256": "11ba71efd8062a79d451d9ab76c98a985a58c319fa1b2b47fbd5a65635640fd7",
+  "driver_sha256": "ae3bbac07a965fede635e60ab86305642de52b1301d53762a0f10e00cacc5cd3",
+  "executor_sha256": "8d3ebd2f3218f534bdb2fb9bf2cbca493b54a1eae60cac07d5d237c1a8963bff",
+  "engines": [
+    "shared-flat",
+    "shared-paged16",
+    "shared-paged64",
+    "shared-paged256",
+    "imbl-fast",
+    "im-hash",
+    "im-fast",
+    "rpds-hash",
+    "rpds-fast"
+  ],
+  "shapes": [
+    "u64-inline",
+    "string-inline",
+    "u64-owned256",
+    "string-owned256",
+    "u64-shared256",
+    "string-shared256"
+  ],
+  "cases": [
+    "sparse",
+    "churn"
+  ],
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "records": 20000,
+  "readers": 20000,
+  "rounds": 12,
+  "repetitions": 1,
+  "tasks": 216,
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "machine": "arm64",
+  "completed": 216,
+  "errors": 0,
+  "output_agreement": true,
+  "finished_at_unix": 1792615037.528692
+}

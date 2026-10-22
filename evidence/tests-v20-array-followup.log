@@ -1,0 +1,13 @@
+   Compiling rill-state v0.1.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state)
+    Finished `test` profile [unoptimized] target(s) in 1.99s
+     Running tests/experimental.rs (target/debug/deps/experimental-6f6f947274cf00d7)
+
+running 5 tests
+test array_records_release_after_final_snapshot_and_returned_handle ... ok
+test array_key_policies_preserve_identity_with_distinct_copy_costs ... ok
+test array_page_parameters_are_checked_before_allocation ... ok
+test large_array_pages_grow_without_changing_retained_records ... ok
+test array_pages_preserve_collisions_wraparound_batches_and_borrowed_reads ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 1.13s
+

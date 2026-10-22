@@ -1,0 +1,143 @@
+    Checking rill-mvcc-core-admission-proof v0.0.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state/research/mvcc-core-admission-proof)
+error[E0277]: `*const crossbeam_epoch::internal::Local` cannot be shared between threads safely
+   --> src/bin/transfer_sync.rs:4:20
+    |
+  4 |     require_sync::<mvcc::Transaction<'static, mvcc::Snapshot>>();
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `*const crossbeam_epoch::internal::Local` cannot be shared between threads safely
+    |
+    = help: within `Transaction<'static, Snapshot>`, the trait `Sync` is not implemented for `*const crossbeam_epoch::internal::Local`
+note: required because it appears within the type `crossbeam_epoch::guard::Guard`
+   --> /Users/james/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crossbeam-epoch-0.9.21/src/guard.rs:69:12
+    |
+ 69 | pub struct Guard {
+    |            ^^^^^
+note: required because it appears within the type `Transaction<'static, Snapshot>`
+   --> /Users/james/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/mvcc-core-0.1.0/src/engine/txn.rs:324:12
+    |
+324 | pub struct Transaction<'db, I: IsolationLevel> {
+    |            ^^^^^^^^^^^
+note: required by a bound in `require_sync`
+   --> src/bin/transfer_sync.rs:2:20
+    |
+  2 | fn require_sync<T: Sync>() {}
+    |                    ^^^^ required by this bound in `require_sync`
+
+error[E0277]: `(dyn mvcc::engine::txn::WriteOp<'static> + 'static)` cannot be shared between threads safely
+   --> src/bin/transfer_sync.rs:4:20
+    |
+  4 |     require_sync::<mvcc::Transaction<'static, mvcc::Snapshot>>();
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `(dyn mvcc::engine::txn::WriteOp<'static> + 'static)` cannot be shared between threads safely
+    |
+    = help: the trait `Sync` is not implemented for `(dyn mvcc::engine::txn::WriteOp<'static> + 'static)`
+    = note: required for `std::ptr::Unique<(dyn mvcc::engine::txn::WriteOp<'static> + 'static)>` to implement `Sync`
+note: required because it appears within the type `Box<(dyn mvcc::engine::txn::WriteOp<'static> + 'static)>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:234:12
+    |
+234 | pub struct Box<
+    |            ^^^
+note: required because it appears within the type `PhantomData<Box<(dyn mvcc::engine::txn::WriteOp<'static> + 'static)>>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/marker.rs:811:12
+    |
+811 | pub struct PhantomData<T: PointeeSized>;
+    |            ^^^^^^^^^^^
+note: required because it appears within the type `alloc::raw_vec::RawVec<Box<(dyn mvcc::engine::txn::WriteOp<'static> + 'static)>>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs:73:19
+    |
+ 73 | pub(crate) struct RawVec<T, A: Allocator = Global> {
+    |                   ^^^^^^
+note: required because it appears within the type `Vec<Box<(dyn mvcc::engine::txn::WriteOp<'static> + 'static)>>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs:438:12
+    |
+438 | pub struct Vec<T, #[unstable(feature = "allocator_api", issue = "32838")] A: Allocator = Global> {
+    |            ^^^
+note: required because it appears within the type `Transaction<'static, Snapshot>`
+   --> /Users/james/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/mvcc-core-0.1.0/src/engine/txn.rs:324:12
+    |
+324 | pub struct Transaction<'db, I: IsolationLevel> {
+    |            ^^^^^^^^^^^
+note: required by a bound in `require_sync`
+   --> src/bin/transfer_sync.rs:2:20
+    |
+  2 | fn require_sync<T: Sync>() {}
+    |                    ^^^^ required by this bound in `require_sync`
+
+error[E0277]: `(dyn mvcc::engine::txn::ReadValidation<'static> + 'static)` cannot be shared between threads safely
+   --> src/bin/transfer_sync.rs:4:20
+    |
+  4 |     require_sync::<mvcc::Transaction<'static, mvcc::Snapshot>>();
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `(dyn mvcc::engine::txn::ReadValidation<'static> + 'static)` cannot be shared between threads safely
+    |
+    = help: the trait `Sync` is not implemented for `(dyn mvcc::engine::txn::ReadValidation<'static> + 'static)`
+    = note: required for `std::ptr::Unique<(dyn mvcc::engine::txn::ReadValidation<'static> + 'static)>` to implement `Sync`
+note: required because it appears within the type `Box<(dyn mvcc::engine::txn::ReadValidation<'static> + 'static)>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:234:12
+    |
+234 | pub struct Box<
+    |            ^^^
+note: required because it appears within the type `PhantomData<Box<(dyn mvcc::engine::txn::ReadValidation<'static> + 'static)>>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/marker.rs:811:12
+    |
+811 | pub struct PhantomData<T: PointeeSized>;
+    |            ^^^^^^^^^^^
+note: required because it appears within the type `alloc::raw_vec::RawVec<Box<(dyn mvcc::engine::txn::ReadValidation<'static> + 'static)>>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs:73:19
+    |
+ 73 | pub(crate) struct RawVec<T, A: Allocator = Global> {
+    |                   ^^^^^^
+note: required because it appears within the type `Vec<Box<(dyn mvcc::engine::txn::ReadValidation<'static> + 'static)>>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs:438:12
+    |
+438 | pub struct Vec<T, #[unstable(feature = "allocator_api", issue = "32838")] A: Allocator = Global> {
+    |            ^^^
+note: required because it appears within the type `Transaction<'static, Snapshot>`
+   --> /Users/james/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/mvcc-core-0.1.0/src/engine/txn.rs:324:12
+    |
+324 | pub struct Transaction<'db, I: IsolationLevel> {
+    |            ^^^^^^^^^^^
+note: required by a bound in `require_sync`
+   --> src/bin/transfer_sync.rs:2:20
+    |
+  2 | fn require_sync<T: Sync>() {}
+    |                    ^^^^ required by this bound in `require_sync`
+
+error[E0277]: `(dyn mvcc::engine::txn::UniqueClaim + 'static)` cannot be shared between threads safely
+   --> src/bin/transfer_sync.rs:4:20
+    |
+  4 |     require_sync::<mvcc::Transaction<'static, mvcc::Snapshot>>();
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `(dyn mvcc::engine::txn::UniqueClaim + 'static)` cannot be shared between threads safely
+    |
+    = help: the trait `Sync` is not implemented for `(dyn mvcc::engine::txn::UniqueClaim + 'static)`
+    = note: required for `std::ptr::Unique<(dyn mvcc::engine::txn::UniqueClaim + 'static)>` to implement `Sync`
+note: required because it appears within the type `Box<(dyn mvcc::engine::txn::UniqueClaim + 'static)>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:234:12
+    |
+234 | pub struct Box<
+    |            ^^^
+note: required because it appears within the type `PhantomData<Box<(dyn mvcc::engine::txn::UniqueClaim + 'static)>>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/marker.rs:811:12
+    |
+811 | pub struct PhantomData<T: PointeeSized>;
+    |            ^^^^^^^^^^^
+note: required because it appears within the type `alloc::raw_vec::RawVec<Box<(dyn mvcc::engine::txn::UniqueClaim + 'static)>>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs:73:19
+    |
+ 73 | pub(crate) struct RawVec<T, A: Allocator = Global> {
+    |                   ^^^^^^
+note: required because it appears within the type `Vec<Box<(dyn mvcc::engine::txn::UniqueClaim + 'static)>>`
+   --> /Users/james/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs:438:12
+    |
+438 | pub struct Vec<T, #[unstable(feature = "allocator_api", issue = "32838")] A: Allocator = Global> {
+    |            ^^^
+note: required because it appears within the type `Transaction<'static, Snapshot>`
+   --> /Users/james/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/mvcc-core-0.1.0/src/engine/txn.rs:324:12
+    |
+324 | pub struct Transaction<'db, I: IsolationLevel> {
+    |            ^^^^^^^^^^^
+note: required by a bound in `require_sync`
+   --> src/bin/transfer_sync.rs:2:20
+    |
+  2 | fn require_sync<T: Sync>() {}
+    |                    ^^^^ required by this bound in `require_sync`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `rill-mvcc-core-admission-proof` (bin "transfer_sync") due to 4 previous errors

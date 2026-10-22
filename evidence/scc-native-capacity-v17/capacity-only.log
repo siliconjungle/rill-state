@@ -1,0 +1,34 @@
+inserted 512
+revision 0: clone start capacity=1024 len=512
+revision 0: cloned capacity=2048
+revision 0: updated
+revision 0: checked
+revision 1: clone start capacity=2048 len=512
+revision 1: cloned capacity=4096
+revision 1: updated
+revision 1: checked
+revision 2: clone start capacity=4096 len=512
+revision 2: cloned capacity=8192
+revision 2: updated
+revision 2: checked
+revision 3: clone start capacity=8192 len=512
+revision 3: cloned capacity=16384
+revision 3: updated
+revision 3: checked
+revision 4: clone start capacity=16384 len=512
+revision 4: cloned capacity=32768
+revision 4: updated
+revision 4: checked
+revision 5: clone start capacity=32768 len=512
+revision 5: cloned capacity=65536
+revision 5: updated
+revision 5: checked
+revision 6: clone start capacity=65536 len=512
+revision 6: cloned capacity=131072
+revision 6: updated
+revision 6: checked
+revision 7: clone start capacity=131072 len=512
+revision 7: cloned capacity=262144
+revision 7: updated
+revision 7: checked
+native SCC probe passed

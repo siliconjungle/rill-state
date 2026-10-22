@@ -1,0 +1,29 @@
+{
+  "claim": "Artifact coverage and binding audit; executable assertions check retained values and ownership. Instrumented payloads and process RSS are not library-only heap bounds, speed acceptance or universal superiority.",
+  "auditor_sha256": "9137b4c3bc14181da44281f2575acfdced95fb5746dcd1f7a0665ba8a0b6ac79",
+  "matrices": [
+    {
+      "folder": "evidence/retention-v30d-scans0",
+      "rows": 156,
+      "exact_tuple_coverage": true,
+      "executable_ownership_and_reclamation_markers_passed": true,
+      "exact_journal_counts": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "ec077a8355e63053603448beb05d6b906f3de57053ff77f1f2b1ee3a8560d22e",
+      "source_commit": "a97ee8d7ad8080f8b71703bfa37be02032bf2b36",
+      "binary_sha256": "68d5378d2bf59882810f36e9fc92ffbf0434f15ca8467899fda82f42a337bbf6"
+    },
+    {
+      "folder": "evidence/retention-v30d-scans2",
+      "rows": 156,
+      "exact_tuple_coverage": true,
+      "executable_ownership_and_reclamation_markers_passed": true,
+      "exact_journal_counts": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "f50010e7f9774973113f37f1b16f87759c5ed673fd75a41ff90a888d905194d2",
+      "source_commit": "a97ee8d7ad8080f8b71703bfa37be02032bf2b36",
+      "binary_sha256": "68d5378d2bf59882810f36e9fc92ffbf0434f15ca8467899fda82f42a337bbf6"
+    }
+  ],
+  "completed_processes": 312
+}

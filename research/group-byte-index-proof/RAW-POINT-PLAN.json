@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "claim": "Raw already-held map getters only. No snapshot acquisition, mutation feed, publication, memory bound or complete-engine performance admission.",
+  "policies": {"groups":[8,16,32],"loads":[25,50,70,85],"builders":["sip","fast"]},
+  "references": ["std-hash","std-fast","hashbrown-sip","hashbrown"],
+  "shapes": ["u64-inline","string-inline"],
+  "cases": ["read","miss50","miss100"],
+  "records": 20000,
+  "readers": 20000,
+  "rounds": 64,
+  "seeds": [4815162342,2937471921],
+  "processes": 336,
+  "workers": 2,
+  "timing": "Construction, complete point-value validation, input generation and warmup outside the interval. Every timed checksum must match its independently generated input model.",
+  "interpretation": "Parallel diagnostic selection may overlap other required work. Keep all fixed policies and losses. No cross-case oracle or universal superiority claim.",
+  "next_gate": "Only promising getter hypotheses proceed to complete snapshot/revision/feed adapters and the unchanged full protocol. Default Store is unchanged."
+}

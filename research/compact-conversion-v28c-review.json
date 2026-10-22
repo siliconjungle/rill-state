@@ -1,0 +1,875 @@
+{
+  "claim": "Single raw insertion including growth/COW. Setup and full validation untimed. Parallel diagnostic medians are not complete engine throughput, service latency or final acceptance.",
+  "audited_processes": 1344,
+  "cells": [
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 121334,
+      "wide_ns": 121833,
+      "ratio": 0.9959042295601356
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 552000,
+      "wide_ns": 748084,
+      "ratio": 0.7378850503419402
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 421375,
+      "wide_ns": 391750,
+      "ratio": 1.0756222080408424
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 1470417,
+      "wide_ns": 1406333,
+      "ratio": 1.045568154910679
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1214000,
+      "wide_ns": 1056750,
+      "ratio": 1.1488052992666193
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 3117875,
+      "wide_ns": 3069750,
+      "ratio": 1.0156771724081766
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 263000,
+      "wide_ns": 299542,
+      "ratio": 0.8780070908253267
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 1235584,
+      "wide_ns": 1302834,
+      "ratio": 0.9483817585356231
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 986583,
+      "wide_ns": 942916,
+      "ratio": 1.0463105939447417
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 2729583,
+      "wide_ns": 2660417,
+      "ratio": 1.0259981799845663
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1054625,
+      "wide_ns": 1123000,
+      "ratio": 0.9391139804096171
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 4806333,
+      "wide_ns": 5543750,
+      "ratio": 0.8669822773393461
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 235709,
+      "wide_ns": 290042,
+      "ratio": 0.8126719578543797
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 1636583,
+      "wide_ns": 1699875,
+      "ratio": 0.9627666740201486
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 1040041,
+      "wide_ns": 624500,
+      "ratio": 1.6653979183346677
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 3436208,
+      "wide_ns": 3580500,
+      "ratio": 0.959700600474794
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1112667,
+      "wide_ns": 1164250,
+      "ratio": 0.9556942237491948
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 7048833,
+      "wide_ns": 6811458,
+      "ratio": 1.0348493670518117
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 266875,
+      "wide_ns": 284000,
+      "ratio": 0.9397007042253521
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 1918167,
+      "wide_ns": 2067375,
+      "ratio": 0.927827317250136
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 1341875,
+      "wide_ns": 571541,
+      "ratio": 2.3478193165494687
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 4343666,
+      "wide_ns": 4070750,
+      "ratio": 1.0670431738623103
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 932959,
+      "wide_ns": 1085500,
+      "ratio": 0.8594739751266698
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 7603291,
+      "wide_ns": 7536542,
+      "ratio": 1.0088567143923566
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 100917,
+      "wide_ns": 130375,
+      "ratio": 0.7740517737296261
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 1151625,
+      "wide_ns": 1232583,
+      "ratio": 0.9343184191247161
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 561916,
+      "wide_ns": 438000,
+      "ratio": 1.2829132420091325
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 2590500,
+      "wide_ns": 2521875,
+      "ratio": 1.0272118959107808
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1018959,
+      "wide_ns": 1049583,
+      "ratio": 0.9708226981572682
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 6686416,
+      "wide_ns": 5532458,
+      "ratio": 1.2085796222944667
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 292917,
+      "wide_ns": 355000,
+      "ratio": 0.8251183098591549
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 2254500,
+      "wide_ns": 2485333,
+      "ratio": 0.9071219027792251
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 909791,
+      "wide_ns": 768250,
+      "ratio": 1.1842382037097299
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 5041209,
+      "wide_ns": 5137000,
+      "ratio": 0.9813527350593731
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1025958,
+      "wide_ns": 1085583,
+      "ratio": 0.9450755953252769
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 11289417,
+      "wide_ns": 10378542,
+      "ratio": 1.0877652178889867
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 259375,
+      "wide_ns": 288291,
+      "ratio": 0.8996985684603405
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 3145958,
+      "wide_ns": 3637292,
+      "ratio": 0.8649176365273945
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 1717292,
+      "wide_ns": 571250,
+      "ratio": 3.0062004376367617
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 8788333,
+      "wide_ns": 7315458,
+      "ratio": 1.2013373598754855
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1132917,
+      "wide_ns": 857166,
+      "ratio": 1.32170081407802
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 15086875,
+      "wide_ns": 15467750,
+      "ratio": 0.9753761859352523
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 256625,
+      "wide_ns": 262334,
+      "ratio": 0.9782376664862351
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 3887958,
+      "wide_ns": 3687958,
+      "ratio": 1.0542305525171383
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 1293000,
+      "wide_ns": 451167,
+      "ratio": 2.86590109648977
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 8330625,
+      "wide_ns": 6856917,
+      "ratio": 1.2149228290206808
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1043125,
+      "wide_ns": 1019375,
+      "ratio": 1.023298589822195
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 20214542,
+      "wide_ns": 19048042,
+      "ratio": 1.0612398901682387
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 99000,
+      "wide_ns": 158208,
+      "ratio": 0.6257584951456311
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 235250,
+      "wide_ns": 315833,
+      "ratio": 0.7448556673938442
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 684375,
+      "wide_ns": 448375,
+      "ratio": 1.5263451352104822
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 851583,
+      "wide_ns": 616833,
+      "ratio": 1.3805730238168192
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 861292,
+      "wide_ns": 858000,
+      "ratio": 1.0038368298368299
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 1160250,
+      "wide_ns": 1114958,
+      "ratio": 1.0406221579646946
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 290125,
+      "wide_ns": 355834,
+      "ratio": 0.8153380508888977
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 454583,
+      "wide_ns": 464792,
+      "ratio": 0.978035336236424
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 964625,
+      "wide_ns": 614125,
+      "ratio": 1.5707307144311011
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 1227458,
+      "wide_ns": 951834,
+      "ratio": 1.2895715009129742
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 945750,
+      "wide_ns": 974833,
+      "ratio": 0.9701661720520335
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 1512458,
+      "wide_ns": 1384292,
+      "ratio": 1.0925859572980268
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 167167,
+      "wide_ns": 170083,
+      "ratio": 0.982855429407995
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 527125,
+      "wide_ns": 486709,
+      "ratio": 1.0830393520563621
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 506166,
+      "wide_ns": 333459,
+      "ratio": 1.5179257419952679
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 1430958,
+      "wide_ns": 927250,
+      "ratio": 1.5432278242113777
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1042166,
+      "wide_ns": 1018416,
+      "ratio": 1.0233205291354417
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 1853917,
+      "wide_ns": 1989959,
+      "ratio": 0.9316357774205398
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 203959,
+      "wide_ns": 175500,
+      "ratio": 1.1621595441595443
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 591083,
+      "wide_ns": 635291,
+      "ratio": 0.930412991841534
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 776375,
+      "wide_ns": 430833,
+      "ratio": 1.8020323419979436
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 1351417,
+      "wide_ns": 785875,
+      "ratio": 1.7196335295053284
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1168750,
+      "wide_ns": 1046584,
+      "ratio": 1.1167283275876565
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 1867417,
+      "wide_ns": 1890541,
+      "ratio": 0.9877685805280076
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 98000,
+      "wide_ns": 164208,
+      "ratio": 0.5968040533956933
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 797250,
+      "wide_ns": 866666,
+      "ratio": 0.9199045537727337
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 558083,
+      "wide_ns": 331334,
+      "ratio": 1.6843517417469984
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 1955292,
+      "wide_ns": 1778958,
+      "ratio": 1.099122070335556
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 719917,
+      "wide_ns": 672334,
+      "ratio": 1.0707728599178385
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 3825041,
+      "wide_ns": 3564875,
+      "ratio": 1.0729803990322242
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 265000,
+      "wide_ns": 324375,
+      "ratio": 0.8169556840077071
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 1733708,
+      "wide_ns": 1540542,
+      "ratio": 1.1253883373513998
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 501667,
+      "wide_ns": 656375,
+      "ratio": 0.7642993715482765
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 2919333,
+      "wide_ns": 3183250,
+      "ratio": 0.9170919657582659
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1494792,
+      "wide_ns": 1405791,
+      "ratio": 1.0633102644703232
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 6396417,
+      "wide_ns": 5645125,
+      "ratio": 1.133086866987002
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 202125,
+      "wide_ns": 187750,
+      "ratio": 1.0765645805592543
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 2108791,
+      "wide_ns": 2251500,
+      "ratio": 0.9366160337552742
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 623208,
+      "wide_ns": 487042,
+      "ratio": 1.2795775313012019
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 4147042,
+      "wide_ns": 3966667,
+      "ratio": 1.0454726852543963
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1067375,
+      "wide_ns": 1009875,
+      "ratio": 1.0569377398192845
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 8305458,
+      "wide_ns": 8796333,
+      "ratio": 0.9441954960095303
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "pin_initial": false,
+      "adaptive_ns": 229792,
+      "wide_ns": 184416,
+      "ratio": 1.2460524032621898
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "pin_initial": true,
+      "adaptive_ns": 2709417,
+      "wide_ns": 2518333,
+      "ratio": 1.0758771774820883
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "pin_initial": false,
+      "adaptive_ns": 751542,
+      "wide_ns": 588541,
+      "ratio": 1.2769577650495039
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "pin_initial": true,
+      "adaptive_ns": 8012416,
+      "wide_ns": 6198917,
+      "ratio": 1.292550940753038
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "pin_initial": false,
+      "adaptive_ns": 1195292,
+      "wide_ns": 1164250,
+      "ratio": 1.0266626583637535
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "pin_initial": true,
+      "adaptive_ns": 9944333,
+      "wide_ns": 9906584,
+      "ratio": 1.0038104961306542
+    }
+  ],
+  "notes": [
+    "Full incoming key/value allocations precede timing. The raw insert includes COW detachment, growth/rehashing and any row-vector growth.",
+    "At fill70, unpinned 65536-to-131072 widening has adaptive/wide medians about 1.518 for u64-inline and 3.006 for string-owned256.",
+    "These single-growth development diagnostics do not establish complete Store/feed or service latency, and owned payload copying still dominates some pinned cases."
+  ]
+}

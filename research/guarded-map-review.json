@@ -1,0 +1,36 @@
+{
+  "kind": "Pinned primary-source capability review; not an executed engine or performance result",
+  "inputs": [
+    {
+      "crate": "flashmap-0.2.0",
+      "path": "src/read.rs",
+      "sha256": "8e0efb08b70879b347c7ac89f7928fa21d98499d756db9068a733a4434c81677"
+    },
+    {
+      "crate": "flashmap-0.2.0",
+      "path": "src/write.rs",
+      "sha256": "f9cac82da767e1d0f96ecdc8df59000f3224b5fab21c5f52514ba31fad13e5d2"
+    },
+    {
+      "crate": "flashmap-0.2.0",
+      "path": "src/core/mod.rs",
+      "sha256": "f3e30be71d0715f48f15de7cd8c8f12cd966c5beb8567ec9c680a3b6b4c5d3c1"
+    },
+    {
+      "crate": "evmap-11.0.0",
+      "path": "src/read.rs",
+      "sha256": "160a99166babf5eea3c3cd136b513b67e4e46e3512bfdf74748a2859b26e2b62"
+    },
+    {
+      "crate": "evmap-11.0.0",
+      "path": "src/write.rs",
+      "sha256": "def8497f6c8eb96ad0faa2c31fbe8b4d7933c3f678cce61fbfb35bed64b52c25"
+    },
+    {
+      "crate": "left-right-0.11.8",
+      "path": "src/write.rs",
+      "sha256": "01ccdd5fe8ce06f45edb63509e34f00418238691a29f976e92d7b0455a813eaa"
+    }
+  ],
+  "contract": "Independent immutable old revisions must not block subsequent publications"
+}

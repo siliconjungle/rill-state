@@ -1,0 +1,1041 @@
+{
+  "kind": "raw-adaptive-cold-diagnostic",
+  "build": {
+    "source_commit": "edbe6597005ac0023c3932f96bf843d2d40b4729",
+    "source_sha256": "33cdb6de4939588af5ab8e3f5c8c05355f7f3214f02928c76e489f187cb4e321",
+    "example": "adaptive_cold",
+    "example_sha256": "dfdd3454b80cbaf506f5532d8d605a702564def04c92a7da0dcca3c93543f72e",
+    "binary": "build/adaptive-cold-v30smoke",
+    "binary_sha256": "d11b687741300ccdb14933fe1a97c06d586ae22bedc965193dbd0c7807d0d1bb",
+    "command": [
+      "rustc",
+      "--edition=2021",
+      "--crate-name",
+      "adaptive_cold",
+      "--cfg",
+      "feature=\"comparisons\"",
+      "-C",
+      "opt-level=0",
+      "-C",
+      "debuginfo=0",
+      "-C",
+      "embed-bitcode=no",
+      "-L",
+      "dependency=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps",
+      "--extern",
+      "hashbrown=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libhashbrown-e01490636c17e30c.rlib",
+      "--extern",
+      "imbl=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libimbl-635408c1ddb3f838.rlib",
+      "--extern",
+      "rill_state=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librill_state-8c0e41f79e777bc4.rlib",
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/examples/adaptive_cold.rs",
+      "-o",
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/adaptive-cold-v30smoke"
+    ],
+    "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+    "source_preflight": {
+      "root": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state",
+      "source_config": null,
+      "direct_cargo_arguments": [],
+      "prepared_outside_measurement": true
+    },
+    "completed_cargo_dependencies": [
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libsmallvec-fb76f8eefda5b5e4.rlib",
+        "sha256": "5e74124818d303a3ee210215d918ca55a48c540344ce7e47c430a820bef25b60",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#smallvec@1.16.3",
+        "features": [
+          "const_generics",
+          "const_new",
+          "write"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/liblibc-b73bf171ab666be9.rlib",
+        "sha256": "b2daed440c87032d60c6a40f93796d0438a104b5c309d75503e04dca1ed939bc",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#libc@0.2.191",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcfg_if-abcf3dd42fb9974a.rlib",
+        "sha256": "fc62bf7a02bf11f74b5cb31b6028a883e1172b07a4e9c1646daa733fb16cf670",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#cfg-if@1.0.5",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libscopeguard-da13dcfca1993d7f.rlib",
+        "sha256": "cd1cfb42329abf5f8a35be12ce4be3d7b488f622c10183dd5b2ef240d9d7b666",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#scopeguard@1.2.0",
+        "features": [
+          "use_std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcrossbeam_utils-c3752fa278f14ab8.rlib",
+        "sha256": "104860f46af4b886429de6bbee80c8dd0cb7e87366f4a6dabfbd99f3d8704b70",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#crossbeam-utils@0.8.23",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libversion_check-54131204d2415be8.rlib",
+        "sha256": "05bb9ae87ff09e076ffc47a43c5ef333363a7589bb0b802aee8e394ea133c189",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#version_check@0.9.5",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libserde_core-f3101a7609fad36e.rlib",
+        "sha256": "d91bb042af6f53530ea1d86cef0396e835e1999e31906c329edf4686522ab0ac",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#serde_core@1.0.229",
+        "features": [
+          "result"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libunicode_ident-4c070fdf3e02deed.rlib",
+        "sha256": "1603233811df19a4df3b5e9e726f67df583d319c83a2d597e6fc1c949304763e",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#unicode-ident@1.0.27",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libproc_macro2-32b9376afb18ae99.rlib",
+        "sha256": "675960ff681294ee0d080d6d50d229d8080e53ca512f65ea8a4e3199bc15ffd2",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#proc-macro2@1.0.107",
+        "features": [
+          "default",
+          "proc-macro"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libparking_lot_core-356e08a2453646ad.rlib",
+        "sha256": "56cc6244441cc876f8ead3d80820133df76861787e055df85b98a3449db94fef",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#parking_lot_core@0.9.12",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libserde-2858212a56bd3aff.rlib",
+        "sha256": "42d6fa169019ba4f91c739a1bfd8e032b47b90ef73558c6ae2eefd1199a0fa61",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#serde@1.0.229",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcrunchy-7f88d6fa0fc86d7a.rlib",
+        "sha256": "b79b882c899ee8a6d8f45492423cf021a871f3137496b32feaafb26b278682b3",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#crunchy@0.2.4",
+        "features": [
+          "default",
+          "limit_128"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/liblibc-a85b9b8ecf6e5e30.rlib",
+        "sha256": "a264132a3abbfcc4c5b55b6f3bc2637555a1ae5033573692a9ed90c8bfe7a616",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#libc@0.2.191",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/liblock_api-2f0739f3a1c991a4.rlib",
+        "sha256": "c6a997680ba67e4e7ac77089f80e648b78503d72572eb402bbd97a2f0470aa6c",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#lock_api@0.4.14",
+        "features": [
+          "atomic_usize",
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcfg_if-5bc6a36684fdf177.rlib",
+        "sha256": "ab93815dda454ad65b47a7cd97bc5d9d2ea7fe9332c06257b650b874354928ca",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#cfg-if@1.0.5",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libequivalent-f2db7347eda348ee.rlib",
+        "sha256": "00053e95015581054e9d1273c4888805cb7dc6eb81ac2b22d84e4d16686c6c08",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#equivalent@1.0.3",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libstable_deref_trait-ec234bb4a3d78e06.rlib",
+        "sha256": "6b75481bd8e12de62d769edab8649318e39c2d0290e8045101b0ad1c2313e5fe",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#stable_deref_trait@1.2.1",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libtriomphe-970ca5030c05f2dd.rlib",
+        "sha256": "720a21d3dd3eb3c469247b60e35f6d7d5ce67a9f8923c64df94127ae4de295e0",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#triomphe@0.1.17",
+        "features": [
+          "default",
+          "serde",
+          "stable_deref_trait",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libgetrandom-3a145088dce21afd.rlib",
+        "sha256": "110b825bd73eb5d49e10a50cfe1a2a9a7607b34e4a028df204a6fb0d16aec80b",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#getrandom@0.2.17",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libtiny_keccak-f70fc9a6d17cd82a.rlib",
+        "sha256": "1c694947903cd4691ba2a01bdd67105a6218973c62d683f0abb005f21ddcbaf5",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#tiny-keccak@2.0.2",
+        "features": [
+          "default",
+          "shake"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libquote-5b1d47200d1c7e3a.rlib",
+        "sha256": "1b2a9e04000c1e74e0ad58b9543df368d11a4ef2e0d55c26da4feec569738e6b",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#quote@1.0.47",
+        "features": [
+          "default",
+          "proc-macro"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libonce_cell-52fba933e3f8a48b.rlib",
+        "sha256": "c0c50ae27edff8c90dd661a0f488b0d27bd96656f374f5c5aa41ae5f4ccdeb0b",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#once_cell@1.21.4",
+        "features": [
+          "alloc",
+          "race"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/liballocator_api2-e4713dfd0b31b008.rlib",
+        "sha256": "3e49c465240fe3048680ef2da9455426b023bf52cee653ac1375b630ca4e5a3b",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#allocator-api2@0.2.21",
+        "features": [
+          "alloc",
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libsyn-52386ab1d9420aca.rlib",
+        "sha256": "22b0072e35b6b9c0772f0a4723bd0320b2f69e2259efa76d6451f5c77bc8564c",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#syn@2.0.119",
+        "features": [
+          "clone-impls",
+          "default",
+          "derive",
+          "parsing",
+          "printing",
+          "proc-macro"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libparking_lot-c04160a92a169f34.rlib",
+        "sha256": "a2a323eb3612ed730c9545c70c9636cf85fb61e5284626c87b2091ba97604abc",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#parking_lot@0.12.5",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libonce_cell-b8a2067df2f8af2f.rlib",
+        "sha256": "c7df9f82a891a77a0df9105e1c5c8a68e1477420d77e27757f179863c6baa0cf",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#once_cell@1.21.4",
+        "features": [
+          "alloc",
+          "default",
+          "race",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libfoldhash-954cc79cec4a6c72.rlib",
+        "sha256": "3339265124183da9260e9f54ffc69e8c1f97f15760e278a3588755740218e51d",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#foldhash@0.2.0",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libhashbrown-e01490636c17e30c.rlib",
+        "sha256": "02fa506462bc2444ab25cfcb0e23798b0ae51785dbef6ab5b6a843082e45eb8e",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#hashbrown@0.17.1",
+        "features": [
+          "allocator-api2",
+          "default",
+          "default-hasher",
+          "equivalent",
+          "inline-more",
+          "raw-entry"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libgetrandom-9e5673b425ec534e.rlib",
+        "sha256": "d7184cc767a34584d8d043a1ccdc335fc547397f462e516a1b3ce0adc10341e3",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#getrandom@0.3.4",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libconst_random-b349b890a01ea350.rlib",
+        "sha256": "8d1f39a3adb2bc63d1f2739201accce1f097fdbeca750167cbe5263e8109cfeb",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#const-random@0.1.18",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libzerocopy-493feb7fcd35703e.rlib",
+        "sha256": "50623335f2ea40f39aac46a5547198e57ef5bffb90b861bfff31a7469375617d",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#zerocopy@0.8.63",
+        "features": [
+          "simd"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libahash-d61693e5b0c5e14e.rlib",
+        "sha256": "2b691080d80dcb23d883d089ca93f4da3987a37e86473b2d9d4df2f4938a0e57",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#ahash@0.8.12",
+        "features": [
+          "compile-time-rng",
+          "const-random",
+          "default",
+          "getrandom",
+          "runtime-rng",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libthiserror-e104b23347192b7c.rlib",
+        "sha256": "d16dceeb4ff4058b840861c22f150754c8f472b312fae37d6556fdff5c77eac4",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#thiserror@1.0.69",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libindexmap-c171303f2f594547.rlib",
+        "sha256": "d67e8d2901af27b46e59433be0911c353565e1a04fdaa94884aba95860cf73ab",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#indexmap@2.14.2",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libsmallvec_wrapper-87b9a749e693e64d.rlib",
+        "sha256": "2a3a7ae8c226c1decf73e761d53b3fa2b1d9aa3fdd261a5f4610ab6e99802077",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#smallvec-wrapper@0.1.2",
+        "features": [
+          "const_generics",
+          "const_new",
+          "std",
+          "write"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libautocfg-05b4f9bd65a3402c.rlib",
+        "sha256": "e4b4d44185df7b0497e0d6c365c3b990e5e14f5261d602e116209f3522c76bd6",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#autocfg@1.5.1",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libsemver-1bbee7196958a28c.rlib",
+        "sha256": "3428f1790e3695d358acb4fd71f9a7ec7e8b1722d6c8fed8d13836a388dbbc01",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#semver@1.0.28",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libslab-c14223e239193dbc.rlib",
+        "sha256": "0185d6c43ac6d88e74d89c6eb01e2f2adf398d6f2adab05ab09961aa8db19ee3",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#slab@0.4.12",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librustc_version-565a3286b4bef082.rlib",
+        "sha256": "a3f2840b6ab688fd83806394251fa11744050c003dc50cfbd4e11d0d568d53e3",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#rustc_version@0.4.1",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcheap_clone-591ffd09213a9557.rlib",
+        "sha256": "abea8af41ac8caaf0db4d0e3903c0f336b803949766aaf202b587d18aad11e67",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#cheap-clone@0.1.8",
+        "features": [
+          "alloc",
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libeither-8a6615c8542a9a99.rlib",
+        "sha256": "a095d491a230d84bb79e2e37cb24a79b590c428b717c5a808f00084ec1cad12d",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#either@1.19.0",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libtxn_core-4b565c2ff4bf9061.rlib",
+        "sha256": "2cdc32b9b377c1ea78da00b411ce8218f02a87e7e5b075c938fc1932b818f349",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#txn-core@0.1.3",
+        "features": [
+          "alloc",
+          "default",
+          "indexmap",
+          "smallvec-wrapper",
+          "std",
+          "thiserror"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcrossbeam_epoch-9a3959c729360e3a.rlib",
+        "sha256": "01c6543704c86eb791c2b689666c9a5685f85d54cdea71d8384081787365c481",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#crossbeam-epoch@0.9.21",
+        "features": [
+          "alloc",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libwg-ec53bd657d9613c5.rlib",
+        "sha256": "e8d21018b93fc1daf16a7b1a4c00d45f75c17034a71418fc6199d50759a46ce7",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#wg@0.9.2",
+        "features": [
+          "default",
+          "parking_lot",
+          "std",
+          "triomphe"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcrossbeam_channel-4977e7869575fb11.rlib",
+        "sha256": "8ad4a5cc065a6dd1a9eebc940bef9cab9d6a9ca68873d17d18c32cb72ab687ef",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#crossbeam-channel@0.5.17",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libbytemuck-b026ada131d29a5c.rlib",
+        "sha256": "af50dde69cdc95e58a31b1f065eaf6b6930c6cfca68cf665f04695597f9b458c",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#bytemuck@1.25.2",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libatomic_refcell-9ddf86c7581e2e19.rlib",
+        "sha256": "2ef5b9950ce47a417acf31a1f986431379cb476be6ee49b4db2cccd899477ddb",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#atomic_refcell@0.1.14",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcfg_if-9fb4360d940ae10d.rlib",
+        "sha256": "897ff637df9c8b729fbe0f5b9a44dddaa21abc8720c312107cd4590491b80d04",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#cfg-if@0.1.10",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libtypenum-c997c5ff0b5c65e3.rlib",
+        "sha256": "c15abc9ce9679d172797bc92356f132dcb5392e23e3c727b9e86b31dacbcca28",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#typenum@1.20.1",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libnodrop-be71b7453e94f94d.rlib",
+        "sha256": "bb7ba3c456ce15c12eae0bb6ce93806e790dfc7845cdabdbaca864f377f4c2f5",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#nodrop@0.1.14",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/liblazy_static-26ea17848eb46c78.rlib",
+        "sha256": "8cd455278a9d545c60600aafc7bdace75152f18faa896357c098d2c59386d1f7",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#lazy_static@1.5.1",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcrossbeam_utils-21e1c1e901de9e9c.rlib",
+        "sha256": "8e0ff0b6660e581f6de780bbac8e261dad32f3a70bc8ed59df8da2b984ebb383",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#crossbeam-utils@0.6.6",
+        "features": [
+          "lazy_static",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libarrayvec-7006cf06f1185468.rlib",
+        "sha256": "cf8883706510c3711f0db06ba31350647a13020f283f5a78eae7e53cc3cccae5",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#arrayvec@0.4.12",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libbitmaps-7c5e5009e1b3ea3f.rlib",
+        "sha256": "f5a50675ef9923503acd99b3f5b5b541e1d4bcbe0a47764853c02be37fa856ec",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#bitmaps@2.1.0",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libwmark-166d71d9c5f6c232.rlib",
+        "sha256": "d1e326d42f9d9564cfbed39c209baf2dba9e2871abb88ddf67ab47e3fdd9cfa4",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#wmark@0.1.4",
+        "features": [
+          "crossbeam-channel",
+          "default",
+          "parking_lot",
+          "std",
+          "thiserror",
+          "wg"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libsafe_arch-3148cfa19b9f825d.rlib",
+        "sha256": "c2118855b94fea24a92186d5de0822c1c559ec33fe3648976cf0f8d7a695ab24",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#safe_arch@0.7.4",
+        "features": [
+          "bytemuck",
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcrossbeam_skiplist-44497faca1ba9b80.rlib",
+        "sha256": "f2a630f90f53c68ebad08b16fa075ec31928c0ea0cb42714202df20024ef6e06",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#crossbeam-skiplist@0.1.3",
+        "features": [
+          "alloc",
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libmemoffset-1df154f8738c3923.rlib",
+        "sha256": "f5cb8b68b16f1986e164c5ba1b92dac8c7010723cf0efd300160556d670fb787",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#memoffset@0.5.6",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libmaybe_uninit-e4bd28666bf81068.rlib",
+        "sha256": "1411dd3f7fd83230493df6dd6e4d600941981e9d06ea1ee33aa152a5810d35b7",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#maybe-uninit@2.0.0",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libarchery-7a6324291c731205.rlib",
+        "sha256": "b2429d2d39d7f3ed77f4bd41b3f1960b5dd03b4d95de2a08f821984d433f08c5",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#archery@1.2.3",
+        "features": [
+          "triomphe"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libnum_cpus-1d714fcaae28214f.rlib",
+        "sha256": "37ac63001b9a335a24fb164e3da4eee802d50738759190dbdcb452dcc8bef220",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#num_cpus@1.17.0",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librand_core-9bf7714a1f8fc912.rlib",
+        "sha256": "2e8baadb25cb249dea9662c4da1362daed3f2110ef38c629e88ae978b23617c0",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#rand_core@0.6.4",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libsaa-69e5f9e0625d54da.rlib",
+        "sha256": "0abe52c1869be46b05cae8b2fe0842b86d88a5c3d394980c20708f59bad08f2e",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#saa@5.6.2",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libbytes-f8265a3ad38f99ac.rlib",
+        "sha256": "f47841c6ab2fc1f142a9f9aba2beac4d7f34cd0303c15c8b586ec8de834202a4",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#bytes@1.12.1",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librand_core-b132882bb46186a1.rlib",
+        "sha256": "a69e86e7b8fe1e381020b17ae6f12c8bdcd66394d1d02c74d846668d07189950",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#rand_core@0.9.5",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libsdd-21913ec2ff448d56.rlib",
+        "sha256": "e5c3e6aceaea9f5513222b30f13fc2dc26c43dc0e537cca704e4d72e40e50407",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#sdd@4.8.11",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librand_xoshiro-54f225ec4d204d87.rlib",
+        "sha256": "39d833affe691f20e9d8e48c6e511ccb26c1fc38ba78d675d8fc32ab4b0ac5dd",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#rand_xoshiro@0.7.0",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libbyteslice-caf75d6b107b819c.rlib",
+        "sha256": "b1245546a3e58f05f405780af6fc72a9befeedb3ac29dcd67e45fa325cc96918",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#byteslice@0.2.0",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librand_xoshiro-584d1142960fc8d5.rlib",
+        "sha256": "dbbd90ded52049f5ad130f1829b87606dc3c0b71da34120999b1e6ed0ff55512",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#rand_xoshiro@0.6.0",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libsmallvec-9b6282e17c970ab2.rlib",
+        "sha256": "56261cdd3212aec4000df1b18a0a8499fac83139e423bcc87d7b9e8dedd08b9d",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#smallvec@0.6.14",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcrossbeam_epoch-9fb30de12d47746e.rlib",
+        "sha256": "691d5619330c19571205e4cc76ab4b5314b061fd7ac7d213efaf84d26e721efa",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#crossbeam-epoch@0.7.2",
+        "features": [
+          "default",
+          "lazy_static",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libskipdb_core-19d71630ea414f84.rlib",
+        "sha256": "7546ce6c1a9c7d6b241956015b0db43d5fc56364e68eb7d713af489d8ee92cce",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#skipdb-core@0.2.0",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/liblikely_stable-aab00a3dc242deb1.rlib",
+        "sha256": "da1731721ad213b7f5850ae8fef5051cde3363393243d426d485a8c16a5c3ac0",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#likely_stable@0.1.3",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libwide-9290f56b7e105c39.rlib",
+        "sha256": "fdbbdda7e17e0cf0569eecefd11a59e2c923caf8fff9845e436ca6cd4f9520d0",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#wide@0.7.33",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libtxn-cdd5f20abba0f00c.rlib",
+        "sha256": "32f8c5412ed99b6fc313ef3eed7d209f8ee105fa000bc66da48c8e4c11b41bd9",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#txn@0.1.3",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libsized_chunks-6ed27438ad67d4ed.rlib",
+        "sha256": "d78806ce92ca92ae5bdad24d9d2243a46b21b9a6d8c080694161d14fdd8f26e1",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#sized-chunks@0.6.5",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libanyhow-7b11ddd3fae28ab9.rlib",
+        "sha256": "acc07eeaec396273f6c1c7d84929a529b51532eed40981d4f6cd71097928404d",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#anyhow@1.0.104",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcc_traits-2bc6db55fa0dc362.rlib",
+        "sha256": "e73c7c4beabbcee27d8875c92606f667a276a70e9b6b1031851dc04721291d55",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#cc-traits@2.0.0",
+        "features": [
+          "alloc",
+          "default",
+          "slab",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libleft_right-05916464e43049ee.rlib",
+        "sha256": "48bf37b8eac0c286d47f9f654b12375917c12b0f0c5381f9e7b39c46beec2729",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#left-right@0.11.8",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libguest_cell-8eb762e46f5b417b.rlib",
+        "sha256": "a2925e9e32e55793c53db0f65b6499d7cedd6d68d5f83ae26544663454e0ce6a",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#guest_cell@0.1.5",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libseize-db499b484b55b8a0.rlib",
+        "sha256": "cdc4f9fcca5e3d8d846a516bda1554463b3e063c9478f746495a851a47fc4b55",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#seize@0.5.1",
+        "features": [
+          "fast-barrier",
+          "libc",
+          "windows-sys"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libthread_local-9efb01756a76317a.rlib",
+        "sha256": "19a205d20de99d497f39e23d67231b4cf11c37db794ff4f5fe63cc73b8697723",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#thread_local@1.1.10",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libseize-908bcee90d2a6168.rlib",
+        "sha256": "5b024fccfadc553756a06d463a450bc41e084b2bee2b429567ab54bf94951ebe",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#seize@0.3.3",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libhashbrown-fb639faf94208aad.rlib",
+        "sha256": "f71334308cf912cc382952fdd9a4c5c1781ca631f135c29f69025d9f1fef1838",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#hashbrown@0.14.5",
+        "features": [
+          "raw"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librustc_hash-48b926bbead5ca50.rlib",
+        "sha256": "49ecaab9749de7b33ab5d81f2688a9a3e95db6ff613738a8b52b97c3f9e4ec19",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#rustc-hash@2.1.3",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libatomic-5de3f40137f56819.rlib",
+        "sha256": "8383d2306d7fde2f591edfc77d2053d4b7693784f1021b9f1bc69ff40df34f3c",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#atomic@0.5.3",
+        "features": [
+          "default",
+          "fallback"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libhashbag-12fe037761ccf653.rlib",
+        "sha256": "07900f6013c313d746f63b6ce94b42e0d31940fb417763df1308e303e7ce330c",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#hashbag@0.1.13",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libhashbrown-d8f0ad5befec35ee.rlib",
+        "sha256": "3295ac393bd8f67d789810e4ae78e08d61eea2a3d0a6080280ecd496aaa07893",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#hashbrown@0.16.1",
+        "features": [
+          "inline-more",
+          "raw-entry"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libarrayvec-6eeab9b7bff8ce9d.rlib",
+        "sha256": "d36ea266ead8221f8cce75a2cdbc5067909b786dcb4c163c0b466eeefbb2cdf4",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#arrayvec@0.7.8",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libbitflags-2fdcd79047915505.rlib",
+        "sha256": "6670e34aceae4b1d0d507794ec1748d10c7e33e2a4d084f7d3c1df8a13e5bae6",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#bitflags@1.3.2",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libimbl_sized_chunks-79c4d4ecb5d50d6d.rlib",
+        "sha256": "b16d89b657398a225d9d73ca0d4603c0027fa706b63dc0f82cbfc95215200049",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#imbl-sized-chunks@0.2.0",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libimbl-635408c1ddb3f838.rlib",
+        "sha256": "39a0b445e092313d88fb4717a019bf751d0a3301a217b1e5ef694084da6693a1",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#imbl@7.0.2",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libcontrie-7f16ceee8bfab144.rlib",
+        "sha256": "e35a8bea2b4e1e66f96957928955294912f8ada5d3bf8beafd3bc5298e0b19a7",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#contrie@0.1.4",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libflashmap-f8c30465ec5e7105.rlib",
+        "sha256": "dbbb37ba29c11322561c1ba226caa894c34d4701d17028df3151b5392d4644b7",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#flashmap@0.2.0",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libimmutable_chunkmap-e2ba58e71efe5fbe.rlib",
+        "sha256": "384edfe7eb3ec03d70389d119406f710cdaafbd78633944ea047859425c6b572",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#immutable-chunkmap@2.1.4",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libleapfrog-87cf2dc9c6da2e6d.rlib",
+        "sha256": "2ad9881074e2c87d0b06399f3a175681b9fc4efe035c2797c34043fe7af05ec5",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#leapfrog@0.3.3",
+        "features": [
+          "default",
+          "stable_alloc"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libevmap-010a91d2aa829e5f.rlib",
+        "sha256": "45738ffccd40fc9f13874f6d5587b2b0052b327f0e55d636dcaece1392b00614",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#evmap@11.0.0",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libimhm-3a406ec7b4c827ca.rlib",
+        "sha256": "64e9d3b9137f002a0124cc5fe7d8c0f416fe898cc97c9bc1a965633781ad0899",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#imhm@0.1.0",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libdashmap-96ec7ab34b79fe2c.rlib",
+        "sha256": "c3f8ee52c630cd4091c2911afff02e3b41cd47394b5e2b73e2d05090ce63d9a1",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#dashmap@6.2.1",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libswap_arc-76365fc764ebeef0.rlib",
+        "sha256": "8148afe8e104ea87554c7a4d62e164eb23084af0ccd6c5582c2dd5c43bad7c85",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#swap-arc@0.1.1",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libflurry-ad268fe1a6efd9f4.rlib",
+        "sha256": "e0be78760c8ac4be5be4a58fb6c63043a9511d9e3b228f5804b184fe118605d2",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#flurry@0.5.2",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libmvcc_cell-6eed131a065f94eb.rlib",
+        "sha256": "f65e3a0dbe7d13c492fd295d0ac9508de8756b4f3c1bd701383469adc8daed1d",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#mvcc_cell@0.1.2",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libpapaya-c9859cba758eaad2.rlib",
+        "sha256": "30722837cff56b65279913e09bd388c250c0bf3c9fa68349b44f66052ee6ccc7",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#papaya@0.2.5",
+        "features": [
+          "default",
+          "fast-barrier"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libbtree_slab-e422a4da6c6e8ac1.rlib",
+        "sha256": "9d0939412a1377ab1f46554a45ac3659c86bdd8d47f342520e6e9aac883cbc27",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#btree-slab@0.6.1",
+        "features": [
+          "default",
+          "slab",
+          "std-slab"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libarc_swap-0c48858f9691c9f3.rlib",
+        "sha256": "2161288abc8c9e1a5d0f44cabfb66ee6defef2890075ca859b0a4fbf53647b30",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#arc-swap@1.9.3",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libskipdb-774a062cff68ae23.rlib",
+        "sha256": "ed6f12a5f197996e85508bb1c25cdfb7ec34d7c5938c50270a3d898680629515",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#skipdb@0.2.1",
+        "features": [
+          "default"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libim-8cc6e87d52bc2803.rlib",
+        "sha256": "3c23dc2d1be1e73e53fc2fafc091c4efdecb1d18ca5c6ee9704b60700d37d41f",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#im@15.1.0",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librcu_cell-c6859d6602c24ec4.rlib",
+        "sha256": "e7fb09b39c0e3975525628a9c43d827488ab8407f89362e6071f735b4e112413",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#rcu_cell@1.2.4",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libvart-3474e25dfc3a4846.rlib",
+        "sha256": "eba37aadc1fe892e569169028f29f0a5179ff972d86c334d856925dd1c23c3d2",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#vart@0.11.0",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libscc-be66b2bc816c458d.rlib",
+        "sha256": "aac7407880e7626cbf2d31a83104f3047f521d56538644d27a2b8d313ffce755",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#scc@3.8.8",
+        "features": []
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librpds-6514666d7ffb604f.rlib",
+        "sha256": "3f7e9fdbcc02073d73fd5c125ab83d7a16acdf167d3f8f0de5684ac3f776d5a8",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#rpds@1.2.1",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libordermap-2defd989707007ec.rlib",
+        "sha256": "1232cc9fc875fccc20b1ea841a824a8c1c6ae8f281cdf6a2613daa0696d2fe10",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#ordermap@1.2.2",
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libpvec-532cd7170117e0d8.rlib",
+        "sha256": "2881e7835981e6378449179f2de958147b3fec1020a435248b50a822587dedfd",
+        "package_id": "registry+https://github.com/rust-lang/crates.io-index#pvec@0.2.1",
+        "features": [
+          "arc"
+        ]
+      },
+      {
+        "path": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librill_state-8c0e41f79e777bc4.rlib",
+        "sha256": "0fa0289f79d95815a4a474775f35db9f8328f4980eb70cd8fc9c938a54bb6d3b",
+        "package_id": "path+file:///Users/james/Documents/ChatGPT/3d-modelling/rill-state#0.1.0",
+        "features": [
+          "comparisons",
+          "default",
+          "experimental"
+        ]
+      }
+    ],
+    "library_source_commit": "9e95fc80065a3116e119fd5882b56adff992c1d4",
+    "library_build_command": [
+      "cargo",
+      "bench",
+      "--locked",
+      "--features",
+      "comparisons",
+      "--bench",
+      "adaptive_state",
+      "--bench",
+      "adaptive_shapes",
+      "--no-run",
+      "--message-format=json"
+    ],
+    "library_build_environment": {
+      "RUSTUP_TOOLCHAIN": "stable",
+      "CARGO_BUILD_JOBS": "2"
+    },
+    "environment": {
+      "RUSTUP_TOOLCHAIN": "stable"
+    },
+    "builder_sha256": "0484c201b61808277fdcfe5cb628b4cf668e66b9017b1999d6dffbc2e348b227",
+    "started_at_unix": 1792633281.016394,
+    "finished_at_unix": 1792633288.453475,
+    "build_exit_code": 0,
+    "timing": "Smoke correctness only. Unoptimized example code with optimized completed Cargo dependencies. Excluded from all speed rankings and acceptance."
+  },
+  "claim": "Raw staged/pinned batch and first/second/third scans across repeated density changes. Full current and old-value checks untimed; CPU caches not flushed. Reader release outside interval. Parallel descriptive timings are not complete-engine speed acceptance or service latency.",
+  "plan": "research/v30-full-proof-diagnostics-plan.json",
+  "plan_sha256": "f438ea27d0c9709a207f8399aa7de5ee4150717379797b0e08347470bdc4b389",
+  "timing_eligible": false,
+  "cohort": "proof-20k",
+  "engines": [
+    "adaptive-inline-fast-1-1-drop-16-oneway",
+    "adaptive-inline-fast-1-1-drop-16-reset",
+    "adaptive-inline-fast-1-1-drop-64-oneway",
+    "adaptive-inline-fast-1-1-drop-64-reset",
+    "adaptive-inline-fast-1-3-drop-16-oneway",
+    "adaptive-inline-fast-1-3-drop-16-reset",
+    "adaptive-inline-fast-1-3-drop-64-oneway",
+    "adaptive-inline-fast-1-3-drop-64-reset",
+    "adaptive-shared-fast-1-1-drop-16-oneway",
+    "adaptive-shared-fast-1-1-drop-16-reset",
+    "adaptive-shared-fast-1-1-drop-64-oneway",
+    "adaptive-shared-fast-1-1-drop-64-reset",
+    "adaptive-shared-fast-1-3-drop-16-oneway",
+    "adaptive-shared-fast-1-3-drop-16-reset",
+    "adaptive-shared-fast-1-3-drop-64-oneway",
+    "adaptive-shared-fast-1-3-drop-64-reset",
+    "adaptive-cache-fast-1-1-drop-16-oneway",
+    "adaptive-cache-fast-1-1-drop-16-reset",
+    "adaptive-cache-fast-1-1-drop-64-oneway",
+    "adaptive-cache-fast-1-1-drop-64-reset",
+    "adaptive-cache-fast-1-3-drop-16-oneway",
+    "adaptive-cache-fast-1-3-drop-16-reset",
+    "adaptive-cache-fast-1-3-drop-64-oneway",
+    "adaptive-cache-fast-1-3-drop-64-reset",
+    "hashbrown",
+    "std-fast",
+    "std-btree",
+    "imbl-fast",
+    "record-paged16",
+    "record-paged64"
+  ],
+  "shapes": [
+    "u64-inline",
+    "string-inline",
+    "u64-owned256",
+    "string-owned256",
+    "u64-shared256",
+    "string-shared256"
+  ],
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "records": 20000,
+  "repetitions": 1,
+  "workers": 2,
+  "tasks": 360,
+  "rows_per_process": 16,
+  "driver_source_commit": "3d6ef632477c8a160d396eba556fded8b71b82a9",
+  "driver_sha256": "23d6c885db4e37aa500cbf1e9651c08bd0b5b7321ddc2c2bdd08ce7293dda640",
+  "executor_sha256": "bc85f9df2fa32b1b038d8375baef6d4ceacff356f1f32a60a35cf762ff5782d1",
+  "build_receipt_sha256": "77a22a2500bcae9526d4da2f71a52e6cc73f7e533a6c8baf9794046f127d6862",
+  "started_at_unix": 1792633454.766411,
+  "completed": 360,
+  "failures": 0,
+  "complete": true,
+  "finished_at_unix": 1792633751.385004
+}

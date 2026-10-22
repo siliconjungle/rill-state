@@ -1,0 +1,27 @@
+{
+  "library_source_commit": "e87002defc8ce59ab7a90ea9482893f057287926",
+  "test_source_commit": "4be1731572cdb0862e99005c55f53cfa7e55b625",
+  "library_sha256": "17e4b5d1b5978d7787de9968066fd546083db0611a0326b0213e73ff6d1a5896",
+  "test_sha256": "14c78d8abf6cd34616a99989e697316609f50f9e1776d2cbd5db649bcf15ed47",
+  "binary_sha256": "f14ad8996414b23776fb87062aab8918b1e14e9498c58c7ea1e72b005e5f1000",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "command": [
+    "rustc",
+    "--edition=2021",
+    "--test",
+    "tests/table_panic.rs",
+    "--cfg",
+    "feature=\"experimental\"",
+    "--extern",
+    "rill_state=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/librill_state-companion-v24.rlib",
+    "-L",
+    "dependency=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps",
+    "-C",
+    "debuginfo=0",
+    "-C",
+    "opt-level=0",
+    "-o",
+    "build/panic-companions-corrected-v25"
+  ],
+  "claim": "Corrected exhaustive fault injection against the frozen pre-fix optimized library; functional proof only"
+}

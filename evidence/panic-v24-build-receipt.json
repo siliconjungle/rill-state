@@ -1,0 +1,8 @@
+{
+  "source_commit": "98148ee1d66d67ad9e03cf27e97693e516495af8",
+  "source_sha256": "d2053f897be06aa37fd2b906215d2af41814d453bdc62b2ff08d6660ab34d4fe",
+  "test_sha256": "251defeb296daba40ed13da29710f1a7272223af47ee5cd740a7ad4ed0bcce98",
+  "binary_sha256": "8ffef19abdc40fe48771c8cbe344fef97987dd87229f203d143dca30ec6468fa",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "claim": "Pre-fix failing mutable-map panic-recovery proof, not a speed comparison"
+}

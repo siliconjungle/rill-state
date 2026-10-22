@@ -116,6 +116,22 @@
       }
     },
     {
+      "name": "pvec",
+      "version": "0.2.1",
+      "repository": "https://github.com/ArazAbishov/pvec-rs",
+      "description": "RRB-Tree based persistent vector implementation.",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/pvec/0.2.1/source/",
+      "published_checksum": "9c8a33f1001bd132cb71613d6c4160d90ae93e324c2ee1d863e462ea36033ca3",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "7824313cbc0be5fb6a8a1e60741c1a8cbf65eff62bbcf43c240304500ce85f19",
+        "Cargo.toml.orig": "61e1cfd99408efd52f6524c9c0a907c5f8847f1bccb0f0546464958c022c94c2",
+        "README.md": "f0d8455f7585a3b242f704c3904d2140415a33717bd6b28be89093a00e483903",
+        "src/lib.rs": "053a7c3880b2cb188c34591294482562168f57955b168ff214e3a55ebc8fd4db"
+      }
+    },
+    {
       "name": "arc-swap",
       "version": "1.9.3",
       "repository": "https://github.com/vorner/arc-swap",
@@ -311,6 +327,22 @@
       }
     },
     {
+      "name": "chashmap",
+      "version": "2.2.2",
+      "repository": "https://gitlab.redox-os.org/redox-os/chashmap",
+      "description": "Fast, concurrent hash maps with extensive API.",
+      "license": "MIT",
+      "source": "https://docs.rs/crate/chashmap/2.2.2/source/",
+      "published_checksum": "ff41a3c2c1e39921b9003de14bf0439c7b63a9039637c291e1a64925d8ddfa45",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "1b9c6efbcc3dddb27234bae51f37cd1bb7f144f71ffbd63e0efa1ceff913af8c",
+        "Cargo.toml.orig": "77bb82ba7420aedce76b2ec1728728cb77fa09745c0847ca0cd261ff2f97b103",
+        "README.md": "507190292b348685e23b6cd7a18164e59f8b95e1e5b94b50c432bf4e63e46a80",
+        "src/lib.rs": "9fdbc61194bb3c0e1341a5b06fa510e78342735fc3213fbe1858e76a8946f151"
+      }
+    },
+    {
       "name": "contrie",
       "version": "0.1.4",
       "repository": "https://github.com/vorner/contrie",
@@ -378,6 +410,22 @@
       }
     },
     {
+      "name": "mvcc-core",
+      "version": "0.1.0",
+      "repository": "https://github.com/danylokravchenko/mvcc",
+      "description": "Multi-version concurrency control for ordinary Rust structs. Add #[derive(Mvcc)] and get snapshot-isolated transactions with pluggable isolation levels.",
+      "license": "MIT OR Apache-2.0",
+      "source": "https://docs.rs/crate/mvcc-core/0.1.0/source/",
+      "published_checksum": "39fdb1d983e5dcb88197085e3aeb3cee2cbe983ea1e576e058a1d3a8d1e7b6dc",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "c4974443f929327eccc192c071c9f5ebd0c64b40606c097fb0a36a34b53a38f7",
+        "Cargo.toml.orig": "fe496121ae77ab810cac1a1cb7c14c73bc5416d41053d94610fec0e7f7e635f8",
+        "README.md": "1a529ad8976b2f6e5b910019a417559a3e0717996b531f167ab2d42c0ed916c5",
+        "src/lib.rs": "23007df0c4929f7bcf0a137a020bb9a26fd3722092b26cf16bf165499a9e66d0"
+      }
+    },
+    {
       "name": "boxcar",
       "version": "0.2.14",
       "repository": "https://github.com/ibraheemdev/boxcar",
@@ -425,6 +473,23 @@
         "README.md": "f002494bf69e5b7dde911cfdb99330dfdbc4780d79a8e51847dfb7d883d9ab0f",
         "src/lib.rs": "c8e2f1c0e488ab63d832392a83e34fa82293854bfb5ff3def8eeca9545ab2bdd",
         "src/map.rs": "3c02a5a60bf0caa5910a0b41165a84d85a91c6ba0e83426a090bb109a9e785fb"
+      }
+    },
+    {
+      "name": "ordermap",
+      "version": "1.2.2",
+      "repository": "https://github.com/indexmap-rs/ordermap",
+      "description": "A hash table with consistent order and fast iteration.",
+      "license": "Apache-2.0 OR MIT",
+      "source": "https://docs.rs/crate/ordermap/1.2.2/source/",
+      "published_checksum": "16a756ddcdeb6c0efc8927bdf0ed112885815a35ba350472a467be5104f01ca1",
+      "in_lock": true,
+      "audited_files_sha256": {
+        "Cargo.toml": "bb41b14486e3112ba1ad7e0532f80596ee712df99ac9e55f955097fd3115a844",
+        "Cargo.toml.orig": "1784f51b97acffca264651c466f7fb3ae758079dde0d36d888f7a575aa724371",
+        "README.md": "eca3606eddd2b13d3b38ec97f672effae9e4f905504a049bdf6d9407a64c56ff",
+        "src/lib.rs": "9c3b3620c0ff9339e67f8d80ddc92bfe38105992de6c635def168952ec3f5009",
+        "src/map.rs": "03a9e9ed1e289c1616700330096fa36002284cd8469c9d769534ac5dfa9b503f"
       }
     },
     {

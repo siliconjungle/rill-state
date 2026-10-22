@@ -1,0 +1,12 @@
+{
+  "source_commit": "5e8035a6495287226ed8c6cf634d37bc301b714f",
+  "source_sha256": "f555208a02fa501364e63d94615c327c172c4ec8357655764520f694460bca19",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "command": "RUSTUP_TOOLCHAIN=stable CARGO_BUILD_JOBS=2 cargo bench --locked --features comparisons --bench state --bench shapes --no-run --message-format=json",
+  "timing": "Completed scalar artifact frozen while independent generic compilation continues; subsequent timings are parallel selection only",
+  "producer_stdout": "evidence/build-v26.jsonl",
+  "completed_artifact_record_sha256": "5982f2ed55caf35d0d9724addf5a9f4da6b67fcd8b1f7c36ee9ef53d9f3332ee",
+  "binaries": {
+    "build/state-v26s": "b12ddc08442428ddcad02db314e164a8d5d857736086cf9c1a3797874eca7de2"
+  }
+}

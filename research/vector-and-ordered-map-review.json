@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "claim": "Exact published source capability review; neither package is measured or counted as beaten.",
+  "packages": [
+    {
+      "name": "pvec",
+      "version": "0.2.1",
+      "url": "https://static.crates.io/crates/pvec/pvec-0.2.1.crate",
+      "archive_sha256": "9c8a33f1001bd132cb71613d6c4160d90ae93e324c2ee1d863e462ea36033ca3",
+      "archive_bytes": 81453,
+      "audited_files_sha256": {
+        "Cargo.toml.orig": "61e1cfd99408efd52f6524c9c0a907c5f8847f1bccb0f0546464958c022c94c2",
+        "src/lib.rs": "053a7c3880b2cb188c34591294482562168f57955b168ff214e3a55ebc8fd4db",
+        "src/core/mod.rs": "c089a64ee747637ffcc529d22557639b1840e1580aaebd18d1d9c6e3121e72cc",
+        "src/core/sharedptr.rs": "992a4f34211bd7ca2e0d4aa2205ea8be5f1f0111e5140fd2cfeffc42f15b8767"
+      },
+      "branch_factors": {
+        "default": 32,
+        "small_branch": 4
+      }
+    },
+    {
+      "name": "ordermap",
+      "version": "1.2.2",
+      "url": "https://static.crates.io/crates/ordermap/ordermap-1.2.2.crate",
+      "archive_sha256": "16a756ddcdeb6c0efc8927bdf0ed112885815a35ba350472a467be5104f01ca1",
+      "archive_bytes": 70976,
+      "audited_files_sha256": {
+        "Cargo.toml.orig": "1784f51b97acffca264651c466f7fb3ae758079dde0d36d888f7a575aa724371",
+        "src/lib.rs": "9c3b3620c0ff9339e67f8d80ddc92bfe38105992de6c635def168952ec3f5009",
+        "src/map.rs": "03a9e9ed1e289c1616700330096fa36002284cd8469c9d769534ac5dfa9b503f"
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "name": "pvec",
+      "status": "source-reviewed-vector-adapter-pending",
+      "reason": "Persistent vector, not a complete key/value snapshot engine. Candidate backing for dense rows, with an explicit key index. Its arc feature is required for cross-thread retained views. First cloning a flat representation constructs a tree; account for conversion and compare tree-start mode as well. small_branch is a separate compile-time variation, requiring its own pinned binary and matched controls. Additional Debug bound must not narrow the generic row API without an explicit wrapper."
+    },
+    {
+      "name": "ordermap",
+      "status": "source-reviewed-wrapper-adapter-pending",
+      "reason": "Wrapper over IndexMap providing order-sensitive collection semantics. Clone delegates to the underlying IndexMap. Default remove uses shift removal, while explicit swap_remove delegates to IndexMap swap removal. Adapt actual OrderMap with native/fast builders and explicit removal policy; do not count it as an independent indexing algorithm or infer its measured speed from another crate."
+    }
+  ],
+  "retention": "Archives were inspected in memory and discarded; exact checksum, source paths and required reproduction URLs are retained.",
+  "current_admission": "admission.json is the current work queue. This earlier source review is preserved as the rationale; selected native API proofs and actual adapters now exist, but complete-engine performance is still pending."
+}

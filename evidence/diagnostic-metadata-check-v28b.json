@@ -1,0 +1,63 @@
+{
+  "claim": "Untimed type checking, not runtime validation or benchmark identity",
+  "correction": "Initial direct type-check staging selected a transitive hashbrown 0.16.1 artifact by target name. Select exact package_id versions 0.17.1/7.0.2/0.1.0; no candidate source or Cargo dependency was changed. The queued Cargo builds always resolve the lock directly.",
+  "package_ids": {
+    "hashbrown": "registry+https://github.com/rust-lang/crates.io-index#hashbrown@0.17.1",
+    "imbl": "registry+https://github.com/rust-lang/crates.io-index#imbl@7.0.2",
+    "rill_state": "path+file:///Users/james/Documents/ChatGPT/3d-modelling/rill-state#0.1.0"
+  },
+  "source_commit": "62c2b4421fe1f3e1196b4151c59029f61ab260e0",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "results": [
+    {
+      "example": "compact_conversion",
+      "command": [
+        "rustc",
+        "--edition=2021",
+        "--cfg",
+        "feature=\"comparisons\"",
+        "-C",
+        "debuginfo=0",
+        "--emit=metadata",
+        "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/examples/compact_conversion.rs",
+        "--extern",
+        "hashbrown=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libhashbrown-e01490636c17e30c.rlib",
+        "--extern",
+        "imbl=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libimbl-635408c1ddb3f838.rlib",
+        "--extern",
+        "rill_state=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librill_state-8c0e41f79e777bc4.rlib",
+        "-L",
+        "dependency=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps",
+        "-o",
+        "build/validation-compact_conversion-v28b.rmeta"
+      ],
+      "exit_code": 0,
+      "example_sha256": "a6dab58b795f38e5b7cd5e0c60a3f56feb2cd49d67758565a88bc151da4e40f6"
+    },
+    {
+      "example": "retention_profile",
+      "command": [
+        "rustc",
+        "--edition=2021",
+        "--cfg",
+        "feature=\"comparisons\"",
+        "-C",
+        "debuginfo=0",
+        "--emit=metadata",
+        "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/examples/retention_profile.rs",
+        "--extern",
+        "hashbrown=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libhashbrown-e01490636c17e30c.rlib",
+        "--extern",
+        "imbl=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/libimbl-635408c1ddb3f838.rlib",
+        "--extern",
+        "rill_state=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps/librill_state-8c0e41f79e777bc4.rlib",
+        "-L",
+        "dependency=/Users/james/Documents/ChatGPT/3d-modelling/rill-state/target/release/deps",
+        "-o",
+        "build/validation-retention_profile-v28b.rmeta"
+      ],
+      "exit_code": 0,
+      "example_sha256": "c30f3aad58933ea6206facc6d48ac99ee655e0913fa12a0d470cb11a875381ea"
+    }
+  ]
+}

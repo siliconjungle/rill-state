@@ -1,0 +1,9 @@
+{
+  "checked_at_utc": "2026-10-21T22:04:22.674907+00:00",
+  "policy_sha256": "9de6587d7c67582913e8b185ca495e99a05113c959f07da1c61a6677c7075b97",
+  "free_bytes": 51036319744,
+  "reserve_bytes": 100000000000,
+  "reserve_met": false,
+  "admission": "Required comparative validation continues under the declared policy; no optional experiments admitted by this task.",
+  "cleanup": "No other workers stopped and no protected inputs deleted. Shared target and exact frozen proof/measurement inputs remain retained."
+}

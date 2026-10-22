@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "mode": "thread",
+  "claim": "correctness",
+  "workers": 2,
+  "source_sha256": "4c19a3b6c61e03f247434c8d798773c8e681c7c48e5cf75c7dac186d5b3a6c73",
+  "source_commit": "97ebb071ef7318bb726c51d961460c388f7b973a",
+  "orchestrator_sha256": "8d3ebd2f3218f534bdb2fb9bf2cbca493b54a1eae60cac07d5d237c1a8963bff",
+  "binary_sha256": "204306112240a9b2e19629565838140a96d62d56432371c6b8416afd4a8361e9",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "engines": [
+    "scc-capture"
+  ],
+  "cases": [
+    "sparse",
+    "churn"
+  ],
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "records": 20000,
+  "readers": 20000,
+  "rounds": 16,
+  "repetitions": 1,
+  "tasks": 4,
+  "completed": 4,
+  "failures": 0,
+  "finished_at_unix": 1792615342.943873,
+  "output_agreement": true
+}

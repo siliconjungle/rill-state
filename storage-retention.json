@@ -77,12 +77,640 @@
     {
       "path": "build/publication-v6",
       "reason": "Selected native threaded publication capability proof executable, including failing baseline"
+    },
+    {
+      "path": "build/state-v7",
+      "reason": "Required strengthened snapshot-revision and empty-publication comparison proofs and development timing executable"
+    },
+    {
+      "path": "target",
+      "reason": "Active shared required build staging reused across all implementations; retire only after work is complete"
+    },
+    {
+      "path": "build/state-v9",
+      "reason": "Completed expanded exact proofs and selected inline development comparison"
+    },
+    {
+      "path": "build/state-v10",
+      "reason": "Selected bounded adapter diagnostics and follow-up full-size proof executable"
+    },
+    {
+      "path": "build/shapes-v10",
+      "reason": "Required generic key/payload correctness and performance comparison executable"
+    },
+    {
+      "path": "examples",
+      "reason": "Required native API mismatch/reclamation reproduction inputs"
+    },
+    {
+      "path": "build/state-v12",
+      "reason": "Selected Send+Sync checked snapshot adapters, native metadata counter reproduction and full-size proofs"
+    },
+    {
+      "path": "build/shapes-v12",
+      "reason": "Selected generic borrowed-key baseline, full-size shape and threaded correctness/performance reproduction"
+    },
+    {
+      "path": "build/state-v13",
+      "reason": "Required padding-free atomic adapter correction proofs; retains failed v12 comparison separately"
+    },
+    {
+      "path": "build/state-v14",
+      "reason": "Selected bounded-span lookup optimization correctness/performance input"
+    },
+    {
+      "path": "build/shapes-v14",
+      "reason": "Selected generic lookup optimization comparison executable"
+    },
+    {
+      "path": "build/shapes-v15",
+      "reason": "Selected fast-hasher persistent competitor breadth proof and performance reproduction executable"
+    },
+    {
+      "path": "build/shapes-v16",
+      "reason": "Required shared-record layout full-size proof, threaded and serial development comparison input"
+    },
+    {
+      "path": "build/state-v16",
+      "reason": "Required shared-record layout full-size proof, threaded and serial development comparison input"
+    },
+    {
+      "path": "build/scc-probe-v16",
+      "reason": "Required frozen native clone-chain/retirement mismatch reproduction across four bounded modes"
+    },
+    {
+      "path": "build/state-v17",
+      "reason": "Required native capacity-growth correction and corrected snapshot-adapter exact proofs"
+    },
+    {
+      "path": "build/scc-probe-v17",
+      "reason": "Required native capacity-growth correction and corrected snapshot-adapter exact proofs"
+    },
+    {
+      "path": "build/state-v18",
+      "reason": "Selected compact-record and mixed-size full-contract proofs and development comparison executable"
+    },
+    {
+      "path": "build/shapes-v18",
+      "reason": "Selected compact-record and mixed-size full-contract proofs and development comparison executable"
+    },
+    {
+      "path": "build/state-v19",
+      "reason": "Required independently retained native guarded-backend comparison proofs and timing input"
+    },
+    {
+      "path": "build/guarded-native-v18",
+      "reason": "Required frozen native retained-reader progress capability proof executable"
+    },
+    {
+      "path": "build/retention-v19",
+      "reason": "Required instrumented streaming payload ownership, stalled-reader and reclamation proof input"
+    },
+    {
+      "path": "build/state-v20",
+      "reason": "Selected array-page/key-policy full-contract proofs and development performance inputs"
+    },
+    {
+      "path": "build/shapes-v20",
+      "reason": "Selected array-page/key-policy full-contract proofs and development performance inputs"
+    },
+    {
+      "path": "build/retention-v20",
+      "reason": "Required array-page key-policy streaming payload ownership/reclamation proof executable"
+    },
+    {
+      "path": "build/state-v21",
+      "reason": "Required shared/inline hash-builder comparison executable and seeded-builder full-contract proofs"
+    },
+    {
+      "path": "build/shapes-v21",
+      "reason": "Required shared/inline hash-builder comparison executable and seeded-builder full-contract proofs"
+    },
+    {
+      "path": "build/state-v22",
+      "reason": "Required frozen contiguous-inline slice correctness, threaded-read and comparative development measurement input"
+    },
+    {
+      "path": "build/shapes-v22",
+      "reason": "Required frozen contiguous-inline slice correctness, threaded-read and comparative development measurement input"
+    },
+    {
+      "path": "build/retention-v22",
+      "reason": "Required frozen instrumented inline-slice retention/reclamation proof with all four fill thresholds and reference engines"
+    },
+    {
+      "path": "build/state-v23",
+      "reason": "Required frozen embedded-directory sharded-inline correctness, retention and comparative measurement input"
+    },
+    {
+      "path": "build/shapes-v23",
+      "reason": "Required frozen embedded-directory sharded-inline correctness, retention and comparative measurement input"
+    },
+    {
+      "path": "build/retention-v23",
+      "reason": "Required frozen embedded-directory sharded-inline correctness, retention and comparative measurement input"
+    },
+    {
+      "path": "build/state-v24",
+      "reason": "Required frozen strengthened standard/IndexMap control proofs and comparisons, retaining native-default and fast-builder settings"
+    },
+    {
+      "path": "build/shapes-v24",
+      "reason": "Required frozen strengthened standard/IndexMap control proofs and comparisons, retaining native-default and fast-builder settings"
+    },
+    {
+      "path": "build/panic-v24",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/panic-companions-corrected-v25",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/librill_state-companion-v24.rlib",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/state-v25",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/shapes-v25",
+      "reason": "Required negative/positive panic-recovery proof input or selected corrected benchmark executable"
+    },
+    {
+      "path": "build/retention-v26",
+      "reason": "Selected packed dense-row instrumented ownership/reclamation proof executable; all variants use the same build profile and inputs."
+    },
+    {
+      "path": "build/state-v26",
+      "reason": "Selected packed dense-row comparison executable for required correctness and performance measurements; retain exact source and build receipt."
+    },
+    {
+      "path": "build/shapes-v26",
+      "reason": "Selected packed dense-row comparison executable for required correctness and performance measurements; retain exact source and build receipt."
+    },
+    {
+      "path": "build/state-v26s",
+      "reason": "Early frozen completed scalar artifact used for required packed-policy proofs and selection; deduplicate with final v26 scalar binary after hash equality is established."
+    },
+    {
+      "path": "build/state-v27",
+      "reason": "Required adaptive-versus-wide index comparative proof and measurement input; retain exact build/source binding."
+    },
+    {
+      "path": "build/shapes-v27",
+      "reason": "Required adaptive-versus-wide index comparative proof and measurement input; retain exact build/source binding."
+    },
+    {
+      "path": "build/native-vector-map-proof-default-v2",
+      "reason": "Selected published-upstream native vector/map 20000-record retained-view, clone/pop-panic and reclamation proof; exact source/lock/build receipt retained."
+    },
+    {
+      "path": "build/native-vector-map-proof-small-v2",
+      "reason": "Selected published-upstream native vector/map 20000-record retained-view, clone/pop-panic and reclamation proof; exact source/lock/build receipt retained."
+    },
+    {
+      "path": "build/state-v28",
+      "reason": "Required native-root/upstream-adapter exact comparisons; branch32 and branch4 identities remain separate"
+    },
+    {
+      "path": "build/state-v29",
+      "reason": "Required native-root/upstream-adapter exact comparisons; branch32 and branch4 identities remain separate"
+    },
+    {
+      "path": "build/shapes-v28",
+      "reason": "Required native-root/upstream-adapter exact comparisons; branch32 and branch4 identities remain separate"
+    },
+    {
+      "path": "build/shapes-v29",
+      "reason": "Required native-root/upstream-adapter exact comparisons; branch32 and branch4 identities remain separate"
+    },
+    {
+      "path": "build/compact-conversion-v28c",
+      "reason": "Required timed index-width conversion or instrumented retained-payload proof; source and exact build receipts retained"
+    },
+    {
+      "path": "build/retention-profile-v28c",
+      "reason": "Required timed index-width conversion or instrumented retained-payload proof; source and exact build receipts retained"
+    },
+    {
+      "path": "build/group-byte-index-unit-v1",
+      "reason": "Selected generic grouped-control raw-map mask, model, failure/reclamation and 20k threaded proof executable"
+    },
+    {
+      "path": "build/group-byte-index-contracts-v1",
+      "reason": "Selected generic grouped-control raw-map mask, model, failure/reclamation and 20k threaded proof executable"
+    },
+    {
+      "path": "build/group-byte-point-v1",
+      "reason": "Selected raw getter comparison reproducibility baseline across all 28 fixed policies/controls; not complete engine admission"
+    },
+    {
+      "path": "build/state-v30",
+      "reason": "Selected adaptive scalar comparison executable; exact source/compiler/flags and full traces retained"
+    },
+    {
+      "path": "build/shapes-v30",
+      "reason": "Selected adaptive generic comparison executable over original shared harness"
+    },
+    {
+      "path": "build/adaptive-contracts-v1",
+      "reason": "Selected 144-policy model, identity, conversion-failure and actual-reader proof executable"
+    },
+    {
+      "path": "build/adaptive-cold-v30d",
+      "reason": "Selected required cold/first-use and repeated transition diagnostic, with all trace inputs and source receipts retained"
+    },
+    {
+      "path": "build/retention-profile-v30d",
+      "reason": "Selected required adaptive traversal-cache ownership/reclamation probe; streaming inputs and clone counters retained"
+    },
+    {
+      "path": "build/adaptive-cold-v30smoke",
+      "reason": "Useful exact smoke correctness proof, built from committed examples with completed source-bound library artifacts. No speed evidence."
+    },
+    {
+      "path": "build/retention-profile-v30smoke",
+      "reason": "Useful exact smoke correctness proof, built from committed examples with completed source-bound library artifacts. No speed evidence."
+    },
+    {
+      "path": "build/state-v31admit",
+      "reason": "Required actual CHashMap/Crossbeam scalar snapshot/feed admission and selected comparison executable; exact source/compiler/dependency/flags retained."
+    },
+    {
+      "path": "build/adaptive-contracts-v2",
+      "reason": "Selected required 240-policy collision/canonical/snapshot and Arc-preserving transition failure/clone/reclamation/thread proof executable."
+    },
+    {
+      "path": "build/adaptive-cold-v32t",
+      "reason": "Selected required frozen copying-versus-shared-record-transfer diagnostic and reclamation baseline; exact source, compiler, binary and inputs retained in build receipts."
+    },
+    {
+      "path": "build/retention-profile-v32t",
+      "reason": "Selected required frozen copying-versus-shared-record-transfer diagnostic and reclamation baseline; exact source, compiler, binary and inputs retained in build receipts."
+    },
+    {
+      "path": "build/native-mvcc-contracts-v1",
+      "reason": "Selected exact frozen actual MVCC competitor capability proof; source/lock/compiler/binary/log bindings retained."
+    },
+    {
+      "path": "build/state-v33t",
+      "reason": "Selected required matched whole-engine immutable-record transfer and copying-control baseline with exact original scalar/generic/full-value/revision/feed/threaded proofs."
+    },
+    {
+      "path": "build/shapes-v33t",
+      "reason": "Selected required matched whole-engine immutable-record transfer and copying-control baseline with exact original scalar/generic/full-value/revision/feed/threaded proofs."
+    },
+    {
+      "path": "build/native-mvcc-contracts-v2",
+      "reason": "Selected required 20,000 native reader-session capacity/retained-value proof; four real reader threads, distinct native transactions, no sockets or speed claim."
+    },
+    {
+      "path": "build/state-v34m2",
+      "reason": "Selected required native/scoped/export scalar baseline with metadata-only empty revisions and exact matched controls; eight fixed configurations of one actual upstream crate."
+    },
+    {
+      "path": "build/adaptive-contracts-v3",
+      "reason": "Selected required fixed traversal-ordering proof/diagnostic baseline; preserves copying, transfer, unsorted and external controls with committed input/compiler/binary bindings."
+    },
+    {
+      "path": "build/adaptive-cold-v35o",
+      "reason": "Selected required fixed traversal-ordering proof/diagnostic baseline; preserves copying, transfer, unsorted and external controls with committed input/compiler/binary bindings."
+    },
+    {
+      "path": "build/retention-profile-v35o",
+      "reason": "Selected required fixed traversal-ordering proof/diagnostic baseline; preserves copying, transfer, unsorted and external controls with committed input/compiler/binary bindings."
+    },
+    {
+      "path": "build/state-v36o",
+      "reason": "Selected required whole-engine fixed traversal-order panel, preserving original forty policies and thirteen matched references plus thirty-two ordering configurations, exact scalar/generic/revision/feed/threaded proofs."
+    },
+    {
+      "path": "build/shapes-v36o",
+      "reason": "Selected required whole-engine fixed traversal-order panel, preserving original forty policies and thirteen matched references plus thirty-two ordering configurations, exact scalar/generic/revision/feed/threaded proofs."
     }
   ],
   "safe_to_remove": [
     {
       "path": "build/state-v3",
       "reason": "Completed unmeasured intermediate; source revision and successful correctness log retained in Git, not selected as a measurement baseline"
+    },
+    {
+      "path": "build/pr-body.md",
+      "reason": "Completed PR creation input; exact published PR body is retained on GitHub and the required source and proofs are committed"
+    },
+    {
+      "path": "build/state-v8",
+      "reason": "Interrupted run superseded by full v9 exact proofs on all non-stalled configurations; source and interrupted receipts are retained in Git"
+    },
+    {
+      "path": "evidence/build-v11.log",
+      "reason": "Completed unselected compile staging log superseded by retained v12/v14 build logs and exact proof inputs; no active build owns this path."
+    },
+    {
+      "path": "evidence/build-v15.jsonl",
+      "reason": "Completed superseded failed compile staging; corrected explicit hasher source committed and successful build retained"
+    },
+    {
+      "path": "evidence/build-v15.log",
+      "reason": "Completed superseded failed compile staging; corrected explicit hasher source committed and successful build retained"
+    },
+    {
+      "path": "build/pr-body-v15.md",
+      "reason": "Completed successful PR update input; published body is retained on GitHub"
+    },
+    {
+      "path": "build/state-v15",
+      "reason": "Completed unmeasured scalar compile intermediate; v16 supersedes it for actual strengthened full-size proofs. Exact source remains in Git and successful build metadata is retained."
+    },
+    {
+      "path": "evidence/scc-clone-chain-v16.log",
+      "reason": "Completed initial unbound native observation superseded by exact frozen four-mode failure receipts and capacity/root-cause proof; full selected failure evidence is retained."
+    },
+    {
+      "path": "build/pr-body-v17.md",
+      "reason": "Completed successful public PR body update input; exact published text is retained on GitHub"
+    },
+    {
+      "path": "evidence/build-v18.jsonl",
+      "reason": "Completed unmeasured precursor build superseded by canonical-key-correct v18b build; source history retained."
+    },
+    {
+      "path": "evidence/build-v18.log",
+      "reason": "Completed unmeasured precursor build superseded by canonical-key-correct v18b build; source history retained."
+    },
+    {
+      "path": "evidence/build-v19.jsonl",
+      "reason": "Completed unmeasured compile staging superseded by successful public evmap handles re-export build; exact corrected source is committed."
+    },
+    {
+      "path": "evidence/build-v19.log",
+      "reason": "Completed unmeasured compile staging superseded by successful public evmap handles re-export build; exact corrected source is committed."
+    },
+    {
+      "path": "evidence/build-v19b.jsonl",
+      "reason": "Completed unmeasured compile staging superseded by successful public evmap handles re-export build; exact corrected source is committed."
+    },
+    {
+      "path": "evidence/build-v19b.log",
+      "reason": "Completed unmeasured compile staging superseded by successful public evmap handles re-export build; exact corrected source is committed."
+    },
+    {
+      "path": "evidence/retention-build-v19.log",
+      "reason": "Completed unselected build before value-layout metadata; final build log and frozen source/binary receipt supersede it."
+    },
+    {
+      "path": "build/pr-body-v19.md",
+      "reason": "Completed successful public PR update input; exact published text is retained on GitHub."
+    },
+    {
+      "path": "evidence/build-v20.jsonl",
+      "reason": "Completed unmeasured precursor superseded by final checked layout/reincarnation proof build and logs; exact source history retained."
+    },
+    {
+      "path": "evidence/build-v20.log",
+      "reason": "Completed unmeasured precursor superseded by final checked layout/reincarnation proof build and logs; exact source history retained."
+    },
+    {
+      "path": "evidence/tests-v20-initial.log",
+      "reason": "Completed unmeasured precursor superseded by final checked layout/reincarnation proof build and logs; exact source history retained."
+    },
+    {
+      "path": "evidence/clippy-v21.log",
+      "reason": "Completed unselected lint staging superseded by successful factored-marker clippy proof; source history and successful log retained."
+    },
+    {
+      "path": "build/panic-companions-v25",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/panic-companions-build-v25.jsonl",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/panic-companions-build-v25.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/panic-companions-v25-build-receipt.json",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/panic-companions-v25-failures.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/tests-v25b.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/clippy-v25b.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/tests-v25c.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/clippy-v25c.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/tests-v25d.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "evidence/clippy-v25d.log",
+      "reason": "Completed staging superseded by corrected exhaustive fault injection and final v25e positive validation; one original paged probe assumed collision order. Source history and selected corrected proofs remain retained."
+    },
+    {
+      "path": "build/pr-body-v25.md",
+      "reason": "Completed and confirmed public PR update; published text retained on GitHub, no active owner."
+    },
+    {
+      "path": "evidence/clippy-v26.log",
+      "reason": "Completed initial all-target check superseded by successful v26b check including the added retention adapters and final code commit."
+    },
+    {
+      "path": "evidence/retention-v26-small/receipt.json",
+      "reason": "Terminal invalid-setup staging (no measurements): all 48 invocations rejected insufficient trace coverage. Retained correction contains exact original receipt and one complete reproduction; corrected 120-case proofs supersede duplicate errors."
+    },
+    {
+      "path": "evidence/retention-v26-small/runs.jsonl",
+      "reason": "Terminal invalid-setup staging (no measurements): all 48 invocations rejected insufficient trace coverage. Retained correction contains exact original receipt and one complete reproduction; corrected 120-case proofs supersede duplicate errors."
+    },
+    {
+      "path": "evidence/retention-v26-small/errors.json",
+      "reason": "Terminal invalid-setup staging (no measurements): all 48 invocations rejected insufficient trace coverage. Retained correction contains exact original receipt and one complete reproduction; corrected 120-case proofs supersede duplicate errors."
+    },
+    {
+      "path": "evidence/retention-v26-small",
+      "reason": "Terminal invalid-setup staging (no measurements): all 48 invocations rejected insufficient trace coverage. Retained correction contains exact original receipt and one complete reproduction; corrected 120-case proofs supersede duplicate errors."
+    },
+    {
+      "path": "build/pr-body-v26.md",
+      "reason": "Completed and confirmed public packed-map research PR update; exact published text retained on GitHub."
+    },
+    {
+      "path": "evidence/tests-v27-initial.log",
+      "reason": "Completed unselected validation staging superseded by final 85-test v27d proof and all-target lint. The first full launch had a test-helper generic-argument compile error; no engine failure or timing is inferred."
+    },
+    {
+      "path": "evidence/tests-v27.log",
+      "reason": "Completed unselected validation staging superseded by final 85-test v27d proof and all-target lint. The first full launch had a test-helper generic-argument compile error; no engine failure or timing is inferred."
+    },
+    {
+      "path": "evidence/tests-v27b.log",
+      "reason": "Completed unselected validation staging superseded by final 85-test v27d proof and all-target lint. The first full launch had a test-helper generic-argument compile error; no engine failure or timing is inferred."
+    },
+    {
+      "path": "evidence/tests-v27c.log",
+      "reason": "Completed unselected validation staging superseded by final 85-test v27d proof and all-target lint. The first full launch had a test-helper generic-argument compile error; no engine failure or timing is inferred."
+    },
+    {
+      "path": "/tmp/rill-state-v25-stages.json",
+      "reason": "Completed dry-run display only; immutable plans and exact actual receipts retain the reproduction inputs."
+    },
+    {
+      "path": "/tmp/rill-state-v26-stages.json",
+      "reason": "Completed dry-run display only; immutable plans and exact actual receipts retain the reproduction inputs."
+    },
+    {
+      "path": "build/pr-body-v27.md",
+      "reason": "Completed and confirmed public research PR update; exact published text retained on GitHub."
+    },
+    {
+      "path": "build/native-vector-map-proof-default",
+      "reason": "Superseded by stronger selected v2 native API proof; exact v2 source, lock, executable and receipts retained"
+    },
+    {
+      "path": "build/native-vector-map-proof-small",
+      "reason": "Superseded by stronger selected v2 native API proof; exact v2 source, lock, executable and receipts retained"
+    },
+    {
+      "path": "evidence/diagnostic-metadata-check-v28.json",
+      "reason": "Completed direct metadata-check staging. Exact corrected package identities and successful source/command receipt are retained; normal Cargo builds resolve the pinned lock directly."
+    },
+    {
+      "path": "evidence/check-compact_conversion-v28.log",
+      "reason": "Completed direct metadata-check staging. Exact corrected package identities and successful source/command receipt are retained; normal Cargo builds resolve the pinned lock directly."
+    },
+    {
+      "path": "build/validation-compact_conversion-v28b.rmeta",
+      "reason": "Completed direct metadata-check staging. Exact corrected package identities and successful source/command receipt are retained; normal Cargo builds resolve the pinned lock directly."
+    },
+    {
+      "path": "build/validation-retention_profile-v28b.rmeta",
+      "reason": "Completed direct metadata-check staging. Exact corrected package identities and successful source/command receipt are retained; normal Cargo builds resolve the pinned lock directly."
+    },
+    {
+      "path": "evidence/adaptive-tests-initial.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-tests-v2.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-tests-v3.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-tests-v4.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-tests-v5.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-clippy-v1.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-clippy-v2.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-clippy-v3.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-bench-clippy-v1.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-core-tests-final.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-clippy-final.log",
+      "reason": "Completed intermediate compile/lint/model validation, superseded by selected final v30 proofs and exact committed reproduction inputs; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/adaptive-diagnostics-clippy-v1.log",
+      "reason": "Completed intermediate diagnostic compile/lint attempt, superseded by committed v3 diagnostic Clippy log and exact passing executable-bound smoke cohorts. No unique required behavioral proof."
+    },
+    {
+      "path": "evidence/adaptive-diagnostics-clippy-v2.log",
+      "reason": "Completed intermediate diagnostic compile/lint attempt, superseded by committed v3 diagnostic Clippy log and exact passing executable-bound smoke cohorts. No unique required behavioral proof."
+    },
+    {
+      "path": "evidence/adaptive-retention-clippy.log",
+      "reason": "Completed intermediate diagnostic compile/lint attempt, superseded by committed v3 diagnostic Clippy log and exact passing executable-bound smoke cohorts. No unique required behavioral proof."
+    },
+    {
+      "path": "evidence/admission-clippy-v1.log",
+      "reason": "Completed initial lint pass superseded by selected v2 check of the formatted adapter source; no unique required failure or proof."
+    },
+    {
+      "path": "evidence/shared-transition-tests-v1.log",
+      "reason": "Completed intermediate test passes superseded by selected final 100-test core run and exact frozen 240-policy proof; no unique failure."
+    },
+    {
+      "path": "evidence/shared-transition-tests-v2.log",
+      "reason": "Completed intermediate test passes superseded by selected final 100-test core run and exact frozen 240-policy proof; no unique failure."
+    },
+    {
+      "path": "evidence/native-mvcc-capability-v1.log",
+      "reason": "Completed initial native three-test validation superseded by the exact selected frozen executable receipt and proof log; no unique behavioral failure."
+    },
+    {
+      "path": "evidence/native-mvcc-adapter-clippy-v1.log",
+      "reason": "Completed intermediate adapter lint superseded by final all-target native/admission Clippy and exact committed source; no unique behavioral failure."
+    },
+    {
+      "path": "build/state-v34mvcc",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/build-v34mvcc-progress.json",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/build-v34mvcc-receipt.json",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/build-v34mvcc.jsonl",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/build-v34mvcc.log",
+      "reason": "Completed unselected generated build before any runtime proof or timing. Superseded by v34m2 metadata-only empty-revision adapter; exact prior source and plan retained in Git."
+    },
+    {
+      "path": "evidence/address-order-core-tests.log",
+      "reason": "Completed initial compile-only attempt with ambiguous trait S inference. No runtime test or timing occurred; superseded by explicit trait qualification and selected final proof inputs."
+    },
+    {
+      "path": "evidence/address-order-core-tests-v2.log",
+      "reason": "Completed intermediate validation superseded by final 102-test run, final all-target lint and selected source-bound 432-policy frozen proof; no unique runtime failure."
+    },
+    {
+      "path": "evidence/address-order-all-target-clippy.log",
+      "reason": "Completed intermediate validation superseded by final 102-test run, final all-target lint and selected source-bound 432-policy frozen proof; no unique runtime failure."
     }
   ]
 }

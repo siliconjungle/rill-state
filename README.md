@@ -72,3 +72,166 @@ version) for reproducibility. No nightly feature bypass is used in the admitted 
 
 MIT OR Apache-2.0 for this project's original code; comparison dependencies retain their
 own licenses. This repository is a source release, not a crates.io publication.
+
+
+The opt-in `experimental` feature contains generic linear/split/shared-record/compact-record COW-page map research
+APIs. They are not the selected default backend. The comparison suite also exercises
+String keys, owned and shared payloads, missing queries and concurrent retained-view
+reads. No performance admission follows merely from passing a small shape test.
+
+The shared-record experimental layouts retain keys and values behind independent
+Arcs, so copying a page shares untouched String/Vec allocations. This helps some
+heap-value publication workloads, but adds pointer reads and allocations; it does
+not improve every shape. The default Store has not switched to this prototype.
+
+Fixed-size `ArrayRecordMap` pages additionally compare copied/shared canonical
+keys and shared/inline hash-builder storage. Eighty-five contract/oracle tests and
+Clippy pass. Full-size state/feed proofs and retained-reader probes pass for the
+registered array configurations, followed by 11,082 matching-output serial
+development runs. These layouts still lose important workloads to hashbrown.
+The instrumented retention study releases every tracked payload after its final
+owner is dropped. Payload accounting is not total heap usage or a speed result.
+
+`InlineSliceMap` is a further experimental layout: one contiguous COW slice with
+inline keys/values, a nonzero cached-hash niche and no per-record allocation.
+Sixteen configurations compare fill thresholds, read probing and builder storage.
+Its core behavior tests pass, as do 2,528 small and 2,528 full-size scalar/generic
+checks and 512 four-reader probes. Its serial development sweep completed 10,902
+processes with matching outputs. A fixed layout improves scalar read medians
+but loses 59 of 64 generic cases to hashbrown; no overall winner is selected.
+Streaming probes across four representative configurations reclaim
+all payloads, but retain much more owned payload data than the paged layouts.
+
+`ShardedInlineMap` embeds a fixed table directory and copies only touched inline
+tables on writes. Eighty configurations compare directory sizes, maximum fills,
+builder storage and per-operation/grouped batching. Grouping includes hashing,
+stable counting/scattering and scratch allocation costs. Its core checks pass;
+the original sweep passed 27,840 small/full/threaded proof processes. A corrected
+executable with the stronger oracle is undergoing fresh proofs and comparison.
+No speed improvement is claimed yet.
+Interrupted clones, growth and destructors now preserve usable mutable maps;
+staging is still required for atomic batches. The proof harness checks complete
+borrowed payloads, unique iteration and every model key without cloning values.
+
+`PackedIndexMap` is another opt-in experiment: complete K/V rows in dense storage,
+with cached 32-bit hashes and row indices packed into 8-byte probing words.
+Sixteen configurations vary fill, builder storage and lazy/once-per-batch COW.
+Complete keys still determine equality. Hash truncation, explicit 32-bit index
+limits and whole-table copying are documented tradeoffs. Collision, canonical-key,
+swap-removal, retention and panic-recovery checks pass. Comparative performance
+and full-size contracts for this new family remain unproven.
+
+`CompactIndexMap` tests adaptive four/eight-byte controls against an always-wide
+control using the same dense-row implementation. Thirty-two configurations vary
+width policy, fill, builder storage and batching. Widening stages reconstruction
+hashes before changing the installed index; recovery tests retain old roots and
+continue past 100,000 rows. Local validation and 6,952 small exact proof processes pass. Parallel selection
+still shows substantial lookup losses; full-size and four-reader contracts pass (11,608 exact processes total).
+Serial and final performance admission remain pending. Its plan includes
+explicit conversion timing and keeps whole-table payload retention visible.
+
+Default study lists omit the known investigative `scc-copy` native Clone chain,
+whose capacity doubles with each copy in pinned scc 3.8.8. It is not counted as a
+performance win or silently removed from the admission queue. A bounded native
+reproduction is `cargo run --locked --release --features comparisons --example
+scc_probe -- --capacity-only`; `--by-len` checks the corrected allocation strategy.
+The explicit `scc-capture` comparison uses live record count and remains subject
+to full contract proof. Study deadlines apply to an invocation's own process group
+so an expired time wrapper cannot leave an unobserved candidate running.
+
+Compact `RecordMap` experiments put key and value in one immutable allocation,
+while preserving canonical stored-key metadata on replacement. The generic
+comparison now includes mixed String lengths and mixed owned/shared payload
+lengths. These extensions do not select a new default or establish superiority.
+
+For instrumented ownership/reclamation evidence, `examples/retention_profile.rs`
+streams batches without retaining future payload inputs, checks old snapshot
+contents and releases the pinned root, recent views and store in stages. Its
+counters cover owned payload lengths and Value instances, not total heap usage
+or speed; `tools/retention_study.py` records 0/16/64-view windows and verifies exact
+journal holdings. Run with `--features comparisons`; source/binary receipts and
+all full-size cells are retained under `evidence/retention-v19-20k`.
+
+The current comparison prototype also tests direct backend snapshot ownership
+against an extra Arc envelope, uniformly for both experimental maps and upstream
+persistent maps. Twenty-five native ownership variants retain their matched Arc
+controls. Actual PVec vector/index and OrderMap adapters are included; branch32
+and branch4 require separate frozen binaries. Native API and collision/model
+checks pass. Both branch panels complete 10,902 small proofs and 10,902 parallel
+selection processes, plus their selected 1,650-process full-size scalar proofs.
+Lookup and acquisition losses remain. Both branches complete all 10,670 selected full-size
+and threaded proof processes each.
+Neither the default Store nor the final acceptance gate
+has changed.
+
+A separate safe grouped-byte prototype under `research/group-byte-index-proof`
+passes its raw-map/model/recovery/threading checks and completes a 336-process
+getter baseline against actual std/hashbrown controls. It still loses important
+String cases and has no complete revision/feed admission. It remains research,
+with selected source, binaries and reproducibility evidence retained.
+
+`AdaptiveMap` is a further opt-in experiment combining direct flat or shared-record
+flat storage with paged immutable records. Fixed policies use submitted batch
+density, a consecutive-batch threshold and an optional needs_drop heuristic.
+Both one-way and large-batch-reset policies are registered. Shared traversal
+caches retain record handles, preserving the same value instances as lookup and
+cloning no payloads on reads. Shared cache-disabled controls expose the allocation
+and indirection tradeoffs. `ReuseSharedFlat` additionally transfers immutable
+records between layouts without cloning unchanged payloads, while retaining the
+copying controls. The local suite passes 102 tests, including fifteen adaptive
+checks over all 432 raw policies. Matched development measurements show faster
+conversions and slower subsequent scans in some cells; no final speed admission
+has passed. A dedicated 300-engine development panel (288
+builder/configuration variants plus 12 fixed controls) has frozen optimized
+executables and passes 47,400 independently audited small scalar/generic proofs
+and 1,080 selected full-size scalar proofs.
+The complete original scalar/generic development screen passes all 47,400
+matching-output processes. Across both layers, no fixed adaptive configuration
+has a lower median than hashbrown in all 79 cells. Parallel selection does not
+establish an isolated performance result.
+Separate correctness-only diagnostics pass 360 cold and 312 retention processes
+at 20,000 records; 568 smaller cold/retention processes also pass. Their timings
+are excluded from rankings. The optimized original diagnostic panel completes
+2,520 cold and 312 retention processes. Matched copying-versus-transfer studies
+are registered separately; their comparative results remain pending. Remaining
+generic/full-size/threaded engine checks are tracked in `research/results.md`.
+Performance admission remains open and the selected Store backend is unchanged.
+
+The shared-record transfer diagnostics pass 456 cold and 272 memory smoke
+processes with independent tuple, checksum, cache and reclamation audits. The
+matched 3,192-process full-size cold cohort and all 408 memory cases pass exact
+audits. The selected fixed-payload cell removes 20,000 conversion clones and
+lowers peak tracked payload bytes, while scan regressions remain visible. A further 53-engine
+whole-contract panel registers forty fixed copying/transfer/inline variants
+and thirteen references over the original scalar and eight generic shapes.
+Its frozen targets pass 8,374 small proofs and 8,374 matching-output parallel
+comparisons, plus 1,590 full-size scalar proofs. Generic/full-size/threaded
+proofs and speed admission remain pending.
+
+Actual `mvcc-core` capability probes pass retained full-value model checks and
+20,000 simultaneously retained reader sessions across four owning threads,
+with sampled per-session old values and full first/last session checks.
+Compiler checks prove its
+transactions cannot move or be shared across threads on the pinned version.
+Native scoped reads and explicit transferable exports therefore need distinct
+adapters. Its actual 22-engine scalar panel passes 1,408 small/full-size/threaded
+proofs, eight edge probes and 660 matching-output development selections. Native
+transaction and transferable-export costs stay explicit. Generic payload, native
+reclamation and isolated/final performance admission remain pending.
+
+`AddressOrderedFlat` is a further opt-in traversal experiment. Four fixed modes
+compare exact record addresses and 4096-byte address buckets, each with copying
+and record reuse. Sorting runs while the second-scan cache is built and retains
+the canonical key/value instances; lookup still uses complete key equality.
+The selected frozen raw proof covers all 432 policies and nine representative
+flat/paged cache modes with four real readers over 20,000 records. Comparative
+speed and complete-engine admission for these new modes remain pending.
+
+The ordered-cache smoke cohort passes all 840 cold and 400 memory processes,
+including independent full-value/checksum/cache and reclamation audits. The
+5,880-process full-size cold and 600-case memory studies are running. A separate
+85-configuration whole-engine panel includes all forty original fixed policies,
+thirty-two ordering variants and thirteen references; its 13,430 small scalar/generic proofs pass, while full-size/four-reader proofs
+and development comparisons remain in progress. Public API
+promotion still requires the [contract coverage checks](research/contract-coverage.md)
+and unchanged final performance gate.

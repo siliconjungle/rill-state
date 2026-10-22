@@ -11,7 +11,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
         with:
           toolchain: ${{ matrix.rust }}
-      - run: cargo test --locked --no-default-features
+      - run: cargo test --locked --no-default-features --features experimental
       - run: cargo doc --locked --no-default-features --no-deps
   comparisons:
     runs-on: ubuntu-latest
@@ -19,10 +19,22 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
       - run: cargo fmt --all --check
+      - run: cargo clippy --locked --all-targets --features comparisons -- -D warnings
+      - name: Vector adapter collisions, canonical keys, deletions and old views
+        run: |
+          cargo test --locked --features comparisons --test vector_adapter
+          cargo test --locked --features pvec-small-branch --test vector_adapter
+      - name: Grouped-byte prototype contracts and raw-getter smoke (no speed claims)
+        run: |
+          cargo test --locked --manifest-path research/group-byte-index-proof/Cargo.toml
+          cargo clippy --locked --all-targets --manifest-path research/group-byte-index-proof/Cargo.toml -- -D warnings
+          for engine in group-fast-70-8 group-sip-50-16 std-fast hashbrown; do
+            cargo bench --locked --manifest-path research/group-byte-index-proof/Cargo.toml --bench point -- --engine "$engine" --shape string-inline --case miss50 --records 1000 --readers 1000 --rounds 2
+          done
       - run: cargo bench --locked --features comparisons --no-run
       - name: Exact comparator behavior (no speed claims from shared CI)
         run: |
-          for engine in rill-4096-64 rillfast-4096-64 imbl-hash imhm rpds-hash hashbrown chunkbatch-16 vart skipdb mvcc-16; do
+          for engine in native-compact-adaptive-owned-once-70 native-packed-owned-once-70 native-inline-owned-index-25 native-imbl-fast native-rpds-fast ordermap-swap-fast ordermap-shift-fast vector-flat-fast vector-tree-fast vector-rrb-fast vector-rb-fast vector-cowvec-fast compact-adaptive-owned-once-70 compact-wide-shared-each-25 packed-shared-each-25 packed-owned-once-70 std-fast indexmap-fast shard-shared-each-25-16 shard-owned-group-70-1024 rill-4096-64 rillfast-4096-64 probe-70-0 probe-70-64 shared-70-0 shared-70-16 shared-85-256 record-50-0 record-70-16 record-85-256 array-copy-25-16 array-copy-70-1024 array-shared-70-64 inline-shared-span-25 inline-shared-index-50 inline-owned-span-70 inline-owned-index-85 split-70 contrie-copy leapfrog-copy scc-capture flashmap-copy evmap-copy left-right-copy imbl-hash imbl-fast im-fast imhm rpds-hash rpds-fast hashbrown chunkbatch-16 vart skipdb mvcc-16; do
             cargo bench --locked --features comparisons --bench state -- --engine "$engine" --case churn --records 2000 --readers 2000 --rounds 12 --verify
           done
       - name: Concurrent publication contracts
@@ -33,3 +45,26 @@ jobs:
       - name: Investigative SwapArc baseline (known arm64 freshness failure retained)
         continue-on-error: true
         run: cargo bench --locked --features comparisons --bench publication -- --engine swap-arc --threads 8 --rounds 32 --verify
+      - name: Generic key and payload shapes
+        run: |
+          for engine in native-compact-adaptive-owned-once-70 native-imbl-fast ordermap-swap-fast ordermap-shift-fast vector-tree-fast vector-cowvec-fast compact-adaptive-owned-once-70 compact-wide-shared-each-25 packed-shared-each-25 packed-owned-once-70 std-hash std-fast std-btree indexmap indexmap-fast shard-shared-each-25-16 shard-owned-group-70-1024 hashbrown imbl-fast im-fast rpds-fast imhm probe-flat probe-paged16 shared-flat shared-paged16 record-flat record-paged16 array-copy16 array-shared64 inline-shared-span-25 inline-shared-index-50 inline-owned-span-70 inline-owned-index-85 split rillfast; do
+            for shape in u64-inline string-inline u64-owned256 string-owned256 u64-shared256 string-shared256 mixed-owned mixed-shared; do
+              cargo bench --locked --features comparisons --bench shapes -- --engine "$engine" --shape "$shape" --case churn --records 1000 --readers 1000 --rounds 6 --verify
+            done
+          done
+      - name: Streaming payload reclamation contracts (instrumented, not timings)
+        run: |
+          for engine in packed-shared-each-25 packed-owned-each-85 hashbrown imbl-fast shared-paged16 record-paged16 array-copy16 array-shared16 rillfast; do
+            cargo run --locked --release --features comparisons --example retention_profile -- --engine "$engine" --records 2000 --changed 20 --rounds 256 --window 16 --pin-initial true --mixed true
+          done
+      - name: Native guarded-reader progress contracts
+        run: cargo run --locked --release --features comparisons --example guarded_retention
+      - name: Native SCC capacity-growth reproduction and live-count correction
+        run: |
+          cargo run --locked --release --features comparisons --example scc_probe -- --capacity-only
+          cargo run --locked --release --features comparisons --example scc_probe -- --by-len
+      - name: Concurrent retained generic views
+        run: |
+          for engine in compact-adaptive-owned-once-70 compact-wide-shared-each-25 packed-shared-each-25 packed-owned-once-70 hashbrown imbl-fast rpds-fast probe-paged16 shared-paged16 record-paged16 array-copy16 array-shared16 inline-shared-span-25 inline-owned-index-85 rillfast; do
+            cargo bench --locked --features comparisons --bench shapes -- --engine "$engine" --shape string-owned256 --case sparse --records 1000 --readers 2000 --rounds 6 --thread-check
+          done

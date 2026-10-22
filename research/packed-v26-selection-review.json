@@ -1,0 +1,425 @@
+{
+  "claim": "Parallel development selection medians only. Required proof/compilation work overlapped; no isolated speed, confidence or final acceptance claim.",
+  "complete_raw_controls_retained": true,
+  "comparisons": [
+    {
+      "folder": "evidence/state-v26s-screen",
+      "source_commit": "5e8035a6495287226ed8c6cf634d37bc301b714f",
+      "binary_sha256": "b12ddc08442428ddcad02db314e164a8d5d857736086cf9c1a3797874eca7de2",
+      "runs_sha256": "27f971c2b0cb05c096c193c8baa70ee6d9222e5d063d221e42ed56561f43bcbd",
+      "candidate": "packed-owned-once-70",
+      "reference": "hashbrown",
+      "lower_medians": 3,
+      "higher_medians": 12,
+      "cells": [
+        {
+          "shape": "u64-inline",
+          "case": "acquire",
+          "ratio": 0.9562579149624855
+        },
+        {
+          "shape": "u64-inline",
+          "case": "burst",
+          "ratio": 1.5647661802316837
+        },
+        {
+          "shape": "u64-inline",
+          "case": "churn",
+          "ratio": 1.6978114331677694
+        },
+        {
+          "shape": "u64-inline",
+          "case": "feed",
+          "ratio": 0.8200988608648466
+        },
+        {
+          "shape": "u64-inline",
+          "case": "hot",
+          "ratio": 1.7259715022196769
+        },
+        {
+          "shape": "u64-inline",
+          "case": "idle",
+          "ratio": 1.0685682940208447
+        },
+        {
+          "shape": "u64-inline",
+          "case": "miss10",
+          "ratio": 2.2269364782170156
+        },
+        {
+          "shape": "u64-inline",
+          "case": "miss100",
+          "ratio": 3.0874700841503895
+        },
+        {
+          "shape": "u64-inline",
+          "case": "miss50",
+          "ratio": 3.118044835476834
+        },
+        {
+          "shape": "u64-inline",
+          "case": "read",
+          "ratio": 2.1013340035857833
+        },
+        {
+          "shape": "u64-inline",
+          "case": "replace",
+          "ratio": 1.531243651989939
+        },
+        {
+          "shape": "u64-inline",
+          "case": "scan",
+          "ratio": 0.27832063597217627
+        },
+        {
+          "shape": "u64-inline",
+          "case": "single",
+          "ratio": 1.552162636255584
+        },
+        {
+          "shape": "u64-inline",
+          "case": "slow",
+          "ratio": 1.0842335735787552
+        },
+        {
+          "shape": "u64-inline",
+          "case": "sparse",
+          "ratio": 1.4978469153388037
+        }
+      ]
+    },
+    {
+      "folder": "evidence/shapes-v26-screen",
+      "source_commit": "5e8035a6495287226ed8c6cf634d37bc301b714f",
+      "binary_sha256": "e46542c7b8277e1d2d28fe5651cf38bad4e9e79b09d22ccd17f30612b76b8589",
+      "runs_sha256": "019dd84f11231db25f7b4f7c9975a3187dc79dce5fa5934975b52f1c7b2a2a80",
+      "candidate": "packed-owned-once-70",
+      "reference": "hashbrown",
+      "lower_medians": 23,
+      "higher_medians": 41,
+      "cells": [
+        {
+          "shape": "mixed-owned",
+          "case": "burst",
+          "ratio": 0.958828573005145
+        },
+        {
+          "shape": "mixed-owned",
+          "case": "churn",
+          "ratio": 0.9139450827076551
+        },
+        {
+          "shape": "mixed-owned",
+          "case": "miss100",
+          "ratio": 1.6004940319933838
+        },
+        {
+          "shape": "mixed-owned",
+          "case": "read",
+          "ratio": 1.0724336796063423
+        },
+        {
+          "shape": "mixed-owned",
+          "case": "scan",
+          "ratio": 0.673161624168016
+        },
+        {
+          "shape": "mixed-owned",
+          "case": "single",
+          "ratio": 0.9756803767948984
+        },
+        {
+          "shape": "mixed-owned",
+          "case": "slow",
+          "ratio": 0.8839761377195988
+        },
+        {
+          "shape": "mixed-owned",
+          "case": "sparse",
+          "ratio": 0.8760769778089895
+        },
+        {
+          "shape": "mixed-shared",
+          "case": "burst",
+          "ratio": 1.720017051667267
+        },
+        {
+          "shape": "mixed-shared",
+          "case": "churn",
+          "ratio": 1.0910271893089036
+        },
+        {
+          "shape": "mixed-shared",
+          "case": "miss100",
+          "ratio": 1.8327334518022882
+        },
+        {
+          "shape": "mixed-shared",
+          "case": "read",
+          "ratio": 1.1464937617128843
+        },
+        {
+          "shape": "mixed-shared",
+          "case": "scan",
+          "ratio": 0.5736239729627403
+        },
+        {
+          "shape": "mixed-shared",
+          "case": "single",
+          "ratio": 1.2283209693110404
+        },
+        {
+          "shape": "mixed-shared",
+          "case": "slow",
+          "ratio": 1.0300130700144126
+        },
+        {
+          "shape": "mixed-shared",
+          "case": "sparse",
+          "ratio": 1.0889131935663956
+        },
+        {
+          "shape": "string-inline",
+          "case": "burst",
+          "ratio": 0.9736207055881088
+        },
+        {
+          "shape": "string-inline",
+          "case": "churn",
+          "ratio": 1.007295140677605
+        },
+        {
+          "shape": "string-inline",
+          "case": "miss100",
+          "ratio": 2.4879869158855983
+        },
+        {
+          "shape": "string-inline",
+          "case": "read",
+          "ratio": 1.3594918719515674
+        },
+        {
+          "shape": "string-inline",
+          "case": "scan",
+          "ratio": 0.3730864821375135
+        },
+        {
+          "shape": "string-inline",
+          "case": "single",
+          "ratio": 1.0975768714638818
+        },
+        {
+          "shape": "string-inline",
+          "case": "slow",
+          "ratio": 0.9915879998769939
+        },
+        {
+          "shape": "string-inline",
+          "case": "sparse",
+          "ratio": 1.0296182351397627
+        },
+        {
+          "shape": "string-owned256",
+          "case": "burst",
+          "ratio": 1.039815288041492
+        },
+        {
+          "shape": "string-owned256",
+          "case": "churn",
+          "ratio": 0.8801390981372944
+        },
+        {
+          "shape": "string-owned256",
+          "case": "miss100",
+          "ratio": 2.151737188946062
+        },
+        {
+          "shape": "string-owned256",
+          "case": "read",
+          "ratio": 1.2024721457014032
+        },
+        {
+          "shape": "string-owned256",
+          "case": "scan",
+          "ratio": 0.8332109314692513
+        },
+        {
+          "shape": "string-owned256",
+          "case": "single",
+          "ratio": 0.9424787799273899
+        },
+        {
+          "shape": "string-owned256",
+          "case": "slow",
+          "ratio": 0.8136164332233903
+        },
+        {
+          "shape": "string-owned256",
+          "case": "sparse",
+          "ratio": 0.8563432537167466
+        },
+        {
+          "shape": "string-shared256",
+          "case": "burst",
+          "ratio": 1.0510465562455253
+        },
+        {
+          "shape": "string-shared256",
+          "case": "churn",
+          "ratio": 1.0469138533070708
+        },
+        {
+          "shape": "string-shared256",
+          "case": "miss100",
+          "ratio": 2.5324679772963843
+        },
+        {
+          "shape": "string-shared256",
+          "case": "read",
+          "ratio": 1.3356587542225176
+        },
+        {
+          "shape": "string-shared256",
+          "case": "scan",
+          "ratio": 1.088071739892791
+        },
+        {
+          "shape": "string-shared256",
+          "case": "single",
+          "ratio": 0.9914069278614295
+        },
+        {
+          "shape": "string-shared256",
+          "case": "slow",
+          "ratio": 1.000615597276971
+        },
+        {
+          "shape": "string-shared256",
+          "case": "sparse",
+          "ratio": 1.08391172319295
+        },
+        {
+          "shape": "u64-inline",
+          "case": "burst",
+          "ratio": 1.573052147705242
+        },
+        {
+          "shape": "u64-inline",
+          "case": "churn",
+          "ratio": 1.577642244519986
+        },
+        {
+          "shape": "u64-inline",
+          "case": "miss100",
+          "ratio": 4.49926060240985
+        },
+        {
+          "shape": "u64-inline",
+          "case": "read",
+          "ratio": 2.7447038805453285
+        },
+        {
+          "shape": "u64-inline",
+          "case": "scan",
+          "ratio": 0.2959716236936179
+        },
+        {
+          "shape": "u64-inline",
+          "case": "single",
+          "ratio": 1.635941142820872
+        },
+        {
+          "shape": "u64-inline",
+          "case": "slow",
+          "ratio": 1.2344426212590298
+        },
+        {
+          "shape": "u64-inline",
+          "case": "sparse",
+          "ratio": 1.8683852885787082
+        },
+        {
+          "shape": "u64-owned256",
+          "case": "burst",
+          "ratio": 1.0671713588906575
+        },
+        {
+          "shape": "u64-owned256",
+          "case": "churn",
+          "ratio": 0.8449306014466557
+        },
+        {
+          "shape": "u64-owned256",
+          "case": "miss100",
+          "ratio": 3.9022710164405505
+        },
+        {
+          "shape": "u64-owned256",
+          "case": "read",
+          "ratio": 1.6936233230493054
+        },
+        {
+          "shape": "u64-owned256",
+          "case": "scan",
+          "ratio": 0.6938544721390382
+        },
+        {
+          "shape": "u64-owned256",
+          "case": "single",
+          "ratio": 0.8706099229536785
+        },
+        {
+          "shape": "u64-owned256",
+          "case": "slow",
+          "ratio": 0.9303902956530257
+        },
+        {
+          "shape": "u64-owned256",
+          "case": "sparse",
+          "ratio": 0.8757506735809633
+        },
+        {
+          "shape": "u64-shared256",
+          "case": "burst",
+          "ratio": 1.2670086516008834
+        },
+        {
+          "shape": "u64-shared256",
+          "case": "churn",
+          "ratio": 1.266976024349158
+        },
+        {
+          "shape": "u64-shared256",
+          "case": "miss100",
+          "ratio": 4.523701474240019
+        },
+        {
+          "shape": "u64-shared256",
+          "case": "read",
+          "ratio": 1.7484947739209458
+        },
+        {
+          "shape": "u64-shared256",
+          "case": "scan",
+          "ratio": 0.6160992029013477
+        },
+        {
+          "shape": "u64-shared256",
+          "case": "single",
+          "ratio": 1.4611207452286075
+        },
+        {
+          "shape": "u64-shared256",
+          "case": "slow",
+          "ratio": 1.3695457447113089
+        },
+        {
+          "shape": "u64-shared256",
+          "case": "sparse",
+          "ratio": 1.3984200992027047
+        }
+      ]
+    }
+  ]
+}

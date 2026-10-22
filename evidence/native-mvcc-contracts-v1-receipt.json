@@ -1,0 +1,77 @@
+{
+  "claim": "Native capability proofs only. Exact retained full-value state, rollback/empty commit, and four actual reader-owned transactions at 20,000 records. Compiler rejects moving or sharing transactions across threads. No complete engine, generic payload, journal, memory or speed admission.",
+  "source_commit": "c6c32915f5888062fe936616d446c4f61df61ad3",
+  "inputs_sha256": {
+    "research/mvcc-core-admission-proof/Cargo.toml": "d99c4bd4792363a3dfee84e566fb2ad84aa4b6590e558a6e6b0f249322c8dc37",
+    "research/mvcc-core-admission-proof/Cargo.lock": "f324d8fa78591091aa85827bd2224ac633d71621d977de70175069becb3821fb",
+    "research/mvcc-core-admission-proof/src/bin/transfer_send.rs": "6a2e0ddd9e1d7a14c5de581c9d431dcc98ca772e4367724547b010d5d765fedc",
+    "research/mvcc-core-admission-proof/src/bin/transfer_sync.rs": "2c5365f5debad3abf84f400e52e06aa215caeb8ff692403174c53a1f45e94fe5",
+    "research/mvcc-core-admission-proof/src/lib.rs": "f395d908b5641e80d5844300e1c0b615824c4cf48d2c43b5e2a9287a36d8cd51"
+  },
+  "build_command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--no-run",
+    "--lib",
+    "--message-format=json"
+  ],
+  "build_working_directory": "research/mvcc-core-admission-proof",
+  "source_preflight": {
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "1"
+  },
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "build_exit_code": 0,
+  "binary": "build/native-mvcc-contracts-v1",
+  "binary_sha256": "aa85842fd688bfddf393c1a28b6f2f7783a06a02446aed4a90a1b2b3e7eae9a7",
+  "proof_command": [
+    "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/native-mvcc-contracts-v1",
+    "--test-threads=1"
+  ],
+  "proof_exit_code": 0,
+  "tests_passed": 3,
+  "proof_log": "evidence/native-mvcc-contracts-v1.log",
+  "proof_log_sha256": "873f165d09a192b6c45362eb4fd3533f42fb46380492cbefcf38e5256627d014",
+  "negative_capability_checks": [
+    {
+      "command": [
+        "cargo",
+        "check",
+        "--locked",
+        "--features",
+        "transfer-send",
+        "--bin",
+        "transfer_send"
+      ],
+      "observed_exit_code": 101,
+      "expected_compile_failure": true,
+      "log": "evidence/native-mvcc-transfer-send-v1.log",
+      "log_sha256": "ae5775c3349bd1b5ec1cc5ca27e2a4f538394cfc6683a03ccc270dd2e61bcf43",
+      "trait": "send"
+    },
+    {
+      "command": [
+        "cargo",
+        "check",
+        "--locked",
+        "--features",
+        "transfer-sync",
+        "--bin",
+        "transfer_sync"
+      ],
+      "observed_exit_code": 101,
+      "expected_compile_failure": true,
+      "log": "evidence/native-mvcc-transfer-sync-v1.log",
+      "log_sha256": "2a0d2072ae287084c7529c8485bff2f7d4fb3bc7bf7b2ccee17fff8001638d4f",
+      "trait": "sync"
+    }
+  ],
+  "started_at_unix": 1792635614.5906591,
+  "finished_at_unix": 1792635621.449119
+}

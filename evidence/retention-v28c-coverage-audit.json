@@ -1,0 +1,18 @@
+{
+  "claim": "Artifact coverage and binding audit; executable assertions check retained values and ownership. Instrumented payloads and process RSS are not library-only heap bounds, speed acceptance or universal superiority.",
+  "auditor_sha256": "251bbc690ca107f1150d42870191000677a5643a29222f328fb0dadbf4fb35cb",
+  "matrices": [
+    {
+      "folder": "evidence/retention-v28c-20k",
+      "rows": 120,
+      "exact_tuple_coverage": true,
+      "executable_ownership_and_reclamation_markers_passed": true,
+      "exact_journal_counts": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "d54c463f8efbb42f8d013e4e308a370bf4d72fff31a0032b892ad7f13a06a8cf",
+      "source_commit": "8a7abff5cdac240300a5a9829d8ac3c32aebcf36",
+      "binary_sha256": "971808cf640946940c0366ba061a97c8d0925b826562289128d36a1bdee60b16"
+    }
+  ],
+  "completed_processes": 120
+}

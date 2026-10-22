@@ -1,0 +1,3 @@
+   Compiling rill-state v0.1.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state)
+    Finished `bench` profile [optimized] target(s) in 12.37s
+  Executable benches/shapes.rs (rill-state/target/release/deps/shapes-8146564c70b6a93c)

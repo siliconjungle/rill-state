@@ -1,0 +1,22 @@
+{
+  "source_commit": "5e8035a6495287226ed8c6cf634d37bc301b714f",
+  "source_sha256": "f555208a02fa501364e63d94615c327c172c4ec8357655764520f694460bca19",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "command": "RUSTUP_TOOLCHAIN=stable CARGO_BUILD_JOBS=2 cargo bench --locked --features comparisons --bench state --bench shapes --no-run --message-format=json",
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "source_preflight": {
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "timing": "Untimed build outside candidate intervals; check for any overlap before treating subsequent serial timings as isolated",
+  "started_at_unix": 1792624817.755268,
+  "finished_at_unix": 1792625348.8338501,
+  "binaries": {
+    "build/state-v26": "b12ddc08442428ddcad02db314e164a8d5d857736086cf9c1a3797874eca7de2",
+    "build/shapes-v26": "e46542c7b8277e1d2d28fe5651cf38bad4e9e79b09d22ccd17f30612b76b8589"
+  }
+}

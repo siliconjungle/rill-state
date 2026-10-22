@@ -1,0 +1,1655 @@
+{
+  "claim": "Completed parallel selection, not isolated timing or final acceptance",
+  "small_exact_proof_processes": 6952,
+  "full_size_proofs": "Complete: 720 scalar, 3072 generic and 864 threaded processes; see evidence/proof-coverage-audit-v27-complete.json. No serial/final admission.",
+  "timing_processes": 6952,
+  "observations": [
+    "Fixed compact-adaptive-owned-once-70 is lower in 3/15 scalar cells and 25/64 generic cells against hashbrown.",
+    "All eight generic read medians and all eight all-miss medians for that fixed candidate exceed hashbrown.",
+    "Adaptive metadata width has not removed the lookup losses. Dense scan advantages do not establish a universal win.",
+    "Snapshot ownership is a distinct next experiment with uniformly matched external backend controls; results are not yet available."
+  ],
+  "layers": {
+    "state": {
+      "report": "evidence/state-v27-screen/selection-medians.json",
+      "source_commit": "1cf52314deb86fc142fe9ed4c4f9c64406b6dc5f",
+      "fixed_candidates": {
+        "compact-adaptive-owned-once-70": {
+          "lower_than_hashbrown": 3,
+          "at_or_above_hashbrown": 12,
+          "cells": [
+            {
+              "shape": "u64-inline",
+              "case": "acquire",
+              "ratio_to_hashbrown": 0.9520419812353006
+            },
+            {
+              "shape": "u64-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.8176302327135268
+            },
+            {
+              "shape": "u64-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.5224808466674917
+            },
+            {
+              "shape": "u64-inline",
+              "case": "feed",
+              "ratio_to_hashbrown": 0.8574027011942169
+            },
+            {
+              "shape": "u64-inline",
+              "case": "hot",
+              "ratio_to_hashbrown": 1.5604107863476202
+            },
+            {
+              "shape": "u64-inline",
+              "case": "idle",
+              "ratio_to_hashbrown": 1.039189949371836
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss10",
+              "ratio_to_hashbrown": 2.226230751774369
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 4.558921998071759
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss50",
+              "ratio_to_hashbrown": 2.9895416379189235
+            },
+            {
+              "shape": "u64-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.9494409698821455
+            },
+            {
+              "shape": "u64-inline",
+              "case": "replace",
+              "ratio_to_hashbrown": 1.875218202574499
+            },
+            {
+              "shape": "u64-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.2708560506510572
+            },
+            {
+              "shape": "u64-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 1.4810646130824179
+            },
+            {
+              "shape": "u64-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.0500938521066392
+            },
+            {
+              "shape": "u64-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.5241170859264044
+            }
+          ]
+        },
+        "compact-wide-owned-once-70": {
+          "lower_than_hashbrown": 3,
+          "at_or_above_hashbrown": 12,
+          "cells": [
+            {
+              "shape": "u64-inline",
+              "case": "acquire",
+              "ratio_to_hashbrown": 0.9783879430903907
+            },
+            {
+              "shape": "u64-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.6532529282152382
+            },
+            {
+              "shape": "u64-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.5010711554315854
+            },
+            {
+              "shape": "u64-inline",
+              "case": "feed",
+              "ratio_to_hashbrown": 0.8742776883577253
+            },
+            {
+              "shape": "u64-inline",
+              "case": "hot",
+              "ratio_to_hashbrown": 1.4744065779359572
+            },
+            {
+              "shape": "u64-inline",
+              "case": "idle",
+              "ratio_to_hashbrown": 1.0157509844365273
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss10",
+              "ratio_to_hashbrown": 2.06620435374957
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 4.382317867775425
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss50",
+              "ratio_to_hashbrown": 2.814259149388937
+            },
+            {
+              "shape": "u64-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.8682944807339505
+            },
+            {
+              "shape": "u64-inline",
+              "case": "replace",
+              "ratio_to_hashbrown": 1.7695942998858403
+            },
+            {
+              "shape": "u64-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.29355345836817587
+            },
+            {
+              "shape": "u64-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 1.4638078242106876
+            },
+            {
+              "shape": "u64-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.0384044424315357
+            },
+            {
+              "shape": "u64-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.4787723725407727
+            }
+          ]
+        },
+        "compact-adaptive-owned-once-50": {
+          "lower_than_hashbrown": 3,
+          "at_or_above_hashbrown": 12,
+          "cells": [
+            {
+              "shape": "u64-inline",
+              "case": "acquire",
+              "ratio_to_hashbrown": 1.005413635009655
+            },
+            {
+              "shape": "u64-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.461747536428449
+            },
+            {
+              "shape": "u64-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.234731624752213
+            },
+            {
+              "shape": "u64-inline",
+              "case": "feed",
+              "ratio_to_hashbrown": 0.8734817357891478
+            },
+            {
+              "shape": "u64-inline",
+              "case": "hot",
+              "ratio_to_hashbrown": 1.176127673717046
+            },
+            {
+              "shape": "u64-inline",
+              "case": "idle",
+              "ratio_to_hashbrown": 1.0234389649353086
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss10",
+              "ratio_to_hashbrown": 1.5219764358336347
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.1908281428969993
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss50",
+              "ratio_to_hashbrown": 1.7024181215038494
+            },
+            {
+              "shape": "u64-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.3451289295020927
+            },
+            {
+              "shape": "u64-inline",
+              "case": "replace",
+              "ratio_to_hashbrown": 1.399204818328544
+            },
+            {
+              "shape": "u64-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.2656791303309043
+            },
+            {
+              "shape": "u64-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 1.084552355946789
+            },
+            {
+              "shape": "u64-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.924064563721015
+            },
+            {
+              "shape": "u64-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.1093572535896639
+            }
+          ]
+        },
+        "compact-wide-owned-once-50": {
+          "lower_than_hashbrown": 4,
+          "at_or_above_hashbrown": 11,
+          "cells": [
+            {
+              "shape": "u64-inline",
+              "case": "acquire",
+              "ratio_to_hashbrown": 1.0435536050639889
+            },
+            {
+              "shape": "u64-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.452347525829965
+            },
+            {
+              "shape": "u64-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.1598799490934064
+            },
+            {
+              "shape": "u64-inline",
+              "case": "feed",
+              "ratio_to_hashbrown": 0.9582029416014393
+            },
+            {
+              "shape": "u64-inline",
+              "case": "hot",
+              "ratio_to_hashbrown": 1.1768511301835898
+            },
+            {
+              "shape": "u64-inline",
+              "case": "idle",
+              "ratio_to_hashbrown": 0.9686855428464279
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss10",
+              "ratio_to_hashbrown": 1.338979265682648
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.0748505848879137
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss50",
+              "ratio_to_hashbrown": 1.6417722391203775
+            },
+            {
+              "shape": "u64-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.2182383436629014
+            },
+            {
+              "shape": "u64-inline",
+              "case": "replace",
+              "ratio_to_hashbrown": 1.3854532141873006
+            },
+            {
+              "shape": "u64-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.2689848285748417
+            },
+            {
+              "shape": "u64-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 1.121965019520967
+            },
+            {
+              "shape": "u64-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.9472442964496877
+            },
+            {
+              "shape": "u64-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.1741626995979089
+            }
+          ]
+        }
+      }
+    },
+    "shapes": {
+      "report": "evidence/shapes-v27-screen/selection-medians.json",
+      "source_commit": "1cf52314deb86fc142fe9ed4c4f9c64406b6dc5f",
+      "fixed_candidates": {
+        "compact-adaptive-owned-once-70": {
+          "lower_than_hashbrown": 25,
+          "at_or_above_hashbrown": 39,
+          "cells": [
+            {
+              "shape": "mixed-owned",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.0271732534952416
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.9092707297670293
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.7306320143421257
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "read",
+              "ratio_to_hashbrown": 1.147416710770707
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.4273156098798595
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "single",
+              "ratio_to_hashbrown": 0.9304708462492444
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.9145783076232691
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.9884988730521276
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.0739523688851604
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.8047804872731017
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.9293847929221695
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "read",
+              "ratio_to_hashbrown": 1.1789571436170105
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.49686286527306556
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "single",
+              "ratio_to_hashbrown": 1.0405965408660405
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.9915161699666888
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.0620109190602869
+            },
+            {
+              "shape": "string-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.152186724825283
+            },
+            {
+              "shape": "string-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.9469144856635816
+            },
+            {
+              "shape": "string-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 3.2478204691739987
+            },
+            {
+              "shape": "string-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.4677450821969757
+            },
+            {
+              "shape": "string-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.31097147163690203
+            },
+            {
+              "shape": "string-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 1.170376180714965
+            },
+            {
+              "shape": "string-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.1280599321442661
+            },
+            {
+              "shape": "string-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.8502315010979562
+            },
+            {
+              "shape": "string-owned256",
+              "case": "burst",
+              "ratio_to_hashbrown": 0.9040699592759353
+            },
+            {
+              "shape": "string-owned256",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.019716503188631
+            },
+            {
+              "shape": "string-owned256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.764074329241667
+            },
+            {
+              "shape": "string-owned256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.4445462617338487
+            },
+            {
+              "shape": "string-owned256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.6908581176246511
+            },
+            {
+              "shape": "string-owned256",
+              "case": "single",
+              "ratio_to_hashbrown": 0.956190694899079
+            },
+            {
+              "shape": "string-owned256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.9068956132650637
+            },
+            {
+              "shape": "string-owned256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.0807342989383326
+            },
+            {
+              "shape": "string-shared256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.2624436956919713
+            },
+            {
+              "shape": "string-shared256",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.0638685839210902
+            },
+            {
+              "shape": "string-shared256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 3.4182718452094707
+            },
+            {
+              "shape": "string-shared256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.1853958687979074
+            },
+            {
+              "shape": "string-shared256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.8844372827337846
+            },
+            {
+              "shape": "string-shared256",
+              "case": "single",
+              "ratio_to_hashbrown": 1.1287375684719958
+            },
+            {
+              "shape": "string-shared256",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.2797886556066218
+            },
+            {
+              "shape": "string-shared256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.8612155553695
+            },
+            {
+              "shape": "u64-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 2.224078858340451
+            },
+            {
+              "shape": "u64-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.836562504969369
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 5.461273021001616
+            },
+            {
+              "shape": "u64-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 2.246796659264592
+            },
+            {
+              "shape": "u64-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.23436312272381749
+            },
+            {
+              "shape": "u64-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 2.0427677489142795
+            },
+            {
+              "shape": "u64-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.2481081577547868
+            },
+            {
+              "shape": "u64-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 2.0937266168011455
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "burst",
+              "ratio_to_hashbrown": 0.9524101725739607
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.8143974638725348
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 5.469615398758012
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "read",
+              "ratio_to_hashbrown": 2.06278515024707
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.9049900475216203
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "single",
+              "ratio_to_hashbrown": 0.5659498230183417
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.5383339732286956
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.7782912677767362
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.3519168788695073
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.5768768103530306
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 4.185703442598996
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.8781634628682062
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.813444117612591
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "single",
+              "ratio_to_hashbrown": 1.5340245280297449
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.254891548341966
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.4294871893610674
+            }
+          ]
+        },
+        "compact-wide-owned-once-70": {
+          "lower_than_hashbrown": 27,
+          "at_or_above_hashbrown": 37,
+          "cells": [
+            {
+              "shape": "mixed-owned",
+              "case": "burst",
+              "ratio_to_hashbrown": 0.9678249378035304
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.8855329393531032
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.6492506708224461
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "read",
+              "ratio_to_hashbrown": 1.1018152834291464
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.721599435725162
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "single",
+              "ratio_to_hashbrown": 0.9288988986686052
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.8147258046712126
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.990538828751714
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.1547502655488915
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.8617972252449102
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.7010028791570015
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "read",
+              "ratio_to_hashbrown": 1.3144702979821061
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.40897800153223157
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "single",
+              "ratio_to_hashbrown": 0.9995102184279419
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.8615547495317275
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.0731692661946362
+            },
+            {
+              "shape": "string-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.1271406793969223
+            },
+            {
+              "shape": "string-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.1407877201086436
+            },
+            {
+              "shape": "string-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.4902761435859047
+            },
+            {
+              "shape": "string-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.4611933319042985
+            },
+            {
+              "shape": "string-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.3357380867951815
+            },
+            {
+              "shape": "string-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 1.015624787334388
+            },
+            {
+              "shape": "string-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.8717338579464516
+            },
+            {
+              "shape": "string-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.3893535093036278
+            },
+            {
+              "shape": "string-owned256",
+              "case": "burst",
+              "ratio_to_hashbrown": 0.8477227811076876
+            },
+            {
+              "shape": "string-owned256",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.2522876080411771
+            },
+            {
+              "shape": "string-owned256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.091916743486488
+            },
+            {
+              "shape": "string-owned256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.2341873440088351
+            },
+            {
+              "shape": "string-owned256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.6626290033431853
+            },
+            {
+              "shape": "string-owned256",
+              "case": "single",
+              "ratio_to_hashbrown": 0.9262328251674802
+            },
+            {
+              "shape": "string-owned256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.767434924717641
+            },
+            {
+              "shape": "string-owned256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.9525260034761007
+            },
+            {
+              "shape": "string-shared256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.3138916345358622
+            },
+            {
+              "shape": "string-shared256",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.102027935418522
+            },
+            {
+              "shape": "string-shared256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.7654663234420527
+            },
+            {
+              "shape": "string-shared256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.05037502284159
+            },
+            {
+              "shape": "string-shared256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.9147346510828054
+            },
+            {
+              "shape": "string-shared256",
+              "case": "single",
+              "ratio_to_hashbrown": 1.4963067302676976
+            },
+            {
+              "shape": "string-shared256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.9936247362486595
+            },
+            {
+              "shape": "string-shared256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.9704984401675953
+            },
+            {
+              "shape": "u64-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.847597699680095
+            },
+            {
+              "shape": "u64-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.6261868248458136
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 3.8676402800215404
+            },
+            {
+              "shape": "u64-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 2.1915109358047475
+            },
+            {
+              "shape": "u64-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.1873449272276152
+            },
+            {
+              "shape": "u64-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 1.474412533502988
+            },
+            {
+              "shape": "u64-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.3061611563135056
+            },
+            {
+              "shape": "u64-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 2.0474582841402857
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.0186572851062436
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.8354714973856479
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 4.567062962474289
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "read",
+              "ratio_to_hashbrown": 2.1319313505206754
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.9283378405618513
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "single",
+              "ratio_to_hashbrown": 0.490549351067253
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.6047913083144231
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.9784838089201694
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.1972652799125512
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.2993371776572462
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 3.467488375564664
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "read",
+              "ratio_to_hashbrown": 2.1567477066334764
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.8313755975098277
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "single",
+              "ratio_to_hashbrown": 1.4466804825475177
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.1621756743928893
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.440041164370468
+            }
+          ]
+        },
+        "compact-adaptive-owned-once-50": {
+          "lower_than_hashbrown": 25,
+          "at_or_above_hashbrown": 39,
+          "cells": [
+            {
+              "shape": "mixed-owned",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.2047324931940453
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.0842413712013532
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.1247944881243923
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "read",
+              "ratio_to_hashbrown": 0.9778325194452707
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.5843241876230126
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "single",
+              "ratio_to_hashbrown": 0.9432553061772803
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.9520446264095517
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.9354312714564992
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.1091116843680757
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.8332235065921468
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.0990142792199467
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "read",
+              "ratio_to_hashbrown": 1.1833679003541835
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.44099069716537154
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "single",
+              "ratio_to_hashbrown": 1.3957439248795103
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.8574080149150024
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.079823676765598
+            },
+            {
+              "shape": "string-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 0.9605211897272954
+            },
+            {
+              "shape": "string-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.173329553578952
+            },
+            {
+              "shape": "string-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.5875255470367429
+            },
+            {
+              "shape": "string-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.3687624449684237
+            },
+            {
+              "shape": "string-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.30545522890370463
+            },
+            {
+              "shape": "string-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 1.0543009475323677
+            },
+            {
+              "shape": "string-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.011539375312502
+            },
+            {
+              "shape": "string-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.8317963922043289
+            },
+            {
+              "shape": "string-owned256",
+              "case": "burst",
+              "ratio_to_hashbrown": 0.8422498211110386
+            },
+            {
+              "shape": "string-owned256",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.8816908646531352
+            },
+            {
+              "shape": "string-owned256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.4765012857212167
+            },
+            {
+              "shape": "string-owned256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.158012147984539
+            },
+            {
+              "shape": "string-owned256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.6304673442144183
+            },
+            {
+              "shape": "string-owned256",
+              "case": "single",
+              "ratio_to_hashbrown": 0.9360541658745202
+            },
+            {
+              "shape": "string-owned256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.9459220201233227
+            },
+            {
+              "shape": "string-owned256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.9848191078606954
+            },
+            {
+              "shape": "string-shared256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.1902634966068955
+            },
+            {
+              "shape": "string-shared256",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.150876398982315
+            },
+            {
+              "shape": "string-shared256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.7610629402279991
+            },
+            {
+              "shape": "string-shared256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.215187513424443
+            },
+            {
+              "shape": "string-shared256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.8940811952334426
+            },
+            {
+              "shape": "string-shared256",
+              "case": "single",
+              "ratio_to_hashbrown": 1.0077643961341383
+            },
+            {
+              "shape": "string-shared256",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.087360378878279
+            },
+            {
+              "shape": "string-shared256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.988543047370126
+            },
+            {
+              "shape": "u64-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.6278193208307923
+            },
+            {
+              "shape": "u64-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.1904750479779516
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.0155266558966076
+            },
+            {
+              "shape": "u64-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.6855658579429378
+            },
+            {
+              "shape": "u64-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.21785460883043165
+            },
+            {
+              "shape": "u64-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 2.1560220808803168
+            },
+            {
+              "shape": "u64-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.016940193249871
+            },
+            {
+              "shape": "u64-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.4511363555181165
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.2059072741841579
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.9209354028572606
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.2853335222344553
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.711950640165649
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.7798779318817737
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "single",
+              "ratio_to_hashbrown": 0.5497658264507133
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.5775927223676174
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.035250487471005
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.0862776100144447
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "churn",
+              "ratio_to_hashbrown": 2.6352840422495003
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.1507265863425107
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.4526960770755544
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.9165563120866586
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "single",
+              "ratio_to_hashbrown": 1.3898724384862762
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.1403641348978992
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.0828923292937416
+            }
+          ]
+        },
+        "compact-wide-owned-once-50": {
+          "lower_than_hashbrown": 28,
+          "at_or_above_hashbrown": 36,
+          "cells": [
+            {
+              "shape": "mixed-owned",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.0458620009941018
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.9909833269995842
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.0560132172527332
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "read",
+              "ratio_to_hashbrown": 1.1615666846887394
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.549997332563374
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "single",
+              "ratio_to_hashbrown": 1.202962384303485
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.8491377507323274
+            },
+            {
+              "shape": "mixed-owned",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.9111363300024776
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "burst",
+              "ratio_to_hashbrown": 0.9203637730581837
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.9416510804105724
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.0882009581647998
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "read",
+              "ratio_to_hashbrown": 1.1427062889336173
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.41494319798620993
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "single",
+              "ratio_to_hashbrown": 1.1940690655296806
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.0181710880463193
+            },
+            {
+              "shape": "mixed-shared",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.006440160899821
+            },
+            {
+              "shape": "string-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.1911381283810825
+            },
+            {
+              "shape": "string-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.9553304301271789
+            },
+            {
+              "shape": "string-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.819271319650585
+            },
+            {
+              "shape": "string-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.2420070242551156
+            },
+            {
+              "shape": "string-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.3017129239141807
+            },
+            {
+              "shape": "string-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 0.9177542540252627
+            },
+            {
+              "shape": "string-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.3162916474310944
+            },
+            {
+              "shape": "string-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.9075703944275909
+            },
+            {
+              "shape": "string-owned256",
+              "case": "burst",
+              "ratio_to_hashbrown": 0.9831300025550402
+            },
+            {
+              "shape": "string-owned256",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.032237674403548
+            },
+            {
+              "shape": "string-owned256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.2066048226675077
+            },
+            {
+              "shape": "string-owned256",
+              "case": "read",
+              "ratio_to_hashbrown": 0.8991090889011597
+            },
+            {
+              "shape": "string-owned256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.7053030670090605
+            },
+            {
+              "shape": "string-owned256",
+              "case": "single",
+              "ratio_to_hashbrown": 0.835422418904598
+            },
+            {
+              "shape": "string-owned256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.8635320887219209
+            },
+            {
+              "shape": "string-owned256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.8366833903591916
+            },
+            {
+              "shape": "string-shared256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.1973439667272483
+            },
+            {
+              "shape": "string-shared256",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.9628249461982878
+            },
+            {
+              "shape": "string-shared256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.6647997510678623
+            },
+            {
+              "shape": "string-shared256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.028789820505176
+            },
+            {
+              "shape": "string-shared256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.933230469693706
+            },
+            {
+              "shape": "string-shared256",
+              "case": "single",
+              "ratio_to_hashbrown": 0.9905260816486093
+            },
+            {
+              "shape": "string-shared256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.9797616336975153
+            },
+            {
+              "shape": "string-shared256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 0.9496181923417142
+            },
+            {
+              "shape": "u64-inline",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.47148130929011
+            },
+            {
+              "shape": "u64-inline",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.2887116298442807
+            },
+            {
+              "shape": "u64-inline",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.233822294022617
+            },
+            {
+              "shape": "u64-inline",
+              "case": "read",
+              "ratio_to_hashbrown": 1.6588879698663614
+            },
+            {
+              "shape": "u64-inline",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.1783636882512548
+            },
+            {
+              "shape": "u64-inline",
+              "case": "single",
+              "ratio_to_hashbrown": 1.5048823574606436
+            },
+            {
+              "shape": "u64-inline",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.0778765572132145
+            },
+            {
+              "shape": "u64-inline",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.4974435145780705
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.152877262295671
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "churn",
+              "ratio_to_hashbrown": 0.6947493597924986
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 2.019196535755306
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.4050413084221587
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.8615825704332797
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "single",
+              "ratio_to_hashbrown": 0.543889670706854
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "slow",
+              "ratio_to_hashbrown": 0.5357351741543479
+            },
+            {
+              "shape": "u64-owned256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.0013718028284324
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "burst",
+              "ratio_to_hashbrown": 1.0407544158113151
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "churn",
+              "ratio_to_hashbrown": 1.2600880768864782
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "miss100",
+              "ratio_to_hashbrown": 1.982216164561846
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "read",
+              "ratio_to_hashbrown": 1.3729003826119026
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "scan",
+              "ratio_to_hashbrown": 0.879418577851738
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "single",
+              "ratio_to_hashbrown": 1.387507579035653
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "slow",
+              "ratio_to_hashbrown": 1.1757215559588616
+            },
+            {
+              "shape": "u64-shared256",
+              "case": "sparse",
+              "ratio_to_hashbrown": 1.2899093038631217
+            }
+          ]
+        }
+      }
+    }
+  },
+  "complete_exact_proof_processes": 11608
+}

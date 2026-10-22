@@ -4,24 +4,88 @@
 Parallel timings are selection evidence only. Final superiority claims require
 fresh serial processes, holdout seeds and the separate strict acceptance gate.
 """
-import argparse, concurrent.futures, hashlib, itertools, json, os, pathlib, platform, random, re, subprocess, time
+import argparse, concurrent.futures, hashlib, itertools, json, os, pathlib, platform, random, re, signal, subprocess, time
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-EXTERNAL=['std-hash','std-btree','hashbrown','hashbrown-sip','indexmap','btree-slab','im-hash','im-ord','imbl-hash','imbl-ord','imhm','imhm-sip','rpds-hash','rpds-redblack','vart','papaya-copy','dashmap-copy','flurry-copy','skipdb']+[f'chunk-{n}' for n in [8,16,32,64,128]]+[f'chunkbatch-{n}' for n in [8,16,32,64,128]]
+EXTERNAL=['std-hash','std-btree','hashbrown','hashbrown-sip','indexmap','btree-slab','im-hash','im-ord','imbl-hash','imbl-fast','im-fast','rpds-fast','imbl-ord','imhm','imhm-sip','rpds-hash','rpds-redblack','vart','papaya-copy','dashmap-copy','flurry-copy','skipdb','scc-copy','contrie-copy','leapfrog-copy','leapmap-copy','scc-capture','flashmap-copy','evmap-copy','left-right-copy']+[f'chunk-{n}' for n in [8,16,32,64,128]]+[f'chunkbatch-{n}' for n in [8,16,32,64,128]]
 INDEPENDENT=[f'{family}-{n}' for family in ['hashpages','sortedpages'] for n in [16,64,256,1024,4096,16384]]+[f'overlay-{n}' for n in [1,2,4,8,16,32]]+[f'mvcc-{n}' for n in [1,16,64,256]]+[f'slots-{n}'for n in [8,16,32,64,128,256,512,1024]]
+STRONG_CONTROLS=['std-fast','indexmap-fast']
+EXTERNAL+=STRONG_CONTROLS
 RILL=[f'rill-{1<<bits}-{1<<branch}' for bits in range(6,17,2) for branch in range(0,min(bits,10)+1,2)]
 RILLFAST=[e.replace('rill-','rillfast-')for e in RILL]
-ENGINES=EXTERNAL+INDEPENDENT+RILL+RILLFAST
-CASES=['idle','single','sparse','hot','churn','burst','replace','slow','read','scan','acquire','feed']
+PROBES=[f'probe-{load}-{page}'for load in [25,50,70,85,90]for page in [0,16,64,256,1024]]+[f'split-{load}'for load in [25,50,70,85,90]]
+SHARED=[f'shared-{l}-{p}'for l in [50,70,85]for p in [0,16,64,256]]
+RECORDS=[f'record-{l}-{p}'for l in [50,70,85]for p in [0,16,64,256]]
+ARRAYS=[f'array-{k}-{l}-{p}'for k in ['copy','shared']for l in [25,50,70,85]for p in [16,64,256,1024]]
+ARRAY_OWNED=[e.replace('array-','array-owned-',1)for e in ARRAYS]
+INLINE=[f'inline-{hp}-{probe}-{load}'for hp in ['shared','owned']for probe in ['span','index']for load in [25,50,70,85]]
+SHARDS=[f'shard-{hp}-{batch}-{load}-{parts}'for hp in ['shared','owned']for batch in ['each','group']for load in [25,50,70,85]for parts in [1,16,64,256,1024]]
+PACKED=[f'packed-{hp}-{batch}-{load}'for hp in ['shared','owned']for batch in ['each','once']for load in [25,50,70,85]]
+COMPACT=[f'compact-{width}-{hp}-{batch}-{load}'for width in ['wide','adaptive']for hp in ['shared','owned']for batch in ['each','once']for load in [25,50,70,85]]
+ORDERMAP=['ordermap-swap','ordermap-swap-fast','ordermap-shift','ordermap-shift-fast']
+VECTORS=[f'vector-{kind}-{h}'for kind in ['flat','tree','rrb','rb','cowvec']for h in ['sip','fast']]
+NATIVE=['native-packed-owned-once-25', 'native-packed-owned-once-50', 'native-packed-owned-once-70', 'native-packed-owned-once-85', 'native-compact-wide-owned-once-25', 'native-compact-wide-owned-once-50', 'native-compact-wide-owned-once-70', 'native-compact-wide-owned-once-85', 'native-compact-adaptive-owned-once-25', 'native-compact-adaptive-owned-once-50', 'native-compact-adaptive-owned-once-70', 'native-compact-adaptive-owned-once-85', 'native-inline-owned-index-25', 'native-inline-owned-index-50', 'native-inline-owned-index-70', 'native-inline-owned-index-85', 'native-packed-shared-once-70', 'native-compact-adaptive-shared-once-70', 'native-compact-wide-shared-once-70', 'native-inline-shared-index-70', 'native-imbl-fast', 'native-imhm', 'native-rpds-fast', 'native-shard-shared-group-25-16', 'native-shard-owned-group-50-1024']
+CONFIGURATIONS=EXTERNAL+INDEPENDENT+RILL+RILLFAST+PROBES+SHARED+RECORDS+ARRAYS+ARRAY_OWNED+INLINE+SHARDS+PACKED+COMPACT+ORDERMAP+VECTORS+NATIVE
+INVESTIGATIVE=['scc-copy'] # Native Clone grows capacity on every retained publication.
+ENGINES=[e for e in CONFIGURATIONS if e not in INVESTIGATIVE]
+CASES=['idle','single','sparse','hot','churn','burst','replace','slow','read','scan','acquire','feed','miss10','miss50','miss100']
 def source_hash():
     h=hashlib.sha256()
     for p in sorted([ROOT/'Cargo.toml',ROOT/'Cargo.lock',*ROOT.glob('src/**/*.rs'),*ROOT.glob('benches/**/*.rs')]): h.update(p.relative_to(ROOT).as_posix().encode()+b'\0'+p.read_bytes())
     return h.hexdigest()
+def source_hash_at(commit):
+    """Verify frozen inputs against Git, without copying another checkout."""
+    paths=subprocess.check_output(['git','ls-tree','-r','--name-only',commit,'--','Cargo.toml','Cargo.lock','src','benches'],cwd=ROOT,text=True).splitlines()
+    paths=sorted((p for p in paths if p in ('Cargo.toml','Cargo.lock') or p.endswith('.rs')),key=lambda p:pathlib.PurePosixPath(p).parts)
+    h=hashlib.sha256()
+    for path in paths:
+        h.update(path.encode()+b'\0'+subprocess.check_output(['git','show',f'{commit}:{path}'],cwd=ROOT))
+    return h.hexdigest()
+
+def build_binding(binary):
+    """A frozen executable keeps its original inputs while other variants change."""
+    binary=pathlib.Path(binary).resolve();digest=hashlib.sha256(binary.read_bytes()).hexdigest()
+    match=re.search(r'-(v[0-9a-z]+)$',binary.name)
+    path=ROOT/'evidence'/f'build-{match.group(1)}-receipt.json' if match else None
+    if path and path.exists():
+        receipt=json.loads(path.read_text())
+        assert digest in receipt['binaries'].values(),f'binary does not match {path}'
+        assert source_hash_at(receipt['source_commit'])==receipt['source_sha256'],f'Git inputs do not match {path}'
+        return dict(source_sha256=receipt['source_sha256'],source_commit=receipt['source_commit'],
+                    rustc=receipt['rustc'],binary_sha256=digest,build_binding=str(path.relative_to(ROOT)),
+                    build_binding_sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+    return dict(source_sha256=source_hash(),source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+                rustc=subprocess.check_output(['rustc','-Vv'],text=True),binary_sha256=digest,
+                build_binding='unattested current worktree; development only')
+
+def run_bounded(command,timeout=300):
+    """A timeout retires only this invocation's newly owned process group.
+
+    Killing the time wrapper alone can leave its benchmark child alive. Both
+    complete and failing candidates must have observable terminal ownership.
+    """
+    process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+                             text=True,start_new_session=True)
+    try:
+        stdout,stderr=process.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        try: os.killpg(process.pid,signal.SIGTERM)
+        except ProcessLookupError: pass
+        try: stdout,stderr=process.communicate(timeout=2)
+        except subprocess.TimeoutExpired:
+            try: os.killpg(process.pid,signal.SIGKILL)
+            except ProcessLookupError: pass
+            stdout,stderr=process.communicate()
+        raise subprocess.TimeoutExpired(command,timeout,output=stdout,stderr=stderr)
+    return subprocess.CompletedProcess(command,process.returncode,stdout,stderr)
+
 def execute(task):
-    binary,engine,case,seed,records,readers,rounds,proof=task
+    binary,engine,case,seed,records,readers,rounds,proof,*extra=task
     cmd=[str(binary),'--engine',engine,'--case',case,'--seed',str(seed),'--records',str(records),'--readers',str(readers),'--rounds',str(rounds)]
     if proof: cmd+=['--verify']
+    if extra and extra[0]:cmd+=['--shape',extra[0]]
+    if len(extra)>2 and extra[2]:cmd+=['--thread-check']
     wrapper=['/usr/bin/time','-l','-p'] if platform.system()=='Darwin' else ['/usr/bin/time','-v']
-    start=time.time(); result=subprocess.run(wrapper+cmd,capture_output=True,text=True,timeout=300)
+    start=time.time(); result=run_bounded(wrapper+cmd,timeout=300)
     if result.returncode: raise RuntimeError(json.dumps(dict(command=cmd,code=result.returncode,stderr=result.stderr[-3000:],stdout=result.stdout[-3000:])))
     row=json.loads(result.stdout)
     if platform.system()=='Darwin':
@@ -34,19 +98,22 @@ def execute(task):
         m=re.search(r'Maximum resident set size \(kbytes\): (\d+)',result.stderr)
         if m:row['max_rss_bytes']=int(m[1])*1024
     row['started_at_unix']=start
+    if len(extra)>1:row['repetition']=extra[1]
     return row
 def main():
-    p=argparse.ArgumentParser();p.add_argument('mode',choices=['prove','screen','serial']);p.add_argument('--binary',type=pathlib.Path,required=True);p.add_argument('--label',required=True);p.add_argument('--workers',type=int,default=3);p.add_argument('--engines');p.add_argument('--cases');p.add_argument('--records',type=int,default=20000);p.add_argument('--readers',type=int,default=20000);p.add_argument('--rounds',type=int,default=12);p.add_argument('--repetitions',type=int,default=1);p.add_argument('--seeds',default='4815162342,2937471921');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('mode',choices=['prove','thread','screen','serial']);p.add_argument('--binary',type=pathlib.Path,required=True);p.add_argument('--label',required=True);p.add_argument('--workers',type=int,default=3);p.add_argument('--engines');p.add_argument('--cases');p.add_argument('--records',type=int,default=20000);p.add_argument('--readers',type=int,default=20000);p.add_argument('--rounds',type=int,default=12);p.add_argument('--repetitions',type=int,default=1);p.add_argument('--seeds',default='4815162342,2937471921');a=p.parse_args()
     assert re.fullmatch(r'[A-Za-z0-9_.-]+',a.label)
     engines=a.engines.split(',')if a.engines else ENGINES
     cases=a.cases.split(',')if a.cases else CASES
     seeds=[int(s)for s in a.seeds.split(',')]
     binary=a.binary.resolve(); binary_hash=hashlib.sha256(binary.read_bytes()).hexdigest()
     folder=ROOT/'evidence'/a.label;folder.mkdir(parents=True,exist_ok=False)
-    tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode=='prove')for _ in range(a.repetitions)for e,c,s in itertools.product(engines,cases,seeds)]
+    tasks=[(binary,e,c,s,a.records,a.readers,a.rounds,a.mode in ('prove','thread'),None,rep,a.mode=='thread')for rep in range(a.repetitions)for e,c,s in itertools.product(engines,cases,seeds)]
     random.Random(0x51A7E).shuffle(tasks)
     workers=1 if a.mode=='serial'else a.workers
-    receipt=dict(schema=1,mode=a.mode,claim='correctness'if a.mode=='prove'else'selection only'if a.mode=='screen'else'isolated timing; acceptance not implied',workers=workers,source_sha256=source_hash(),orchestrator_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),binary_sha256=binary_hash,platform=platform.platform(),machine=platform.machine(),rustc=subprocess.check_output(['rustc','-Vv'],text=True),engines=engines,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks))
+    receipt=dict(schema=1,mode=a.mode,claim='correctness'if a.mode in ('prove','thread')else'selection only'if a.mode=='screen'else'isolated timing; acceptance not implied',workers=workers,source_sha256=source_hash(),source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),orchestrator_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),binary_sha256=binary_hash,platform=platform.platform(),machine=platform.machine(),rustc=subprocess.check_output(['rustc','-Vv'],text=True),engines=engines,cases=cases,seeds=seeds,records=a.records,readers=a.readers,rounds=a.rounds,repetitions=a.repetitions,tasks=len(tasks))
+    receipt.update(build_binding(binary))
+    receipt['driver_source_commit']=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     (folder/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
     passed=0;errors=[]
     with (folder/'runs.jsonl').open('w')as out,concurrent.futures.ThreadPoolExecutor(max_workers=workers)as pool:
@@ -59,7 +126,7 @@ def main():
     # Equal logical outputs across engines, independently of any ranking. Ordered
     # mutation vectors and complete snapshots are checked by the proof mode itself.
     outputs={}
-    if a.mode!='prove':
+    if a.mode not in ('prove','thread'):
         for line in (folder/'runs.jsonl').read_text().splitlines():
             r=json.loads(line);k=(r['case'],r['seed']);signature=(r['checksum'],r['read_checksum'],r['final_len'])
             if k in outputs and outputs[k]!=signature:errors.append(dict(output_mismatch=k,expected=outputs[k],actual=signature,engine=r['engine']))

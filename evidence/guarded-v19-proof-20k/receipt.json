@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "mode": "prove",
+  "claim": "correctness",
+  "workers": 2,
+  "source_sha256": "4a94420bbc13739104b3e0ae5007527b8ba30b87a3172106d84b4d7833fc646c",
+  "source_commit": "50d6667d1caff4785d698689fb2af19ab3cbdc89",
+  "orchestrator_sha256": "2d09bb5648f1fca9835499a5f61138df18e5a71ef567f25d8b1f9c01ada066e5",
+  "binary_sha256": "a6c809a139910ec4351beda9ace9628d79cf2de94e439b89695054a36c5af81a",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "engines": [
+    "flashmap-copy",
+    "evmap-copy",
+    "left-right-copy"
+  ],
+  "cases": [
+    "idle",
+    "single",
+    "sparse",
+    "hot",
+    "churn",
+    "burst",
+    "replace",
+    "slow",
+    "read",
+    "scan",
+    "acquire",
+    "feed",
+    "miss10",
+    "miss50",
+    "miss100"
+  ],
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "records": 20000,
+  "readers": 20000,
+  "rounds": 16,
+  "repetitions": 1,
+  "tasks": 90,
+  "build_binding": "evidence/build-v19-receipt.json",
+  "build_binding_sha256": "e56ec721fe5d5f9823c75ef790f322425705d14594fa0e12de02e69a247cbbc4",
+  "driver_source_commit": "50d6667d1caff4785d698689fb2af19ab3cbdc89",
+  "completed": 90,
+  "failures": 0,
+  "finished_at_unix": 1792616240.667178,
+  "output_agreement": true
+}

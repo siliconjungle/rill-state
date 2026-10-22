@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "state": "Completed selected v1 raw-map proofs and all-28-policy getter baseline; no complete-engine admission",
+  "keep": [
+    {
+      "path": "Cargo.toml",
+      "reason": "Minimal prototype, pinned benchmark-only controls and untimed validation profiles"
+    },
+    {
+      "path": "Cargo.lock",
+      "reason": "Exact reproducibility input"
+    },
+    {
+      "path": ".gitignore",
+      "reason": "Exclude generated build output"
+    },
+    {
+      "path": "PLAN.md",
+      "reason": "Registered policies, primary references, requirements and limits"
+    },
+    {
+      "path": "src",
+      "reason": "Generic safe implementation and useful proof inputs"
+    },
+    {
+      "path": "tests",
+      "reason": "Independent contract/model, recovery and retained-reader proof inputs"
+    },
+    {
+      "path": "evidence",
+      "reason": "Selected useful proof results and exact source/build receipts"
+    },
+    {
+      "path": "storage-retention.json",
+      "reason": "Owner retention declaration"
+    },
+    {
+      "path": "RAW-POINT-PLAN.json",
+      "reason": "Explicitly selected reproducibility baseline: all 28 raw getter policies/controls, no engine admission"
+    },
+    {
+      "path": "benches",
+      "reason": "Raw getter source, complete initial-value checks and independent checksum model"
+    },
+    {
+      "path": "run_point.py",
+      "reason": "Fresh-process randomized comparison orchestration and exact result bindings"
+    },
+    {
+      "path": "audit_point.py",
+      "reason": "Independent full tuple, frozen input, unsigned checksum and median proof verification"
+    }
+  ],
+  "safe_to_remove": [
+    {
+      "path": "evidence-tests-initial.log",
+      "reason": "Completed intermediate validation superseded by selected frozen proof/source and final Clippy; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/tests.log",
+      "reason": "Completed intermediate validation superseded by selected frozen proof/source and final Clippy; no unique behavioral failure"
+    },
+    {
+      "path": "evidence/clippy.log",
+      "reason": "Completed intermediate validation superseded by selected frozen proof/source and final Clippy; no unique behavioral failure"
+    },
+    {
+      "path": "target",
+      "reason": "Completed owned compiler staging; selected two proof executables, getter baseline, committed sources/lock and exact receipts are retained"
+    }
+  ]
+}

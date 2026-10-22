@@ -1,0 +1,162 @@
+[
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "miss100",
+      "2937471921",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"miss100\", \"--seed\", \"2937471921\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (98677) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 0\\n right: 20000\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.03\\nuser 0.01\\nsys 0.00\\n            13402112  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                 982  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  15  involuntary context switches\\n            98510140  instructions retired\\n            44066601  cycles elapsed\\n            12075344  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "churn",
+      "2937471921",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"churn\", \"--seed\", \"2937471921\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (99055) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 4\\n right: 19900\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.01\\nuser 0.00\\nsys 0.00\\n            13729792  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                1002  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                   4  involuntary context switches\\n            98036503  instructions retired\\n            32526133  cycles elapsed\\n            12403024  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "sparse",
+      "2937471921",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"sparse\", \"--seed\", \"2937471921\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (99232) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 8\\n right: 20000\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.01\\nuser 0.00\\nsys 0.00\\n            13631488  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                 994  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  13  involuntary context switches\\n            98493797  instructions retired\\n            35063932  cycles elapsed\\n            12304720  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "replace",
+      "4815162342",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"replace\", \"--seed\", \"4815162342\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (99248) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 8\\n right: 20000\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.02\\nuser 0.01\\nsys 0.00\\n            47054848  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                3034  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  10  involuntary context switches\\n           169935341  instructions retired\\n            62372241  cycles elapsed\\n            45744488  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "churn",
+      "4815162342",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"churn\", \"--seed\", \"4815162342\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (99262) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 0\\n right: 19903\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.01\\nuser 0.01\\nsys 0.00\\n            14598144  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                1053  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  10  involuntary context switches\\n            98737205  instructions retired\\n            37180533  cycles elapsed\\n            13271376  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "slow",
+      "4815162342",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"slow\", \"--seed\", \"4815162342\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (99276) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 7\\n right: 20000\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.01\\nuser 0.00\\nsys 0.00\\n            13778944  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                1005  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  16  involuntary context switches\\n            98146378  instructions retired\\n            35203444  cycles elapsed\\n            12452176  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "replace",
+      "2937471921",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"replace\", \"--seed\", \"2937471921\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (99274) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 8\\n right: 20000\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.02\\nuser 0.01\\nsys 0.00\\n            47054848  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                3036  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  20  involuntary context switches\\n           170852851  instructions retired\\n            64297711  cycles elapsed\\n            45744488  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "sparse",
+      "4815162342",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"sparse\", \"--seed\", \"4815162342\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (99445) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 7\\n right: 20000\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.01\\nuser 0.01\\nsys 0.00\\n            14598144  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                1055  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                   7  involuntary context switches\\n            99055375  instructions retired\\n            42145777  cycles elapsed\\n            13271376  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "miss100",
+      "4815162342",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"miss100\", \"--seed\", \"4815162342\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (99614) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 0\\n right: 20000\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.02\\nuser 0.01\\nsys 0.00\\n            13352960  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                 977  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  24  involuntary context switches\\n            97993131  instructions retired\\n            53036534  cycles elapsed\\n            12042600  peak memory footprint\\n\", \"stdout\": \"\"}"
+  },
+  {
+    "task": [
+      "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12",
+      "leapmap-copy",
+      "slow",
+      "2937471921",
+      "20000",
+      "20000",
+      "32",
+      "True",
+      "None",
+      "0",
+      "False"
+    ],
+    "error": "{\"command\": [\"/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/state-v12\", \"--engine\", \"leapmap-copy\", \"--case\", \"slow\", \"--seed\", \"2937471921\", \"--records\", \"20000\", \"--readers\", \"20000\", \"--rounds\", \"32\", \"--verify\"], \"code\": 101, \"stderr\": \"\\nthread 'main' (99784) panicked at benches/state.rs:1442:13:\\nassertion `left == right` failed\\n  left: 8\\n right: 20000\\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\\nreal 0.01\\nuser 0.01\\nsys 0.00\\n            14598144  maximum resident set size\\n                   0  average shared memory size\\n                   0  average unshared data size\\n                   0  average unshared stack size\\n                1053  page reclaims\\n                   0  page faults\\n                   0  swaps\\n                   0  block input operations\\n                   0  block output operations\\n                   0  messages sent\\n                   0  messages received\\n                   0  signals received\\n                   0  voluntary context switches\\n                  10  involuntary context switches\\n            98729033  instructions retired\\n            40773526  cycles elapsed\\n            13271376  peak memory footprint\\n\", \"stdout\": \"\"}"
+  }
+]

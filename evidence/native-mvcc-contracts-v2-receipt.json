@@ -1,0 +1,46 @@
+{
+  "claim": "Four native capability proofs only, including 20,000 simultaneously live native reader transactions across four owning threads, with sampled per-session values, full first/last session checks, active-session counts and release. No sockets, throughput, exact feed or general heap/reclamation admission.",
+  "source_commit": "e28985823636598a63fa4c29867b281f06e8dadf",
+  "inputs_sha256": {
+    "research/mvcc-core-admission-proof/Cargo.toml": "d99c4bd4792363a3dfee84e566fb2ad84aa4b6590e558a6e6b0f249322c8dc37",
+    "research/mvcc-core-admission-proof/Cargo.lock": "f324d8fa78591091aa85827bd2224ac633d71621d977de70175069becb3821fb",
+    "research/mvcc-core-admission-proof/src/bin/transfer_send.rs": "6a2e0ddd9e1d7a14c5de581c9d431dcc98ca772e4367724547b010d5d765fedc",
+    "research/mvcc-core-admission-proof/src/bin/transfer_sync.rs": "2c5365f5debad3abf84f400e52e06aa215caeb8ff692403174c53a1f45e94fe5",
+    "research/mvcc-core-admission-proof/src/lib.rs": "d84242a60c1cce2a73285c831ca1a4bdecbbe592d716bdd9c1c52f66d7809e71"
+  },
+  "build_command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--no-run",
+    "--lib",
+    "--message-format=json"
+  ],
+  "build_working_directory": "research/mvcc-core-admission-proof",
+  "source_preflight": {
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "1"
+  },
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "build_exit_code": 0,
+  "binary": "build/native-mvcc-contracts-v2",
+  "binary_sha256": "9b8fbb8cdc676fa508424d5e149ce40d46356302f991f62d733211db12cc4281",
+  "proof_command": [
+    "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/native-mvcc-contracts-v2",
+    "--test-threads=1"
+  ],
+  "proof_exit_code": 0,
+  "tests_passed": 4,
+  "proof_log": "evidence/native-mvcc-contracts-v2.log",
+  "proof_log_sha256": "783f93b34c1bef2dac49d3271add5bdf31061814bd756b753abe8ba25f96fefe",
+  "negative_capability_checks_reference": "evidence/native-mvcc-contracts-v1-receipt.json",
+  "negative_capability_checks_reference_sha256": "2dda112f73f01b045bf500bf1b6bb7704f4634dc4a2cf8c33c223a784d067f51",
+  "negative_check_inputs_and_dependency_lock_unchanged": true,
+  "started_at_unix": 1792635939.654031,
+  "finished_at_unix": 1792635948.036048
+}

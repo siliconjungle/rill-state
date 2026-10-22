@@ -1,0 +1,8 @@
+{
+  "source_commit": "1cf52314deb86fc142fe9ed4c4f9c64406b6dc5f",
+  "source_sha256": "4f4e359ce82783972798b863964213931b0a75abdec866056b1cc09f654e9eb4",
+  "started_at_unix": 1792626595.928353,
+  "controller_pid": 95706,
+  "state": "frozen; launching small proofs and parallel selection",
+  "finished_at_unix": 1792626973.6973581
+}

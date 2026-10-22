@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "claim": "Required Compact diagnostics. Parallel raw-growth timings and instrumented retention are separate from complete-engine performance and final acceptance.",
+  "conversion": {
+    "example": "examples/compact_conversion.rs",
+    "driver": "tools/conversion_study.py",
+    "shapes": [
+      "u64-inline",
+      "string-inline",
+      "u64-owned256",
+      "string-owned256"
+    ],
+    "fills": [
+      25,
+      50,
+      70,
+      85
+    ],
+    "capacities_before": [
+      32768,
+      65536,
+      131072
+    ],
+    "width_policies": [
+      "adaptive",
+      "always-wide"
+    ],
+    "pin_initial": [
+      false,
+      true
+    ],
+    "fresh_process_repetitions": 7,
+    "total_processes": 1344,
+    "workers": 2,
+    "measured_interval": "One raw insert, including COW detachment when pinned, control reindex/widening, key hashing and row growth; incoming key/value allocation and complete checks outside measurement.",
+    "comparison": "Matched raw always-wide controls; results cannot be treated as full Store/feed or network latency."
+  },
+  "retention": {
+    "example": "examples/retention_profile.rs",
+    "driver": "tools/retention_study.py",
+    "engines": [
+      "compact-adaptive-owned-once-25",
+      "compact-adaptive-owned-once-50",
+      "compact-adaptive-owned-once-70",
+      "compact-adaptive-owned-once-85",
+      "compact-wide-owned-once-70",
+      "compact-adaptive-shared-each-25",
+      "packed-owned-once-50",
+      "hashbrown",
+      "record-paged16",
+      "imbl-fast"
+    ],
+    "records": 20000,
+    "changed": 200,
+    "rounds": 256,
+    "windows": [
+      0,
+      16,
+      64
+    ],
+    "pin_initial": [
+      false,
+      true
+    ],
+    "mixed_payloads": [
+      false,
+      true
+    ],
+    "total_processes": 120,
+    "workers": 1,
+    "memory": "Tracked owned payload bytes/value instances only; RSS includes fixture and instrumentation. Exact old payloads and release after all owners drop are required."
+  },
+  "inputs": "Only development inputs. Final holdout seeds remain untouched."
+}

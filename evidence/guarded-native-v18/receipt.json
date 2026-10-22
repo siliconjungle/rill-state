@@ -1,0 +1,11 @@
+{
+  "source_commit": "2b971f937ebbc9dd59dc621689870816c907842c",
+  "source_sha256": "c359890eef53671c698f033cc7f9f2f9cca39b6cb122c656ee7aced9431253f9",
+  "binary_sha256": "42126583ece6942489408cd3a164519ce783f53398fb1374c236fd0cfdabce6b",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "claim": "Native held-reader progress and immutable-value probe, not performance admission or a speed ranking",
+  "observation_window_ms": 250,
+  "watchdog_seconds": 5,
+  "returncode": 0,
+  "complete": true
+}

@@ -1,0 +1,23 @@
+[package]
+name = "group-byte-index-proof"
+version = "0.0.0"
+edition = "2021"
+publish = false
+license = "MIT OR Apache-2.0"
+
+[workspace]
+
+[dev-dependencies]
+hashbrown = "=0.17.1"
+
+[[bench]]
+name = "point"
+harness = false
+
+[profile.dev]
+debug = 0
+incremental = false
+
+[profile.release]
+debug = 0
+incremental = false

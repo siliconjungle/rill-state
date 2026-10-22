@@ -1,0 +1,12 @@
+{
+  "claim": "The original scalar timing loop, full-value oracle, initialization/warmup and generated-input code are byte-identical. Only thread dispatch moves behind an untimed explicit hook. Normal run still requires E::View Send+Sync; native sessions use their reader-owned hook, with separate capability labels. No claim of byte-identical compiler output or cross-binary timing equivalence.",
+  "baseline_commit": "cf40d2bf216a67ad82398a300469b875742b4a8e",
+  "unchanged_sections_sha256": {
+    "timed_loop": "e5da48ccb78b6353e43a7a02c1d597e218e9df92c74dba89815ec48d82e2a0a1",
+    "exact_oracle": "6f35f8bd925f9ca29b0f5e110eb3a8615c2ebe33b7728bafef1795527ae3dd9c",
+    "warmup_and_inputs": "c67aa3ab793ef961faf3170b179b58e112c2a9a0a8112ffaf4cbd725aefb1978"
+  },
+  "old_input_sha256": "2a135123a320766be17f2831915e6109c874910171559c8bac81d79e8fc7dea5",
+  "new_input_sha256": "b9a2e37a710318611fa3e5b2fd745a1a81d8429534c3ee04ab5768836798bbe3",
+  "default_library_changed": false
+}

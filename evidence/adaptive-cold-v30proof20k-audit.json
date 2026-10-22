@@ -1,0 +1,15 @@
+{
+  "claim": "Correctness-only diagnostic cohort. All timings excluded from speed rankings.",
+  "timing_eligible": false,
+  "processes": 360,
+  "rows": 5760,
+  "exact_tuple_coverage": true,
+  "independently_rebuilt_trace_checksums": true,
+  "representation_and_cache_states": true,
+  "frozen_inputs_and_driver_verified": true,
+  "runs_sha256": "f80757320236e8c0f1e50cc4a9b6d8ec16aec323cf2b6a67f47c061d4f4849f9",
+  "auditor_sha256": "498ff981be14cde629230e27958efc41bb15e61478933ea416273f1f6dcca116",
+  "source_commit": "edbe6597005ac0023c3932f96bf843d2d40b4729",
+  "binary_sha256": "d11b687741300ccdb14933fe1a97c06d586ae22bedc965193dbd0c7807d0d1bb",
+  "descriptive_medians": []
+}

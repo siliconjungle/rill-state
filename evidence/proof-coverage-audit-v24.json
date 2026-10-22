@@ -1,0 +1,106 @@
+{
+  "claim": "Artifact coverage and binding audit. Internal executable assertions supply behavioral proofs; this does not establish performance or final acceptance.",
+  "auditor_sha256": "4afa03215c02805d15300f15db5af81df1e9804785a8a30bba7ad820cac09245",
+  "matrices": [
+    {
+      "folder": "evidence/state-v23-proof-small",
+      "mode": "prove",
+      "rows": 2400,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "d629cb4b2875485fa02e094d22d8078a3f1448e037de1e65bf384178d3754eda",
+      "source_commit": "cd5a85c0625cffbef79834466ad1aa52a62ff0bb",
+      "binary_sha256": "a0e6802aeaa217be499c2f7643a0518dbc1800958e326f4446d52ba3cd7beac0"
+    },
+    {
+      "folder": "evidence/state-v23-proof-20k",
+      "mode": "prove",
+      "rows": 2400,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "5a585c6e2bd18e0c4008ded2921e1625e090b71a3da04fa620367dfa6549871b",
+      "source_commit": "cd5a85c0625cffbef79834466ad1aa52a62ff0bb",
+      "binary_sha256": "a0e6802aeaa217be499c2f7643a0518dbc1800958e326f4446d52ba3cd7beac0"
+    },
+    {
+      "folder": "evidence/shapes-v23-proof-small",
+      "mode": "prove",
+      "rows": 10240,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "a66ac9f4212201c739396bb00844df44c770e31edb547fff12ac1a092bf328e6",
+      "source_commit": "cd5a85c0625cffbef79834466ad1aa52a62ff0bb",
+      "binary_sha256": "704bf2967d3a4d5da16dc42bf410176fdab20e416b7930ef83263d14a8d59572"
+    },
+    {
+      "folder": "evidence/state-v24-controls-small",
+      "mode": "prove",
+      "rows": 90,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "bc67fc3331e4d928070acdff96b6cede16d8df7cfb7767357b36a202f739b546",
+      "source_commit": "e87002defc8ce59ab7a90ea9482893f057287926",
+      "binary_sha256": "1a2028efae9a3c265a77f23c71730fdcab53f36c81d90e1a76a3b11a095e270b"
+    },
+    {
+      "folder": "evidence/state-v24-controls-20k",
+      "mode": "prove",
+      "rows": 90,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "885d03a61d816f29ba642c6dd62fd31f2b1e87d50abac1c5001c5eb753661c86",
+      "source_commit": "e87002defc8ce59ab7a90ea9482893f057287926",
+      "binary_sha256": "1a2028efae9a3c265a77f23c71730fdcab53f36c81d90e1a76a3b11a095e270b"
+    },
+    {
+      "folder": "evidence/state-v24-controls-thread",
+      "mode": "thread",
+      "rows": 12,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "be9f233ea5f3ca56f975667e23eec310a291f4eebaab86e81768683fc1519c5b",
+      "source_commit": "e87002defc8ce59ab7a90ea9482893f057287926",
+      "binary_sha256": "1a2028efae9a3c265a77f23c71730fdcab53f36c81d90e1a76a3b11a095e270b"
+    },
+    {
+      "folder": "evidence/shapes-v24-controls-small",
+      "mode": "prove",
+      "rows": 768,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "7ec7bcec5c3ab4e32b90565a39a7cdaf8c9c08c153663f665dc7e227c0f9161d",
+      "source_commit": "e87002defc8ce59ab7a90ea9482893f057287926",
+      "binary_sha256": "e30d9805a5560f0f391ba902b8b94a39b3a3794f532428b30bc8eb1bb304411a"
+    },
+    {
+      "folder": "evidence/shapes-v24-controls-20k",
+      "mode": "prove",
+      "rows": 768,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "bf7f88af2ea89aa5f9457b6e041500bd0e30669f85027fcf0d003d11e4db5469",
+      "source_commit": "e87002defc8ce59ab7a90ea9482893f057287926",
+      "binary_sha256": "e30d9805a5560f0f391ba902b8b94a39b3a3794f532428b30bc8eb1bb304411a"
+    },
+    {
+      "folder": "evidence/shapes-v24-controls-thread",
+      "mode": "thread",
+      "rows": 192,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "16d71b6e71145b6aee108278ea1502f71ecf147b00101d893102f301f77c8d11",
+      "source_commit": "e87002defc8ce59ab7a90ea9482893f057287926",
+      "binary_sha256": "e30d9805a5560f0f391ba902b8b94a39b3a3794f532428b30bc8eb1bb304411a"
+    }
+  ],
+  "completed_proof_processes": 16960
+}

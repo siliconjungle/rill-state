@@ -1,0 +1,11 @@
+{
+  "source_commit": "cd5a85c0625cffbef79834466ad1aa52a62ff0bb",
+  "source_sha256": "8c8f3b8b4bef5fc6c99998520446f64a9eef1c4ddd8d6ed0cb0f9742e4b80c15",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "command": "RUSTUP_TOOLCHAIN=stable cargo bench --locked --features comparisons --bench state --bench shapes --no-run --message-format=json",
+  "timing": "Untimed build outside candidate intervals",
+  "binaries": {
+    "build/state-v23": "a0e6802aeaa217be499c2f7643a0518dbc1800958e326f4446d52ba3cd7beac0",
+    "build/shapes-v23": "704bf2967d3a4d5da16dc42bf410176fdab20e416b7930ef83263d14a8d59572"
+  }
+}

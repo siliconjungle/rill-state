@@ -1,0 +1,176 @@
+   Compiling rill-state v0.1.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state)
+    Finished `test` profile [unoptimized] target(s) in 22.12s
+     Running unittests src/lib.rs (target/debug/deps/rill_state-406f9b738f92f262)
+
+running 8 tests
+test experimental::array_record::tests::array_page_has_no_per_page_vec_header ... ok
+test experimental::layout_tests::record_slot_reduces_shared_slot_width_on_64_bit_targets ... ok
+test internal_tests::revision_exhaustion_does_not_change_state ... ok
+test experimental::inline_slice::tests::numeric_slot_uses_hash_niche_instead_of_extra_discriminant ... ok
+test internal_tests::future_cursor_rejected ... ok
+test experimental::sharded_inline::tests::directory_is_embedded_and_numeric_slots_keep_the_hash_niche ... ok
+test experimental::packed_index::layout::control_extremes_and_dense_row_size ... ok
+test experimental::compact_index::layout::narrow_and_wide_words_keep_zero_empty_and_full_row_range ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/adaptive.rs (target/debug/deps/adaptive-19866608fa5d12d7)
+
+running 15 tests
+test address_order_rejects_shift_at_pointer_width ... ok
+test failed_conversion_reclaims_partial_values_and_preserves_published_roots ... ok
+test builder_clone_failure_preserves_flat_cow_and_conversion_sources ... ok
+test failed_delta_after_shared_transfer_never_installs_partial_publication ... ok
+test failed_shared_rehash_preserves_roots_and_forward_transfer_avoids_unchanged_key_clones ... ok
+test address_cache_order_survives_visitor_panics_without_key_hash_or_payload_clones ... ok
+test large_batches_reset_reversible_storage_but_keep_oneway_control_paged ... ok
+test submitted_batch_density_type_gate_and_empty_batches_are_case_blind ... ok
+test partial_delta_and_reverse_conversion_failures_preserve_all_published_states ... ok
+test shared_transitions_clone_only_delta_payloads_preserve_instances_and_reclaim_every_owner ... ok
+test reverse_key_clone_and_hash_failures_leave_published_paged_roots_usable ... ok
+test key_clone_hash_and_drop_failures_preserve_published_roots_and_release_staging ... ok
+test flat_and_paged_caches_preserve_value_identity_without_cloning_payloads ... ok
+test four_actual_readers_keep_twenty_thousand_records_during_conversion ... ok
+test all_four_hundred_thirty_two_policies_match_collisions_canonical_keys_and_retained_values ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 18.76s
+
+     Running tests/compact_index.rs (target/debug/deps/compact_index-aae65b54c87868fb)
+
+running 12 tests
+test borrowed_strings_canonical_keys_and_reinserted_metadata ... ok
+test growth_uses_cached_words_without_rehashing_and_shared_builder_need_not_clone ... ok
+test moved_row_hash_panic_occurs_before_index_or_rows_change ... ok
+test removed_key_destructor_panic_leaves_dense_and_probe_indices_consistent ... ok
+test final_payload_owners_are_reclaimed_and_invalid_loads_rejected ... ok
+test replacement_value_destructor_panic_keeps_the_installed_binding_valid ... ok
+test failed_table_detachment_preserves_all_current_and_retained_bindings ... ok
+test both_batch_policies_repair_indices_before_removed_value_destructors_run ... ok
+test widening_reconstructs_missing_hash_bits_exactly_once ... ok
+test widening_hash_failure_preserves_both_representations_and_all_rows ... ok
+test every_swap_removal_victim_repairs_wraparound_indices ... ok
+test all_load_and_builder_variants_preserve_collisions_growth_and_old_views ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+     Running tests/contracts.rs (target/debug/deps/contracts-740a71abe4b8690b)
+
+running 10 tests
+test invalid_layouts_fail_before_allocation ... ok
+test gaps_empty_batches_duplicate_keys_and_foreign_cursors ... ok
+test evicted_values_reclaimed_when_last_snapshot_is_released ... ok
+test panicking_input_does_not_publish_partial_batch ... ok
+test colliding_non_numeric_keys_and_non_copy_values ... ok
+test panicking_value_clone_leaves_state_and_feed_unchanged ... ok
+test zero_history_is_explicit_and_snapshot_outlives_store ... ok
+test complete_revisions_can_be_published_to_concurrent_readers ... ok
+test twenty_thousand_pinned_readers_share_a_revision ... ok
+test random_replay_old_snapshots_and_layouts ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.33s
+
+     Running tests/exact_oracle.rs (target/debug/deps/exact_oracle-13ce36299eeabaab)
+
+running 6 tests
+test unordered_rows_and_nonclone_payloads_are_checked_without_copying ... ok
+test incorrect_reported_cardinality_is_rejected ... ok
+test duplicate_rows_cannot_hide_an_omitted_key ... ok
+test middle_payload_corruption_is_checked_beyond_touched_prefix_and_suffix ... ok
+test point_lookup_faults_are_rejected_independently_of_iteration ... ok
+test missing_rows_and_unknown_keys_are_rejected ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/experimental.rs (target/debug/deps/experimental-733c858346c1bae6)
+
+running 31 tests
+test inline_canonical_keys_survive_replacement_then_change_after_reinsertion ... ok
+test array_records_release_after_final_snapshot_and_returned_handle ... ok
+test array_key_policies_preserve_identity_with_distinct_copy_costs ... ok
+test inline_growth_of_a_shared_full_table_preserves_both_complete_views ... ok
+test inline_hash_normalization_never_confuses_zero_and_max_keys ... ok
+test array_page_parameters_are_checked_before_allocation ... ok
+test inline_shared_builder_supports_a_nonclone_hasher ... ok
+test inline_failed_detachment_keeps_the_published_view ... ok
+test inline_growth_and_removal_release_only_unretained_payloads ... ok
+test packed_records_keep_canonical_key_metadata_on_equal_key_replacement ... ok
+test generic_strings_heap_values_and_borrowed_keys ... ok
+test packed_records_release_after_last_snapshot_and_removed_handle ... ok
+test retained_pages_release_values_after_the_last_owner ... ok
+test sharded_inline_canonical_metadata_survives_grouping_and_reinsertion ... ok
+test owned_and_shared_hashers_keep_the_same_seed_across_map_clones ... ok
+test sharded_inline_detaches_only_the_touched_table ... ok
+test sharded_inline_hashes_once_per_input_operation_even_when_growing ... ok
+test sharded_inline_nonclone_builders_and_invalid_parameters ... ok
+test sharded_inline_random_distribution_preserves_retained_views ... ok
+test sharded_inline_reclaims_payload_after_last_view_and_removed_value ... ok
+test sharded_inline_zero_and_max_fingerprints_keep_distinct_keys ... ok
+test shared_hasher_snapshot_cloning_does_not_require_builder_clone ... ok
+test shared_records_clone_only_changed_values_and_release_final_owners ... ok
+test large_array_pages_grow_without_changing_retained_records ... ok
+test owned_hashers_preserve_cow_snapshots_collisions_and_borrowed_keys ... ok
+test inline_slices_preserve_collision_growth_deletion_and_borrowed_keys ... ok
+test packed_records_preserve_borrowed_reads_collisions_and_retained_views ... ok
+test shared_records_survive_collision_growth_deletion_and_old_readers ... ok
+test collisions_wraparound_deletion_growth_and_retained_views ... ok
+test array_pages_preserve_collisions_wraparound_batches_and_borrowed_reads ... ok
+test sharded_inline_collisions_wrap_growth_and_ordered_duplicates ... ok
+
+test result: ok. 31 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.17s
+
+     Running tests/packed_index.rs (target/debug/deps/packed_index-f18f249d1f16b12b)
+
+running 10 tests
+test borrowed_strings_canonical_keys_and_reinserted_metadata ... ok
+test final_payload_owners_are_reclaimed_and_invalid_loads_rejected ... ok
+test moved_row_hash_panic_occurs_before_index_or_rows_change ... ok
+test growth_uses_cached_words_without_rehashing_and_shared_builder_need_not_clone ... ok
+test replacement_value_destructor_panic_keeps_the_installed_binding_valid ... ok
+test failed_table_detachment_preserves_all_current_and_retained_bindings ... ok
+test removed_key_destructor_panic_leaves_dense_and_probe_indices_consistent ... ok
+test both_batch_policies_repair_indices_before_removed_value_destructors_run ... ok
+test every_swap_removal_victim_repairs_wraparound_indices ... ok
+test all_load_and_builder_variants_preserve_collisions_growth_and_old_views ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+     Running tests/root_envelope.rs (target/debug/deps/root_envelope-28dd578fa9f53781)
+
+running 2 tests
+test native_clones_the_backend_while_arc_clones_only_its_envelope ... ok
+test arc_and_native_roots_preserve_staged_data_metadata_and_lifetimes ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/sharded_panic.rs (target/debug/deps/sharded_panic-4e7b0138164fd592)
+
+running 3 tests
+test sharded_panic_grouped_clone_keeps_counts_and_map_usable ... ok
+test sharded_panic_clone_during_shared_growth_preserves_all_existing_keys ... ok
+test sharded_panic_drop_during_batch_delete_keeps_counts_and_old_view ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/table_panic.rs (target/debug/deps/table_panic-9aa5ab2212fe1c54)
+
+running 5 tests
+test split_delete_key_drop_panic_keeps_counts_and_probe_chains ... ok
+test flat_batch_delete_drop_panic_keeps_counts_and_probe_chains ... ok
+test inline_growth_clone_panic_preserves_current_and_retained_bindings ... ok
+test probing_growth_clone_panic_preserves_current_and_retained_bindings ... ok
+test paged_delete_clone_panic_preserves_probe_reachability ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/vector_adapter.rs (target/debug/deps/vector_adapter-8e083c1ab5638e45)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rill_state
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

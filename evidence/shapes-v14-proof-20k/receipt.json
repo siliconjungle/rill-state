@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "layer": "generic-shapes",
+  "mode": "prove",
+  "claim": "exact behavior",
+  "workers": 2,
+  "source_sha256": "17aa191e4f50149162c3c171688b5f3bc081c61b072eb50bb4d4d93abd723b9c",
+  "source_commit": "38dc2531b72765532bb73c432878250423feb0e6",
+  "binary_sha256": "0c456067de9b29a2bacb91c30d615e24c0220e80b79f6236cf3a2a75448c6f5e",
+  "driver_sha256": "1bc2fdce6bf7a5c874cff38e020031329e64478f4346a1851608239d313630a6",
+  "executor_sha256": "0f6db8a265d1859e047dc85e56cc1a5564be880892040cc59a7c7d33fdc202e0",
+  "engines": [
+    "probe-flat",
+    "probe-paged16",
+    "probe-paged64"
+  ],
+  "shapes": [
+    "u64-inline",
+    "string-inline",
+    "u64-owned256",
+    "string-owned256",
+    "u64-shared256",
+    "string-shared256"
+  ],
+  "cases": [
+    "single",
+    "sparse",
+    "churn",
+    "burst",
+    "read",
+    "scan",
+    "slow",
+    "miss100"
+  ],
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "records": 20000,
+  "readers": 20000,
+  "rounds": 12,
+  "repetitions": 1,
+  "tasks": 288,
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "completed": 288,
+  "errors": 0,
+  "output_agreement": true,
+  "finished_at_unix": 1792614174.4843462
+}

@@ -1,0 +1,42 @@
+{
+  "claim": "Selected raw held-map getter reproducibility baseline, not complete engine performance",
+  "source_commit": "51a932d651ba86695e6c9b1d40abb893e9e77031",
+  "input_sha256": {
+    "Cargo.toml": "83647dcba1cde86a599573b4b9e0a4badd085ec7522b1338f79822a455e8f32c",
+    "Cargo.lock": "de89954479ada1739ef01145ed2239dbe3b5b911c187052784b918edd2503c4f",
+    "src/lib.rs": "a9cd62513dd6954ad742a334d10b9e2a125b15ab35e417c1683d95a6abeac530",
+    "benches/point.rs": "e560ac52a07fe2932e80e6e3e717dbf9cb827b388df2364ea59b4b1e1d44f34c",
+    "RAW-POINT-PLAN.json": "0712c9bf35c74293602d8274af36dfc249a325f5752a70fbc5a06d0af8392374",
+    "run_point.py": "153217069a501d8494c0c4dac7dc38f5fc45df24bb101cd1c9b186507f19a225"
+  },
+  "binary": "build/group-byte-point-v1",
+  "binary_sha256": "e7f3cecd709d0b213cbe139b9bda9ffb0699d76584f64c1052b0df3b245ea9b1",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "command": [
+    "cargo",
+    "bench",
+    "--locked",
+    "--manifest-path",
+    "research/group-byte-index-proof/Cargo.toml",
+    "--bench",
+    "point",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "1"
+  },
+  "compiler_environment": {
+    "RUSTFLAGS": null,
+    "CARGO_ENCODED_RUSTFLAGS": null,
+    "RUSTC_WRAPPER": null,
+    "CARGO_TARGET_DIR": null
+  },
+  "source_preflight": {
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "timing": "Untimed build; default bench profile and compiler flags unchanged"
+}

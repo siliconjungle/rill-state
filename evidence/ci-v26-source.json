@@ -1,0 +1,25 @@
+{
+  "run_url": "https://github.com/siliconjungle/rill-state/actions/runs/39692602369",
+  "head_commit": "8e5f1441539eaa178e464522943a84633e6b26f9",
+  "core_source_commit": "5e8035a6495287226ed8c6cf634d37bc301b714f",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "comparisons",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "core (stable)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "core (1.85.0)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "scope": "Rust 1.85/stable core and comparator smoke checks; not the full 20000-record performance acceptance gate."
+}

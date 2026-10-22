@@ -1,0 +1,58 @@
+{
+  "claim": "Generic raw adaptive map proofs, not complete revision/feed admission or performance superiority. The original 87 tests plus ten adaptive tests pass.",
+  "source_commit": "9e95fc80065a3116e119fd5882b56adff992c1d4",
+  "input_sha256": {
+    "Cargo.toml": "1877129cb571e20821f58a8aaf8649a559cd83d2df61df0c881d6c1ba3285c1a",
+    "Cargo.lock": "289c3413cefece6fb8bfffad7c88d3b5dfb48135674a3a742355f76da4ab78d6",
+    "src/experimental.rs": "e7b124336a5f06cb9b9658c6f0356c7667a903c45b6929a431c50b831da4a392",
+    "src/experimental/adaptive.rs": "5eb661b7618e26aabd9ddcb13f7c6d457479cd9c0efd48b9170b07cf99c4ae71",
+    "tests/adaptive.rs": "f7962e74138acb8d123495ddae0429402bd183519d0e1dd55f779840056e7cf2"
+  },
+  "binary": "build/adaptive-contracts-v1",
+  "binary_sha256": "7cb62bcdb9c946a6ca1dd0aef38ce566a06c3040d90380188904f001d23e7236",
+  "build_command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--no-default-features",
+    "--features",
+    "experimental",
+    "--test",
+    "adaptive",
+    "--no-run",
+    "--message-format=json"
+  ],
+  "executed_command": [
+    "/Users/james/Documents/ChatGPT/3d-modelling/rill-state/build/adaptive-contracts-v1",
+    "--test-threads=1"
+  ],
+  "exit_code": 0,
+  "passed_adaptive_tests": 10,
+  "all_core_experimental_tests": 97,
+  "policy_count": 144,
+  "model_steps_per_policy": 1000,
+  "actual_reader_records": 20000,
+  "reader_threads": 4,
+  "reader_modes": [
+    "inline",
+    "shared",
+    "cache"
+  ],
+  "scope": "Full raw model for all policies; reader probes cover three representative flat modes. Complete per-configuration threaded engine proof remains pending.",
+  "cache": "No K/V clones on read; get/traversal value-instance identity is checked in flat and paged roots. Shared-cache-off controls are present.",
+  "source_preflight": {
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "logs_sha256": {
+    "adaptive-contracts-v1.log": "620d989c2d2c7c9fdace0908c876affff9efea17c072bbe869107c7c36e604f0",
+    "adaptive-core-tests-v30.log": "bc5904afa99747ca7dad626b9edad7ebbe199c6ce0b434fc502ae436b7419410",
+    "adaptive-clippy-v30.log": "4a59f3d618f88fa8034b078b19b9a722e298c2f4a2cf4ef3164317930dfec825"
+  }
+}

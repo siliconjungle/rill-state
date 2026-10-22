@@ -1,0 +1,1541 @@
+{
+  "claim": "Single raw insertion including growth/COW. Setup and full validation untimed. Parallel diagnostic medians are not complete engine throughput, service latency or final acceptance.",
+  "cells": [
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 121833
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 748084
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 121334
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 552000
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 391750
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1406333
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 421375
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1470417
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1056750
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3069750
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1214000
+    },
+    {
+      "shape": "string-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3117875
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 299542
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1302834
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 263000
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1235584
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 942916
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2660417
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 986583
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2729583
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1123000
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 5543750
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1054625
+    },
+    {
+      "shape": "string-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 4806333
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 290042
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1699875
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 235709
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1636583
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 624500
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3580500
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1040041
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3436208
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1164250
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 6811458
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1112667
+    },
+    {
+      "shape": "string-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 7048833
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 284000
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2067375
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 266875
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1918167
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 571541
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 4070750
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1341875
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 4343666
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1085500
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 7536542
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 932959
+    },
+    {
+      "shape": "string-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 7603291
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 130375
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1232583
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 100917
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1151625
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 438000
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2521875
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 561916
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2590500
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1049583
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 5532458
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1018959
+    },
+    {
+      "shape": "string-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 6686416
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 355000
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2485333
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 292917
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2254500
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 768250
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 5137000
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 909791
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 5041209
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1085583
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 10378542
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1025958
+    },
+    {
+      "shape": "string-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 11289417
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 288291
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3637292
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 259375
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3145958
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 571250
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 7315458
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1717292
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 8788333
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 857166
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 15467750
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1132917
+    },
+    {
+      "shape": "string-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 15086875
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 262334
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3687958
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 256625
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3887958
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 451167
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 6856917
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1293000
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 8330625
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1019375
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 19048042
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1043125
+    },
+    {
+      "shape": "string-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 20214542
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 158208
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 315833
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 99000
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 235250
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 448375
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 616833
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 684375
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 851583
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 858000
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1114958
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 861292
+    },
+    {
+      "shape": "u64-inline",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1160250
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 355834
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 464792
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 290125
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 454583
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 614125
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 951834
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 964625
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1227458
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 974833
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1384292
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 945750
+    },
+    {
+      "shape": "u64-inline",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1512458
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 170083
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 486709
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 167167
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 527125
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 333459
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 927250
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 506166
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1430958
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1018416
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1989959
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1042166
+    },
+    {
+      "shape": "u64-inline",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1853917
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 175500
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 635291
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 203959
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 591083
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 430833
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 785875
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 776375
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1351417
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1046584
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1890541
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1168750
+    },
+    {
+      "shape": "u64-inline",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1867417
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 164208
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 866666
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 98000
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 797250
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 331334
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1778958
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 558083
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1955292
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 672334
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3564875
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 719917
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 25,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3825041
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 324375
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1540542
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 265000
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 1733708
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 656375
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3183250
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 501667
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2919333
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1405791
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 5645125
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1494792
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 50,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 6396417
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 187750
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2251500
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 202125
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2108791
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 487042
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 3966667
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 623208
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 4147042
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1009875
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 8796333
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1067375
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 70,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 8305458
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 184416
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2518333
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 229792
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 32768,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 2709417
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 588541
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 6198917
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 751542
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 65536,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 8012416
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1164250
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": false,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 9906584
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": false,
+      "raw_insertion_ns_median": 1195292
+    },
+    {
+      "shape": "u64-owned256",
+      "load": 85,
+      "capacity_before": 131072,
+      "adaptive": true,
+      "pin_initial": true,
+      "raw_insertion_ns_median": 9944333
+    }
+  ]
+}

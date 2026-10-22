@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "scope": "Opt-in experimental mutable-map recovery; default Store and external atomic revision staging are unchanged.",
+  "negative_proofs": [
+    "evidence/panic-v24-build-receipt.json",
+    "evidence/panic-companions-corrected-v25-receipt.json"
+  ],
+  "positive_proof": "evidence/tests-v25e.log",
+  "correction": "The original paged-delete probe assumed a particular collision order and could fail its setup assertion without injecting a clone panic. It was replaced with all 32 by 32 victim/failure combinations. The corrected test reproduces real lookup corruption against the frozen old library.",
+  "fixes": [
+    "Stage shared-entry clones before installing replacement tables.",
+    "Prepare every affected probing page before opening a deletion hole.",
+    "Update counts and close probe chains before dropping removed user objects.",
+    "Use an unwinding length guard for sharded batches."
+  ],
+  "limits": "Mutable-map batches remain nontransactional and may partially apply on panic; counts and reachability remain valid. Application-level revision publication still requires staging."
+}

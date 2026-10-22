@@ -1,0 +1,69 @@
+   Compiling rill-state v0.1.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state)
+    Finished `release` profile [optimized] target(s) in 0.76s
+     Running `rill-state/target/release/examples/scc_probe`
+inserted 512
+revision 0: clone start
+revision 0: cloned
+revision 0: updated
+revision 0: checked
+revision 1: clone start
+revision 1: cloned
+revision 1: updated
+revision 1: checked
+revision 2: clone start
+revision 2: cloned
+revision 2: updated
+revision 2: checked
+revision 3: clone start
+revision 3: cloned
+revision 3: updated
+revision 3: checked
+revision 4: clone start
+revision 4: cloned
+revision 4: updated
+revision 4: checked
+revision 5: clone start
+revision 5: cloned
+revision 5: updated
+revision 5: checked
+revision 6: clone start
+revision 6: cloned
+revision 6: updated
+revision 6: checked
+revision 7: clone start
+revision 7: cloned
+revision 7: updated
+revision 7: checked
+revision 8: clone start
+revision 8: cloned
+revision 8: updated
+revision 8: checked
+revision 9: clone start
+revision 9: cloned
+revision 9: updated
+revision 9: checked
+revision 10: clone start
+revision 10: cloned
+revision 10: updated
+revision 10: checked
+revision 11: clone start
+revision 11: cloned
+revision 11: updated
+revision 11: checked
+revision 12: clone start
+revision 12: cloned
+revision 12: updated
+revision 12: checked
+revision 13: clone start
+revision 13: cloned
+revision 13: updated
+revision 13: checked
+revision 14: clone start
+revision 14: cloned
+revision 14: updated
+revision 14: checked
+revision 15: clone start
+revision 15: cloned
+revision 15: updated
+revision 15: checked
+native SCC probe passed

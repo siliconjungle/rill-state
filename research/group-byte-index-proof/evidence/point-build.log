@@ -1,0 +1,6 @@
+   Compiling allocator-api2 v0.2.21
+   Compiling foldhash v0.2.0
+   Compiling equivalent v1.0.3
+   Compiling hashbrown v0.17.1
+   Compiling group-byte-index-proof v0.0.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state/research/group-byte-index-proof)
+    Finished `bench` profile [optimized] target(s) in 13.56s

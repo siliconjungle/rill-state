@@ -1,0 +1,135 @@
+{
+  "plan": "research/v34m2-development-plan.json",
+  "plan_sha256": "030ee71107641109344730f8b99669359b6bf0a5241962f22858edbc4de3d8d5",
+  "runner_sha256": "a68ced534c61b41a6f10b2ce3b04e9911a91855f273e529d50c69a9e48f882c9",
+  "driver_source_commit": "af769680f891beea6f58f0ab2a794a8e1d619d58",
+  "claim": "Development stages only; holdout acceptance not implied",
+  "bindings": {
+    "state": {
+      "source_sha256": "bc221878bcce0176b697a92df77b930e90ee6e0a0316d2d6f75a27968a8ba0eb",
+      "source_commit": "2bcf226402f760787feb4d1f423d9ff5ebd64066",
+      "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+      "binary_sha256": "8de41c0a583874b73369f8dfb9c6d078d8a39d1f7462e4f3be74b93b0081f094",
+      "build_binding": "evidence/build-v34m2-receipt.json",
+      "build_binding_sha256": "68b5a80d9c19df2455c54189a230a2bacf086888cace5057bf12551087b126fc"
+    }
+  },
+  "stages": [
+    {
+      "layer": "state",
+      "phase": "proof-small",
+      "label": "state-v34m2-proof-small",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "prove",
+        "--binary",
+        "build/state-v34m2",
+        "--label",
+        "state-v34m2-proof-small",
+        "--engines",
+        "mvcc-native-scoped-each,mvcc-native-scoped-last,mvcc-native-export-hashbrown-each,mvcc-native-export-hashbrown-last,mvcc-native-export-stdfast-each,mvcc-native-export-stdfast-last,mvcc-native-export-btree-each,mvcc-native-export-btree-last,std-hash,std-fast,std-btree,hashbrown,hashbrown-sip,imbl-fast,rpds-fast,record-paged16,rill,rillfast,adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-sip-1-3-drop-16-reset",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "1000",
+        "--readers",
+        "1000",
+        "--rounds",
+        "8"
+      ]
+    },
+    {
+      "layer": "state",
+      "phase": "proof-20k",
+      "label": "state-v34m2-proof-20k",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "prove",
+        "--binary",
+        "build/state-v34m2",
+        "--label",
+        "state-v34m2-proof-20k",
+        "--engines",
+        "mvcc-native-scoped-each,mvcc-native-scoped-last,mvcc-native-export-hashbrown-each,mvcc-native-export-hashbrown-last,mvcc-native-export-stdfast-each,mvcc-native-export-stdfast-last,mvcc-native-export-btree-each,mvcc-native-export-btree-last,std-hash,std-fast,std-btree,hashbrown,hashbrown-sip,imbl-fast,rpds-fast,record-paged16,rill,rillfast,adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-sip-1-3-drop-16-reset",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12"
+      ]
+    },
+    {
+      "layer": "state",
+      "phase": "threaded-20k",
+      "label": "state-v34m2-threaded-20k",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "thread",
+        "--binary",
+        "build/state-v34m2",
+        "--label",
+        "state-v34m2-threaded-20k",
+        "--engines",
+        "mvcc-native-scoped-each,mvcc-native-scoped-last,mvcc-native-export-hashbrown-each,mvcc-native-export-hashbrown-last,mvcc-native-export-stdfast-each,mvcc-native-export-stdfast-last,mvcc-native-export-btree-each,mvcc-native-export-btree-last,std-hash,std-fast,std-btree,hashbrown,hashbrown-sip,imbl-fast,rpds-fast,record-paged16,rill,rillfast,adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-sip-1-3-drop-16-reset",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12",
+        "--cases",
+        "sparse,churn"
+      ]
+    },
+    {
+      "layer": "state",
+      "phase": "screen",
+      "label": "state-v34m2-screen",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "screen",
+        "--binary",
+        "build/state-v34m2",
+        "--label",
+        "state-v34m2-screen",
+        "--engines",
+        "mvcc-native-scoped-each,mvcc-native-scoped-last,mvcc-native-export-hashbrown-each,mvcc-native-export-hashbrown-last,mvcc-native-export-stdfast-each,mvcc-native-export-stdfast-last,mvcc-native-export-btree-each,mvcc-native-export-btree-last,std-hash,std-fast,std-btree,hashbrown,hashbrown-sip,imbl-fast,rpds-fast,record-paged16,rill,rillfast,adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-sip-1-3-drop-16-reset",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12"
+      ]
+    }
+  ],
+  "completed": [
+    "state-v34m2-proof-small",
+    "state-v34m2-proof-20k",
+    "state-v34m2-threaded-20k",
+    "state-v34m2-screen"
+  ],
+  "started_at_unix": 1792636953.011877,
+  "last_exit_code": 0,
+  "updated_at_unix": 1792637046.5931258,
+  "finished_at_unix": 1792637046.593745
+}

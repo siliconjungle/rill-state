@@ -1,0 +1,40 @@
+{
+  "claim": "Artifact coverage and binding audit. Internal executable assertions supply behavioral proofs; this does not establish performance or final acceptance.",
+  "auditor_sha256": "4afa03215c02805d15300f15db5af81df1e9804785a8a30bba7ad820cac09245",
+  "matrices": [
+    {
+      "folder": "evidence/state-v34m2-proof-small",
+      "mode": "prove",
+      "rows": 660,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "e7f4227fd05ca202129ca0b309571d8b70f5f5432445c7e4a3341a540aea1276",
+      "source_commit": "2bcf226402f760787feb4d1f423d9ff5ebd64066",
+      "binary_sha256": "8de41c0a583874b73369f8dfb9c6d078d8a39d1f7462e4f3be74b93b0081f094"
+    },
+    {
+      "folder": "evidence/state-v34m2-proof-20k",
+      "mode": "prove",
+      "rows": 660,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "3701e5223c177a32bb8f1b16ef5f85e28b7ac9717a7ecab9c08a2c1c6133b0ca",
+      "source_commit": "2bcf226402f760787feb4d1f423d9ff5ebd64066",
+      "binary_sha256": "8de41c0a583874b73369f8dfb9c6d078d8a39d1f7462e4f3be74b93b0081f094"
+    },
+    {
+      "folder": "evidence/state-v34m2-threaded-20k",
+      "mode": "thread",
+      "rows": 88,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "597ada003a7e3f7ec212a16e14f0ed770b16a84625f9142aefef1677b7d49b06",
+      "source_commit": "2bcf226402f760787feb4d1f423d9ff5ebd64066",
+      "binary_sha256": "8de41c0a583874b73369f8dfb9c6d078d8a39d1f7462e4f3be74b93b0081f094"
+    }
+  ],
+  "completed_proof_processes": 1408
+}

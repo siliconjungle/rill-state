@@ -1,0 +1,95 @@
+{
+  "claim": "Artifact coverage and binding audit. Internal executable assertions supply behavioral proofs; this does not establish performance or final acceptance.",
+  "auditor_sha256": "4afa03215c02805d15300f15db5af81df1e9804785a8a30bba7ad820cac09245",
+  "matrices": [
+    {
+      "folder": "evidence/state-v21-proof-small",
+      "mode": "prove",
+      "rows": 960,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "a63e5eceb5a396674d6150842ff29611e7fe7eaa43150ef43a1d70d9dfd8542e",
+      "source_commit": "f9c2b2f0709370330d41045a0bde31dfe25f85aa",
+      "binary_sha256": "63079a05088e6ddd21d0e911cec17290953eb0071c2f2550fbe77eb5a67bf990"
+    },
+    {
+      "folder": "evidence/state-v21-proof-20k",
+      "mode": "prove",
+      "rows": 960,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "171d67ceb32e613954af6c25256b70d7b8b32f17f79dd63e4ea7deaf13bb49c2",
+      "source_commit": "f9c2b2f0709370330d41045a0bde31dfe25f85aa",
+      "binary_sha256": "63079a05088e6ddd21d0e911cec17290953eb0071c2f2550fbe77eb5a67bf990"
+    },
+    {
+      "folder": "evidence/shapes-v21-proof-small",
+      "mode": "prove",
+      "rows": 1536,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "f7563bdfa9d27635eeea200268d2b7dc00f7c25d6a45142a161ed24fae291a08",
+      "source_commit": "f9c2b2f0709370330d41045a0bde31dfe25f85aa",
+      "binary_sha256": "2d3341e0095213fe53a0b2ef2ba68cba03e40989221149fcd4cbca62cf3c0c24"
+    },
+    {
+      "folder": "evidence/shapes-v21-proof-20k",
+      "mode": "prove",
+      "rows": 1536,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "02f11ca9e307058613052633dc8334c582c75b4dd176b0113afcad4b81077757",
+      "source_commit": "f9c2b2f0709370330d41045a0bde31dfe25f85aa",
+      "binary_sha256": "2d3341e0095213fe53a0b2ef2ba68cba03e40989221149fcd4cbca62cf3c0c24"
+    },
+    {
+      "folder": "evidence/shapes-v21-threaded-20k",
+      "mode": "thread",
+      "rows": 384,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "7436717fc60feca5a28f4126cf01db79636ab51471c68cfab9c957099b65b4b3",
+      "source_commit": "f9c2b2f0709370330d41045a0bde31dfe25f85aa",
+      "binary_sha256": "2d3341e0095213fe53a0b2ef2ba68cba03e40989221149fcd4cbca62cf3c0c24"
+    },
+    {
+      "folder": "evidence/state-v22-proof-small",
+      "mode": "prove",
+      "rows": 480,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "37af010ae88bb50fc8ed9c54fc2b2846db1c563fba50f66d85704f50fc95273b",
+      "source_commit": "ee66c5ccd8c821b6f8105e4650f82b83ad34340a",
+      "binary_sha256": "0d24a857de2f1940e4623ff8662851d3c44dd073343ad20e89dcaff799353e2c"
+    },
+    {
+      "folder": "evidence/state-v22-proof-20k",
+      "mode": "prove",
+      "rows": 480,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "0361330e551e74ad2309279850cca2a131be0e41b6b1c4d4617b4e8e97df9e3f",
+      "source_commit": "ee66c5ccd8c821b6f8105e4650f82b83ad34340a",
+      "binary_sha256": "0d24a857de2f1940e4623ff8662851d3c44dd073343ad20e89dcaff799353e2c"
+    },
+    {
+      "folder": "evidence/shapes-v22-proof-small",
+      "mode": "prove",
+      "rows": 2048,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "01760d0e1ac9f3e0124c4f1bf0d52fc2e979cef9f9335e2afde1e532f6141d2c",
+      "source_commit": "ee66c5ccd8c821b6f8105e4650f82b83ad34340a",
+      "binary_sha256": "cc4690875f76a745b3fa50f2cafb37a101214deaf8fc227920fce4655731d536"
+    }
+  ],
+  "completed_proof_processes": 8384
+}

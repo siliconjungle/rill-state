@@ -1,0 +1,28 @@
+    Checking rill-state v0.1.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state)
+error: manual checked division
+  --> src/experimental.rs:67:12
+   |
+67 |         if P == 0 {
+   |            ^^^^^^ check performed here
+...
+70 |             &self.pages[i / P][i % P]
+   |                         ----- division performed here
+   |
+   = help: consider using `checked_div`
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.96.0/index.html#manual_checked_ops
+   = note: `-D clippy::manual-checked-ops` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::manual_checked_ops)]`
+
+error: manual checked division
+  --> src/experimental.rs:74:12
+   |
+74 |         if P == 0 {
+   |            ^^^^^^ check performed here
+...
+77 |             &mut Arc::make_mut(&mut self.pages[i / P])[i % P]
+   |                                                ----- division performed here
+   |
+   = help: consider using `checked_div`
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.96.0/index.html#manual_checked_ops
+
+error: could not compile `rill-state` (lib) due to 2 previous errors

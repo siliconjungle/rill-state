@@ -1,0 +1,22 @@
+{
+  "source_commit": "1cf52314deb86fc142fe9ed4c4f9c64406b6dc5f",
+  "source_sha256": "4f4e359ce82783972798b863964213931b0a75abdec866056b1cc09f654e9eb4",
+  "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+  "command": "RUSTUP_TOOLCHAIN=stable CARGO_BUILD_JOBS=2 cargo bench --locked --features comparisons --bench state --bench shapes --no-run --message-format=json",
+  "environment": {
+    "RUSTUP_TOOLCHAIN": "stable",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "source_preflight": {
+    "source_config": null,
+    "direct_cargo_arguments": [],
+    "prepared_outside_measurement": true
+  },
+  "timing": "Untimed build started after prior v25 serial pipeline completed",
+  "started_at_unix": 1792626595.928353,
+  "finished_at_unix": 1792626973.696862,
+  "binaries": {
+    "build/state-v27": "faa035658055ae98610ff7968230cb765aed74934351038ac8cfef554578b97e",
+    "build/shapes-v27": "bf13f31089615159c019aef6c97a9b4123257fe7cbd25958f3aee87859df6c78"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "claim": "Actual compiler artifact feature audit; same committed root inputs, separately compiled upstream branch factors with matched controls. Not performance acceptance or a cross-binary raw timing inference.",
+  "builds": [
+    {
+      "version": "v28",
+      "branch_factor": 32,
+      "features": [
+        "arc"
+      ],
+      "build_receipt_sha256": "ed4681cd763acc5e4fe80e8a69cb17fb84bac29d90637d01d9d30e738cf3029c",
+      "source_commit": "32628f640748ea95a77cc3c18ba73c71b8eb5846",
+      "source_sha256": "ec4df2a9fc3283a37c99b06447e095b938fca679d26c4a4815651bd8d3b8e2e8",
+      "binaries": {
+        "build/state-v28": "c411c980e333f8177352dfc31f3eeaae8498a07020e95bc379003f873518f2cc",
+        "build/shapes-v28": "90ce1b11386a7a05fd78099dd61dabda0c2d6422f360566405b5768fefa8ed2d"
+      }
+    },
+    {
+      "version": "v29",
+      "branch_factor": 4,
+      "features": [
+        "arc",
+        "small_branch"
+      ],
+      "build_receipt_sha256": "10d622d6df27303f25e0240dff0a34b207cf6fbeab07ec61fc4741bc4d802687",
+      "source_commit": "62c2b4421fe1f3e1196b4151c59029f61ab260e0",
+      "source_sha256": "ec4df2a9fc3283a37c99b06447e095b938fca679d26c4a4815651bd8d3b8e2e8",
+      "binaries": {
+        "build/state-v29": "19802c1b6939fe24e49857dd402626ca29e71abb75ccd7656fa09c11b74a5e9f",
+        "build/shapes-v29": "e6dd0435a589ee8ed136430f6907a7bb0c49c022909ec49a4898ad386184c583"
+      }
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "plan": "research/v33t-development-plan.json",
+  "plan_sha256": "c682500619a2663a03d5f198825c1fe001d4488c514f525fc3abab487721671b",
+  "runner_sha256": "a68ced534c61b41a6f10b2ce3b04e9911a91855f273e529d50c69a9e48f882c9",
+  "driver_source_commit": "bb704ad238b84fa0983cb8c8257d34aad2491a90",
+  "claim": "Development stages only; holdout acceptance not implied",
+  "bindings": {
+    "state": {
+      "source_sha256": "d34547c162afb33e0619d2039f6f06a4f46ed99291f1b17436439d01d71641d6",
+      "source_commit": "c86cc9881884ed9c3ba784944bb6611c124b7358",
+      "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+      "binary_sha256": "5f66be7c3541c77f4083a8b9ddb6e37b4ffe5c0b2178f82f927962e45b94870e",
+      "build_binding": "evidence/build-v33t-receipt.json",
+      "build_binding_sha256": "3e90f9b78c8de0a73144a4c1750186aafdf3be3635dee3261d9202e0474b11cf"
+    },
+    "shapes": {
+      "source_sha256": "d34547c162afb33e0619d2039f6f06a4f46ed99291f1b17436439d01d71641d6",
+      "source_commit": "c86cc9881884ed9c3ba784944bb6611c124b7358",
+      "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+      "binary_sha256": "4499d63c87cd71c6a79750a788521b2bc8f7c9b066c7ce921014d07ad6d33a08",
+      "build_binding": "evidence/build-v33t-receipt.json",
+      "build_binding_sha256": "3e90f9b78c8de0a73144a4c1750186aafdf3be3635dee3261d9202e0474b11cf"
+    }
+  },
+  "stages": [
+    {
+      "layer": "state",
+      "phase": "proof-small",
+      "label": "state-v33t-proof-small",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "prove",
+        "--binary",
+        "build/state-v33t",
+        "--label",
+        "state-v33t-proof-small",
+        "--engines",
+        "adaptive-inline-sip-1-3-drop-16-oneway,adaptive-inline-sip-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-64-oneway,adaptive-inline-sip-1-3-drop-64-reset,adaptive-inline-fast-1-3-drop-16-oneway,adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-fast-1-3-drop-64-oneway,adaptive-inline-fast-1-3-drop-64-reset,adaptive-shared-sip-1-3-drop-16-oneway,adaptive-shared-sip-1-3-drop-16-reset,adaptive-shared-sip-1-3-drop-64-oneway,adaptive-shared-sip-1-3-drop-64-reset,adaptive-shared-fast-1-3-drop-16-oneway,adaptive-shared-fast-1-3-drop-16-reset,adaptive-shared-fast-1-3-drop-64-oneway,adaptive-shared-fast-1-3-drop-64-reset,adaptive-cache-sip-1-3-drop-16-oneway,adaptive-cache-sip-1-3-drop-16-reset,adaptive-cache-sip-1-3-drop-64-oneway,adaptive-cache-sip-1-3-drop-64-reset,adaptive-cache-fast-1-3-drop-16-oneway,adaptive-cache-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-64-oneway,adaptive-cache-fast-1-3-drop-64-reset,adaptive-reuse-sip-1-3-drop-16-oneway,adaptive-reuse-sip-1-3-drop-16-reset,adaptive-reuse-sip-1-3-drop-64-oneway,adaptive-reuse-sip-1-3-drop-64-reset,adaptive-reuse-fast-1-3-drop-16-oneway,adaptive-reuse-fast-1-3-drop-16-reset,adaptive-reuse-fast-1-3-drop-64-oneway,adaptive-reuse-fast-1-3-drop-64-reset,adaptive-reusecache-sip-1-3-drop-16-oneway,adaptive-reusecache-sip-1-3-drop-16-reset,adaptive-reusecache-sip-1-3-drop-64-oneway,adaptive-reusecache-sip-1-3-drop-64-reset,adaptive-reusecache-fast-1-3-drop-16-oneway,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-64-oneway,adaptive-reusecache-fast-1-3-drop-64-reset,hashbrown,hashbrown-sip,std-fast,std-hash,std-btree,indexmap-fast,imbl-fast,rpds-fast,record-paged16,record-paged64,inline-owned-index-25,vector-rb-fast,vector-cowvec-fast",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "1000",
+        "--readers",
+        "1000",
+        "--rounds",
+        "8"
+      ]
+    },
+    {
+      "layer": "shapes",
+      "phase": "proof-small",
+      "label": "shapes-v33t-proof-small",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/shapes_study.py",
+        "prove",
+        "--binary",
+        "build/shapes-v33t",
+        "--label",
+        "shapes-v33t-proof-small",
+        "--engines",
+        "adaptive-inline-sip-1-3-drop-16-oneway,adaptive-inline-sip-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-64-oneway,adaptive-inline-sip-1-3-drop-64-reset,adaptive-inline-fast-1-3-drop-16-oneway,adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-fast-1-3-drop-64-oneway,adaptive-inline-fast-1-3-drop-64-reset,adaptive-shared-sip-1-3-drop-16-oneway,adaptive-shared-sip-1-3-drop-16-reset,adaptive-shared-sip-1-3-drop-64-oneway,adaptive-shared-sip-1-3-drop-64-reset,adaptive-shared-fast-1-3-drop-16-oneway,adaptive-shared-fast-1-3-drop-16-reset,adaptive-shared-fast-1-3-drop-64-oneway,adaptive-shared-fast-1-3-drop-64-reset,adaptive-cache-sip-1-3-drop-16-oneway,adaptive-cache-sip-1-3-drop-16-reset,adaptive-cache-sip-1-3-drop-64-oneway,adaptive-cache-sip-1-3-drop-64-reset,adaptive-cache-fast-1-3-drop-16-oneway,adaptive-cache-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-64-oneway,adaptive-cache-fast-1-3-drop-64-reset,adaptive-reuse-sip-1-3-drop-16-oneway,adaptive-reuse-sip-1-3-drop-16-reset,adaptive-reuse-sip-1-3-drop-64-oneway,adaptive-reuse-sip-1-3-drop-64-reset,adaptive-reuse-fast-1-3-drop-16-oneway,adaptive-reuse-fast-1-3-drop-16-reset,adaptive-reuse-fast-1-3-drop-64-oneway,adaptive-reuse-fast-1-3-drop-64-reset,adaptive-reusecache-sip-1-3-drop-16-oneway,adaptive-reusecache-sip-1-3-drop-16-reset,adaptive-reusecache-sip-1-3-drop-64-oneway,adaptive-reusecache-sip-1-3-drop-64-reset,adaptive-reusecache-fast-1-3-drop-16-oneway,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-64-oneway,adaptive-reusecache-fast-1-3-drop-64-reset,hashbrown,hashbrown-sip,std-fast,std-hash,std-btree,indexmap-fast,imbl-fast,rpds-fast,record-paged16,record-paged64,inline-owned-index-25,vector-rb-fast,vector-cowvec-fast",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "1000",
+        "--readers",
+        "1000",
+        "--rounds",
+        "8"
+      ]
+    },
+    {
+      "layer": "state",
+      "phase": "screen",
+      "label": "state-v33t-screen",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/study.py",
+        "screen",
+        "--binary",
+        "build/state-v33t",
+        "--label",
+        "state-v33t-screen",
+        "--engines",
+        "adaptive-inline-sip-1-3-drop-16-oneway,adaptive-inline-sip-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-64-oneway,adaptive-inline-sip-1-3-drop-64-reset,adaptive-inline-fast-1-3-drop-16-oneway,adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-fast-1-3-drop-64-oneway,adaptive-inline-fast-1-3-drop-64-reset,adaptive-shared-sip-1-3-drop-16-oneway,adaptive-shared-sip-1-3-drop-16-reset,adaptive-shared-sip-1-3-drop-64-oneway,adaptive-shared-sip-1-3-drop-64-reset,adaptive-shared-fast-1-3-drop-16-oneway,adaptive-shared-fast-1-3-drop-16-reset,adaptive-shared-fast-1-3-drop-64-oneway,adaptive-shared-fast-1-3-drop-64-reset,adaptive-cache-sip-1-3-drop-16-oneway,adaptive-cache-sip-1-3-drop-16-reset,adaptive-cache-sip-1-3-drop-64-oneway,adaptive-cache-sip-1-3-drop-64-reset,adaptive-cache-fast-1-3-drop-16-oneway,adaptive-cache-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-64-oneway,adaptive-cache-fast-1-3-drop-64-reset,adaptive-reuse-sip-1-3-drop-16-oneway,adaptive-reuse-sip-1-3-drop-16-reset,adaptive-reuse-sip-1-3-drop-64-oneway,adaptive-reuse-sip-1-3-drop-64-reset,adaptive-reuse-fast-1-3-drop-16-oneway,adaptive-reuse-fast-1-3-drop-16-reset,adaptive-reuse-fast-1-3-drop-64-oneway,adaptive-reuse-fast-1-3-drop-64-reset,adaptive-reusecache-sip-1-3-drop-16-oneway,adaptive-reusecache-sip-1-3-drop-16-reset,adaptive-reusecache-sip-1-3-drop-64-oneway,adaptive-reusecache-sip-1-3-drop-64-reset,adaptive-reusecache-fast-1-3-drop-16-oneway,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-64-oneway,adaptive-reusecache-fast-1-3-drop-64-reset,hashbrown,hashbrown-sip,std-fast,std-hash,std-btree,indexmap-fast,imbl-fast,rpds-fast,record-paged16,record-paged64,inline-owned-index-25,vector-rb-fast,vector-cowvec-fast",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12"
+      ]
+    },
+    {
+      "layer": "shapes",
+      "phase": "screen",
+      "label": "shapes-v33t-screen",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "tools/shapes_study.py",
+        "screen",
+        "--binary",
+        "build/shapes-v33t",
+        "--label",
+        "shapes-v33t-screen",
+        "--engines",
+        "adaptive-inline-sip-1-3-drop-16-oneway,adaptive-inline-sip-1-3-drop-16-reset,adaptive-inline-sip-1-3-drop-64-oneway,adaptive-inline-sip-1-3-drop-64-reset,adaptive-inline-fast-1-3-drop-16-oneway,adaptive-inline-fast-1-3-drop-16-reset,adaptive-inline-fast-1-3-drop-64-oneway,adaptive-inline-fast-1-3-drop-64-reset,adaptive-shared-sip-1-3-drop-16-oneway,adaptive-shared-sip-1-3-drop-16-reset,adaptive-shared-sip-1-3-drop-64-oneway,adaptive-shared-sip-1-3-drop-64-reset,adaptive-shared-fast-1-3-drop-16-oneway,adaptive-shared-fast-1-3-drop-16-reset,adaptive-shared-fast-1-3-drop-64-oneway,adaptive-shared-fast-1-3-drop-64-reset,adaptive-cache-sip-1-3-drop-16-oneway,adaptive-cache-sip-1-3-drop-16-reset,adaptive-cache-sip-1-3-drop-64-oneway,adaptive-cache-sip-1-3-drop-64-reset,adaptive-cache-fast-1-3-drop-16-oneway,adaptive-cache-fast-1-3-drop-16-reset,adaptive-cache-fast-1-3-drop-64-oneway,adaptive-cache-fast-1-3-drop-64-reset,adaptive-reuse-sip-1-3-drop-16-oneway,adaptive-reuse-sip-1-3-drop-16-reset,adaptive-reuse-sip-1-3-drop-64-oneway,adaptive-reuse-sip-1-3-drop-64-reset,adaptive-reuse-fast-1-3-drop-16-oneway,adaptive-reuse-fast-1-3-drop-16-reset,adaptive-reuse-fast-1-3-drop-64-oneway,adaptive-reuse-fast-1-3-drop-64-reset,adaptive-reusecache-sip-1-3-drop-16-oneway,adaptive-reusecache-sip-1-3-drop-16-reset,adaptive-reusecache-sip-1-3-drop-64-oneway,adaptive-reusecache-sip-1-3-drop-64-reset,adaptive-reusecache-fast-1-3-drop-16-oneway,adaptive-reusecache-fast-1-3-drop-16-reset,adaptive-reusecache-fast-1-3-drop-64-oneway,adaptive-reusecache-fast-1-3-drop-64-reset,hashbrown,hashbrown-sip,std-fast,std-hash,std-btree,indexmap-fast,imbl-fast,rpds-fast,record-paged16,record-paged64,inline-owned-index-25,vector-rb-fast,vector-cowvec-fast",
+        "--seeds",
+        "4815162342,2937471921",
+        "--workers",
+        "2",
+        "--records",
+        "20000",
+        "--readers",
+        "20000",
+        "--rounds",
+        "12"
+      ]
+    }
+  ],
+  "completed": [
+    "state-v33t-proof-small",
+    "shapes-v33t-proof-small",
+    "state-v33t-screen",
+    "shapes-v33t-screen"
+  ],
+  "started_at_unix": 1792636056.558987,
+  "last_exit_code": 0,
+  "updated_at_unix": 1792636691.3620539,
+  "finished_at_unix": 1792636691.363957
+}

@@ -1,0 +1,80 @@
+{
+  "kind": "instrumented-payload-retention",
+  "claim": "Owned Vec payload bytes and live Value instances only, not total library heap; RSS includes instrumentation, metadata and fixture. No timing acceptance.",
+  "build": {
+    "source_commit": "f756c1fb4cab9114aed518a0a26e4b0ff2deb929",
+    "source_sha256": "259abbc81023c8610db5e66c9c029898204e25b4d872c3569cdb495196956aa4",
+    "example": "retention_profile",
+    "example_sha256": "754c22afe31df6e7199c668644128d164cb435eb3b557bd9d447d40819278374",
+    "binary": "build/retention-profile-v32t",
+    "binary_sha256": "fa2058a4e2b44e8a9673482d56acd8459744d809cfd86465c1e6436d1d1dab4d",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--release",
+      "--features",
+      "comparisons",
+      "--example",
+      "adaptive_cold",
+      "--example",
+      "retention_profile",
+      "--message-format=json"
+    ],
+    "source_preflight": {
+      "root": "/Users/james/Documents/ChatGPT/3d-modelling/rill-state",
+      "source_config": null,
+      "direct_cargo_arguments": [],
+      "prepared_outside_measurement": true
+    },
+    "environment": {
+      "RUSTUP_TOOLCHAIN": "stable",
+      "CARGO_BUILD_JOBS": "2"
+    },
+    "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)\nbinary: rustc\ncommit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96\ncommit-date: 2026-05-25\nhost: aarch64-apple-darwin\nrelease: 1.96.0\nLLVM version: 22.1.2\n",
+    "started_at_unix": 1792635351.25734,
+    "finished_at_unix": 1792635427.4289489,
+    "build_exit_code": 0,
+    "timing": "Untimed required build; diagnostic runtime and instrumented retention are separate"
+  },
+  "build_receipt_sha256": "14d0a874c322c6ff422fdb8b8bcbd02a9cdc3940ce30432402aba09c7f557f71",
+  "driver_sha256": "a70b65d9a82d46b3c90123d9c29e1812e2797b5b6455a50747330657f5a247b5",
+  "executor_sha256": "bc85f9df2fa32b1b038d8375baef6d4ceacff356f1f32a60a35cf762ff5782d1",
+  "driver_source_commit": "64db6621bdb5eba45ca262be7eef2598ca6a243d",
+  "layout": {
+    "instrumented_value_bytes": 40
+  },
+  "engines": [
+    "adaptive-inline-fast-1-3-drop-16-reset",
+    "adaptive-inline-fast-1-3-drop-64-reset",
+    "adaptive-shared-fast-1-3-drop-16-reset",
+    "adaptive-shared-fast-1-3-drop-64-reset",
+    "adaptive-cache-fast-1-3-drop-16-reset",
+    "adaptive-cache-fast-1-3-drop-64-reset",
+    "hashbrown",
+    "std-fast",
+    "std-btree",
+    "imbl-fast",
+    "record-paged16",
+    "record-paged64",
+    "packed-owned-once-50",
+    "adaptive-reuse-fast-1-3-drop-16-reset",
+    "adaptive-reuse-fast-1-3-drop-64-reset",
+    "adaptive-reusecache-fast-1-3-drop-16-reset",
+    "adaptive-reusecache-fast-1-3-drop-64-reset"
+  ],
+  "records": 20000,
+  "changed": 200,
+  "rounds": 256,
+  "windows": [
+    0,
+    16,
+    64
+  ],
+  "workers": 1,
+  "tasks": 204,
+  "scans_per_revision": 2,
+  "completed": 204,
+  "errors": 0,
+  "complete": true
+}
