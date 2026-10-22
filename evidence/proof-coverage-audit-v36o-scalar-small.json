@@ -1,0 +1,18 @@
+{
+  "claim": "Artifact coverage and binding audit. Internal executable assertions supply behavioral proofs; this does not establish performance or final acceptance.",
+  "auditor_sha256": "4afa03215c02805d15300f15db5af81df1e9804785a8a30bba7ad820cac09245",
+  "matrices": [
+    {
+      "folder": "evidence/state-v36o-proof-small",
+      "mode": "prove",
+      "rows": 2550,
+      "exact_tuple_coverage": true,
+      "all_executable_proof_markers_passed": true,
+      "frozen_inputs_and_driver_verified": true,
+      "rows_sha256": "79f68dc21e1a9c1d9f2d86001ab46f3c3575c0c08feeb8dafebac4152f02abff",
+      "source_commit": "6ad5019ecb6d2d16baa97116ba7b5e117b8f6e3b",
+      "binary_sha256": "e01390f4bec6158fc78684b48a6807d9ec805ff8c3c4703185ea9505bb308047"
+    }
+  ],
+  "completed_proof_processes": 2550
+}
