@@ -1,0 +1,7 @@
+   Compiling crossbeam-epoch v0.9.21
+    Checking crossbeam-skiplist v0.1.3
+    Checking mvcc-core v0.1.0
+    Checking skipdb-core v0.2.0
+    Checking skipdb v0.2.1
+    Checking rill-state v0.1.0 (/Users/james/Documents/ChatGPT/3d-modelling/rill-state)
+    Finished `dev` profile [unoptimized] target(s) in 14.68s

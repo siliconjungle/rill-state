@@ -1,0 +1,139 @@
+{
+  "source_binary_version": "v34mvcc",
+  "layers": [
+    "state"
+  ],
+  "claim": "Actual native mvcc-core scalar transactions with reader-owned scoped handles and separately charged precommit exports. No generic-payload, transferable-native-session, live-socket, native concurrent-writer, heap-bound or final performance admission.",
+  "scalar_references": [
+    "std-hash",
+    "std-fast",
+    "std-btree",
+    "hashbrown",
+    "hashbrown-sip",
+    "imbl-fast",
+    "rpds-fast",
+    "record-paged16",
+    "rill",
+    "rillfast",
+    "adaptive-inline-fast-1-3-drop-16-reset",
+    "adaptive-inline-sip-1-3-drop-16-reset",
+    "adaptive-reusecache-fast-1-3-drop-16-reset",
+    "adaptive-reusecache-sip-1-3-drop-16-reset"
+  ],
+  "generic_references": [],
+  "broad_candidates": [
+    "mvcc-native-scoped-each",
+    "mvcc-native-scoped-last",
+    "mvcc-native-export-hashbrown-each",
+    "mvcc-native-export-hashbrown-last",
+    "mvcc-native-export-stdfast-each",
+    "mvcc-native-export-stdfast-last",
+    "mvcc-native-export-btree-each",
+    "mvcc-native-export-btree-last"
+  ],
+  "selected_candidates": [
+    "mvcc-native-scoped-each",
+    "mvcc-native-scoped-last",
+    "mvcc-native-export-hashbrown-each",
+    "mvcc-native-export-hashbrown-last",
+    "mvcc-native-export-stdfast-each",
+    "mvcc-native-export-stdfast-last",
+    "mvcc-native-export-btree-each",
+    "mvcc-native-export-btree-last"
+  ],
+  "seeds": [
+    4815162342,
+    2937471921
+  ],
+  "proof": {
+    "small": {
+      "records": 1000,
+      "readers": 1000,
+      "rounds": 8
+    },
+    "full_selected": {
+      "records": 20000,
+      "readers": 20000,
+      "rounds": 12
+    },
+    "thread_selected": {
+      "records": 20000,
+      "readers": 20000,
+      "rounds": 12,
+      "cases": [
+        "sparse",
+        "churn"
+      ]
+    }
+  },
+  "timing": {
+    "scalar_rounds": 32,
+    "generic_rounds": 12,
+    "serial_repetitions": 3
+  },
+  "expected_processes": {
+    "proof_small": 660,
+    "proof_20k": 660,
+    "threaded_20k": 88,
+    "screen": 660,
+    "serial": 1980
+  },
+  "selection_basis": "Eight fixed native/scoped/export/batch configurations of one published crate, plus fourteen fixed controls. Native sessions use Rc/RefCell handles on the owning thread; four-reader probes begin native transactions on each reader before writing. Exported views are transferable and materialize native own-writes before commit, charging scan/map construction. Both use the exact original scalar trace, warmup, full-value model, ordered journal and timing loop. No extra payload padding or shadow authoritative map.",
+  "build": {
+    "command": "python3 tools/freeze_benchmarks.py v34mvcc --features native-mvcc-comparisons --bench-prefix native_mvcc_ --layers state",
+    "reason": "Native scalar and exported-reader paths share the original harness with an untimed thread-probe hook. Original transferable probes retain explicit Send/Sync bounds. All controls run in the same frozen binary."
+  },
+  "extra_contracts": {
+    "engines": [
+      "mvcc-native-scoped-each",
+      "mvcc-native-scoped-last",
+      "mvcc-native-export-hashbrown-each",
+      "mvcc-native-export-hashbrown-last",
+      "mvcc-native-export-stdfast-each",
+      "mvcc-native-export-stdfast-last",
+      "mvcc-native-export-btree-each",
+      "mvcc-native-export-btree-last"
+    ],
+    "argument": "--contract-probe",
+    "revisions": 81,
+    "claims": [
+      "native staged capture failure rolls back without metadata publication",
+      "exact duplicate/absent-delete ordered feed",
+      "retained zero/first/full current roots",
+      "64-batch journal boundary and future rejection",
+      "empty revision advances with empty journal batch",
+      "native active transactions return to zero"
+    ]
+  },
+  "capability_groups": {
+    "owner_thread_native_sessions": [
+      "mvcc-native-scoped-each",
+      "mvcc-native-scoped-last"
+    ],
+    "transferable_exported_views": [
+      "mvcc-native-export-hashbrown-each",
+      "mvcc-native-export-hashbrown-last",
+      "mvcc-native-export-stdfast-each",
+      "mvcc-native-export-stdfast-last",
+      "mvcc-native-export-btree-each",
+      "mvcc-native-export-btree-last"
+    ],
+    "transferable_reference_views": [
+      "std-hash",
+      "std-fast",
+      "std-btree",
+      "hashbrown",
+      "hashbrown-sip",
+      "imbl-fast",
+      "rpds-fast",
+      "record-paged16",
+      "rill",
+      "rillfast",
+      "adaptive-inline-fast-1-3-drop-16-reset",
+      "adaptive-inline-sip-1-3-drop-16-reset",
+      "adaptive-reusecache-fast-1-3-drop-16-reset",
+      "adaptive-reusecache-sip-1-3-drop-16-reset"
+    ]
+  },
+  "native_scope_limit": "Native Rc/RefCell session-handle acquisition is owner-thread only and is not a transferable snapshot-acquisition score. Full threaded rows for native sessions use transactions created on reader threads. Do not count local handle acquisition as beating a Send/Sync publisher."
+}

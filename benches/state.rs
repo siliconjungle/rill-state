@@ -31,7 +31,7 @@ fn digest(k: u64, v: Value) -> u64 {
     k.wrapping_add(v[0].rotate_left(7)) ^ v[1].wrapping_mul(317) ^ v[2].rotate_left(31) ^ v[3]
 }
 
-trait ReadView: Clone + Send + Sync {
+trait ReadView: Clone {
     fn revision(&self) -> u64;
     fn get(&self, k: &Key) -> Option<Value>;
     fn len(&self) -> usize;
@@ -1701,7 +1701,70 @@ fn trace(o: &Options) -> Vec<Vec<Op>> {
         })
         .collect()
 }
-fn run<E: Engine>(mut engine: E, o: &Options) {
+fn transferable_thread_probe<E: Engine>(
+    engine: &mut E,
+    before: E::View,
+    initial: Vec<Op>,
+    input: Vec<Vec<Op>>,
+    reads: Vec<Key>,
+    o: &Options,
+) where
+    E::View: Send + Sync,
+{
+    let mut expected = BTreeMap::new();
+    for op in &initial {
+        if let Op::Put(k, v) = op {
+            expected.insert(*k, *v);
+        }
+    }
+    let old_expected = expected.clone();
+    let barrier = std::sync::Barrier::new(5);
+    std::thread::scope(|scope| {
+        for worker in 0..4 {
+            let old = before.clone();
+            let reads = &reads;
+            let old_expected = &old_expected;
+            let barrier = &barrier;
+            scope.spawn(move || {
+                let revision = old.revision();
+                barrier.wait();
+                for _ in 0..o.rounds {
+                    for k in reads.iter().skip(worker).step_by(4) {
+                        assert_eq!(old.get(k), old_expected.get(k).copied());
+                    }
+                    assert_eq!(old.revision(), revision);
+                }
+            });
+        }
+        barrier.wait();
+        for ops in input {
+            for op in &ops {
+                match op {
+                    Op::Put(k, v) => {
+                        expected.insert(*k, *v);
+                    }
+                    Op::Delete(k) => {
+                        expected.remove(k);
+                    }
+                }
+            }
+            engine.publish(ops);
+        }
+    });
+    assert_eq!(engine.snapshot().contents(), expected);
+    println!("{{\"engine\":\"{}\",\"case\":\"{}\",\"seed\":{},\"records\":{},\"readers\":{},\"rounds\":{},\"verified\":true,\"threads\":4,\"thread_checked\":true}}",o.engine,o.case,o.seed,o.records,o.readers,o.rounds);
+}
+fn run<E: Engine>(engine: E, o: &Options)
+where
+    E::View: Send + Sync,
+{
+    run_with_thread_probe(engine, o, transferable_thread_probe::<E>);
+}
+fn run_with_thread_probe<E: Engine>(
+    mut engine: E,
+    o: &Options,
+    thread_probe: impl FnOnce(&mut E, E::View, Vec<Op>, Vec<Vec<Op>>, Vec<Key>, &Options),
+) {
     let diagnostic = std::env::var_os("RILL_DIAGNOSTIC").is_some();
     if diagnostic {
         std::thread::spawn(|| {
@@ -1766,48 +1829,7 @@ fn run<E: Engine>(mut engine: E, o: &Options) {
         })
         .collect();
     if std::env::args().any(|a| a == "--thread-check") {
-        let mut expected = BTreeMap::new();
-        for op in &initial {
-            if let Op::Put(k, v) = op {
-                expected.insert(*k, *v);
-            }
-        }
-        let old_expected = expected.clone();
-        let barrier = std::sync::Barrier::new(5);
-        std::thread::scope(|scope| {
-            for worker in 0..4 {
-                let old = before.clone();
-                let reads = &reads;
-                let old_expected = &old_expected;
-                let barrier = &barrier;
-                scope.spawn(move || {
-                    let revision = old.revision();
-                    barrier.wait();
-                    for _ in 0..o.rounds {
-                        for k in reads.iter().skip(worker).step_by(4) {
-                            assert_eq!(old.get(k), old_expected.get(k).copied());
-                        }
-                        assert_eq!(old.revision(), revision);
-                    }
-                });
-            }
-            barrier.wait();
-            for ops in input {
-                for op in &ops {
-                    match op {
-                        Op::Put(k, v) => {
-                            expected.insert(*k, *v);
-                        }
-                        Op::Delete(k) => {
-                            expected.remove(k);
-                        }
-                    }
-                }
-                engine.publish(ops);
-            }
-        });
-        assert_eq!(engine.snapshot().contents(), expected);
-        println!("{{\"engine\":\"{}\",\"case\":\"{}\",\"seed\":{},\"records\":{},\"readers\":{},\"rounds\":{},\"verified\":true,\"threads\":4,\"thread_checked\":true}}",o.engine,o.case,o.seed,o.records,o.readers,o.rounds);
+        thread_probe(&mut engine, before, initial, input, reads, o);
         return;
     }
 
@@ -3122,4 +3144,13 @@ mod transfer_dispatch;
 /// Matched shared-record transfer policies over the original contract.
 pub fn run_transfer() {
     transfer_dispatch::entry();
+}
+
+#[cfg(feature = "native-mvcc-comparisons")]
+#[path = "support/native_mvcc_state.rs"]
+mod native_mvcc_dispatch;
+/// Native reader-owned sessions and explicitly exported transferable views.
+#[cfg(feature = "native-mvcc-comparisons")]
+pub fn run_native_mvcc() {
+    native_mvcc_dispatch::entry();
 }

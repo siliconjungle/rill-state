@@ -24,7 +24,7 @@ on separate threads pass. There is no public begin-at-arbitrary-timestamp API
 in this source. The crate is in-memory only, so the older admission note about
 optional durability was incorrect.
 
-Keep two explicit adapter paths in the admission queue:
+The registered v34mvcc scalar panel implements two explicit adapter paths:
 
 1. A native scoped-reader panel, with transactions remaining on their owning
    threads. Run the same scalar traces, exact revisions, ordered external feed,
@@ -32,9 +32,11 @@ Keep two explicit adapter paths in the admission queue:
    scoped interface. Full-value generic reads need a guard-bounded callback, not
    an escaped `&V`, no extra payload padding, and no unsafe lifetime extension.
 2. An exported-view adapter for the existing transferable snapshot contract.
-   Keep authoritative data only in the native database. After atomic commit,
-   materialize the native snapshot into an immutable transferable map, charging
-   the entire capture and allocation cost. No hidden shadow index or cached
+   Keep authoritative data only in the native database. Materialize the
+   transaction's own staged writes before commit, then publish its transferable
+   map after successful commit. Charge the entire native scan, map construction
+   and allocation cost. A capture failure drops the uncommitted transaction and
+   rolls it back. No hidden shadow index or cached
    checksum. Name this export explicitly and retain the native scoped panel so
    export overhead is not misrepresented as intrinsic native read performance.
 
@@ -54,3 +56,30 @@ entry point with `RUSTUP_TOOLCHAIN=stable` and `cargo test --locked --lib --
 expected to fail `cargo check`; exact commands and logs are in the receipt.
 All generated validation builds disable debug and incremental output. The
 selected proof is unoptimized and supplies no performance comparison.
+
+
+The scalar comparison uses the original unpadded 32-byte values. Native lookups
+copy only those original values from scoped Ref guards. Native scoped snapshots
+clone Rc/RefCell session handles on their owning thread; that acquisition is not
+a transferable snapshot score. Export modes separately capture into capacity-
+reserved hashbrown/std-fast maps or BTreeMap, with per-operation and last-write
+coalescing controls. Ordered external journal operations remain uncoalesced.
+A maintained scalar length changes only from actual native update/delete results;
+there is no authoritative shadow map. Empty revisions retain the previous
+exported map and still advance the journal cursor.
+
+The optional root comparison dependency disables derive macros; its pinned
+Versioned row implementation uses the crate's public hidden schema helper types.
+It adds only mvcc-core to the existing lock; every prior locked package identity
+is preserved. The default library remains dependency-free. This optional native
+comparison requires the upstream crate's Rust 1.96 MSRV.
+
+The original timing loop, warmup/input preparation and exact oracle are byte-
+identical to the earlier harness. `run` retains an explicit Send/Sync view bound;
+only the private common loop accepts the native reader-owned thread hook. See
+`research/native-mvcc-harness-change-review.json` for section hashes. New timings
+must compare controls in this new binary. The v34mvcc plan registers eight fixed
+configurations of one upstream crate plus fourteen references. Its extra
+contract probes cover duplicate/absent-delete feeds, retained roots, empty
+revisions, gap/future boundaries and precommit capture failure. Generic payload
+and reclamation probes remain pending, as does any performance admission.

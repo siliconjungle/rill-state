@@ -782,6 +782,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "mvcc-core"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "39fdb1d983e5dcb88197085e3aeb3cee2cbe983ea1e576e058a1d3a8d1e7b6dc"
+dependencies = [
+ "crossbeam-epoch 0.9.21",
+ "parking_lot 0.12.5",
+]
+
+[[package]]
 name = "mvcc_cell"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1119,6 +1129,7 @@ dependencies = [
  "indexmap",
  "leapfrog",
  "left-right",
+ "mvcc-core",
  "mvcc_cell",
  "ordermap",
  "papaya",

@@ -365,6 +365,10 @@
     {
       "path": "build/native-mvcc-contracts-v2",
       "reason": "Selected required 20,000 native reader-session capacity/retained-value proof; four real reader threads, distinct native transactions, no sockets or speed claim."
+    },
+    {
+      "path": "build/state-v34mvcc",
+      "reason": "Selected required actual mvcc-core native-session and explicitly materialized transferable-export scalar state/feed baseline, with matched controls and exact source/compiler/binary bindings."
     }
   ],
   "safe_to_remove": [
@@ -651,6 +655,10 @@
     {
       "path": "evidence/native-mvcc-capability-v1.log",
       "reason": "Completed initial native three-test validation superseded by the exact selected frozen executable receipt and proof log; no unique behavioral failure."
+    },
+    {
+      "path": "evidence/native-mvcc-adapter-clippy-v1.log",
+      "reason": "Completed intermediate adapter lint superseded by final all-target native/admission Clippy and exact committed source; no unique behavioral failure."
     }
   ]
 }
