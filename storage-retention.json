@@ -325,6 +325,14 @@
     {
       "path": "build/retention-profile-v30d",
       "reason": "Selected required adaptive traversal-cache ownership/reclamation probe; streaming inputs and clone counters retained"
+    },
+    {
+      "path": "build/adaptive-cold-v30smoke",
+      "reason": "Useful exact smoke correctness proof, built from committed examples with completed source-bound library artifacts. No speed evidence."
+    },
+    {
+      "path": "build/retention-profile-v30smoke",
+      "reason": "Useful exact smoke correctness proof, built from committed examples with completed source-bound library artifacts. No speed evidence."
     }
   ],
   "safe_to_remove": [
