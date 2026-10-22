@@ -834,3 +834,32 @@ harnesses. The source and registry are frozen before comparative execution.
 Cold conversion, repeated transitions, interleaved updates/scans and derived-cache
 retention diagnostics remain required. No adaptive timing or selected default
 improvement has been established; original holdout seeds remain untouched.
+
+
+## Completed adaptive scalar selection and transfer registration
+
+The v30 scalar development screen completes all 9,000 fresh processes across
+288 fixed adaptive configurations and twelve controls. Exact tuple coverage and
+all output signatures were independently rechecked when generating
+`research/adaptive-v30-scalar-selection-review.json`; the complete 4,500-cell
+median report is retained under `evidence/state-v30-screen`. These parallel
+measurements overlap other work and supply no isolated speed acceptance. No
+fixed adaptive configuration has a lower total median than hashbrown in all
+fifteen scalar cases; the largest count is nine. All fixed candidates' losses
+and ratios remain visible. No per-case oracle or default switch is selected.
+
+The correctness-only full-size diagnostic controller also completes both
+156-process retention cohorts, with zero/two traversals per revision. The
+independent audit verifies all 312 exact tuples, frozen inputs, journal counts,
+cache handles and final payload reclamation. These unoptimized example timings
+remain excluded from rankings. The separate optimized v30d diagnostic results
+remain the applicable original copying-control measurements.
+
+`research/v32t-diagnostics-plan.json` now registers a matched transfer panel:
+38 fixed raw policies/controls across six key/payload shapes, two development
+seeds and seven repetitions (3,192 full-size processes), preceded by 456 smoke
+processes. Copying and Arc-preserving policies are compiled together. The
+17-engine memory panel covers 408 full-size and 272 smaller ownership cases,
+including cache creation, pinned roots, fixed/mixed payloads and retained windows.
+The new modes pass diagnostic Clippy; comparative results remain pending. Clone
+reduction alone does not establish a speed win or complete-engine admission.

@@ -184,8 +184,13 @@ admission yet. A dedicated 300-engine development panel (288
 builder/configuration variants plus 12 fixed controls) has frozen optimized
 executables and passes 47,400 independently audited small scalar/generic proofs
 and 1,080 selected full-size scalar proofs.
-Separate cold diagnostics pass 360 processes at 20,000 records across six shapes;
-568 smaller cold/retention processes also pass. Proof-only diagnostic timings are
-excluded from speed rankings. Generic/full-size/threaded engine checks and the
-optimized full diagnostic cohorts are tracked in the results. Performance admission remains
-open; see `research/results.md`. The selected Store backend is unchanged.
+The 9,000-process scalar development screen is complete; no fixed adaptive
+configuration has a lower median than hashbrown in all fifteen cases. Parallel
+selection does not establish an isolated performance result.
+Separate correctness-only diagnostics pass 360 cold and 312 retention processes
+at 20,000 records; 568 smaller cold/retention processes also pass. Their timings
+are excluded from rankings. The optimized original diagnostic panel completes
+2,520 cold and 312 retention processes. Matched copying-versus-transfer studies
+are registered separately; their comparative results remain pending. Remaining
+generic/full-size/threaded engine checks are tracked in `research/results.md`.
+Performance admission remains open and the selected Store backend is unchanged.
